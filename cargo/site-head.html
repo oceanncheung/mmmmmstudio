@@ -1,0 +1,35 @@
+<script data-mms-ios-edge-head="49">
+(function () {
+  var path = window.location.pathname || '/';
+  var isHomepage = path === '/' || path === '/write' || path === '/who' ||
+    window.location.href.indexOf('client-side-rendering') !== -1;
+  if (!isHomepage) return;
+
+  var viewport = document.querySelector('meta[name="viewport"]');
+  if (!viewport) {
+    viewport = document.createElement('meta');
+    viewport.setAttribute('name', 'viewport');
+    document.head.appendChild(viewport);
+  }
+  var parts = (viewport.getAttribute('content') || 'width=device-width, initial-scale=1')
+    .split(',').map(function (part) { return part.trim(); }).filter(Boolean)
+    .filter(function (part) { return part.indexOf('viewport-fit=') !== 0; });
+  parts.push('viewport-fit=cover');
+  viewport.setAttribute('content', parts.join(', '));
+
+  function removeSolidChromeHints() {
+    document.querySelectorAll([
+      'meta[name="theme-color"]',
+      'meta[name="apple-mobile-web-app-status-bar-style"]',
+      'meta[name="apple-mobile-web-app-capable"]'
+    ].join(',')).forEach(function (meta) { meta.remove(); });
+  }
+
+  removeSolidChromeHints();
+  if (document.head && window.MutationObserver) {
+    new MutationObserver(removeSolidChromeHints).observe(document.head, {
+      childList: true
+    });
+  }
+})();
+</script>
