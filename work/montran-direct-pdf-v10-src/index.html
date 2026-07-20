@@ -1,0 +1,1085 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%225%22 fill=%22%23171717%22/><path d=%22M8 7h7c3 0 5 2 5 5v13c-1-2-3-3-5-3H8V7Z%22 fill=%22white%22/><path d=%22M20 10h4v12h-4%22 fill=%22%23b5b5b5%22/></svg>" />
+    <title>Flippable booklet</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: oklch(18% 0 0);
+        --muted: oklch(46% 0 0);
+        --panel: oklch(98% 0 0);
+        --line: oklch(84% 0 0);
+        --ease: cubic-bezier(0.25, 1, 0.5, 1);
+      }
+
+      * { box-sizing: border-box; }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        overflow: hidden;
+        color: var(--ink);
+        background: var(--panel);
+        font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      body.has-transparent-background { background: transparent; }
+
+      .stage {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        padding: 0;
+      }
+
+      .frame {
+        position: relative;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        border-radius: 12px;
+        background-color: var(--booklet-bg, oklch(90% 0 0));
+        background-image: var(--booklet-bg-image, none);
+        background-position: center;
+        background-size: cover;
+        box-shadow: 0 20px 70px color-mix(in oklch, var(--ink) 16%, transparent);
+      }
+
+      body.has-transparent-background .frame { box-shadow: none; }
+
+      .book-mount {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        overflow: visible;
+        isolation: isolate;
+        transform: translate(-50%, -50%);
+      }
+
+      .book-shadow-bed {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        box-shadow:
+          0 var(--shadow-contact-y, 0px) var(--shadow-contact-blur, 0px) rgb(0 0 0 / var(--shadow-contact-alpha, 0)),
+          0 var(--shadow-ambient-y, 0px) var(--shadow-ambient-blur, 0px) rgb(0 0 0 / var(--shadow-ambient-alpha, 0));
+      }
+
+      .book-mount.is-cover .book-shadow-bed { right: 0; left: 50%; }
+
+      .book-mount.is-back-cover .book-shadow-bed,
+      .book-mount.is-opening-back-cover .book-shadow-bed,
+      .book-mount.is-closing-back-cover .book-shadow-bed { right: 50%; left: 0; }
+
+      .book-mount.is-opening-cover .book-shadow-bed,
+      .book-mount.is-closing-cover .book-shadow-bed { right: 0; left: 50%; }
+
+      .book-mount.is-opening-cover .stf__hardInnerShadow,
+      .book-mount.is-closing-cover .stf__hardShadow,
+      .book-mount.is-opening-back-cover .stf__hardInnerShadow,
+      .book-mount.is-closing-back-cover .stf__hardShadow { display: none !important; }
+
+      .book-engine {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        overflow: visible;
+      }
+
+      .flip-book {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .book-mount .stf__block {
+        overflow: visible !important;
+        contain: none;
+        clip-path: none;
+      }
+
+      .book-mount .stf__item {
+        position: absolute !important;
+        overflow: hidden;
+      }
+
+      .book-mount.is-preparing-motion .stf__item,
+      .book-mount.is-motion-active .stf__item { will-change: transform, clip-path; }
+
+      .book-mount.is-preparing-cover .book-page[data-page-index="0"] {
+        display: block !important;
+        top: 0 !important;
+        left: 50% !important;
+        z-index: 0 !important;
+        width: 50% !important;
+        height: 100% !important;
+        opacity: 0.001;
+        clip-path: none !important;
+        transform: translateZ(0) !important;
+      }
+
+      .book-page {
+        position: absolute !important;
+        overflow: hidden;
+        background: oklch(98.5% 0 0);
+      }
+
+      .page-surface {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        background: oklch(98.5% 0 0);
+      }
+
+      .page-surface::before,
+      .page-surface::after {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        content: "";
+      }
+
+      .page-surface.is-left::before {
+        box-shadow:
+          inset -18px 0 24px rgb(0 0 0 / var(--page-gutter-alpha, 0.1)),
+          inset 0 -2px 4px rgb(0 0 0 / calc(var(--page-gutter-alpha, 0.1) * 0.55));
+      }
+
+      .page-surface.is-right::before {
+        box-shadow:
+          inset 18px 0 24px rgb(0 0 0 / var(--page-gutter-alpha, 0.1)),
+          inset 0 -2px 4px rgb(0 0 0 / calc(var(--page-gutter-alpha, 0.1) * 0.55));
+      }
+
+      .page-surface.is-cover::before {
+        box-shadow:
+          inset 0 0 6px rgb(0 0 0 / calc(var(--page-gutter-alpha, 0.1) * 0.75)),
+          inset 0 -2px 4px rgb(0 0 0 / calc(var(--page-gutter-alpha, 0.1) * 0.6));
+      }
+
+      .page-surface::after {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='4' stitchTiles='stitch' seed='8' result='t'/%3E%3CfeColorMatrix in='t' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .22 .7 .08 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+        background-size: 180px 180px;
+        opacity: var(--paper-texture-opacity, 0.034);
+      }
+
+      .page-surface img {
+        position: absolute;
+        z-index: 1;
+        display: block;
+        max-width: none;
+        user-select: none;
+        -webkit-user-drag: none;
+      }
+
+      .cover-image,
+      .page-image {
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transform: none;
+      }
+
+      .blank-page { box-shadow: inset 0 0 0 1px oklch(89% 0 0); }
+
+      body.controls-hidden .stage { padding: 0; }
+      body.controls-hidden .frame { border-radius: 0; box-shadow: none; }
+
+      .preload {
+        position: fixed;
+        inset: 0;
+        z-index: 3000;
+        background: #000;
+        opacity: 0;
+        transition: opacity 420ms var(--ease);
+      }
+
+      .preload.is-visible { opacity: 1; }
+      .preload.is-done { opacity: 0; pointer-events: none; }
+
+      .preload-poster {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .preload-dim { position: absolute; inset: 0; background: rgb(0 0 0 / 0.55); }
+
+      .preload-bar {
+        position: absolute;
+        left: 50%;
+        bottom: 14%;
+        width: min(30%, 320px);
+        height: 2px;
+        background: rgb(255 255 255 / 0.25);
+        transform: translateX(-50%);
+      }
+
+      .preload-bar span {
+        display: block;
+        width: 0%;
+        height: 100%;
+        background: #fff;
+        transition: width 240ms var(--ease);
+      }
+
+      .message {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        max-width: 34rem;
+        padding: 20px 24px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--panel);
+        color: var(--ink);
+        text-align: center;
+        transform: translate(-50%, -50%);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+
+      }
+    </style>
+  </head>
+  <body>
+    <main class="stage" id="stage">
+      <section class="frame" id="frame" aria-label="Interactive booklet preview">
+        <div class="book-mount" id="bookMount">
+          <div class="book-shadow-bed" aria-hidden="true"></div>
+          <div class="book-engine" id="bookEngine"></div>
+        </div>
+      </section>
+    </main>
+    <div class="message" id="message" hidden>Loading booklet...</div>
+    <div class="preload" id="preload" hidden>
+      <img class="preload-poster" id="preloadPoster" alt="" hidden />
+      <div class="preload-dim"></div>
+      <div class="preload-bar" role="progressbar" aria-label="Loading booklet"><span id="preloadFill"></span></div>
+    </div>
+    <script src="./vendor/page-flip.browser.js"></script>
+    <script type="module">
+      import * as pdfjsLib from "./vendor/pdf.min.mjs";
+
+      pdfjsLib.GlobalWorkerOptions.workerSrc = "./vendor/pdf.worker.min.mjs";
+
+      const FLIP_BEHAVIOR = {"duration":540,"motionBleed":{"ratio":0.08,"min":8,"max":32},"texture":{"maxOpacity":0.34},"cornerHint":{"delay":120,"enterDuration":360,"exitDuration":220,"extentRatio":0.075,"minExtent":24,"maxExtent":44,"startExtent":2.5,"foldShadowBoost":0.5},"shadow":{"contactY":4,"contactBlur":8,"contactAlpha":0.3,"ambientY":22,"ambientBlur":42,"ambientAlpha":0.24,"gutterAlpha":0.38,"dynamicOpacity":0.9}};
+      const PageFlip = window.St && window.St.PageFlip;
+      const stage = document.getElementById("stage");
+      const frame = document.getElementById("frame");
+      const bookMount = document.getElementById("bookMount");
+      const bookEngine = document.getElementById("bookEngine");
+      const message = document.getElementById("message");
+      const preload = document.getElementById("preload");
+      const preloadPoster = document.getElementById("preloadPoster");
+      const preloadFill = document.getElementById("preloadFill");
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+      let config;
+      let pageFlip = null;
+      let book = null;
+      let pageBlueprints = [];
+      let pageElements = [];
+      let currentPage = 0;
+      let engineState = "read";
+      let resizeFrame = 0;
+      let turnFrame = 0;
+      let turnQueued = false;
+      let cornerTimer = 0;
+      let cornerFrame = 0;
+      let cornerExtent = 0;
+      let hoveredCornerSide = null;
+      let activeCornerSide = null;
+      let preloadTimer = 0;
+      const boundaryTurnClasses = [
+        "is-opening-cover",
+        "is-closing-cover",
+        "is-opening-back-cover",
+        "is-closing-back-cover",
+      ];
+      const decodeCache = new Map();
+      const pageObjectUrls = new Set();
+      let baseDynamicShadow = FLIP_BEHAVIOR.shadow.dynamicOpacity;
+
+      function showMessage(text) {
+        message.textContent = text;
+        message.hidden = !text;
+      }
+
+      function setProgress(fraction) {
+        preloadFill.style.width = Math.round(Math.min(1, Math.max(0, fraction)) * 100) + "%";
+      }
+
+      function showPreload() {
+        const poster = config && config.viewerOptions && config.viewerOptions.loadingPoster;
+        if (poster) {
+          preloadPoster.src = poster;
+          preloadPoster.hidden = false;
+        }
+        preload.classList.remove("is-done", "is-visible");
+        preload.hidden = true;
+        setProgress(0.04);
+        window.clearTimeout(preloadTimer);
+        preloadTimer = window.setTimeout(() => {
+          preload.hidden = false;
+          window.requestAnimationFrame(() => preload.classList.add("is-visible"));
+        }, 650);
+      }
+
+      function finishPreload() {
+        window.clearTimeout(preloadTimer);
+        setProgress(1);
+        if (preload.hidden) return;
+        window.setTimeout(() => {
+          preload.classList.remove("is-visible");
+          preload.classList.add("is-done");
+          window.setTimeout(() => { preload.hidden = true; }, 500);
+        }, 180);
+      }
+
+      function hidePreload() {
+        window.clearTimeout(preloadTimer);
+        preload.classList.remove("is-visible");
+        preload.classList.add("is-done");
+        preload.hidden = true;
+      }
+
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function fitRect(containerWidth, containerHeight, ratio) {
+        if (containerWidth / containerHeight > ratio) {
+          return { width: containerHeight * ratio, height: containerHeight };
+        }
+        return { width: containerWidth, height: containerWidth / ratio };
+      }
+
+      function getMotionBleed(pageHeight) {
+        const motion = FLIP_BEHAVIOR.motionBleed;
+        return clamp(pageHeight * motion.ratio, motion.min, motion.max);
+      }
+
+      function getShadowValues(value) {
+        const strength = clamp(value, 0, 100) / 100;
+        const shadow = FLIP_BEHAVIOR.shadow;
+        return {
+          contactY: shadow.contactY * strength,
+          contactBlur: shadow.contactBlur * strength,
+          contactAlpha: shadow.contactAlpha * strength,
+          ambientY: shadow.ambientY * strength,
+          ambientBlur: shadow.ambientBlur * strength,
+          ambientAlpha: shadow.ambientAlpha * strength,
+          gutterAlpha: shadow.gutterAlpha * strength,
+          dynamicOpacity: shadow.dynamicOpacity * strength,
+        };
+      }
+
+      async function renderPdfPage(pdf, pageNumber, targetWidth) {
+        const page = await pdf.getPage(pageNumber);
+        const initialViewport = page.getViewport({ scale: 1 });
+        const scale = Math.min(3, Math.max(0.1, targetWidth / initialViewport.width));
+        const viewport = page.getViewport({ scale });
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+        canvas.width = Math.ceil(viewport.width);
+        canvas.height = Math.ceil(viewport.height);
+        await page.render({ canvas, canvasContext: context, viewport }).promise;
+        const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/webp", 0.9));
+        if (!blob) throw new Error("A rendered PDF page could not be encoded.");
+        const imageUrl = URL.createObjectURL(blob);
+        pageObjectUrls.add(imageUrl);
+        return { pageNumber, imageUrl, width: canvas.width, height: canvas.height };
+      }
+
+      function createPageElement(page, index) {
+        const element = document.createElement("div");
+        element.className = "book-page";
+        element.dataset.density = page.type === "cover" ? "hard" : "soft";
+        element.dataset.pageId = page.id;
+        element.dataset.pageIndex = String(index);
+        element.dataset.sourcePage = page.sourcePageNumber ? String(page.sourcePageNumber) : "blank";
+
+        const surface = document.createElement("div");
+        surface.className = "page-surface";
+        surface.classList.add(page.type === "cover" ? "is-cover" : index % 2 === 1 ? "is-left" : "is-right");
+
+        if (page.type === "blank") {
+          surface.classList.add("blank-page");
+        } else {
+          const image = document.createElement("img");
+          image.alt = "";
+          image.src = page.imageUrl;
+          image.decoding = "async";
+          image.className = page.type === "cover" ? "cover-image" : "page-image";
+          surface.appendChild(image);
+        }
+
+        element.appendChild(surface);
+        return element;
+      }
+
+      function decodeImage(image) {
+        const source = image.currentSrc || image.src;
+        if (decodeCache.has(source)) return decodeCache.get(source);
+        const decoded = (image.decode ? image.decode() : Promise.resolve()).catch(() => undefined);
+        decodeCache.set(source, decoded);
+        return decoded;
+      }
+
+      function decodePagesAround(pageIndex) {
+        const start = Math.max(0, pageIndex - 2);
+        const end = Math.min(pageElements.length - 1, pageIndex + 4);
+        const decodes = [];
+        for (let index = start; index <= end; index += 1) {
+          const image = pageElements[index] && pageElements[index].querySelector("img");
+          if (image) decodes.push(decodeImage(image));
+        }
+        return Promise.all(decodes);
+      }
+
+      function normalizePageDensities() {
+        if (!pageFlip) return;
+        for (let index = 0; index < pageFlip.getPageCount(); index += 1) {
+          const page = pageFlip.getPage(index);
+          page.setDrawingDensity(page.getDensity());
+        }
+      }
+
+      function canFoldCorner(side) {
+        if (!pageFlip) return false;
+        const pageIndex = pageFlip.getCurrentPageIndex();
+        if (side === "left") return pageIndex > 0;
+        return pageIndex === 0 ? pageFlip.getPageCount() > 1 : pageIndex + 2 < pageFlip.getPageCount();
+      }
+
+      function hasSingleBackCover() {
+        return pageFlip && pageFlip.getPageCount() > 1 && pageFlip.getPageCount() % 2 === 0;
+      }
+
+      function getBoundaryTurn(direction) {
+        if (!pageFlip) return null;
+        const pageIndex = pageFlip.getCurrentPageIndex();
+        const pageCount = pageFlip.getPageCount();
+        if (direction === "next" && pageIndex === 0) return "is-opening-cover";
+        if (direction === "previous" && pageIndex === 1) return "is-closing-cover";
+        if (!hasSingleBackCover()) return null;
+        if (direction === "next" && pageIndex === pageCount - 3) return "is-closing-back-cover";
+        if (direction === "previous" && pageIndex === pageCount - 1) return "is-opening-back-cover";
+        return null;
+      }
+
+      function setBoundaryTurn(className) {
+        bookMount.classList.remove(...boundaryTurnClasses);
+        if (className) bookMount.classList.add(className);
+      }
+
+      function getCornerHintExtent() {
+        const bounds = pageFlip.getBoundsRect();
+        const hint = FLIP_BEHAVIOR.cornerHint;
+        return clamp(bounds.pageWidth * hint.extentRatio, hint.minExtent, hint.maxExtent);
+      }
+
+      function setCornerFoldPoint(side, extent) {
+        const bounds = pageFlip.getBoundsRect();
+        pageFlip.getFlipController().showCorner({
+          x: side === "left" ? bounds.left + extent : bounds.left + bounds.width - extent,
+          y: bounds.top + bounds.height - extent,
+        });
+      }
+
+      function resetCornerFold() {
+        if (!pageFlip || pageFlip.getState() !== "fold_corner") return;
+        const bounds = pageFlip.getBoundsRect();
+        pageFlip.getFlipController().showCorner({
+          x: bounds.left + bounds.width / 2,
+          y: bounds.top + bounds.height / 2,
+        });
+        pageFlip.getRender().finishAnimation();
+      }
+
+      function easeOutQuart(progress) {
+        return 1 - Math.pow(1 - progress, 4);
+      }
+
+      function cancelCornerFrame() {
+        window.cancelAnimationFrame(cornerFrame);
+        cornerFrame = 0;
+      }
+
+      function showCornerFold(side) {
+        if (!pageFlip || !canFoldCorner(side) || reducedMotion.matches) return;
+        cancelCornerFrame();
+
+        const hint = FLIP_BEHAVIOR.cornerHint;
+        if (pageFlip.getState() === "read") {
+          setCornerFoldPoint(side, hint.startExtent);
+          pageFlip.getRender().finishAnimation();
+          setCornerFoldPoint(side, hint.startExtent);
+          cornerExtent = hint.startExtent;
+        }
+        if (pageFlip.getState() !== "fold_corner") return;
+
+        const foldSettings = pageFlip.getSettings();
+        foldSettings.drawShadow = true;
+        foldSettings.maxShadowOpacity = Math.max(FLIP_BEHAVIOR.cornerHint.foldShadowBoost, baseDynamicShadow);
+
+        activeCornerSide = side;
+        const from = Math.max(hint.startExtent, cornerExtent);
+        const target = getCornerHintExtent();
+        const startedAt = performance.now();
+        const step = (now) => {
+          if (!pageFlip || hoveredCornerSide !== side || pageFlip.getState() !== "fold_corner") {
+            cornerFrame = 0;
+            return;
+          }
+
+          const progress = clamp((now - startedAt) / hint.enterDuration, 0, 1);
+          const extent = from + (target - from) * easeOutQuart(progress);
+          cornerExtent = extent;
+          setCornerFoldPoint(side, extent);
+          cornerFrame = progress < 1 ? requestAnimationFrame(step) : 0;
+        };
+        cornerFrame = requestAnimationFrame(step);
+      }
+
+      function scheduleCornerHint(side) {
+        window.clearTimeout(cornerTimer);
+        cornerTimer = window.setTimeout(() => {
+          cornerTimer = 0;
+          if (hoveredCornerSide === side && engineState === "read") showCornerFold(side);
+        }, FLIP_BEHAVIOR.cornerHint.delay);
+      }
+
+      function dismissCornerFold(immediate = false) {
+        window.clearTimeout(cornerTimer);
+        cornerTimer = 0;
+        cancelCornerFrame();
+
+        if (!pageFlip || pageFlip.getState() !== "fold_corner") {
+          activeCornerSide = null;
+          cornerExtent = 0;
+          return;
+        }
+
+        const side = activeCornerSide;
+        if (immediate || !side || reducedMotion.matches) {
+          resetCornerFold();
+          activeCornerSide = null;
+          cornerExtent = 0;
+          return;
+        }
+
+        const hint = FLIP_BEHAVIOR.cornerHint;
+        const from = Math.max(hint.startExtent, cornerExtent);
+        const startedAt = performance.now();
+        const step = (now) => {
+          if (!pageFlip || pageFlip.getState() !== "fold_corner") {
+            cornerFrame = 0;
+            return;
+          }
+
+          const progress = clamp((now - startedAt) / hint.exitDuration, 0, 1);
+          const extent = from + (hint.startExtent - from) * easeOutQuart(progress);
+          cornerExtent = extent;
+          setCornerFoldPoint(side, extent);
+          if (progress < 1) {
+            cornerFrame = requestAnimationFrame(step);
+          } else {
+            cornerFrame = 0;
+            resetCornerFold();
+            activeCornerSide = null;
+            cornerExtent = 0;
+          }
+        };
+        cornerFrame = requestAnimationFrame(step);
+      }
+
+      function prepareCoverTurn(direction) {
+        if (!pageFlip || pageFlip.getPageCount() < 2) return;
+        const pageIndex = pageFlip.getCurrentPageIndex();
+        const crossesCover = (direction === "next" && pageIndex === 0) || (direction === "previous" && pageIndex === 1);
+        if (!crossesCover) return;
+        pageFlip.getPage(0).setDrawingDensity("hard");
+        pageFlip.getPage(1).setDrawingDensity("hard");
+      }
+
+      function setBackground() {
+        const transparent = Boolean(config.background.transparent);
+        const image = !transparent && config.background.imageFile
+          ? "url('" + config.background.imageFile.replace(/'/g, "%27") + "')"
+          : "none";
+        document.body.classList.toggle("has-transparent-background", transparent);
+        frame.style.setProperty("--booklet-bg", transparent ? "transparent" : config.background.color || "oklch(90% 0 0)");
+        frame.style.setProperty("--booklet-bg-image", image);
+      }
+
+      function getPageFinish() {
+        return config.viewerOptions.pageFinish || { paperTexture: 0, pageShadow: 18 };
+      }
+
+      function setPageFinish() {
+        const finish = getPageFinish();
+        const texture = clamp(Number(finish.paperTexture) || 0, 0, 100) / 100;
+        const shadow = getShadowValues(Number(finish.pageShadow) || 0);
+        bookMount.style.setProperty("--paper-texture-strength", String(texture));
+        bookMount.style.setProperty("--paper-texture-opacity", String(texture * FLIP_BEHAVIOR.texture.maxOpacity));
+        bookMount.style.setProperty("--shadow-contact-y", shadow.contactY + "px");
+        bookMount.style.setProperty("--shadow-contact-blur", shadow.contactBlur + "px");
+        bookMount.style.setProperty("--shadow-contact-alpha", String(shadow.contactAlpha));
+        bookMount.style.setProperty("--shadow-ambient-y", shadow.ambientY + "px");
+        bookMount.style.setProperty("--shadow-ambient-blur", shadow.ambientBlur + "px");
+        bookMount.style.setProperty("--shadow-ambient-alpha", String(shadow.ambientAlpha));
+        bookMount.style.setProperty("--page-gutter-alpha", String(shadow.gutterAlpha));
+        baseDynamicShadow = shadow.dynamicOpacity;
+        if (pageFlip) {
+          const settings = pageFlip.getSettings();
+          settings.drawShadow = shadow.dynamicOpacity > 0;
+          settings.maxShadowOpacity = shadow.dynamicOpacity;
+        }
+      }
+
+      function setStatus() {
+        if (!pageBlueprints.length) return;
+        bookMount.classList.toggle("is-cover", currentPage === 0);
+        bookMount.classList.toggle(
+          "is-back-cover",
+          pageBlueprints.length > 1 && pageBlueprints.length % 2 === 0 && currentPage === pageBlueprints.length - 1,
+        );
+      }
+
+      function calculateLayout() {
+        const stageBox = stage.getBoundingClientRect();
+        const frameRatio = config.ratio.width / config.ratio.height;
+        const bare = document.body.classList.contains("controls-hidden");
+        const frameBox = fitRect(
+          Math.max(1, stageBox.width),
+          Math.max(1, stageBox.height),
+          frameRatio,
+        );
+        const vmin = Math.min(frameBox.width, frameBox.height);
+        const padding = clamp(
+          vmin * (config.viewerOptions.padding.preferredVmin / 100),
+          config.viewerOptions.padding.min,
+          config.viewerOptions.padding.max,
+        );
+        const preliminaryBook = fitRect(
+          Math.max(1, frameBox.width - padding * 2),
+          Math.max(1, frameBox.height - padding * 2),
+          config.spreadRatio || 1.55,
+        );
+        const motionBleed = bare ? 0 : getMotionBleed(preliminaryBook.height);
+        const bookBox = fitRect(
+          Math.max(1, frameBox.width - (padding + motionBleed) * 2),
+          Math.max(1, frameBox.height - (padding + motionBleed) * 2),
+          config.spreadRatio || 1.55,
+        );
+        const pageWidth = Math.max(40, Math.floor(bookBox.width / 2));
+        const pageHeight = Math.max(60, Math.floor(bookBox.height));
+
+        frame.style.width = Math.floor(frameBox.width) + "px";
+        frame.style.height = Math.floor(frameBox.height) + "px";
+        bookMount.style.width = pageWidth * 2 + "px";
+        bookMount.style.height = pageHeight + "px";
+        return { pageWidth, pageHeight, bookWidth: pageWidth * 2, bookHeight: pageHeight };
+      }
+
+      function applyLayout() {
+        const layout = calculateLayout();
+        if (!pageFlip || !book) return layout;
+        const settings = pageFlip.getSettings();
+        settings.width = layout.pageWidth;
+        settings.height = layout.pageHeight;
+        settings.minWidth = layout.pageWidth;
+        settings.maxWidth = layout.pageWidth;
+        settings.minHeight = layout.pageHeight;
+        settings.maxHeight = layout.pageHeight;
+        book.style.width = layout.bookWidth + "px";
+        book.style.height = layout.bookHeight + "px";
+        book.style.minWidth = layout.bookWidth + "px";
+        book.style.minHeight = layout.bookHeight + "px";
+        pageFlip.update();
+        return layout;
+      }
+
+      async function initializeFlipBook() {
+        if (!PageFlip) {
+          showMessage("The page flip library could not load. Check the vendor files in this folder.");
+          return;
+        }
+
+        const layout = calculateLayout();
+        pageElements = pageBlueprints.map(createPageElement);
+        await decodePagesAround(0);
+        book = document.createElement("div");
+        book.className = "flip-book";
+        bookEngine.replaceChildren(book);
+        const finish = getPageFinish();
+        const shadow = getShadowValues(Number(finish.pageShadow) || 0);
+
+        pageFlip = new PageFlip(book, {
+          width: layout.pageWidth,
+          height: layout.pageHeight,
+          size: "fixed",
+          startPage: 0,
+          drawShadow: shadow.dynamicOpacity > 0,
+          flippingTime: FLIP_BEHAVIOR.duration,
+          usePortrait: false,
+          autoSize: false,
+          maxShadowOpacity: shadow.dynamicOpacity,
+          showCover: true,
+          mobileScrollSupport: false,
+          swipeDistance: 24,
+          clickEventForward: true,
+          useMouseEvents: true,
+          showPageCorners: false,
+        });
+
+        pageFlip.loadFromHTML(pageElements);
+        normalizePageDensities();
+        pageFlip.on("flip", (event) => {
+          currentPage = event.data;
+          setStatus();
+          void decodePagesAround(currentPage);
+        });
+        pageFlip.on("changeState", (event) => {
+          engineState = event.data;
+          const isTurning = engineState === "flipping" || engineState === "user_fold";
+          bookMount.classList.toggle("is-motion-active", engineState !== "read");
+          bookMount.classList.toggle("is-flipping", isTurning);
+          if (engineState !== "read") bookMount.classList.remove("is-preparing-motion", "is-preparing-cover");
+          if (engineState === "read") {
+            turnQueued = false;
+            setBoundaryTurn(null);
+            pageFlip.getSettings().maxShadowOpacity = baseDynamicShadow;
+            normalizePageDensities();
+            void decodePagesAround(currentPage);
+            const hoveredSide = hoveredCornerSide;
+            if (hoveredSide && !reducedMotion.matches && canFoldCorner(hoveredSide)) {
+              scheduleCornerHint(hoveredSide);
+            }
+          }
+          setStatus();
+        });
+        applyLayout();
+        let startIndex = 0;
+        const startPdfPage = Number(config.viewerOptions && config.viewerOptions.startAtPdfPage);
+        if (startPdfPage) {
+          const index = pageBlueprints.findIndex((blueprint) => blueprint.sourcePageNumber === startPdfPage);
+          if (index > 0) startIndex = index % 2 === 0 ? index - 1 : index;
+        }
+        if (startIndex > 0) {
+          currentPage = startIndex;
+          await decodePagesAround(startIndex);
+        }
+        pageFlip.turnToPage(startIndex);
+        setPageFinish();
+        setStatus();
+        showMessage("");
+      }
+
+      function requestTurn(direction) {
+        if (!pageFlip || turnQueued || engineState === "flipping" || engineState === "user_fold") return;
+        if (direction === "previous" && pageFlip.getCurrentPageIndex() <= 0) return;
+        if (direction === "next" && !canFoldCorner("right")) return;
+        hoveredCornerSide = null;
+
+        const performTurn = () => {
+          if (reducedMotion.matches) {
+            setBoundaryTurn(null);
+            if (direction === "previous") pageFlip.turnToPrevPage();
+            else pageFlip.turnToNextPage();
+          } else {
+            turnQueued = true;
+            setBoundaryTurn(getBoundaryTurn(direction));
+            prepareCoverTurn(direction);
+            bookMount.classList.add("is-preparing-motion");
+            if (direction === "previous" && pageFlip.getCurrentPageIndex() === 1) {
+              bookMount.classList.add("is-preparing-cover");
+            }
+            turnFrame = requestAnimationFrame(() => {
+              turnFrame = requestAnimationFrame(() => {
+                turnFrame = requestAnimationFrame(() => {
+                  turnQueued = false;
+                  bookMount.classList.remove("is-preparing-cover");
+                  if (direction === "previous") pageFlip.flipPrev("bottom");
+                  else pageFlip.flipNext("bottom");
+                });
+              });
+            });
+          }
+        };
+
+        if (engineState === "fold_corner") {
+          dismissCornerFold(true);
+          cornerTimer = window.setTimeout(performTurn, 64);
+        } else {
+          performTurn();
+        }
+      }
+
+      async function loadBooklet() {
+        try {
+          config = await fetch("./booklet.config.json").then((response) => {
+            if (!response.ok) throw new Error("booklet.config.json could not be loaded.");
+            return response.json();
+          });
+          setBackground();
+          if (config.viewerOptions && config.viewerOptions.hideControls) {
+            document.body.classList.add("controls-hidden");
+          }
+          if (config.background && !config.background.transparent && config.background.color) {
+            document.body.style.background = config.background.color;
+          }
+          showPreload();
+
+          const pdfParameter = new URLSearchParams(location.search).get("pdf");
+          const pdfUrl = pdfParameter || config.pdfFile;
+          const updateDownloadProgress = (loaded, total) => {
+            if (total) setProgress(0.3 * Math.min(1, loaded / total));
+          };
+
+          async function openPdfResilient(url) {
+            let firstError;
+            try {
+              const task = pdfjsLib.getDocument({ url });
+              task.onProgress = (progress) => progress && updateDownloadProgress(progress.loaded, progress.total);
+              return await task.promise;
+            } catch (error) {
+              firstError = error;
+            }
+
+            const separator = url.includes("?") ? "&" : "?";
+            const response = await fetch(url + separator + "cb=" + Date.now(), { cache: "reload" });
+            if (!response.ok) {
+              throw new Error(
+                "The PDF could not be fetched (HTTP " + response.status + "; first error: " +
+                  (firstError && firstError.message) + ")",
+              );
+            }
+
+            let data;
+            const total = Number(response.headers.get("content-length")) || 0;
+            if (response.body && response.body.getReader) {
+              const reader = response.body.getReader();
+              const chunks = [];
+              let received = 0;
+              for (;;) {
+                const result = await reader.read();
+                if (result.done) break;
+                chunks.push(result.value);
+                received += result.value.length;
+                updateDownloadProgress(received, total);
+              }
+              data = new Uint8Array(received);
+              let offset = 0;
+              for (const chunk of chunks) {
+                data.set(chunk, offset);
+                offset += chunk.length;
+              }
+            } else {
+              data = new Uint8Array(await response.arrayBuffer());
+            }
+
+            const magic = String.fromCharCode.apply(null, Array.from(data.slice(0, 5)));
+            if (magic.indexOf("%PDF") !== 0) {
+              const hex = Array.from(data.slice(0, 8))
+                .map((byte) => byte.toString(16).padStart(2, "0"))
+                .join(" ");
+              throw new Error(
+                "The network returned a non-PDF response (" + data.length + " bytes, starts " + hex +
+                  "; first error: " + (firstError && firstError.message) + ")",
+              );
+            }
+
+            return await pdfjsLib.getDocument({ data }).promise;
+          }
+
+          const imageMode = Array.isArray(config.pageImages) && config.pageImages.length > 0;
+          const pageImageUrl = (pageNumber) => config.pageImages[pageNumber - 1];
+          const preloadImage = (url) => new Promise((resolve) => {
+            const image = new Image();
+            image.onload = () => resolve(url);
+            image.onerror = () => resolve(url);
+            image.src = url;
+          });
+
+          let pdf;
+          let renderPage;
+          if (imageMode && !pdfParameter) {
+            pdf = { numPages: config.pageImages.length };
+            renderPage = async (_document, pageNumber) => {
+              await preloadImage(pageImageUrl(pageNumber));
+              return { pageNumber, imageUrl: pageImageUrl(pageNumber) };
+            };
+          } else {
+            pdf = await openPdfResilient(pdfUrl);
+            renderPage = (document, pageNumber) => renderPdfPage(document, pageNumber, 1100);
+          }
+
+          setProgress(0.35);
+          const cover = await renderPage(pdf, 1);
+          setProgress(0.45);
+          const renderedPdfPages = new Map();
+          const startPdfPage = Number((config.viewerOptions || {}).startAtPdfPage) || 0;
+          const allPageNumbers = [];
+          for (let pageNumber = 2; pageNumber <= pdf.numPages; pageNumber += 1) {
+            allPageNumbers.push(pageNumber);
+          }
+          const priorityPages = startPdfPage
+            ? allPageNumbers.filter((pageNumber) => Math.abs(pageNumber - startPdfPage) <= 2)
+            : allPageNumbers.slice(0, 4);
+          for (const pageNumber of priorityPages) {
+            renderedPdfPages.set(pageNumber, await renderPage(pdf, pageNumber));
+            setProgress(0.45 + 0.45 * (renderedPdfPages.size / Math.max(1, priorityPages.length)));
+          }
+          const pendingPageUri = "data:image/svg+xml," + encodeURIComponent(
+            '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="9"><rect width="16" height="9" fill="#f8f8f8"/></svg>',
+          );
+
+          pageBlueprints = [{ id: "cover", type: "cover", imageUrl: cover.imageUrl, sourcePageNumber: 1 }];
+          const pageSequence = Array.isArray(config.pageSequence)
+            ? config.pageSequence
+            : config.spreadSequence.flatMap((item) =>
+                item.type === "blank"
+                  ? [
+                      { type: "blank", id: item.id + "-left" },
+                      { type: "blank", id: item.id + "-right" },
+                    ]
+                  : [
+                      { type: "pdf", pageNumber: item.leftPageNumber },
+                      ...(item.rightPageNumber ? [{ type: "pdf", pageNumber: item.rightPageNumber }] : [{ type: "blank", id: "legacy-facing-blank" }]),
+                    ],
+              );
+
+          for (const item of pageSequence) {
+            if (item.type === "blank") {
+              pageBlueprints.push({ id: item.id, type: "blank" });
+            } else {
+              const pdfPage = renderedPdfPages.get(item.pageNumber);
+              pageBlueprints.push({
+                id: "page-" + item.pageNumber,
+                type: "pdf",
+                imageUrl: pdfPage ? pdfPage.imageUrl : pendingPageUri,
+                sourcePageNumber: item.pageNumber,
+              });
+            }
+          }
+
+          await initializeFlipBook();
+          finishPreload();
+          void (async () => {
+            for (const pageNumber of allPageNumbers) {
+              if (renderedPdfPages.has(pageNumber)) continue;
+              try {
+                const renderedPage = await renderPage(pdf, pageNumber);
+                renderedPdfPages.set(pageNumber, renderedPage);
+                const index = pageBlueprints.findIndex((blueprint) => blueprint.sourcePageNumber === pageNumber);
+                if (index >= 0) {
+                  pageBlueprints[index].imageUrl = renderedPage.imageUrl;
+                  const image = pageElements[index] && pageElements[index].querySelector("img");
+                  if (image) image.src = renderedPage.imageUrl;
+                }
+              } catch {
+                // Keep the viewer usable when a non-current page fails to prepare.
+              }
+            }
+          })();
+        } catch (error) {
+          console.error(error);
+          hidePreload();
+          showMessage(error instanceof Error ? error.message : "The booklet could not be loaded.");
+        }
+      }
+
+      function updateHoveredCorner(event) {
+        if (event.pointerType !== "mouse" || reducedMotion.matches) {
+          hoveredCornerSide = null;
+          dismissCornerFold();
+          return;
+        }
+
+        const bounds = bookMount.getBoundingClientRect();
+        const pointerX = event.clientX - bounds.left;
+        let side = pointerX < bounds.width / 2 ? "left" : "right";
+        if (!canFoldCorner(side)) side = null;
+        if (hoveredCornerSide === side) return;
+        const previousSide = hoveredCornerSide;
+        hoveredCornerSide = side;
+
+        if (engineState === "flipping" || engineState === "user_fold") return;
+        if (!side) {
+          dismissCornerFold();
+          return;
+        }
+
+        if (engineState === "fold_corner" && previousSide !== side) {
+          dismissCornerFold();
+          return;
+        }
+
+        if (engineState === "read") scheduleCornerHint(side);
+      }
+
+      bookMount.addEventListener("pointerenter", updateHoveredCorner);
+      bookMount.addEventListener("pointermove", updateHoveredCorner);
+      bookMount.addEventListener("pointerleave", () => {
+        hoveredCornerSide = null;
+        window.clearTimeout(cornerTimer);
+        dismissCornerFold();
+      });
+      bookMount.addEventListener("pointerdown", (event) => {
+        if (!reducedMotion.matches) {
+          const bounds = bookMount.getBoundingClientRect();
+          const direction = event.clientX - bounds.left < bounds.width / 2 ? "previous" : "next";
+          setBoundaryTurn(getBoundaryTurn(direction));
+        }
+        bookMount.classList.add("is-preparing-motion");
+      });
+      bookMount.addEventListener("pointerup", () => {
+        requestAnimationFrame(() => {
+          if (engineState === "read" && !turnQueued) {
+            setBoundaryTurn(null);
+            bookMount.classList.remove("is-preparing-motion");
+          }
+        });
+      });
+      bookMount.addEventListener("pointercancel", () => {
+        setBoundaryTurn(null);
+        bookMount.classList.remove("is-preparing-motion");
+      });
+
+      window.addEventListener("beforeunload", () => {
+        cancelAnimationFrame(turnFrame);
+        cancelCornerFrame();
+        for (const url of pageObjectUrls) URL.revokeObjectURL(url);
+      });
+
+      window.addEventListener("resize", () => {
+        cancelAnimationFrame(resizeFrame);
+        resizeFrame = requestAnimationFrame(applyLayout);
+      });
+
+      loadBooklet();
+    </script>
+  </body>
+</html>

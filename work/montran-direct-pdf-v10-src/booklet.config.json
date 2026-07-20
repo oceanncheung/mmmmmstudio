@@ -1,0 +1,323 @@
+{
+  "version": 4,
+  "createdAt": "2026-07-11T05:30:19.332Z",
+  "pdfFile": "assets/montran_sustainability-report_2025_v4-web.pdf",
+  "spreadModel": "cover-then-page-sequence",
+  "ratio": {
+    "preset": "custom",
+    "width": 21,
+    "height": 9
+  },
+  "spreadRatio": 3.5555555555555554,
+  "background": {
+    "color": "#000000",
+    "imageFile": null,
+    "imageFit": "cover",
+    "imagePosition": "center",
+    "transparent": false
+  },
+  "blankPagePositions": [
+    0
+  ],
+  "pageSequence": [
+    {
+      "type": "blank",
+      "id": "blank-1783747763018-0"
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 2
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 3
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 4
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 5
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 6
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 7
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 8
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 9
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 10
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 11
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 12
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 13
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 14
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 15
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 16
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 17
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 18
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 19
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 20
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 21
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 22
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 23
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 24
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 25
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 26
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 27
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 28
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 29
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 30
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 31
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 32
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 33
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 34
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 35
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 36
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 37
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 38
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 39
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 40
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 41
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 42
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 43
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 44
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 45
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 46
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 47
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 48
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 49
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 50
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 51
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 52
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 53
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 54
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 55
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 56
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 57
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 58
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 59
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 60
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 61
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 62
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 63
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 64
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 65
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 66
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 67
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 68
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 69
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 70
+    },
+    {
+      "type": "pdf",
+      "pageNumber": 71
+    }
+  ],
+  "viewerOptions": {
+    "startOnCover": true,
+    "startAtPdfPage": 19,
+    "loadingPoster": "loading-poster.jpg",
+    "pageFinish": {
+      "paperTexture": 14,
+      "pageShadow": 28
+    },
+    "padding": {
+      "min": 20,
+      "preferredVmin": 5,
+      "max": 64
+    },
+    "interaction": "click-drag-keyboard"
+  }
+}

@@ -1,0 +1,473 @@
+<!doctype html><html data-theme="white" data-face="serif" data-scale="m" data-shape="straight"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>mm.s — cargo bundle smoke test</title><style>
+/* mm.s — design tokens, generated from Figma variables 2026-07-06
+   Source of truth: Figma file aaJEv2Z8j6HaegMHou4N09 (all values exported mechanically).
+   Axes: data-theme (5) x data-face (4) x data-scale (4) x data-shape (3) on <html>. */
+
+/* ---------- primitives ---------- */
+:root {
+  --primitive-white: #FFFFFF; --primitive-black: #000000; --primitive-gray-60: #999999;
+  --primitive-red: #FF0000; --primitive-navy: #051957; --primitive-brown: #3D1E06;
+  --primitive-sky: #4DBAFF; --primitive-yellow: #FEFF01; --primitive-magenta: #FF00FF;
+  --primitive-blue-link: #0000EE; --primitive-purple-visited: #551A8B; --primitive-green: #008000;
+}
+
+/* ---------- color themes (bg + ink pairs; link/border follow ink) ---------- */
+:root, [data-theme="white"] {
+  --color-bg-page: var(--primitive-white);
+  --color-text-primary: var(--primitive-black);
+  --color-text-muted: var(--primitive-gray-60);
+}
+[data-theme="black"] {
+  --color-bg-page: var(--primitive-black);
+  --color-text-primary: var(--primitive-white);
+  --color-text-muted: var(--primitive-gray-60);
+}
+[data-theme="navy"] {
+  --color-bg-page: var(--primitive-navy);
+  --color-text-primary: var(--primitive-red);
+  --color-text-muted: var(--primitive-red);
+}
+[data-theme="brown"] {
+  --color-bg-page: var(--primitive-brown);
+  --color-text-primary: var(--primitive-sky);
+  --color-text-muted: var(--primitive-sky);
+}
+[data-theme="yellow"] {
+  --color-bg-page: var(--primitive-yellow);
+  --color-text-primary: var(--primitive-magenta);
+  --color-text-muted: var(--primitive-magenta);
+}
+:root {
+  --color-link: var(--color-text-primary);
+  --color-link-visited: var(--color-text-primary);
+  --color-border: var(--color-text-primary);
+}
+
+/* ---------- space (Desktop; Mobile + XL via media queries) ---------- */
+:root {
+  --space-4: 4px; --space-8: 8px; --space-16: 16px; --space-24: 24px;
+  --space-32: 32px; --space-40: 40px; --space-64: 64px;
+  --space-128: 128px; --space-192: 192px; --space-256: 256px;
+  --margin-page: 40px; --measure-content: 548px;
+  --col-2: 200px; --col-4: 432px; --col-6: 664px; --col-8: 896px;
+  --radius-image: 24px;
+  --nav-col: calc(var(--margin-page) + var(--col-2) + var(--space-32)); /* 272 */
+}
+@media (max-width: 760px) {
+  :root {
+    --margin-page: 20px; --measure-content: 350px;
+    --col-2: 106px; --col-4: 228px; --col-6: 350px; --col-8: 350px;
+  }
+}
+@media (min-width: 1800px) {
+  :root {
+    --measure-content: 748px;
+    --col-2: 280px; --col-4: 592px; --col-6: 904px; --col-8: 1216px;
+  }
+}
+
+/* ---------- type scale: per-face sizes x per-scale, exported matrix ---------- */
+:root, [data-scale="m"] {
+  --sz-caption-serif: 14px; --sz-caption-sans: 13.5px; --sz-caption-mono: 12.6px; --sz-caption-gothic: 14px;
+  --sz-base-serif: 18px;    --sz-base-sans: 17.4px;    --sz-base-mono: 16.2px;    --sz-base-gothic: 18px;
+  --sz-heading-serif: 36px; --sz-heading-sans: 34.8px; --sz-heading-mono: 32.4px; --sz-heading-gothic: 36px;
+  --lh-caption: 24px; --lh-base: 24px; --lh-heading: 48px;
+}
+[data-scale="s"] {
+  --sz-caption-serif: 12px; --sz-caption-sans: 11.6px; --sz-caption-mono: 10.8px; --sz-caption-gothic: 12px;
+  --sz-base-serif: 16px;    --sz-base-sans: 15.5px;    --sz-base-mono: 14.4px;    --sz-base-gothic: 16px;
+  --sz-heading-serif: 28px; --sz-heading-sans: 27px;   --sz-heading-mono: 25.2px; --sz-heading-gothic: 28px;
+  --lh-caption: 16px; --lh-base: 24px; --lh-heading: 36px;
+}
+[data-scale="l"] {
+  --sz-caption-serif: 18px; --sz-caption-sans: 17.4px; --sz-caption-mono: 16.2px; --sz-caption-gothic: 18px;
+  --sz-base-serif: 24px;    --sz-base-sans: 23.2px;    --sz-base-mono: 21.6px;    --sz-base-gothic: 24px;
+  --sz-heading-serif: 56px; --sz-heading-sans: 54.1px; --sz-heading-mono: 50.4px; --sz-heading-gothic: 56px;
+  --lh-caption: 24px; --lh-base: 32px; --lh-heading: 72px;
+}
+[data-scale="xl"] {
+  --sz-caption-serif: 24px; --sz-caption-sans: 23.2px; --sz-caption-mono: 21.6px; --sz-caption-gothic: 24px;
+  --sz-base-serif: 32px;    --sz-base-sans: 30.9px;    --sz-base-mono: 28.8px;    --sz-base-gothic: 32px;
+  --sz-heading-serif: 72px; --sz-heading-sans: 69.6px; --sz-heading-mono: 64.8px; --sz-heading-gothic: 72px;
+  --lh-caption: 32px; --lh-base: 40px; --lh-heading: 88px;
+}
+
+/* ---------- typeface axis: family + which size column to read ---------- */
+/* Cargo font names may differ from these first candidates — adjust in Cargo's
+   editor after checking their picker (see DEPLOY.md). */
+:root, [data-face="serif"] {
+  --font-family-base: "Times New Roman", Times, serif;
+  --font-size-caption: var(--sz-caption-serif);
+  --font-size-base: var(--sz-base-serif);
+  --font-size-heading: var(--sz-heading-serif);
+}
+[data-face="sans"] {
+  --font-family-base: "TeX Gyre Heros Condensed", "TeX Gyre Heros Cn", "Helvetica Neue Condensed", "Arial Narrow", sans-serif;
+  --font-size-caption: var(--sz-caption-sans);
+  --font-size-base: var(--sz-base-sans);
+  --font-size-heading: var(--sz-heading-sans);
+}
+[data-face="mono"] {
+  --font-family-base: "Gaisyr Semi-Mono", "ABC Gaisyr Semi Mono", "ABC Gaisyr Semi Mono Trial", "Courier New", monospace;
+  --font-size-caption: var(--sz-caption-mono);
+  --font-size-base: var(--sz-base-mono);
+  --font-size-heading: var(--sz-heading-mono);
+}
+[data-face="gothic"] {
+  --font-family-base: "UnifrakturMaguntia", "Times New Roman", serif;
+  --font-size-caption: var(--sz-caption-gothic);
+  --font-size-base: var(--sz-base-gothic);
+  --font-size-heading: var(--sz-heading-gothic);
+}
+/* own the page root too (standalone + Cargo body leak-through) */
+html, body { margin: 0; padding: 0; background: var(--color-bg-page); }
+
+/* mm.s — layout + components (pairs with tokens.css). 2026-07-06
+   Architecture mirrors the Figma prototype: fixed nav mask (z20), fixed intro
+   under scrolling content (z0 < z10), horizontal-scroll rivers, fixed panel (z30). */
+
+/* ---------- reset the parts of Cargo/browser chrome we own ---------- */
+.mms, .mms * { margin: 0; padding: 0; box-sizing: border-box; }
+.mms {
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--lh-base);
+}
+.mms em, .mms i { font-style: italic; }
+[data-face="gothic"] .mms em, [data-face="gothic"] .mms i { font-style: normal; }
+[data-face="gothic"] .mms b, [data-face="gothic"] .mms strong { font-weight: 400; } /* single-cut */
+.mms a { color: var(--color-link); text-decoration: underline; }
+.mms a:visited { color: var(--color-link-visited); }
+
+/* type roles */
+.mms h1, .mms h2 { font-size: var(--font-size-heading); line-height: var(--lh-heading); font-weight: bold; }
+.mms .body-bold, .mms b, .mms strong { font-weight: bold; }
+.mms .caption, .mms figcaption, .mms small { font-size: var(--font-size-caption); line-height: var(--lh-caption); }
+.mms .muted { color: var(--color-text-muted); }
+
+/* ---------- fixed chrome ---------- */
+.mms-nav {
+  position: fixed; top: 0; left: 0; bottom: 0; z-index: 20;
+  width: var(--nav-col);
+  background: var(--color-bg-page);
+  padding: var(--margin-page) var(--space-32) var(--margin-page) var(--margin-page);
+}
+.mms-nav .wordmark { font-weight: bold; }
+.mms-nav ul { list-style: none; margin-top: var(--space-24); }
+.mms-nav a { display: inline-block; padding-block: 2px; }
+
+.mms-clock {
+  position: fixed; top: var(--margin-page); right: var(--margin-page); z-index: 20;
+  color: var(--color-text-muted);
+  background: var(--color-bg-page);
+  font-variant-numeric: tabular-nums;
+}
+
+/* intro: pinned UNDER the scroll (z0) */
+.mms-intro {
+  position: fixed; top: var(--margin-page); left: var(--nav-col); z-index: 0;
+  width: var(--col-4);
+}
+.mms-intro p { margin-top: var(--lh-base); }
+
+/* ---------- scrolling content (z10, slides over the intro) ---------- */
+.mms-content {
+  position: relative; z-index: 10;
+  margin-left: var(--nav-col);
+  padding: var(--margin-page) var(--margin-page) var(--space-64) 0;
+}
+.mms-intro-spacer { height: 280px; } /* transparent window over the fixed intro */
+.mms-band + .mms-band { margin-top: var(--space-192); }
+
+/* ---------- showcase band ---------- */
+.mms-band { background: transparent; }
+.mms-river {
+  display: flex; align-items: flex-end; gap: var(--space-32);
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  height: 504px;
+}
+.mms-river::-webkit-scrollbar { display: none; }
+.mms-river > * { flex: 0 0 auto; }
+.mms-river .offset { flex: 0 0 auto; width: var(--offset, 0px); height: 1px; }
+.mms-band[data-offset="4"] { --offset: calc(var(--col-4) + var(--space-32)); }
+.mms-band[data-offset="2"] { --offset: calc(var(--col-2) + var(--space-32)); }
+
+/* description: static below the river, offset-aligned, own plate */
+.mms-desc {
+  width: var(--col-6);
+  margin-left: var(--offset, 0px);
+  background: var(--color-bg-page);
+  padding-top: var(--space-16);
+}
+.mms-desc .tagline { font-size: var(--font-size-caption); line-height: var(--lh-caption); }
+.mms-desc p { margin-top: var(--space-4); }
+.mms-desc .url { margin-top: var(--space-4); display: inline-block; }
+
+/* ---------- image frames: the shape axis ---------- */
+.mms-img {
+  display: block; background: var(--color-text-muted);
+  object-fit: cover; overflow: hidden;
+  border-radius: 0;
+}
+[data-shape="rounded"] .mms-img { border-radius: var(--radius-image); }
+[data-shape="oval"] .mms-img { border-radius: 50%; } /* true ellipse — stretches per box */
+
+/* ---------- control panel (fixed, z30) ---------- */
+.mms-panel {
+  position: fixed; left: var(--margin-page); bottom: var(--margin-page); z-index: 30;
+  width: 200px;
+  background: var(--color-bg-page);
+  border: 1px solid var(--color-border);
+  padding: var(--space-16);
+  display: flex; flex-direction: column; gap: var(--space-16);
+}
+.mms-panel .row { display: flex; gap: var(--space-8); }
+.mms-panel .row.dots { justify-content: space-between; align-items: center; height: 20px; }
+.mms-panel .row.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+
+.mms-dot {
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 1px solid var(--color-border);
+  cursor: pointer; padding: 0; position: relative;
+}
+.mms-dot::after {
+  content: ""; position: absolute; inset: 4px; border-radius: 50%;
+  background: var(--dot-center, transparent); opacity: 0;
+}
+.mms-dot[aria-pressed="true"]::after { opacity: 1; }
+
+.mms-btn {
+  height: 32px; border: 1px solid var(--color-border); border-radius: 0;
+  background: var(--color-bg-page); color: var(--color-text-primary);
+  font-size: var(--font-size-caption); cursor: pointer;
+  font-family: var(--font-family-base);
+}
+.mms-btn[aria-pressed="true"] { background: var(--color-text-primary); color: var(--color-bg-page); }
+/* per-face preview labels keep their own faces */
+.mms-btn.face-serif  { font-family: "Times New Roman", Times, serif; }
+.mms-btn.face-sans   { font-family: "TeX Gyre Heros Condensed", "TeX Gyre Heros Cn", sans-serif; }
+.mms-btn.face-mono   { font-family: "Gaisyr Semi-Mono", "ABC Gaisyr Semi Mono", monospace; }
+.mms-btn.face-gothic { font-family: "UnifrakturMaguntia", serif; }
+
+/* slider row: a --o-- a, 24px tall, 4 steps */
+.mms-scale { display: flex; align-items: center; gap: var(--space-4); height: 24px; }
+.mms-scale .a-min { font-size: 14px; }
+.mms-scale .a-max { font-size: 28px; line-height: 1; }
+.mms-scale input[type="range"] {
+  flex: 1; -webkit-appearance: none; appearance: none;
+  height: 1px; background: var(--color-text-primary);
+}
+.mms-scale input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--color-bg-page); border: 1px solid var(--color-text-primary);
+}
+.mms-scale input[type="range"]::-moz-range-thumb {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--color-bg-page); border: 1px solid var(--color-text-primary);
+}
+
+/* shape options: straight < rounded < oval (optical sizes), 36px row */
+.mms-shapes { display: flex; gap: var(--space-8); height: 36px; align-items: center; }
+.mms-shape { flex: 1; border: 0.75px solid var(--color-border); background: var(--color-bg-page);
+  cursor: pointer; display: grid; place-items: center; padding: 0; }
+.mms-shape svg { width: 24px; height: 24px; fill: var(--color-text-primary); }
+.mms-shape.straight { height: 32px; border-radius: 0; }
+.mms-shape.rounded { height: 34px; border-radius: 6px; }
+.mms-shape.oval { height: 36px; border-radius: 50%; }
+.mms-shape[aria-pressed="true"] { background: var(--color-text-primary); }
+.mms-shape[aria-pressed="true"] svg { fill: var(--color-bg-page); }
+
+/* ---------- mobile ---------- */
+@media (max-width: 760px) {
+  .mms-nav { position: static; width: auto; padding: var(--margin-page); }
+  .mms-intro { position: static; width: auto; padding: 0 var(--margin-page); }
+  .mms-intro-spacer { display: none; }
+  .mms-content { margin-left: 0; padding: var(--margin-page); }
+  .mms-river { height: auto; }
+  .mms-desc { width: 100%; margin-left: 0; }
+  .mms-band[data-offset] { --offset: 0px; }
+  .mms-panel { left: var(--margin-page); right: var(--margin-page); width: auto; }
+}
+</style></head><body>
+<!-- mm.s home — Cargo HTML block. Pairs with tokens.css + site.css (site-wide CSS)
+     and panel.js (inline below). Round 1: placeholder images at exact Figma dims;
+     swap for real EVIIVE exports in round 2. -->
+<div class="mms">
+
+  <nav class="mms-nav">
+    <div class="wordmark">MM.S</div>
+    <ul>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#write">Write</a></li>
+      <li><a href="#who">Who?</a></li>
+    </ul>
+    <ul>
+      <li><a href="mailto:hello@mms.example">Email</a></li>
+      <li><a href="#linkedin">Linkedin</a></li>
+    </ul>
+  </nav>
+
+  <div class="mms-clock" id="mms-clock">00:00:00</div>
+
+  <header class="mms-intro">
+    <b>Building better brands.</b>
+    <p>mm.s is a creative agency specializing in identity, digital, motion, and
+    print design. Our work spans across consulting, financial, technology, and
+    life sciences sectors, helping clients build better brands by bridging
+    design and strategy.</p>
+    <p>Brand identity, graphic design, motion graphics, and both digital and
+    print media.</p>
+  </header>
+
+  <main class="mms-content">
+    <div class="mms-intro-spacer"></div>
+
+    <!-- band 1: card at col 7 (offset col/4) -->
+    <section class="mms-band" data-offset="4">
+      <div class="mms-river">
+        <div class="offset"></div>
+        <div class="mms-img" style="width:432px;height:288px"></div>
+        <div class="mms-img" style="width:200px;height:168px"></div>
+        <div class="mms-img" style="width:896px;height:504px"></div>
+        <div class="mms-img" style="width:432px;height:240px"></div>
+        <div class="mms-img" style="width:432px;height:372px"></div>
+        <div class="mms-img" style="width:432px;height:372px"></div>
+        <div class="mms-img" style="width:200px;height:168px"></div>
+      </div>
+      <figure class="mms-desc">
+        <div class="title-group">EVIIVE<br>
+          <span class="tagline"><em>&ndash; brand identity and web design &bull; biotech</em></span>
+        </div>
+        <p>mm.s is a creative agency specializing in identity, digital, motion,
+        and print design. Our work spans across consulting, financial,
+        technology, and life sciences sectors, helping clients build better
+        brands by bridging design and strategy.</p>
+        <a class="url" href="https://eviive.ch">eviive.com</a>
+      </figure>
+    </section>
+
+    <!-- band 2: flush col 3 -->
+    <section class="mms-band">
+      <div class="mms-river">
+        <div class="mms-img" style="width:432px;height:288px"></div>
+        <div class="mms-img" style="width:200px;height:168px"></div>
+        <div class="mms-img" style="width:896px;height:504px"></div>
+        <div class="mms-img" style="width:432px;height:240px"></div>
+        <div class="mms-img" style="width:432px;height:372px"></div>
+        <div class="mms-img" style="width:200px;height:168px"></div>
+      </div>
+      <figure class="mms-desc">
+        <div class="title-group">PROJECT TWO<br>
+          <span class="tagline"><em>&ndash; discipline and scope &bull; sector</em></span>
+        </div>
+        <p>Project description goes here.</p>
+      </figure>
+    </section>
+
+    <!-- band 3: col 5 (offset col/2) -->
+    <section class="mms-band" data-offset="2">
+      <div class="mms-river">
+        <div class="offset"></div>
+        <div class="mms-img" style="width:432px;height:288px"></div>
+        <div class="mms-img" style="width:896px;height:504px"></div>
+        <div class="mms-img" style="width:432px;height:372px"></div>
+        <div class="mms-img" style="width:200px;height:168px"></div>
+      </div>
+      <figure class="mms-desc">
+        <div class="title-group">PROJECT THREE<br>
+          <span class="tagline"><em>&ndash; discipline and scope &bull; sector</em></span>
+        </div>
+        <p>Project description goes here.</p>
+      </figure>
+    </section>
+  </main>
+
+  <aside class="mms-panel" aria-label="site controls">
+    <div class="row dots">
+      <button class="mms-dot" data-theme-set="white"  style="background:#FFFFFF; --dot-center:#000000" aria-pressed="true"  aria-label="white theme"></button>
+      <button class="mms-dot" data-theme-set="yellow" style="background:#FEFF01; --dot-center:#FF00FF" aria-pressed="false" aria-label="yellow theme"></button>
+      <button class="mms-dot" data-theme-set="brown"  style="background:#4DBAFF; --dot-center:#3D1E06" aria-pressed="false" aria-label="brown theme"></button>
+      <button class="mms-dot" data-theme-set="navy"   style="background:#FF0000; --dot-center:#051957" aria-pressed="false" aria-label="navy theme"></button>
+      <button class="mms-dot" data-theme-set="black"  style="background:#000000; --dot-center:#FFFFFF" aria-pressed="false" aria-label="black theme"></button>
+    </div>
+    <div class="row grid2">
+      <button class="mms-btn face-serif"  data-face-set="serif"  aria-pressed="true">Serif</button>
+      <button class="mms-btn face-sans"   data-face-set="sans"   aria-pressed="false">Sans</button>
+      <button class="mms-btn face-mono"   data-face-set="mono"   aria-pressed="false">Mono</button>
+      <button class="mms-btn face-gothic" data-face-set="gothic" aria-pressed="false">Gothic</button>
+    </div>
+    <div class="mms-scale">
+      <span class="a-min">a</span>
+      <input type="range" id="mms-scale" min="0" max="3" step="1" value="1" aria-label="type scale">
+      <span class="a-max">a</span>
+    </div>
+    <div class="mms-shapes">
+      <button class="mms-shape straight" data-shape-set="straight" aria-pressed="true" aria-label="straight frames">
+        <svg viewBox="0 0 24 24"><path d="M2 20 L8.5 9.5 L13 15 L16.5 10.5 L22 20 Z"/><circle cx="17.5" cy="6" r="2.5"/></svg>
+      </button>
+      <button class="mms-shape rounded" data-shape-set="rounded" aria-pressed="false" aria-label="rounded frames">
+        <svg viewBox="0 0 24 24"><path d="M2 20 L8.5 9.5 L13 15 L16.5 10.5 L22 20 Z"/><circle cx="17.5" cy="6" r="2.5"/></svg>
+      </button>
+      <button class="mms-shape oval" data-shape-set="oval" aria-pressed="false" aria-label="oval frames">
+        <svg viewBox="0 0 24 24"><path d="M2 20 L8.5 9.5 L13 15 L16.5 10.5 L22 20 Z"/><circle cx="17.5" cy="6" r="2.5"/></svg>
+      </button>
+    </div>
+  </aside>
+
+</div>
+<script>
+
+</script>
+<script>
+/* mm.s control panel — sets data-* axes on <html>; persists; live clock. 2026-07-06 */
+(function () {
+  var root = document.documentElement;
+  var SCALES = ['s', 'm', 'l', 'xl'];
+
+  function apply(axis, value) {
+    root.setAttribute('data-' + axis, value);
+    try { localStorage.setItem('mms-' + axis, value); } catch (e) {}
+    var sel = '[data-' + axis + '-set]';
+    document.querySelectorAll(sel).forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-' + axis + '-set') === value));
+    });
+    if (axis === 'scale') {
+      var slider = document.getElementById('mms-scale');
+      if (slider) slider.value = String(SCALES.indexOf(value));
+    }
+  }
+
+  // restore persisted state (defaults: white / serif / m / straight)
+  ['theme', 'face', 'scale', 'shape'].forEach(function (axis) {
+    var saved = null;
+    try { saved = localStorage.getItem('mms-' + axis); } catch (e) {}
+    apply(axis, saved || root.getAttribute('data-' + axis) ||
+      { theme: 'white', face: 'serif', scale: 'm', shape: 'straight' }[axis]);
+  });
+
+  // radio groups
+  ['theme', 'face', 'shape'].forEach(function (axis) {
+    document.querySelectorAll('[data-' + axis + '-set]').forEach(function (b) {
+      b.addEventListener('click', function () { apply(axis, b.getAttribute('data-' + axis + '-set')); });
+    });
+  });
+
+  // slider: 4 steps -> scale modes
+  var slider = document.getElementById('mms-scale');
+  if (slider) slider.addEventListener('input', function () { apply('scale', SCALES[+slider.value] || 'm'); });
+
+  // live clock
+  var clock = document.getElementById('mms-clock');
+  function tick() {
+    if (!clock) return;
+    var d = new Date();
+    clock.textContent = [d.getHours(), d.getMinutes(), d.getSeconds()]
+      .map(function (n) { return String(n).padStart(2, '0'); }).join(':');
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script></body></html>

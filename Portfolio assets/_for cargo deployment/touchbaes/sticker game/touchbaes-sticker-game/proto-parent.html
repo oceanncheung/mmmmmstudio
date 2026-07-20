@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tweezer overlay prototype</title>
+<style>
+  body { margin:0; font-family:"Times New Roman",serif; background:#fafafa; color:#333; }
+  .page { padding:180px 240px; }
+  .note { color:#888; font-size:13px; line-height:1.5; max-width:600px; margin-bottom:26px; }
+  .frame-box { position:relative; display:inline-block; }
+  .frame-box::before { content:"iframe clip boundary"; position:absolute; top:-18px; left:0; font-size:11px; color:#c00; letter-spacing:.02em; }
+  iframe.game { width:820px; height:600px; border:1px dashed #c00; display:block; background:transparent; }
+  /* the escaped cursor-rig, cloned from the game via postMessage (back + held sticker + front arm) */
+  #twRig { position:fixed; left:0; top:0; width:285px; z-index:9999; pointer-events:none; display:none; }
+  #twRig .tweezer-back, #twRig .tweezer-front { position:absolute; left:0; top:0; width:100%; pointer-events:none; transform:translate(-4%,-4%) scale(.98); transform-origin:5% 5%; }
+  #twRig .tweezer-back { z-index:1; }
+  #twRig .drag-sticker { position:absolute; left:0; top:0; z-index:3; pointer-events:none; opacity:.99; transform: translate(var(--drag-offset-x, calc(-100% + 18px)), var(--drag-offset-y, calc(-100% + 15px))) rotate(var(--drag-r, 0deg)) scale(1.06); transform-origin: var(--drag-origin-x, calc(100% - 18px)) var(--drag-origin-y, calc(100% - 15px)); }
+  #twRig .tweezer-front { z-index:6; }
+  #twRig img { -webkit-user-drag:none; }
+  #twRig img[hidden] { display:none; }
+  .legend { margin-top:16px; font-size:12px; color:#aaa; }
+  .legend b { color:#666; font-weight:normal; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="note">Prototype. The game runs inside the dashed iframe; its own tweezer is hidden. The whole tweezer rig &mdash; back, held sticker, front arm &mdash; is cloned onto THIS parent page from the game's <code>postMessage</code>, so it spills past the red boundary. Grab a sticker: the arm closes and the sticker rides along, drawn out here. Leave the iframe: it freezes.</div>
+    <div class="frame-box">
+      <iframe class="game" id="game" src="touchbaes-sticker-game.html"></iframe>
+    </div>
+    <div class="legend">tweezer: <b id="state">waiting for cursor inside the frame&hellip;</b></div>
+  </div>
+  <div id="twRig"></div>
+  <script>
+    const iframe = document.getElementById('game');
+    const rig = document.getElementById('twRig');
+    const stateEl = document.getElementById('state');
+    let restMsg = null;
+    const EASE = 'transform .45s cubic-bezier(.22,.61,.36,1)';
+    function place(d, animate) {
+      const r = iframe.getBoundingClientRect();
+      rig.style.width = d.w + 'px';
+      if (typeof d.html === 'string' && d.html !== rig.innerHTML) rig.innerHTML = d.html;
+      if (animate) { rig.style.transition = EASE; void rig.offsetHeight; } else { rig.style.transition = 'none'; }
+      rig.style.transform = 'translate3d(' + (r.left + d.tx) + 'px,' + (r.top + d.ty) + 'px,0)';
+      rig.style.display = 'block';
+    }
+    window.addEventListener('message', (e) => {
+      const d = e.data;
+      if (!d || !d.__tw) return;
+      if (d.t === 'hide') { rig.style.display = 'none'; stateEl.textContent = 'hidden (mobile / touch)'; return; }
+      if (d.t === 'move' || d.t === 'freeze' || d.t === 'rest') {
+        if (d.t === 'rest') restMsg = { tx: d.tx, ty: d.ty, w: d.w, html: d.html };
+        const animate = (d.t === 'rest');
+        place(d, animate);
+        stateEl.textContent = animate ? 'returning to rest (animated)' : 'following cursor';
+      }
+    });
+    // scroll-away: when the game scrolls out of view (mouse didn't move), send the tweezer home
+    // (animated). Capture-phase catches window AND inner-container scrolls; rAF-throttled.
+    let twWasOut = false, twSched = false;
+    function twCheckScroll() {
+      twSched = false;
+      if (!restMsg) return;
+      const r = iframe.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const visible = Math.max(0, Math.min(vh, r.bottom) - Math.max(0, r.top));
+      const out = r.height > 0 && (visible / r.height) < 0.5;   // more than half the game scrolled off
+      if (out && !twWasOut) { twWasOut = true; place(restMsg, true); stateEl.textContent = 'returned to rest (scrolled away)'; }
+      else if (!out) { twWasOut = false; }
+    }
+    window.addEventListener('scroll', () => { if (!twSched) { twSched = true; requestAnimationFrame(twCheckScroll); } }, true);
+  </script>
+</body>
+</html>

@@ -1,0 +1,402 @@
+<script id="mms-early-viewport-init">
+(function () {
+  /* Cargo can execute the same bodycopy once during initial parsing and again
+     during hydration. Only the first initializer owns this refresh sequence. */
+  if (window.__mmsEarlyPreviewStarted) return;
+  window.__mmsEarlyPreviewStarted = 'edge-preview-v2';
+
+  var root = document.documentElement;
+  var THEMES = ['white', 'girly', 'quirky', 'contrast', 'black'];
+  var THEME_COLORS = {
+    white: '#FFFFFF',
+    girly: '#FFEEF4',
+    quirky: '#553D12',
+    contrast: '#FEFF01',
+    black: '#000000'
+  };
+  var FACES = ['serif', 'sans', 'mono', 'gothic'];
+  var SCALES = ['s', 'm', 'l', 'xl'];
+  var SHAPES = ['straight', 'rounded', 'oval'];
+  var AXES = { theme: THEMES, face: FACES, scale: SCALES, shape: SHAPES };
+  var FALLBACKS = { theme: 'white', face: 'serif', scale: 'm', shape: 'straight' };
+  var THEME_MIGRATIONS = { navy: 'girly', brown: 'quirky', yellow: 'contrast' };
+  var PREVIEW_COUNT = 4;
+  var PREVIEW_HOLD_MS = 375;
+  var PREVIEW_FAILSAFE_MS = 3000;
+  var userAgent = navigator.userAgent || '';
+  var isIOS = /iPad|iPhone|iPod/.test(userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isSafari = /Safari/.test(userAgent) &&
+    !/CriOS|FxiOS|EdgiOS|OPiOS|DuckDuckGo/.test(userAgent);
+  var usePreviewEdgeSampler = Boolean(isIOS && isSafari && window.matchMedia &&
+    window.matchMedia('(max-width: 1023px)').matches);
+
+  if (usePreviewEdgeSampler) root.setAttribute('data-mms-ios-safari', '1');
+
+  function storedAxis(axis) {
+    var value = null;
+    try { value = localStorage.getItem('mms-' + axis); } catch (e) {}
+    if (axis === 'theme' && value && THEME_MIGRATIONS[value]) value = THEME_MIGRATIONS[value];
+    return AXES[axis].indexOf(value) >= 0 ? value : FALLBACKS[axis];
+  }
+
+  function applyAxes(values) {
+    Object.keys(AXES).forEach(function (axis) {
+      root.setAttribute('data-' + axis, values[axis]);
+    });
+  }
+
+  function randomIndex(length) {
+    if (window.crypto && window.crypto.getRandomValues) {
+      var value = new Uint32Array(1);
+      window.crypto.getRandomValues(value);
+      return value[0] % length;
+    }
+    return Math.floor(Math.random() * length);
+  }
+
+  function shuffled(values) {
+    var result = values.slice();
+    for (var index = result.length - 1; index > 0; index -= 1) {
+      var swapIndex = randomIndex(index + 1);
+      var held = result[index];
+      result[index] = result[swapIndex];
+      result[swapIndex] = held;
+    }
+    return result;
+  }
+
+  function extendedAxisSequence(values, length) {
+    for (var attempt = 0; attempt < 48; attempt += 1) {
+      var pool = values.slice();
+      while (pool.length < length) pool.push(values[randomIndex(values.length)]);
+      var candidate = shuffled(pool);
+      var adjacent = candidate.some(function (value, index) {
+        return index > 0 && value === candidate[index - 1];
+      });
+      if (!adjacent) return candidate;
+    }
+    var fallback = values.slice();
+    while (fallback.length < length) fallback.push(values[fallback.length % values.length]);
+    return fallback;
+  }
+
+  function axisDifference(left, right) {
+    return Object.keys(AXES).reduce(function (count, axis) {
+      return count + (left[axis] === right[axis] ? 0 : 1);
+    }, 0);
+  }
+
+  function finalCutDiffersFromTarget(values, target) {
+    return values.theme !== target.theme &&
+      values.face !== target.face &&
+      values.scale !== target.scale;
+  }
+
+  function signatureFor(sequence) {
+    return sequence.map(function (values) {
+      return [values.theme, values.face, values.scale, values.shape].join(':');
+    }).join('|');
+  }
+
+  function uniqueCombinationCount(sequence) {
+    var seen = {};
+    sequence.forEach(function (values) { seen[signatureFor([values])] = true; });
+    return Object.keys(seen).length;
+  }
+
+  function keepTargetOffEnds(values, target) {
+    var result = values.slice();
+    var targetIndex = result.indexOf(target);
+    if (targetIndex === 0) {
+      var firstHeld = result[0]; result[0] = result[1]; result[1] = firstHeld;
+    } else if (targetIndex === result.length - 1) {
+      var lastHeld = result[result.length - 1];
+      result[result.length - 1] = result[result.length - 2];
+      result[result.length - 2] = lastHeld;
+    }
+    return result;
+  }
+
+  function buildRenderSequence(target) {
+    var previousSignature = null;
+    try { previousSignature = sessionStorage.getItem('mms-render-sequence'); } catch (e) {}
+    var previewThemes = THEMES.filter(function (theme) { return theme !== target.theme; });
+    var sequence = [];
+    var signature = '';
+    for (var attempt = 0; attempt < 48; attempt += 1) {
+      var themes = shuffled(previewThemes);
+      var faces = shuffled(FACES);
+      var scales = shuffled(SCALES);
+      var shapes = extendedAxisSequence(SHAPES, PREVIEW_COUNT);
+      sequence = themes.map(function (theme, index) {
+        return { theme: theme, face: faces[index], scale: scales[index], shape: shapes[index] };
+      });
+      signature = signatureFor(sequence);
+      if (uniqueCombinationCount(sequence) === PREVIEW_COUNT &&
+          signature !== previousSignature &&
+          axisDifference(sequence[0], target) >= 2 &&
+          finalCutDiffersFromTarget(sequence[sequence.length - 1], target)) break;
+    }
+    if (sequence.length !== PREVIEW_COUNT || signature === previousSignature ||
+        axisDifference(sequence[0], target) < 2 ||
+        !finalCutDiffersFromTarget(sequence[sequence.length - 1], target)) {
+      var fallbackFaces = keepTargetOffEnds(shuffled(FACES), target.face);
+      var fallbackScales = keepTargetOffEnds(shuffled(SCALES), target.scale);
+      var fallbackShapes = extendedAxisSequence(SHAPES, PREVIEW_COUNT);
+      sequence = shuffled(previewThemes).map(function (theme, index) {
+        return {
+          theme: theme,
+          face: fallbackFaces[index],
+          scale: fallbackScales[index],
+          shape: fallbackShapes[index]
+        };
+      });
+      signature = signatureFor(sequence);
+      if (signature === previousSignature && sequence.length > 1) {
+        var firstTheme = sequence[0].theme;
+        sequence[0].theme = sequence[1].theme;
+        sequence[1].theme = firstTheme;
+        signature = signatureFor(sequence);
+      }
+    }
+    try { sessionStorage.setItem('mms-render-sequence', signature); } catch (e) {}
+    return { values: sequence, signature: signature };
+  }
+
+  function dispatchPreviewEvent(name, detail) {
+    try {
+      document.dispatchEvent(new CustomEvent(name, { detail: detail }));
+    } catch (e) {
+      var event = document.createEvent('CustomEvent');
+      event.initCustomEvent(name, false, false, detail);
+      document.dispatchEvent(event);
+    }
+  }
+
+  root.setAttribute('data-mms-site', '1');
+
+  var viewport = document.querySelector('meta[name="viewport"]');
+  if (!viewport) {
+    viewport = document.createElement('meta');
+    viewport.setAttribute('name', 'viewport');
+    document.head.appendChild(viewport);
+  }
+  var viewportParts = (viewport.getAttribute('content') || 'width=device-width, initial-scale=1')
+    .split(',').map(function (part) { return part.trim(); }).filter(Boolean)
+    .filter(function (part) { return part.indexOf('viewport-fit=') !== 0; });
+  viewportParts.push('viewport-fit=cover');
+  viewport.setAttribute('content', viewportParts.join(', '));
+  document.querySelectorAll('meta[name="theme-color"]').forEach(function (meta) { meta.remove(); });
+
+  var target = {
+    theme: storedAxis('theme'),
+    face: storedAxis('face'),
+    scale: storedAxis('scale'),
+    shape: storedAxis('shape')
+  };
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var saveData = Boolean(navigator.connection && navigator.connection.saveData);
+  var sequencePlan = reduced || saveData ? { values: [], signature: '' } : buildRenderSequence(target);
+  var requestFrame = window.requestAnimationFrame || function (callback) {
+    return window.setTimeout(function () { callback(Date.now()); }, 16);
+  };
+  var cancelFrame = window.cancelAnimationFrame || window.clearTimeout;
+  var previewEdgeSamplers = [];
+  var previewEdgeSerial = 0;
+  var frameHandle = 0;
+  var failsafeHandle = 0;
+  var settlingHandle = 0;
+  var currentCut = 0;
+  var holdStartedAt = null;
+  var themeSampleTimer = 0;
+  var themeSampleSerial = 0;
+  var pendingThemeSample = null;
+
+  /* Safari 26 derives solid obscured-edge color from viewport-constrained
+     elements. Use a disposable TOP node only during refresh cuts and palette
+     changes; never paint the permanent sticky header, which Safari may retain
+     after it changes. The real page or open panel owns the lower edge. A
+     bottom probe remains visibly exposed as a seam on physical iPhones. */
+  function replacePreviewEdgeSamplers(theme, phase) {
+    if (!usePreviewEdgeSampler) return;
+    var host = document.body || document.documentElement;
+    var previous = previewEdgeSamplers.slice();
+    var color = THEME_COLORS[theme] || THEME_COLORS.white;
+    var edges = ['top'];
+    var next = edges.map(function (edge) {
+      var sampler = document.createElement('div');
+      previewEdgeSerial += 1;
+      sampler.className = 'mms-preview-edge-sampler';
+      sampler.setAttribute('data-mms-preview-edge', edge);
+      sampler.setAttribute('data-mms-preview-phase', phase || 'cut');
+      sampler.setAttribute('data-mms-preview-serial', String(previewEdgeSerial));
+      sampler.setAttribute('aria-hidden', 'true');
+      sampler.style.backgroundColor = color;
+      host.appendChild(sampler);
+      return sampler;
+    });
+    previewEdgeSamplers = next;
+    /* Append first, then remove the prior node in the same task: WebKit never
+       sees a frame with no edge candidate, while every cut still has a fresh
+       container identity. */
+    previous.forEach(function (sampler) { sampler.remove(); });
+  }
+
+  function releasePreviewEdgeSamplers() {
+    var releasing = previewEdgeSamplers.slice();
+    previewEdgeSamplers = [];
+    releasing.forEach(function (sampler) { sampler.style.visibility = 'hidden'; });
+    requestFrame(function () {
+      requestFrame(function () {
+        releasing.forEach(function (sampler) { sampler.remove(); });
+      });
+    });
+  }
+
+  /* An intentional palette change needs a fresh WebKit top-edge candidate or
+     the status material can retain the previously sampled theme. The compact
+     panel itself paints the selected theme through the lower safe area and
+     stays open; no bottom probe is required. */
+  function sampleThemeEdges(theme) {
+    if (!usePreviewEdgeSampler) return;
+    themeSampleSerial += 1;
+    var serial = themeSampleSerial;
+    if (themeSampleTimer) window.clearTimeout(themeSampleTimer);
+    replacePreviewEdgeSamplers(theme, 'theme-selection');
+    requestFrame(function () {
+      requestFrame(function () {
+        if (serial !== themeSampleSerial) return;
+        themeSampleTimer = window.setTimeout(function () {
+          if (serial !== themeSampleSerial) return;
+          themeSampleTimer = 0;
+          releasePreviewEdgeSamplers();
+        }, 160);
+      });
+    });
+  }
+
+  function requestThemeSample(theme) {
+    if (!usePreviewEdgeSampler) return;
+    pendingThemeSample = theme;
+    if (controller && (controller.active || controller.status === 'settling')) return;
+    var selectedTheme = pendingThemeSample;
+    pendingThemeSample = null;
+    sampleThemeEdges(selectedTheme);
+  }
+
+  var controller = {
+    version: 4,
+    count: PREVIEW_COUNT,
+    holdMs: PREVIEW_HOLD_MS,
+    totalMs: PREVIEW_COUNT * PREVIEW_HOLD_MS,
+    target: target,
+    sequence: sequencePlan.values,
+    signature: sequencePlan.signature,
+    active: false,
+    status: reduced ? 'reduced-motion' : (saveData ? 'save-data' : 'idle'),
+    cut: 0,
+    cancel: function () { finishPreview('interaction'); },
+    finish: function () { finishPreview('external'); },
+    sampleTheme: requestThemeSample
+  };
+  window.__mmsRenderPreview = controller;
+
+  function removeLifecycleListeners() {
+    document.removeEventListener('pointerdown', cancelFromInteraction, true);
+    document.removeEventListener('keydown', cancelFromInteraction, true);
+    document.removeEventListener('visibilitychange', finishIfHidden);
+    window.removeEventListener('pagehide', finishFromPageHide);
+    window.removeEventListener('pageshow', finishFromPageShow);
+  }
+
+  function settlePreview(reason) {
+    if (controller.status === 'done') return;
+    controller.status = 'done';
+    if (settlingHandle) window.clearTimeout(settlingHandle);
+    releasePreviewEdgeSamplers();
+    root.removeAttribute('data-render-preview');
+    root.removeAttribute('data-render-preview-cut');
+    dispatchPreviewEvent('mms-render-preview-done', { reason: reason, target: target });
+    if (pendingThemeSample) {
+      var selectedTheme = pendingThemeSample;
+      pendingThemeSample = null;
+      sampleThemeEdges(selectedTheme);
+    }
+  }
+
+  function finishPreview(reason) {
+    if (!controller.active) return;
+    controller.active = false;
+    controller.status = 'settling';
+    controller.cut = 0;
+    if (frameHandle) cancelFrame(frameHandle);
+    if (failsafeHandle) window.clearTimeout(failsafeHandle);
+    applyAxes(target);
+    replacePreviewEdgeSamplers(target.theme, 'landing');
+    root.setAttribute('data-render-preview', 'settling');
+    root.removeAttribute('data-render-preview-cut');
+    removeLifecycleListeners();
+    frameHandle = requestFrame(function () {
+      frameHandle = requestFrame(function () { settlePreview(reason); });
+    });
+    settlingHandle = window.setTimeout(function () { settlePreview(reason); }, 160);
+  }
+
+  function cancelFromInteraction() { finishPreview('interaction'); }
+  function finishIfHidden() {
+    if (document.visibilityState === 'hidden') finishPreview('hidden');
+  }
+  function finishFromPageHide() { finishPreview('pagehide'); }
+  function finishFromPageShow(event) {
+    if (event.persisted) finishPreview('pageshow');
+  }
+
+  function paintCut(index) {
+    currentCut = index;
+    controller.cut = index + 1;
+    applyAxes(controller.sequence[index]);
+    replacePreviewEdgeSamplers(controller.sequence[index].theme, 'cut-' + String(index + 1));
+    root.setAttribute('data-render-preview-cut', String(index + 1));
+    dispatchPreviewEvent('mms-render-preview-cut', {
+      index: index + 1,
+      count: PREVIEW_COUNT,
+      values: controller.sequence[index]
+    });
+  }
+
+  function holdFrame(now) {
+    if (!controller.active) return;
+    if (holdStartedAt === null) holdStartedAt = now;
+    if (now - holdStartedAt < PREVIEW_HOLD_MS) {
+      frameHandle = requestFrame(holdFrame);
+      return;
+    }
+    if (currentCut + 1 < controller.sequence.length) {
+      paintCut(currentCut + 1);
+      holdStartedAt = now;
+      frameHandle = requestFrame(holdFrame);
+      return;
+    }
+    finishPreview('complete');
+  }
+
+  if (reduced || saveData || controller.sequence.length !== PREVIEW_COUNT) {
+    applyAxes(target);
+    controller.status = reduced ? 'reduced-motion' : (saveData ? 'save-data' : 'invalid-plan');
+    return;
+  }
+
+  controller.active = true;
+  controller.status = 'active';
+  root.setAttribute('data-render-preview', 'active');
+  document.addEventListener('pointerdown', cancelFromInteraction, true);
+  document.addEventListener('keydown', cancelFromInteraction, true);
+  document.addEventListener('visibilitychange', finishIfHidden);
+  window.addEventListener('pagehide', finishFromPageHide);
+  window.addEventListener('pageshow', finishFromPageShow);
+  paintCut(0);
+  frameHandle = requestFrame(holdFrame);
+  failsafeHandle = window.setTimeout(function () { finishPreview('failsafe'); }, PREVIEW_FAILSAFE_MS);
+})();
+</script>

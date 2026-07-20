@@ -1,0 +1,13 @@
+{
+  "name": "mms-framer-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env index.mjs",
+    "read:design": "node --env-file-if-exists=.env read-design-system.mjs"
+  },
+  "dependencies": {
+    "framer-api": "latest"
+  }
+}

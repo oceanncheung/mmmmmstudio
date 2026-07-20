@@ -1,0 +1,51 @@
+# macOS, editor, and test-run residue
+.DS_Store
+**/.DS_Store
+._*
+*.swp
+*.tmp
+*~
+*.log
+.playwright-cli/
+**/.playwright-cli/
+**/__pycache__/
+*.py[cod]
+/output/
+/Working Files/
+
+# Secrets and installed dependencies
+.env
+.env.*
+!.env.example
+node_modules/
+**/node_modules/
+
+# The creative-source archive is about 5.9 GB logically and contains cloud
+# placeholders. It stays ignored as one unit so Git never materializes it.
+# The already-tracked active Touchbaes code within this tree is added with an
+# explicit force-add during baseline setup; tracked files remain visible to
+# Git even though their parent archive stays ignored.
+/Portfolio assets/
+
+# Embedded-app working directories: retain source, configuration, build tools,
+# and vendored runtime code while excluding large source media and generated
+# bundles that can be rebuilt.
+/work/montran-flippable-v2/
+/work/round19/
+/work/round21/
+/work/montran-direct-pdf-v10-src/assets/
+/work/montran-direct-pdf-v10-src/rendered/
+/work/montran-direct-pdf-v10-src/*bundle*.html
+/work/montran-direct-pdf-v10-src/montran-booklet-direct-pdf-v*.html
+
+# Framer source is tracked, but secrets, dependencies, generated data, and the
+# exported social image are not.
+/Framer/**/*.jpg
+/Framer/**/design-system.json
+
+# Stale generated page copies and visual-state exports are retained on disk
+# for the audit but are not canonical source or rollback material.
+/cargo/home 2.html
+/cargo/who 2.html
+/cargo/write 2.html
+/cargo/variant-*.html

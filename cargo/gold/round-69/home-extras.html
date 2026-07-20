@@ -1,0 +1,171 @@
+<script>/*mms-video-autoplay*/(function(){function go(){document.querySelectorAll("video.mms-video").forEach(function(v){try{v.muted=true;v.defaultMuted=true;v.autoplay=true;v.playsInline=true;v.setAttribute("muted","");v.setAttribute("autoplay","");v.setAttribute("playsinline","");v.setAttribute("webkit-playsinline","");if(v.paused){var p=v.play();if(p&&p.catch)p.catch(function(){});}}catch(e){}});}go();document.addEventListener("visibilitychange",go);document.addEventListener("pageshow",go);document.addEventListener("click",go);document.addEventListener("touchstart",go,{passive:true});setInterval(go,2500);})();</script><style>#mms-tw-rig{position:absolute;left:0;top:0;width:285px;z-index:9999;pointer-events:none;display:none;}#mms-tw-rig .tweezer-back,#mms-tw-rig .tweezer-front{position:absolute;left:0;top:0;width:100%;pointer-events:none;transform:translate(-4%,-4%) scale(.98);transform-origin:5% 5%;}#mms-tw-rig .tweezer-back{z-index:1;}#mms-tw-rig .drag-sticker{position:absolute;left:0;top:0;z-index:3;pointer-events:none;opacity:.99;transform:translate(var(--drag-offset-x,calc(-100% + 18px)),var(--drag-offset-y,calc(-100% + 15px))) rotate(var(--drag-r,0deg)) scale(1.06);transform-origin:var(--drag-origin-x,calc(100% - 18px)) var(--drag-origin-y,calc(100% - 15px));}#mms-tw-rig .tweezer-front{z-index:6;}#mms-tw-rig img[hidden]{display:none;}</style><div id="mms-tw-rig"></div><script>/* mms-tweezer-overlay v2 — desktop escaped rig + compact iframe sizing */
+(function () {
+  if (window.__mmsTwOverlayV2) return;
+  window.__mmsTwOverlayV2 = 1;
+
+  function rig() { return document.getElementById('mms-tw-rig'); }
+  function gameFrame() { return document.querySelector('iframe.mms-game'); }
+  function compact() { return window.matchMedia('(max-width: 1023px)').matches; }
+  function hideRig() {
+    var node = rig();
+    if (node) node.style.display = 'none';
+  }
+  var frame = gameFrame();
+  var river = frame && frame.closest('.mms-river');
+  var riverScrollBound = false;
+  var desktopHeight = frame ? frame.style.height : '';
+  var restMsg = null;
+  var scheduled = false;
+  var lastCompactMode = null;
+  var lastGameHeight = 0;
+  var lastGameWidth = 0;
+  var gameHeightLocked = false;
+  var EASE = 'left .45s cubic-bezier(.22,.61,.36,1), top .45s cubic-bezier(.22,.61,.36,1)';
+
+  function syncCompactGeometry(force) {
+    var shell = document.querySelector('.mms');
+    if (!shell || !compact()) return;
+    var viewportWidth = Math.round(window.innerWidth);
+    var width = Math.round(Math.min(viewportWidth, (viewportWidth * 0.98) + 5));
+    if (!force && width === lastGameWidth) return;
+    lastGameWidth = width;
+    lastGameHeight = 0;
+    gameHeightLocked = false;
+    var left = Math.round(32 + (width * 0.0525));
+    var right = 36;
+    var bottom = Math.round(31 + (width * 0.193));
+    /* Match the child's integer-pixel envelope. Ceil made the placeholder
+       frame one pixel taller than the live game at common phone widths. */
+    var fallbackHeight = Math.round(24 + ((width - left - right) * 1752 / 1586) + bottom);
+    shell.style.setProperty('--mobile-game-px-width', width + 'px');
+    shell.style.setProperty('--mobile-game-px-height', fallbackHeight + 'px');
+  }
+
+  function place(data, animate) {
+    var node = rig();
+    var iframe = gameFrame();
+    if (!node || !iframe || compact()) {
+      hideRig();
+      return;
+    }
+    node.style.zIndex = '20';
+    node.style.width = data.w + 'px';
+    if (typeof data.html === 'string' && data.html !== node.innerHTML) node.innerHTML = data.html;
+    var offsetParent = node.offsetParent || document.body;
+    var parentRect = offsetParent.getBoundingClientRect();
+    var frameRect = iframe.getBoundingClientRect();
+    if (animate) {
+      node.style.transition = EASE;
+      void node.offsetHeight;
+    } else {
+      node.style.transition = 'none';
+    }
+    node.style.left = frameRect.left - parentRect.left + data.tx + 'px';
+    node.style.top = frameRect.top - parentRect.top + data.ty + 'px';
+    node.style.display = 'block';
+  }
+
+  function applyGameHeight(height, edgeReserve) {
+    var iframe = gameFrame();
+    if (!iframe || !compact() || !Number.isFinite(height)) return;
+    if (!edgeReserve || ['left', 'right', 'bottom'].some(function (key) {
+      var value = Number(edgeReserve[key]);
+      return !Number.isFinite(value) || value < 0 || value > 320;
+    })) return;
+    var stableHeight = Math.max(1, Math.ceil(height));
+    var currentHeight = Math.round(iframe.getBoundingClientRect().height);
+    /* Fractional aspect-ratio rounding can make the parent's fallback differ
+       from the child's integer envelope by one pixel at a few compact widths.
+       Treat that as the same envelope so readiness never nudges the river. */
+    if (!gameHeightLocked && Math.abs(stableHeight - currentHeight) <= 1) {
+      lastGameHeight = currentHeight;
+      gameHeightLocked = true;
+      iframe.dataset.gameMeasured = 'true';
+      return;
+    }
+    if (gameHeightLocked || Math.abs(stableHeight - lastGameHeight) < 1) return;
+    lastGameHeight = stableHeight;
+    gameHeightLocked = true;
+    iframe.dataset.gameMeasured = 'true';
+    var shell = document.querySelector('.mms');
+    if (shell) shell.style.setProperty('--mobile-game-px-height', stableHeight + 'px');
+    iframe.style.setProperty('height', stableHeight + 'px', 'important');
+  }
+
+  function syncMode(force) {
+    var iframe = gameFrame();
+    if (!iframe) return;
+    var isCompact = compact();
+    if (force || isCompact !== lastCompactMode) {
+      lastCompactMode = isCompact;
+      try {
+        iframe.contentWindow.postMessage({ __mmsGameMode: 1, compact: isCompact }, '*');
+      } catch (e) {}
+    }
+    if (isCompact) {
+      syncCompactGeometry(force);
+      hideRig();
+    } else {
+      delete iframe.dataset.gameMeasured;
+      iframe.style.removeProperty('height');
+      if (desktopHeight) iframe.style.setProperty('height', desktopHeight);
+      if (restMsg) place(restMsg, false);
+    }
+  }
+
+  window.addEventListener('message', function (event) {
+    var iframe = gameFrame();
+    if (!iframe || event.source !== iframe.contentWindow) return;
+    var expectedOrigin = '';
+    try {
+      expectedOrigin = new URL(iframe.dataset.mmsSource || iframe.getAttribute('data-src') || iframe.src, window.location.href).origin;
+    } catch (e) {}
+    if (!expectedOrigin || event.origin !== expectedOrigin) return;
+    var data = event.data;
+    if (!data) return;
+    if (data.__mmsGameSize) {
+      if (Number(data.geometryVersion) !== 10) return;
+      if (Boolean(data.compact) !== compact()) return;
+      applyGameHeight(Number(data.height), data.edgeReserve);
+      return;
+    }
+    if (!data.__tw) return;
+    if (compact() || data.t === 'hide') {
+      hideRig();
+      return;
+    }
+    if (data.t === 'move' || data.t === 'freeze' || data.t === 'rest') {
+      if (data.t === 'rest') restMsg = data;
+      place(data, data.t === 'rest');
+    }
+  });
+
+  function reposition() {
+    scheduled = false;
+    if (!compact() && restMsg) place(restMsg, false);
+  }
+  function schedule() {
+    if (compact()) return;
+    if (scheduled) return;
+    scheduled = true;
+    window.requestAnimationFrame(reposition);
+  }
+  function syncRiverListener() {
+    if (!river) return;
+    var shouldBind = !compact();
+    if (shouldBind === riverScrollBound) return;
+    riverScrollBound = shouldBind;
+    if (shouldBind) river.addEventListener('scroll', schedule, { passive: true });
+    else river.removeEventListener('scroll', schedule);
+  }
+  if (frame) frame.addEventListener('load', function () { syncMode(true); });
+  window.addEventListener('resize', function () {
+    syncCompactGeometry(false);
+    syncMode(false);
+    syncRiverListener();
+    schedule();
+  });
+  syncRiverListener();
+  syncMode(true);
+})();
+</script>

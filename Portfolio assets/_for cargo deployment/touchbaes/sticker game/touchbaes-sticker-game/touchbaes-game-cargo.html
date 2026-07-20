@@ -1,0 +1,982 @@
+<style>
+    :root {
+      --ease: cubic-bezier(.22, 1, .36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      width: 100%;
+      background: transparent;
+    }
+
+    body {
+      overflow-x: hidden;
+      overscroll-behavior: contain;
+    }
+
+    .touchbaes-game {
+      position: relative;
+      isolation: isolate;
+      width: min(980px, 58vw);
+      padding-top: 24px;
+      margin: 0 auto;
+      background: transparent;
+      overflow: visible;
+    }
+
+    .board-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1586 / 1752;
+      background: transparent;
+      overflow: visible;
+      cursor: none;
+      touch-action: none;
+      user-select: none;
+    }
+
+    .scene-image,
+    .target-hint,
+    .loose-sticker,
+    .placed-sticker,
+    .placed-sticker-stack img,
+    .cat-crop-release {
+      -webkit-user-drag: none;
+      user-select: none;
+    }
+
+    .scene-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .target-layer,
+    .loose-layer,
+    .placed-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .target-layer {
+      z-index: 1;
+    }
+
+    .placed-layer {
+      z-index: 20;
+    }
+
+    .loose-layer {
+      z-index: 30;
+    }
+
+    .target-hint {
+      position: absolute;
+      left: calc(var(--x) * 1%);
+      top: calc(var(--y) * 1%);
+      width: calc(var(--w) * 1%);
+      opacity: 0;
+      filter: brightness(0) saturate(0) blur(.28px);
+      mix-blend-mode: multiply;
+      transform: rotate(var(--r, 0deg));
+      transform-origin: center;
+      transition: opacity 140ms var(--ease), transform 140ms var(--ease);
+    }
+
+    .target-hint.is-active {
+      opacity: .16;
+    }
+
+    .target-hint.is-ready {
+      opacity: .24;
+      transform: rotate(var(--r, 0deg)) scale(1.018);
+    }
+
+    .target-hint.is-filled {
+      opacity: 0;
+      transform: rotate(var(--r, 0deg)) scale(.94);
+    }
+
+    .loose-sticker,
+    .placed-sticker,
+    .cat-crop-release {
+      position: absolute;
+      left: calc(var(--x) * 1%);
+      top: calc(var(--y) * 1%);
+      width: calc(var(--w) * 1%);
+      z-index: var(--z);
+      cursor: none;
+      transform: rotate(var(--r, 0deg));
+      transform-origin: center;
+      filter: drop-shadow(0 10px 13px oklch(24% 0.035 24 / .18));
+      transition: filter 180ms var(--ease), opacity 180ms var(--ease), transform 180ms var(--ease);
+    }
+
+    .loose-sticker {
+      opacity: .98;
+      pointer-events: auto;
+      touch-action: none;
+    }
+
+    .placed-sticker {
+      pointer-events: none;
+    }
+
+    .loose-sticker:hover {
+      filter: drop-shadow(0 16px 18px oklch(24% 0.035 24 / .24));
+      transform: rotate(var(--r, 0deg)) translateY(-2px) scale(1.045);
+    }
+
+    .placed-sticker-stack {
+      aspect-ratio: 484 / 619;
+    }
+
+    .placed-sticker-stack img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+    }
+
+    .cat-layer-full {
+      opacity: 0;
+    }
+
+    .cat-layer-placed {
+      opacity: 1;
+    }
+
+    .placed-sticker.is-newly-placed {
+      animation: sticker-stick 380ms var(--ease);
+      transform-origin: 92% 90%;
+      contain: paint;
+      backface-visibility: hidden;
+      will-change: transform, opacity, clip-path;
+    }
+
+    .placed-sticker-stack.is-newly-placed .cat-layer-full {
+      animation: cat-full-settle 170ms var(--ease) 210ms both;
+    }
+
+    .placed-sticker-stack.is-newly-placed .cat-layer-placed {
+      animation: cat-crop-settle 190ms var(--ease) 190ms both;
+      transform-origin: 92% 90%;
+      will-change: opacity, clip-path;
+    }
+
+    .cat-crop-release {
+      pointer-events: none;
+      transform-origin: 92% 90%;
+      animation: cat-crop-release 210ms var(--ease) both;
+      will-change: opacity, clip-path;
+    }
+
+    @keyframes sticker-stick {
+      0% {
+        opacity: .72;
+        clip-path: ellipse(9% 7% at 92% 90%);
+        transform: rotate(var(--r, 0deg)) translate3d(5px, 6px, 0) scale(.996);
+      }
+
+      42% {
+        opacity: 1;
+        clip-path: ellipse(72% 62% at 92% 90%);
+        transform: rotate(var(--r, 0deg)) translate3d(1px, 2px, 0) scale(1.002);
+      }
+
+      100% {
+        opacity: 1;
+        clip-path: ellipse(145% 145% at 92% 90%);
+        transform: rotate(var(--r, 0deg)) translate3d(0, 0, 0) scale(1);
+      }
+    }
+
+    @keyframes cat-full-settle {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0;
+      }
+    }
+
+    @keyframes cat-crop-settle {
+      0% {
+        opacity: 0;
+        clip-path: ellipse(12% 9% at 92% 90%);
+      }
+
+      100% {
+        opacity: 1;
+        clip-path: ellipse(145% 145% at 92% 90%);
+      }
+    }
+
+    @keyframes cat-crop-release {
+      0% {
+        opacity: 1;
+        clip-path: ellipse(145% 145% at 92% 90%);
+      }
+
+      100% {
+        opacity: 0;
+        clip-path: ellipse(10% 8% at 92% 90%);
+      }
+    }
+
+    .cursor-rig {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 285px;
+      aspect-ratio: 760 / 471;
+      z-index: 80;
+      pointer-events: none;
+      opacity: 0;
+      transform: translate3d(-120vw, -120vh, 0);
+      transition: opacity 90ms ease;
+      will-change: transform;
+    }
+
+    .touchbaes-game.has-pointer .cursor-rig {
+      opacity: 1;
+    }
+
+    .touchbaes-game.is-dragging .cursor-rig {
+      z-index: 84;
+    }
+
+    .tweezer-back,
+    .tweezer-front {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      pointer-events: none;
+      transform: translate(-4%, -4%) scale(.98);
+      transform-origin: 5% 5%;
+      -webkit-user-drag: none;
+      user-select: none;
+    }
+
+    .tweezer-back {
+      z-index: 1;
+    }
+
+    .drag-sticker {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 3;
+      pointer-events: none;
+      opacity: .99;
+      transform: translate(var(--drag-offset-x, calc(-100% + 18px)), var(--drag-offset-y, calc(-100% + 15px))) rotate(var(--drag-r, 0deg)) scale(1.06);
+      transform-origin: var(--drag-origin-x, calc(100% - 18px)) var(--drag-origin-y, calc(100% - 15px));
+      will-change: transform;
+      -webkit-user-drag: none;
+      user-select: none;
+    }
+
+    .tweezer-front {
+      z-index: 6;
+    }
+
+    .pick-bubble {
+      --bubble-bg: oklch(99% 0.006 50 / .94);
+      --bubble-border: oklch(34% 0.02 30 / .28);
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 90;
+      padding: 9px 15px 10px;
+      border: 1.5px solid var(--bubble-border);
+      border-radius: 999px;
+      background: var(--bubble-bg);
+      color: oklch(20% 0.02 28);
+      font: 800 19px/1 ui-rounded, "Arial Rounded MT Bold", Arial, sans-serif;
+      letter-spacing: 0;
+      pointer-events: none;
+      opacity: 0;
+      transform: translate3d(var(--bubble-x, -120vw), var(--bubble-y, -120vh), 0) translate(22px, -60px);
+      filter: drop-shadow(0 9px 12px oklch(20% 0.02 28 / .16));
+      transition: opacity 90ms ease;
+      will-change: opacity, transform;
+    }
+
+    .pick-bubble.is-visible {
+      opacity: 1;
+    }
+
+    @media (max-width: 760px), (hover: none) and (pointer: coarse) {
+      .touchbaes-game {
+        width: min(91vw, 420px);
+        padding-top: 8px;
+        padding-bottom: clamp(124px, 34vw, 168px);
+      }
+
+      .cursor-rig {
+        width: clamp(172px, 52vw, 220px);
+      }
+
+      .loose-sticker:hover {
+        filter: drop-shadow(0 10px 13px oklch(24% 0.035 24 / .18));
+        transform: rotate(var(--r, 0deg));
+      }
+
+      .pick-bubble {
+        padding: 8px 13px 9px;
+        font-size: 17px;
+        transform: translate3d(var(--bubble-x, -120vw), var(--bubble-y, -120vh), 0) translate(12px, -48px);
+      }
+    }
+
+    @media (max-width: 380px) {
+      .touchbaes-game {
+        width: min(89vw, 360px);
+        padding-bottom: 136px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        animation-delay: 0ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+
+  <main class="touchbaes-game" id="game">
+    <div class="board-wrap" id="board">
+      <img class="scene-image" src="https://freight.cargo.site/w/1000/q/85/i/X3022124549177496037168295491385/game-scene.png" alt="">
+      <div class="target-layer" id="targetLayer" aria-hidden="true"></div>
+      <div class="loose-layer" id="looseLayer"></div>
+      <div class="placed-layer" id="placedLayer"></div>
+    </div>
+    <div class="cursor-rig" id="cursorRig" aria-hidden="true">
+      <img class="tweezer-back" id="tweezerCursor" src="https://freight.cargo.site/w/1000/q/85/i/Q3022124703263149284864180139833/game-tweezer-open.png" alt="">
+      <img class="drag-sticker" id="dragSticker" src="" alt="" hidden>
+      <img class="tweezer-front" id="tweezerFront" src="https://freight.cargo.site/w/1000/q/85/i/D3022124687841671239242994988857/game-tweezer-front-arm.png" alt="" hidden>
+    </div>
+    <div class="pick-bubble" id="pickBubble">pick!</div>
+  </main>
+
+  <script>
+    (() => {
+      const boardWidth = 1586;
+      const boardHeight = 1752;
+      const storageKey = "touchbaes-sticker-room-raw-v37";
+      const dragAnchor = { x: .84, y: .78 };
+      const cursorBaseWidth = 285;
+      const cursorHotspot = { x: 150, y: 92 };
+      const tweezerTipOffset = { x: -8, y: 12 };
+      const snapTolerancePx = 32;
+      const mobileSnapTolerancePx = 52;
+      const mobileQuery = window.matchMedia("(max-width: 760px), (hover: none) and (pointer: coarse)");
+      const stickers = [
+        {
+          id: "sign",
+          src: "https://freight.cargo.site/w/1000/q/85/i/G3022124655043360276187412215609/game-sticker-touchbaes.png",
+          x: 50.9458,
+          y: 9.3607,
+          w: 30.8953,
+          r: 0,
+          z: 14,
+          looseX: -20.9,
+          looseY: 71.5,
+          looseW: 30.8953,
+          looseR: -8,
+          looseZ: 24,
+          mobileLooseX: 64,
+          mobileLooseY: 105.6,
+          mobileLooseW: 30.8953,
+          mobileLooseR: -7
+        },
+        {
+          id: "plant",
+          src: "https://freight.cargo.site/w/1000/q/85/i/W3022124620289694441318616971065/game-sticker-plant.png",
+          x: 11.5385,
+          y: 48.8014,
+          w: 14.8802,
+          r: 0,
+          z: 22,
+          looseX: -18.8,
+          looseY: 30,
+          looseW: 14.8802,
+          looseR: -5,
+          looseZ: 27,
+          mobileLooseX: 21,
+          mobileLooseY: 101.6,
+          mobileLooseW: 14.8802,
+          mobileLooseR: -5
+        },
+        {
+          id: "cat",
+          src: "https://freight.cargo.site/w/1000/q/85/i/O3022124604499281514223240787769/game-sticker-cat.png",
+          placedSrc: "https://freight.cargo.site/w/1000/q/85/i/N3022124587915658591958353884985/game-sticker-cat-placed.png",
+          x: 23.8719,
+          y: 51.6784,
+          w: 10.1513,
+          r: 0,
+          z: 21,
+          looseX: -12.8,
+          looseY: 11.3,
+          looseW: 11.35,
+          looseR: 8,
+          looseZ: 26,
+          mobileLooseX: 4,
+          mobileLooseY: 104.3,
+          mobileLooseW: 11.35,
+          mobileLooseR: 8
+        },
+        {
+          id: "bottles",
+          src: "https://freight.cargo.site/w/1000/q/85/i/D3022124636098554112487702705977/game-sticker-right-bottles.png",
+          x: 67.7175,
+          y: 38.8128,
+          w: 16.0151,
+          r: 0,
+          z: 17,
+          looseX: -21.8,
+          looseY: 57.7,
+          looseW: 16.0151,
+          looseR: 6,
+          looseZ: 23,
+          mobileLooseX: 44.5,
+          mobileLooseY: 107.4,
+          mobileLooseW: 16.0151,
+          mobileLooseR: 6
+        }
+      ];
+
+      const game = document.getElementById("game");
+      const board = document.getElementById("board");
+      const targetLayer = document.getElementById("targetLayer");
+      const looseLayer = document.getElementById("looseLayer");
+      const placedLayer = document.getElementById("placedLayer");
+      const cursorRig = document.getElementById("cursorRig");
+      const tweezerCursor = document.getElementById("tweezerCursor");
+      const tweezerFront = document.getElementById("tweezerFront");
+      const dragSticker = document.getElementById("dragSticker");
+      const pickBubble = document.getElementById("pickBubble");
+      const tweezerOpenSrc = "https://freight.cargo.site/w/1000/q/85/i/Q3022124703263149284864180139833/game-tweezer-open.png";
+      const tweezerClosedSrc = "https://freight.cargo.site/w/1000/q/85/i/S3022124668786184611101028169529/game-tweezer-close.png";
+      const tweezerClosedPreload = new Image();
+      tweezerClosedPreload.src = tweezerClosedSrc;
+
+      let placed = readPlaced();
+      let dragging = null;
+      let pointerInsideGame = false;
+      let newlyPlacedId = null;
+      let placementAnimationTimer = null;
+      let snapReadyId = null;
+      let pendingPointer = null;
+      let pointerFrame = 0;
+      let statusBubbleTimer = 0;
+      let bubbleMode = "pick";
+      let playBounds = null;
+
+      function readPlaced() {
+        try {
+          const parsed = JSON.parse(localStorage.getItem(storageKey) || "{}");
+          return parsed && typeof parsed === "object" ? parsed : {};
+        } catch {
+          return {};
+        }
+      }
+
+      function savePlaced() {
+        localStorage.setItem(storageKey, JSON.stringify(placed));
+      }
+
+      function getSticker(id) {
+        return stickers.find((sticker) => sticker.id === id);
+      }
+
+      function isMobileLayout() {
+        return mobileQuery.matches;
+      }
+
+      function isTouchLike(event) {
+        return event?.pointerType === "touch" || isMobileLayout();
+      }
+
+      function loosePositionFor(sticker) {
+        if (isMobileLayout()) {
+          return {
+            x: sticker.mobileLooseX,
+            y: sticker.mobileLooseY,
+            w: sticker.mobileLooseW,
+            r: sticker.mobileLooseR
+          };
+        }
+
+        return {
+          x: sticker.looseX,
+          y: sticker.looseY,
+          w: sticker.looseW,
+          r: sticker.looseR
+        };
+      }
+
+      function render() {
+        renderTargets();
+        looseLayer.innerHTML = "";
+        placedLayer.innerHTML = "";
+
+        stickers.forEach((sticker) => {
+          const isDragging = dragging?.sticker.id === sticker.id;
+
+          if (placed[sticker.id] && !isDragging) {
+            addSticker(placedLayer, "placed-sticker", sticker, placed[sticker.id], sticker.z);
+          } else if (!isDragging) {
+            addSticker(looseLayer, "loose-sticker", sticker, loosePositionFor(sticker), sticker.looseZ);
+          }
+        });
+
+        refreshPlayAreaRect();
+      }
+
+      function renderTargets() {
+        stickers.forEach((sticker) => {
+          let target = targetLayer.querySelector(`[data-target-id="${sticker.id}"]`);
+
+          if (!target) {
+            target = document.createElement("img");
+            target.className = "target-hint";
+            target.src = sticker.src;
+            target.alt = "";
+            target.dataset.targetId = sticker.id;
+            targetLayer.append(target);
+          }
+
+          target.style.setProperty("--x", sticker.x);
+          target.style.setProperty("--y", sticker.y);
+          target.style.setProperty("--w", sticker.w);
+          target.style.setProperty("--r", `${sticker.r}deg`);
+          target.classList.toggle("is-active", dragging?.sticker.id === sticker.id);
+          target.classList.toggle("is-ready", snapReadyId === sticker.id);
+          target.classList.toggle("is-filled", Boolean(placed[sticker.id]));
+        });
+      }
+
+      function applyStickerPosition(element, sticker, position, zIndex) {
+        element.dataset.stickerId = sticker.id;
+        element.style.setProperty("--x", position.x);
+        element.style.setProperty("--y", position.y);
+        element.style.setProperty("--w", position.w || sticker.w);
+        element.style.setProperty("--r", `${position.r ?? sticker.r}deg`);
+        element.style.setProperty("--z", zIndex);
+      }
+
+      function addCatCropRelease(sticker, position) {
+        if (sticker.id !== "cat" || !sticker.placedSrc || !position) return;
+
+        const image = document.createElement("img");
+        image.className = "cat-crop-release";
+        image.src = sticker.placedSrc;
+        image.alt = "";
+        applyStickerPosition(image, sticker, position, sticker.z + 1);
+        image.addEventListener("animationend", () => image.remove(), { once: true });
+        window.setTimeout(() => image.remove(), 280);
+        placedLayer.append(image);
+      }
+
+      function addSticker(layer, className, sticker, position, zIndex) {
+        if (className === "placed-sticker" && sticker.id === "cat" && sticker.placedSrc) {
+          const stack = document.createElement("div");
+          stack.className = "placed-sticker placed-sticker-stack";
+          applyStickerPosition(stack, sticker, position, zIndex);
+
+          const fullCat = document.createElement("img");
+          fullCat.className = "cat-layer-full";
+          fullCat.src = sticker.src;
+          fullCat.alt = "";
+
+          const placedCat = document.createElement("img");
+          placedCat.className = "cat-layer-placed";
+          placedCat.src = sticker.placedSrc;
+          placedCat.alt = "";
+
+          stack.append(fullCat, placedCat);
+          if (sticker.id === newlyPlacedId) {
+            stack.classList.add("is-newly-placed");
+            const clearAnimationClass = () => stack.classList.remove("is-newly-placed");
+            window.setTimeout(clearAnimationClass, 480);
+          }
+          layer.append(stack);
+          return;
+        }
+
+        const image = document.createElement("img");
+        image.className = className;
+        image.src = className === "placed-sticker" ? (sticker.placedSrc || sticker.src) : sticker.src;
+        image.alt = "";
+        applyStickerPosition(image, sticker, position, zIndex);
+        if (className === "placed-sticker" && sticker.id === newlyPlacedId) {
+          image.classList.add("is-newly-placed");
+          const clearAnimationClass = () => image.classList.remove("is-newly-placed");
+          image.addEventListener("animationend", clearAnimationClass, { once: true });
+          window.setTimeout(clearAnimationClass, 480);
+        }
+        layer.append(image);
+      }
+
+      function applyPointer(clientX, clientY) {
+        const cursor = cursorGeometry();
+        const tip = tweezerTipPoint(clientX, clientY);
+        cursorRig.style.transform = `translate3d(${clientX - cursor.hotspotX}px, ${clientY - cursor.hotspotY}px, 0)`;
+        pickBubble.style.setProperty("--bubble-x", `${tip.x}px`);
+        pickBubble.style.setProperty("--bubble-y", `${tip.y}px`);
+      }
+
+      function updatePointer(clientX, clientY) {
+        pendingPointer = { clientX, clientY };
+        if (pointerFrame) return;
+
+        pointerFrame = window.requestAnimationFrame(() => {
+          pointerFrame = 0;
+          if (!pendingPointer) return;
+
+          const point = pendingPointer;
+          pendingPointer = null;
+          applyPointer(point.clientX, point.clientY);
+          if (dragging) updateSnapFeedback(point.clientX, point.clientY);
+        });
+      }
+
+      function updatePointerNow(clientX, clientY) {
+        if (pointerFrame) {
+          window.cancelAnimationFrame(pointerFrame);
+          pointerFrame = 0;
+        }
+        pendingPointer = null;
+        applyPointer(clientX, clientY);
+        if (dragging) updateSnapFeedback(clientX, clientY);
+      }
+
+      function hideBubble() {
+        window.clearTimeout(statusBubbleTimer);
+        pickBubble.classList.remove("is-visible");
+        bubbleMode = null;
+      }
+
+      function showPickBubble() {
+        if (bubbleMode === "done") return;
+        window.clearTimeout(statusBubbleTimer);
+        bubbleMode = "pick";
+        pickBubble.textContent = "pick!";
+        pickBubble.classList.add("is-visible");
+      }
+
+      function hidePickBubble() {
+        if (bubbleMode !== "pick") return;
+        hideBubble();
+      }
+
+      function showDoneBubble(clientX, clientY) {
+        window.clearTimeout(statusBubbleTimer);
+        bubbleMode = "done";
+        pickBubble.textContent = "done!";
+        applyPointer(clientX, clientY);
+        pickBubble.classList.add("is-visible");
+        statusBubbleTimer = window.setTimeout(() => {
+          pickBubble.classList.remove("is-visible");
+          bubbleMode = null;
+        }, 900);
+      }
+
+      function setTweezerClosed(isClosed) {
+        tweezerCursor.src = isClosed ? tweezerClosedSrc : tweezerOpenSrc;
+        tweezerFront.hidden = !isClosed;
+      }
+
+      function clearPlacementAnimation() {
+        window.clearTimeout(placementAnimationTimer);
+        newlyPlacedId = null;
+      }
+
+      function markNewlyPlaced(stickerId) {
+        window.clearTimeout(placementAnimationTimer);
+        newlyPlacedId = stickerId;
+        placementAnimationTimer = window.setTimeout(() => {
+          if (newlyPlacedId === stickerId) newlyPlacedId = null;
+        }, 480);
+      }
+
+      function setSnapReady(stickerId) {
+        if (snapReadyId === stickerId) return;
+        snapReadyId = stickerId;
+        targetLayer.querySelectorAll(".target-hint").forEach((target) => {
+          target.classList.toggle("is-ready", target.dataset.targetId === stickerId);
+        });
+      }
+
+      function updateSnapFeedback(clientX, clientY) {
+        if (!dragging) {
+          setSnapReady(null);
+          return;
+        }
+
+        const controlPoint = interactionPoint(clientX, clientY, dragging.direct);
+        const point = boardPoint(controlPoint.x, controlPoint.y, dragging.boardRect);
+        const ready = point.inside && nearestPosition(dragging.sticker, point);
+        setSnapReady(ready ? dragging.sticker.id : null);
+      }
+
+      function boardPoint(clientX, clientY, rect = board.getBoundingClientRect()) {
+        return {
+          inside: clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom,
+          width: rect.width,
+          height: rect.height,
+          x: ((clientX - rect.left) / rect.width) * 100,
+          y: ((clientY - rect.top) / rect.height) * 100
+        };
+      }
+
+      function targetCenter(sticker) {
+        const ratio = imageRatio(sticker);
+        const heightPercent = (sticker.w / ratio) * (boardWidth / boardHeight);
+        return {
+          x: sticker.x + sticker.w / 2,
+          y: sticker.y + heightPercent / 2,
+          heightPercent
+        };
+      }
+
+      function imageRatio(sticker) {
+        const ratios = {
+          sign: 640 / 499,
+          plant: 320 / 576,
+          cat: 240 / 307,
+          bottles: 330 / 242
+        };
+        return ratios[sticker.id] || 1;
+      }
+
+      function dragAnchorFor(sticker) {
+        return {
+          x: sticker.gripX ?? dragAnchor.x,
+          y: sticker.gripY ?? dragAnchor.y
+        };
+      }
+
+      function cursorGeometry() {
+        const scale = (cursorRig.getBoundingClientRect().width || cursorBaseWidth) / cursorBaseWidth;
+        return {
+          hotspotX: cursorHotspot.x * scale,
+          hotspotY: cursorHotspot.y * scale,
+          tipX: tweezerTipOffset.x * scale,
+          tipY: tweezerTipOffset.y * scale
+        };
+      }
+
+      function tweezerTipPoint(clientX, clientY) {
+        const cursor = cursorGeometry();
+        return {
+          x: clientX - cursor.hotspotX + cursor.tipX,
+          y: clientY - cursor.hotspotY + cursor.tipY
+        };
+      }
+
+      function interactionPoint(clientX, clientY, direct = false) {
+        return direct ? { x: clientX, y: clientY } : tweezerTipPoint(clientX, clientY);
+      }
+
+      function nearestPosition(sticker, point) {
+        const ratio = imageRatio(sticker);
+        const stickerHeight = (sticker.w / ratio) * (boardWidth / boardHeight);
+        const anchor = dragAnchorFor(sticker);
+        const heldX = point.x - sticker.w * anchor.x;
+        const heldY = point.y - stickerHeight * anchor.y;
+        const heldCenter = {
+          x: heldX + sticker.w / 2,
+          y: heldY + stickerHeight / 2
+        };
+        const center = targetCenter(sticker);
+        const dx = heldCenter.x - center.x;
+        const dy = heldCenter.y - center.y;
+        const distancePx = Math.hypot(
+          (dx / 100) * point.width,
+          (dy / 100) * point.height
+        );
+
+        const tolerance = point.width < 560 ? mobileSnapTolerancePx : snapTolerancePx;
+
+        if (distancePx <= tolerance) {
+          return { x: sticker.x, y: sticker.y, w: sticker.w, r: sticker.r };
+        }
+
+        return null;
+      }
+
+      function startDrag(stickerId, event, direct = false) {
+        const sticker = getSticker(stickerId);
+        if (!sticker) return;
+
+        event.preventDefault();
+        clearPlacementAnimation();
+        setSnapReady(null);
+        const cropReleasePosition = sticker.id === "cat" && placed[sticker.id] ? { ...placed[sticker.id] } : null;
+        delete placed[sticker.id];
+        savePlaced();
+
+        const boardRect = board.getBoundingClientRect();
+        const ghostWidth = Math.max(72, boardRect.width * (sticker.w / 100));
+        const ghostHeight = ghostWidth / imageRatio(sticker);
+        const anchor = dragAnchorFor(sticker);
+        const cursor = cursorGeometry();
+        const holdX = direct ? cursor.hotspotX : cursor.tipX;
+        const holdY = direct ? cursor.hotspotY : cursor.tipY;
+        dragSticker.src = sticker.src;
+        dragSticker.style.width = `${ghostWidth}px`;
+        dragSticker.style.setProperty("--drag-r", `${sticker.r}deg`);
+        dragSticker.style.setProperty("--drag-offset-x", `${holdX - ghostWidth * anchor.x}px`);
+        dragSticker.style.setProperty("--drag-offset-y", `${holdY - ghostHeight * anchor.y}px`);
+        dragSticker.style.setProperty("--drag-origin-x", `${ghostWidth * anchor.x}px`);
+        dragSticker.style.setProperty("--drag-origin-y", `${ghostHeight * anchor.y}px`);
+        dragSticker.hidden = false;
+
+        dragging = { sticker, boardRect, direct };
+        game.classList.add("has-pointer", "is-dragging");
+        setTweezerClosed(true);
+        hideBubble();
+        render();
+        addCatCropRelease(sticker, cropReleasePosition);
+        updatePointerNow(event.clientX, event.clientY);
+      }
+
+      function finishDrag(event) {
+        if (!dragging) return;
+        const { sticker, boardRect, direct } = dragging;
+        const controlPoint = interactionPoint(event.clientX, event.clientY, direct);
+        const point = boardPoint(controlPoint.x, controlPoint.y, boardRect);
+
+        const snappedPosition = point.inside ? nearestPosition(sticker, point) : null;
+
+        if (snappedPosition) {
+          placed[sticker.id] = snappedPosition;
+          markNewlyPlaced(sticker.id);
+          savePlaced();
+        }
+
+        dragSticker.hidden = true;
+        dragging = null;
+        setSnapReady(null);
+        game.classList.remove("is-dragging");
+        if (!pointerInsideGame) game.classList.remove("has-pointer");
+        setTweezerClosed(false);
+        render();
+        if (snappedPosition) showDoneBubble(event.clientX, event.clientY);
+        if (isTouchLike(event)) {
+          window.setTimeout(() => {
+            if (!dragging) game.classList.remove("has-pointer");
+          }, 220);
+        }
+      }
+
+      function refreshPlayAreaRect() {
+        const rects = [
+          board.getBoundingClientRect(),
+          ...[...looseLayer.querySelectorAll(".loose-sticker")].map((sticker) => sticker.getBoundingClientRect())
+        ];
+        const pad = 90;
+        playBounds = {
+          left: Math.min(...rects.map((rect) => rect.left)) - pad,
+          right: Math.max(...rects.map((rect) => rect.right)) + pad,
+          top: Math.min(...rects.map((rect) => rect.top)) - pad,
+          bottom: Math.max(...rects.map((rect) => rect.bottom)) + pad
+        };
+      }
+
+      function isInPlayArea(clientX, clientY) {
+        const rect = playBounds || (refreshPlayAreaRect(), playBounds);
+        return clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom;
+      }
+
+      function looseStickerAt(clientX, clientY, direct = false) {
+        if (!direct) {
+          const tip = tweezerTipPoint(clientX, clientY);
+          return document.elementFromPoint(tip.x, tip.y)?.closest?.(".loose-sticker[data-sticker-id]") || null;
+        }
+
+        const hitSlop = 18;
+        const looseStickers = [...looseLayer.querySelectorAll(".loose-sticker[data-sticker-id]")];
+        return looseStickers.find((sticker) => {
+          const rect = sticker.getBoundingClientRect();
+          return clientX >= rect.left - hitSlop &&
+            clientX <= rect.right + hitSlop &&
+            clientY >= rect.top - hitSlop &&
+            clientY <= rect.bottom + hitSlop;
+        }) || null;
+      }
+
+      function updateHoverBubble(clientX, clientY, direct = false) {
+        if (dragging || bubbleMode === "done") return;
+        if (!direct && looseStickerAt(clientX, clientY)) {
+          showPickBubble();
+        } else {
+          hidePickBubble();
+        }
+      }
+
+      window.addEventListener("pointermove", (event) => {
+        const direct = isTouchLike(event);
+
+        if (dragging) {
+          updatePointer(event.clientX, event.clientY);
+          return;
+        }
+
+        pointerInsideGame = isInPlayArea(event.clientX, event.clientY);
+        game.classList.toggle("has-pointer", pointerInsideGame);
+
+        if (!pointerInsideGame) {
+          hidePickBubble();
+          return;
+        }
+
+        updatePointer(event.clientX, event.clientY);
+        updateHoverBubble(event.clientX, event.clientY, direct);
+      });
+
+      window.addEventListener("pointerdown", (event) => {
+        const direct = isTouchLike(event);
+        const sticker = looseStickerAt(event.clientX, event.clientY, direct);
+        if (!sticker) return;
+        startDrag(sticker.dataset.stickerId, event, direct);
+      });
+
+      window.addEventListener("pointerup", finishDrag);
+      window.addEventListener("pointercancel", finishDrag);
+      window.addEventListener("resize", () => {
+        if (dragging) {
+          dragging.boardRect = board.getBoundingClientRect();
+          refreshPlayAreaRect();
+        } else {
+          render();
+        }
+      });
+      mobileQuery.addEventListener?.("change", render);
+
+      render();
+    })();
+  </script>
+

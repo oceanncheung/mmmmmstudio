@@ -1,0 +1,11 @@
+{
+  "name": "MM.S Restore Times New Roman",
+  "id": "mms-restore-times-new-roman-20260714",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": ["none"]
+  }
+}
