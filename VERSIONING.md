@@ -26,7 +26,10 @@ partial retrospective archive, so making it the literal parent of the complete
 Round 80 workspace would invent history that was never captured. Future work
 descends from `round-80-stable` on `main`.
 
-Stable tags are immutable. Do not move, replace, or force-update them.
+Stable tags are immutable. Do not move, replace, or force-update them. GitHub
+release immutability is enabled for the private remote, and the published
+`Round 69 gold` and `Round 80 stable` releases enforce that policy by locking
+their associated tags.
 
 ## What belongs in Git
 
