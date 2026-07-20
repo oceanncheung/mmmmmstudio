@@ -11,6 +11,16 @@ target. Local commits do not authorize a Cargo deployment or publication.
 Because the repository is public, secrets and unlicensed creative originals
 must never be committed even temporarily.
 
+## Local Git storage
+
+macOS FileProvider marked the original in-project Git metadata as dataless on
+2026-07-20. The active Git directory therefore lives outside the synced
+workspace at `~/.local/share/mmmmmstudio/git`, and the project-level `.git` is
+a symbolic link to that directory. Keep that link in place. The hidden
+`.git-dataless-backup-20260720T1745` directory is a non-canonical recovery
+artifact and is excluded locally; GitHub and the external Git directory are
+the authoritative repositories.
+
 ## Stable versions
 
 - `round-69-gold`: an archival root reconstructed from the immutable files in
