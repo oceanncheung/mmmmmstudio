@@ -1,0 +1,17 @@
+HTTP/2 200 
+content-type: video/mp4
+content-length: 2416254
+date: Sat, 11 Jul 2026 01:23:19 GMT
+accept-ranges: none
+server: nginx
+last-modified: Sat, 11 Jul 2026 01:23:19 GMT
+cache-control: max-age=31536000
+etag: "6a519b07-24de7e"
+access-control-expose-headers: Access-Control-Allow-Origin
+access-control-allow-origin: *
+x-cache: Hit from cloudfront
+via: 1.1 5fef2688877996791689cf17ab2832d0.cloudfront.net (CloudFront)
+x-amz-cf-pop: YTO50-P2
+x-amz-cf-id: M8AwOT55VmYFTOzqqXWX8Y37YKPGa-RaO8yRu6Cz5N1DADfAdQfdFQ==
+age: 851994
+

@@ -1,0 +1,642 @@
+[
+  {
+    "id": "1:2899",
+    "name": "Control Panel / Sheet",
+    "type": "COMPONENT",
+    "key": "e806b5f58207ae1e2f8233c750f85d5e543e7cf2",
+    "parentId": "69:343",
+    "parentName": "sheets",
+    "description": "Canonical compact control panel sheet, 390 × 178 reference. Cargo uses this composition responsively below 1024px; no separate landscape variant. Interaction targets remain at least 44px while visible artwork follows the component&#39;s optical sizing."
+  },
+  {
+    "id": "1:1039",
+    "name": "Control Panel",
+    "type": "COMPONENT",
+    "key": "7cd578ba6d1bb3dc34f8ed0965ed67e4a0de123c",
+    "parentId": "69:342",
+    "parentName": "panels",
+    "description": "Canonical expanded control panel. Reference geometry: 200 × 232 at Desktop/1440. Cargo scales the complete panel to about 142 × 209 at 1024 and 250 × 290 from 1800 upward. Fine pointers use optical 20/24/32/36px rows; coarse pointers retain 44px hit targets. Panel typography always follows the breakpoint Medium caption scale."
+  },
+  {
+    "id": "1:943",
+    "name": "Image Shape",
+    "type": "COMPONENT",
+    "key": "424b35484bea55b55a2103df78c7665f9182a317",
+    "parentId": "69:341",
+    "parentName": "molecules",
+    "description": "Shape picker row: 3 Image Shape Option instances (optical sizes). Total 168 = panel content width. Selection = swap State prop."
+  },
+  {
+    "id": "10:9",
+    "name": "Nav",
+    "type": "COMPONENT",
+    "key": "72162741c3ca917ea9142f18ec54b897d4496b22",
+    "parentId": "69:341",
+    "parentName": "molecules",
+    "description": "Left rail: wordmark + page links + contact links. Web: plain &lt;a&gt; list, no &lt;nav&gt; styling."
+  },
+  {
+    "id": "524:440",
+    "name": "Nav",
+    "type": "COMPONENT",
+    "key": "150da71f337b3c2bcccbba92104eee907387af8a",
+    "parentId": "69:341",
+    "parentName": "molecules",
+    "description": "Left rail: wordmark + page links + contact links. Web: plain &lt;a&gt; list, no &lt;nav&gt; styling."
+  },
+  {
+    "id": "19:46",
+    "name": "Swatch",
+    "type": "COMPONENT_SET",
+    "key": "69752ea433d7ffd4f68a44153fed561424bb24c6",
+    "parentId": "69:340",
+    "parentName": "atoms",
+    "description": "Color picker dot. Selected = small center dot (radio-button semantics): white dot on colored swatches, black dot on the White swatch. Web: &lt;input type=radio&gt; restyled."
+  },
+  {
+    "id": "19:36",
+    "name": "Color=White, State=Default",
+    "type": "COMPONENT",
+    "key": "b93d25861c8bfcaea1879e3407dfbd4d4072e134",
+    "parentId": "19:46",
+    "parentName": "Swatch",
+    "description": ""
+  },
+  {
+    "id": "19:38",
+    "name": "Color=Black, State=Default",
+    "type": "COMPONENT",
+    "key": "d8d610fba60cfb479ea286d7c70a4ef8f9433ca2",
+    "parentId": "19:46",
+    "parentName": "Swatch",
+    "description": ""
+  },
+  {
+    "id": "19:40",
+    "name": "Color=Girly, State=Default",
+    "type": "COMPONENT",
+    "key": "0ccf09abad09e9454c00f96915442faf55041a56",
+    "parentId": "19:46",
+    "parentName": "Swatch",
+    "description": ""
+  },
+  {
+    "id": "19:42",
+    "name": "Color=Quirky, State=Default",
+    "type": "COMPONENT",
+    "key": "7508025869868b7cd6a699869f5e2d8fdf12a696",
+    "parentId": "19:46",
+    "parentName": "Swatch",
+    "description": ""
+  },
+  {
+    "id": "19:44",
+    "name": "Color=Contrast, State=Default",
+    "type": "COMPONENT",
+    "key": "f8add78ca34cbcc24188ab658ce2fe4f1afea74b",
+    "parentId": "19:46",
+    "parentName": "Swatch",
+    "description": ""
+  },
+  {
+    "id": "31:291",
+    "name": "Color=White, State=Selected",
+    "type": "COMPONENT",
+    "key": "e60e75d9b717af9b5714a02e96854c61cb742028",
+    "parentId": "19:46",
+    "parentName": "Swatch",
+    "description": ""
+  },
+  {
+    "id": "31:295",
+    "name": "Color=Black, State=Selected",
+    "type": "COMPONENT",
+    "key": "e3a027281dbe19d7a901a50d8d6614a619334bb0",
+    "parentId": "19:46",
+    "parentName": "Swatch",
+    "description": ""
+  },
+  {
+    "id": "31:299",
+    "name": "Color=Girly, State=Selected",
+    "type": "COMPONENT",
+    "key": "15ec0eed2eb9d50ca0450bf3086146bbcceeb198",
+    "parentId": "19:46",
+    "parentName": "Swatch",
+    "description": ""
+  },
+  {
+    "id": "31:303",
+    "name": "Color=Quirky, State=Selected",
+    "type": "COMPONENT",
+    "key": "87c64ab96faa3dfb5b01f776e6b0e0ea3936f69b",
+    "parentId": "19:46",
+    "parentName": "Swatch",
+    "description": ""
+  },
+  {
+    "id": "31:307",
+    "name": "Color=Contrast, State=Selected",
+    "type": "COMPONENT",
+    "key": "70e7e0046a8d0f0b5b4716f39f3d89676b8cec16",
+    "parentId": "19:46",
+    "parentName": "Swatch",
+    "description": ""
+  },
+  {
+    "id": "51:390",
+    "name": "Image Shape Option",
+    "type": "COMPONENT_SET",
+    "key": "2c22cdc183664b5715b5e34dc4198118842a9847",
+    "parentId": "69:340",
+    "parentName": "atoms",
+    "description": "Image display-shape picker option. Uniform 36-tall cells (control-row height); optical correction via per-variant INSETS: straight 2, rounded 1, oval 0 -&amp;gt; shapes 32/34/36. Insets are constraint-preserved, so hierarchy survives FILL at any width. Default = bg + 0.75px border + ink glyph; Selected = inverted."
+  },
+  {
+    "id": "51:360",
+    "name": "Shape=Straight, State=Default",
+    "type": "COMPONENT",
+    "key": "56cef2ae32d330cfc16d421a479c045265aca2fe",
+    "parentId": "51:390",
+    "parentName": "Image Shape Option",
+    "description": ""
+  },
+  {
+    "id": "51:365",
+    "name": "Shape=Straight, State=Selected",
+    "type": "COMPONENT",
+    "key": "c28ae7f977e147e12e3567304911acb41ed8b4b2",
+    "parentId": "51:390",
+    "parentName": "Image Shape Option",
+    "description": ""
+  },
+  {
+    "id": "51:370",
+    "name": "Shape=Rounded, State=Default",
+    "type": "COMPONENT",
+    "key": "9cc18f4bacd053a058e5a9feaf4b27130aebe3b9",
+    "parentId": "51:390",
+    "parentName": "Image Shape Option",
+    "description": ""
+  },
+  {
+    "id": "51:375",
+    "name": "Shape=Rounded, State=Selected",
+    "type": "COMPONENT",
+    "key": "fba79ae41c90f565cd33505a27cbba604de52523",
+    "parentId": "51:390",
+    "parentName": "Image Shape Option",
+    "description": ""
+  },
+  {
+    "id": "51:380",
+    "name": "Shape=Oval, State=Default",
+    "type": "COMPONENT",
+    "key": "d3c9cf49da7485793062e73109a7766325a66ad0",
+    "parentId": "51:390",
+    "parentName": "Image Shape Option",
+    "description": ""
+  },
+  {
+    "id": "51:385",
+    "name": "Shape=Oval, State=Selected",
+    "type": "COMPONENT",
+    "key": "0b522f0ce3e707e137f2c28a4517a537da469cb5",
+    "parentId": "51:390",
+    "parentName": "Image Shape Option",
+    "description": ""
+  },
+  {
+    "id": "10:6",
+    "name": "Link",
+    "type": "COMPONENT_SET",
+    "key": "d935a2d7247ebca4b15945cb6730755d60b5b1a6",
+    "parentId": "69:340",
+    "parentName": "atoms",
+    "description": "Browser-default anchor. Web: &lt;a&gt; — #0000EE underlined, visited #551A8B. Hover changes nothing (cursor only), true to default HTML."
+  },
+  {
+    "id": "10:2",
+    "name": "State=Default",
+    "type": "COMPONENT",
+    "key": "2ebfe7675e7bc85e34f3286c4735a660a19234cf",
+    "parentId": "10:6",
+    "parentName": "Link",
+    "description": ""
+  },
+  {
+    "id": "10:4",
+    "name": "State=Visited",
+    "type": "COMPONENT",
+    "key": "e4aa7d9230dc40e76322d6b60fa14ef05d2232f0",
+    "parentId": "10:6",
+    "parentName": "Link",
+    "description": ""
+  },
+  {
+    "id": "10:7",
+    "name": "Timestamp",
+    "type": "COMPONENT",
+    "key": "12b67fe01ad8c133fcbd89bc60524c760d5172c0",
+    "parentId": "69:340",
+    "parentName": "atoms",
+    "description": "Live 24-hour timestamp. Color is bound to semantic text/primary so the clock follows the active theme on desktop and compact layouts."
+  },
+  {
+    "id": "1:614",
+    "name": "Buttons",
+    "type": "COMPONENT_SET",
+    "key": "51525f7f52249b8952d11595692b1e23e3213265",
+    "parentId": "69:340",
+    "parentName": "atoms",
+    "description": "HTML-honest states: Default; Selected = inverted black fill (aria-pressed / picker chosen); Focus = 1px dotted rectangular outline offset 3 (:focus-visible); Disabled = muted (:disabled). NO hover (raw HTML has none), no transitions. Pickers show content glyphs (e.g. Image Icon) — selection = inversion, not checkmarks."
+  },
+  {
+    "id": "19:47",
+    "name": "Shape=Rectangle, State=Default",
+    "type": "COMPONENT",
+    "key": "a9538ea9980775075c5ebdaae0b07b132e26fbd6",
+    "parentId": "1:614",
+    "parentName": "Buttons",
+    "description": "Straight-angle button. 1px border/default, no radius, Small label. Web: &lt;button&gt; with all default styling stripped except 1px solid border."
+  },
+  {
+    "id": "1:613",
+    "name": "Shape=Ellipse, State=Default",
+    "type": "COMPONENT",
+    "key": "ebc335477fc5f6040d6cd4f727823c1eba64dcbc",
+    "parentId": "1:614",
+    "parentName": "Buttons",
+    "description": ""
+  },
+  {
+    "id": "32:308",
+    "name": "Shape=Rectangle, State=Selected",
+    "type": "COMPONENT",
+    "key": "bc568f2ae1cb44a08b4eacd6a4df5f57c4d170bf",
+    "parentId": "1:614",
+    "parentName": "Buttons",
+    "description": "Straight-angle button. 1px border/default, no radius, Small label. Web: &lt;button&gt; with all default styling stripped except 1px solid border."
+  },
+  {
+    "id": "32:314",
+    "name": "Shape=Rectangle, State=Focus",
+    "type": "COMPONENT",
+    "key": "61e17cf5bb40b92e713c9047ecde16e675656dfa",
+    "parentId": "1:614",
+    "parentName": "Buttons",
+    "description": "Straight-angle button. 1px border/default, no radius, Small label. Web: &lt;button&gt; with all default styling stripped except 1px solid border."
+  },
+  {
+    "id": "32:317",
+    "name": "Shape=Rectangle, State=Disabled",
+    "type": "COMPONENT",
+    "key": "8218fa1aeba34b4eae5f348961263fc458f2b08f",
+    "parentId": "1:614",
+    "parentName": "Buttons",
+    "description": "Straight-angle button. 1px border/default, no radius, Small label. Web: &lt;button&gt; with all default styling stripped except 1px solid border."
+  },
+  {
+    "id": "32:320",
+    "name": "Shape=Ellipse, State=Selected",
+    "type": "COMPONENT",
+    "key": "7c2ef6d9f7e41fa45453b91b078bf76f1a27eb0f",
+    "parentId": "1:614",
+    "parentName": "Buttons",
+    "description": ""
+  },
+  {
+    "id": "32:326",
+    "name": "Shape=Ellipse, State=Focus",
+    "type": "COMPONENT",
+    "key": "b5fefb11457a8fea185d955079621b9697d39c56",
+    "parentId": "1:614",
+    "parentName": "Buttons",
+    "description": ""
+  },
+  {
+    "id": "32:329",
+    "name": "Shape=Ellipse, State=Disabled",
+    "type": "COMPONENT",
+    "key": "4545ac4af40a646c9dad6ff4782c99dea609f645",
+    "parentId": "1:614",
+    "parentName": "Buttons",
+    "description": ""
+  },
+  {
+    "id": "135:364",
+    "name": "Slider",
+    "type": "COMPONENT_SET",
+    "key": "16dbdd0218851aa9384836ab79a7a5d234a4d48e",
+    "parentId": "69:340",
+    "parentName": "atoms",
+    "description": "Type-scale slider with Compact and Expanded contexts. Four discrete steps map to device-specific Type Scale modes. Compact endpoints are 17–30; Expanded endpoints are 18–36. Endpoint glyphs retain 4 px internal padding and the 24 px optical row sits inside a 44 px web touch target."
+  },
+  {
+    "id": "19:49",
+    "name": "Context=Expanded, Scale=Medium",
+    "type": "COMPONENT",
+    "key": "4543a612e021147a37da59f202cab59864ad0d49",
+    "parentId": "135:364",
+    "parentName": "Slider",
+    "description": "Type-size slider: a (14) — 1px track with 12px thumb — a (18). Track-area FILLs, thumb stays center-constrained, labels hug. Set instances to FILL width. Web: &lt;input type=range&gt; restyled: 1px track, round black thumb, no focus ring removal."
+  },
+  {
+    "id": "135:340",
+    "name": "Context=Expanded, Scale=Small",
+    "type": "COMPONENT",
+    "key": "9acfcf97cc341ccd3b570890e73c1398fe0ca652",
+    "parentId": "135:364",
+    "parentName": "Slider",
+    "description": "Type-size slider: a (14) — 1px track with 12px thumb — a (18). Track-area FILLs, thumb stays center-constrained, labels hug. Set instances to FILL width. Web: &lt;input type=range&gt; restyled: 1px track, round black thumb, no focus ring removal."
+  },
+  {
+    "id": "135:348",
+    "name": "Context=Expanded, Scale=Large",
+    "type": "COMPONENT",
+    "key": "cba4fe3ff6f34e54c89f978964e013317746c11f",
+    "parentId": "135:364",
+    "parentName": "Slider",
+    "description": "Type-size slider: a (14) — 1px track with 12px thumb — a (18). Track-area FILLs, thumb stays center-constrained, labels hug. Set instances to FILL width. Web: &lt;input type=range&gt; restyled: 1px track, round black thumb, no focus ring removal."
+  },
+  {
+    "id": "135:356",
+    "name": "Context=Expanded, Scale=Extra Large",
+    "type": "COMPONENT",
+    "key": "a3b6ac8065cea3198fff333512b6f837eff00fb2",
+    "parentId": "135:364",
+    "parentName": "Slider",
+    "description": "Type-size slider: a (14) — 1px track with 12px thumb — a (18). Track-area FILLs, thumb stays center-constrained, labels hug. Set instances to FILL width. Web: &lt;input type=range&gt; restyled: 1px track, round black thumb, no focus ring removal."
+  },
+  {
+    "id": "569:629",
+    "name": "Context=Compact, Scale=Small",
+    "type": "COMPONENT",
+    "key": "f4af5c2db9cabd8d359456f577034421b752a5b4",
+    "parentId": "135:364",
+    "parentName": "Slider",
+    "description": "Type-size slider: a (14) — 1px track with 12px thumb — a (18). Track-area FILLs, thumb stays center-constrained, labels hug. Set instances to FILL width. Web: &lt;input type=range&gt; restyled: 1px track, round black thumb, no focus ring removal."
+  },
+  {
+    "id": "569:641",
+    "name": "Context=Compact, Scale=Medium",
+    "type": "COMPONENT",
+    "key": "29910c6cc45e0547ecad0bab963d00bb5716877a",
+    "parentId": "135:364",
+    "parentName": "Slider",
+    "description": "Type-size slider: a (14) — 1px track with 12px thumb — a (18). Track-area FILLs, thumb stays center-constrained, labels hug. Set instances to FILL width. Web: &lt;input type=range&gt; restyled: 1px track, round black thumb, no focus ring removal."
+  },
+  {
+    "id": "569:653",
+    "name": "Context=Compact, Scale=Large",
+    "type": "COMPONENT",
+    "key": "845fada30ea2aacad775cad892af365db8fe90f2",
+    "parentId": "135:364",
+    "parentName": "Slider",
+    "description": "Type-size slider: a (14) — 1px track with 12px thumb — a (18). Track-area FILLs, thumb stays center-constrained, labels hug. Set instances to FILL width. Web: &lt;input type=range&gt; restyled: 1px track, round black thumb, no focus ring removal."
+  },
+  {
+    "id": "569:665",
+    "name": "Context=Compact, Scale=Extra Large",
+    "type": "COMPONENT",
+    "key": "98c72ca63826b93b15bc9863626a7e36b21a6319",
+    "parentId": "135:364",
+    "parentName": "Slider",
+    "description": "Type-size slider: a (14) — 1px track with 12px thumb — a (18). Track-area FILLs, thumb stays center-constrained, labels hug. Set instances to FILL width. Web: &lt;input type=range&gt; restyled: 1px track, round black thumb, no focus ring removal."
+  },
+  {
+    "id": "21:94",
+    "name": "Control Icon",
+    "type": "COMPONENT",
+    "key": "ff653c1abd97824bc489987c5e517cd2653b1660",
+    "parentId": "69:339",
+    "parentName": "icons",
+    "description": "Opens the Control Panel sheet on mobile. Mixer glyph: 2px rails + 8px knobs (echoes the Slider). Sits left of Timestamp. Web: &lt;button aria-label=&quot;controls&quot; aria-expanded&gt; — give it &gt;=44px tap padding in CSS."
+  },
+  {
+    "id": "532:1708",
+    "name": "Open Icon",
+    "type": "COMPONENT",
+    "key": "462099811b7010f278429b53e0074ad775f9a27e",
+    "parentId": "69:339",
+    "parentName": "icons",
+    "description": "Open Icon: 24px plus with two theme-ink strokes. Opens the compact Control Panel from a 44px web target. When expanded, swap to Close Icon / Pressed."
+  },
+  {
+    "id": "45:312",
+    "name": "Image Icon",
+    "type": "COMPONENT",
+    "key": "df2b118632497644bcdfef8faf000299e4deeacc",
+    "parentId": "69:339",
+    "parentName": "icons",
+    "description": "Image-placeholder pictogram (mountains + sun) for the Image Shape picker. Filled vector, no outer frame — the button shape provides the frame. Recolor fills white on inverted/selected buttons."
+  },
+  {
+    "id": "1:285",
+    "name": "Corner Radius",
+    "type": "COMPONENT_SET",
+    "key": "6454f03fcbae6b2186272a089d955a4e83ab4b6b",
+    "parentId": "69:339",
+    "parentName": "icons",
+    "description": ""
+  },
+  {
+    "id": "1:284",
+    "name": "Corner=Straight",
+    "type": "COMPONENT",
+    "key": "f5096cb1cab5c3be992afeedf1e011ff756e0800",
+    "parentId": "1:285",
+    "parentName": "Corner Radius",
+    "description": ""
+  },
+  {
+    "id": "1:286",
+    "name": "Corner=Rounded",
+    "type": "COMPONENT",
+    "key": "ba1a3c3939718df2c302b319dcda1946afb12d06",
+    "parentId": "1:285",
+    "parentName": "Corner Radius",
+    "description": ""
+  },
+  {
+    "id": "1:288",
+    "name": "Corner=Circle",
+    "type": "COMPONENT",
+    "key": "7e3412750ecd9b076ee51292a701d05c6a7e1d22",
+    "parentId": "1:285",
+    "parentName": "Corner Radius",
+    "description": ""
+  },
+  {
+    "id": "532:1724",
+    "name": "Close Icon",
+    "type": "COMPONENT_SET",
+    "key": "5c1ed8ceb04647ca9461e0fe5f9c3994c1a20ccd",
+    "parentId": "69:339",
+    "parentName": "icons",
+    "description": ""
+  },
+  {
+    "id": "23:215",
+    "name": "Property 1=Default",
+    "type": "COMPONENT",
+    "key": "68c967cb2bd8fef32c4f841b619f6c5f58a21836",
+    "parentId": "532:1724",
+    "parentName": "Close Icon",
+    "description": "Cross to dismiss the Control Panel sheet. Two 2px diagonal strokes, flat caps, 16px span. Web: &lt;button aria-label=&quot;close&quot;&gt; — pair with &gt;=44px tap padding."
+  },
+  {
+    "id": "532:1725",
+    "name": "Property 1=Pressed",
+    "type": "COMPONENT",
+    "key": "ce6bd06bd4077195d1183d7d38aa1df5e5bb5344",
+    "parentId": "532:1724",
+    "parentName": "Close Icon",
+    "description": "Pressed Close Icon: square fill uses semantic text/primary; X stroke uses semantic bg/page. This is the active mobile panel toggle and closes the sheet. Web pressed/focus state uses the same semantic tokens."
+  },
+  {
+    "id": "140:369",
+    "name": "Image Frame",
+    "type": "COMPONENT_SET",
+    "key": "de3bfdb0a2750a23a5505ba24703ce41977ac014",
+    "parentId": "532:1061",
+    "parentName": "Section 1",
+    "description": "THE image asset. Place an instance, override the img layer fill with the photo, size freely — proportions live on the instance, the SHAPE follows the ui image/shape variable (bind Shape prop per instance; duplicating a bound instance carries the binding). Straight = rect · Rounded = radius/image token (24) · Oval = TRUE ellipse stretched non-uniformly (per Ocean: a circle stretched to frame the image). Fill overrides survive variant switches via the same-named img layer."
+  },
+  {
+    "id": "140:363",
+    "name": "Shape=Straight",
+    "type": "COMPONENT",
+    "key": "7076a8a6c70bbb1767e2b9d0d337c12a58d39a73",
+    "parentId": "140:369",
+    "parentName": "Image Frame",
+    "description": ""
+  },
+  {
+    "id": "140:365",
+    "name": "Shape=Rounded",
+    "type": "COMPONENT",
+    "key": "2ebc3aa4d2ee56bca9cd7984ad6fc88bc222f745",
+    "parentId": "140:369",
+    "parentName": "Image Frame",
+    "description": ""
+  },
+  {
+    "id": "140:367",
+    "name": "Shape=Oval",
+    "type": "COMPONENT",
+    "key": "950ecd5e213937adace8c215460463e55c244423",
+    "parentId": "140:369",
+    "parentName": "Image Frame",
+    "description": ""
+  },
+  {
+    "id": "142:379",
+    "name": "Project Description",
+    "type": "COMPONENT",
+    "key": "d693a508c5f612e47c87f33325e260d1167ba3a2",
+    "parentId": "532:1061",
+    "parentName": "Section 1",
+    "description": "Showcase description block. Props: title/tagline/blurb/url (TEXT), hasUrl (BOOLEAN — hides the url line for unlinked projects). White fill + 16 top seam + col/6 width baked in. url = underlined text (swap to a Link instance post-TNR-flip if wanted). Restyle master texts once in UI (Body / Caption Italic / Body / Body+underline); instances inherit."
+  },
+  {
+    "id": "736:595",
+    "name": "Write Passage",
+    "type": "COMPONENT",
+    "key": "27a326f8c286d6fec1d26ab236baaca9c3c40826",
+    "parentId": "532:1061",
+    "parentName": "Section 1",
+    "description": "Showcase description block. Props: title/tagline/blurb/url (TEXT), hasUrl (BOOLEAN — hides the url line for unlinked projects). White fill + 16 top seam + col/6 width baked in. url = underlined text (swap to a Link instance post-TNR-flip if wanted). Restyle master texts once in UI (Body / Caption Italic / Body / Body+underline); instances inherit."
+  },
+  {
+    "id": "612:611",
+    "name": "Edited_Profile Pic_CHY 1",
+    "type": "COMPONENT_SET",
+    "key": "ba47ba386f6721f82f3936ba0fa0f23ae60aafab",
+    "parentId": "532:1061",
+    "parentName": "Section 1",
+    "description": ""
+  },
+  {
+    "id": "612:610",
+    "name": "Property 1=Default",
+    "type": "COMPONENT",
+    "key": "b6eaede1a28ade9372729bea50cc201ee0996c74",
+    "parentId": "612:611",
+    "parentName": "Edited_Profile Pic_CHY 1",
+    "description": ""
+  },
+  {
+    "id": "612:612",
+    "name": "Property 1=Motion",
+    "type": "COMPONENT",
+    "key": "f90c0a95788ca12e7521aaf5695dd26db0549984",
+    "parentId": "612:611",
+    "parentName": "Edited_Profile Pic_CHY 1",
+    "description": ""
+  },
+  {
+    "id": "612:615",
+    "name": "Edited_Profile Pic_CCH_v2 1",
+    "type": "COMPONENT_SET",
+    "key": "b5d8d0e402fda6a873850fce60ed2a832b6b3c79",
+    "parentId": "532:1061",
+    "parentName": "Section 1",
+    "description": ""
+  },
+  {
+    "id": "612:614",
+    "name": "Property 1=Default",
+    "type": "COMPONENT",
+    "key": "3222b0f226d26fe7ef67bfa9b15c98c04e8acdc2",
+    "parentId": "612:615",
+    "parentName": "Edited_Profile Pic_CCH_v2 1",
+    "description": ""
+  },
+  {
+    "id": "612:616",
+    "name": "Property 1=Motion",
+    "type": "COMPONENT",
+    "key": "67568eda65ac95cdb9e1dd4a2f5ecf1bf4cba170",
+    "parentId": "612:615",
+    "parentName": "Edited_Profile Pic_CCH_v2 1",
+    "description": ""
+  },
+  {
+    "id": "782:465",
+    "name": "Slider",
+    "type": "COMPONENT",
+    "key": "a5260eb13e9c0f3f26ef27997271d76f4540a08b",
+    "parentId": "532:1061",
+    "parentName": "Section 1",
+    "description": ""
+  },
+  {
+    "id": "782:481",
+    "name": "Scrub",
+    "type": "COMPONENT_SET",
+    "key": "35522484db4e0f4f0e19ddce63e2e2aa302e9ed7",
+    "parentId": "532:1061",
+    "parentName": "Section 1",
+    "description": ""
+  },
+  {
+    "id": "782:482",
+    "name": "State=Hover",
+    "type": "COMPONENT",
+    "key": "1196eb866afbd8e5fdeaa491ab3a1095f61ea07f",
+    "parentId": "782:481",
+    "parentName": "Scrub",
+    "description": ""
+  },
+  {
+    "id": "782:480",
+    "name": "State=Default",
+    "type": "COMPONENT",
+    "key": "f987d818a524635ed9f0241b3d367c9751531008",
+    "parentId": "782:481",
+    "parentName": "Scrub",
+    "description": ""
+  }
+]
+

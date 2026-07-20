@@ -1,0 +1,8 @@
+ref: refs/heads/main	HEAD
+dcdbd6fec9c6220486c8572d5f146248b5c3593f	HEAD
+18093409423fb5d268d64e049c31a91bbb78d51a	refs/heads/archive/round-69
+dcdbd6fec9c6220486c8572d5f146248b5c3593f	refs/heads/main
+67a1f20a46fdfc9c5ac9a644a234b29193118e98	refs/tags/round-69-gold
+18093409423fb5d268d64e049c31a91bbb78d51a	refs/tags/round-69-gold^{}
+c138a57aa8064ffc0b8e720b306cf00193b4b2fb	refs/tags/round-80-stable
+d40b930b29bea66a63c2a3a5aa244b03da5a65cf	refs/tags/round-80-stable^{}

@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "captured_at": "2026-07-20T18:28:06-04:00",
+  "repository": "oceanncheung/mmmmmstudio",
+  "repository_root": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website",
+  "branch": "round-81/audit-baseline",
+  "head": "dcdbd6fec9c6220486c8572d5f146248b5c3593f",
+  "main": "dcdbd6fec9c6220486c8572d5f146248b5c3593f",
+  "origin_main": "dcdbd6fec9c6220486c8572d5f146248b5c3593f",
+  "head_vs_origin_main": {
+    "ahead": 0,
+    "behind": 0
+  },
+  "origin_url": "https://github.com/oceanncheung/mmmmmstudio.git",
+  "worktree_status_excluding_untracked": [
+    " M VERSIONING.md"
+  ],
+  "preexisting_diff": {
+    "path": "VERSIONING.md",
+    "bytes": 945,
+    "sha256": "4d12143e0f4106806d98bed18534663ec4346f4c487d3fe0c8d4d54ed616e1eb"
+  },
+  "git_storage": {
+    "project_git_path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/.git",
+    "is_symlink": true,
+    "symlink_target": "/Users/oceancheung/.local/share/mmmmmstudio/git",
+    "resolved_path": "/Users/oceancheung/.local/share/mmmmmstudio/git",
+    "absolute_git_dir": "/Users/oceancheung/.local/share/mmmmmstudio/git",
+    "common_dir": ".git",
+    "recovery_backup_path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/.git-dataless-backup-20260720T1745",
+    "recovery_backup_exists": true,
+    "recovery_backup_is_directory": true,
+    "recovery_backup_ignore_rule": ".git/info/exclude:7:.git-dataless-backup-20260720T1745\t.git-dataless-backup-20260720T1745"
+  }
+}

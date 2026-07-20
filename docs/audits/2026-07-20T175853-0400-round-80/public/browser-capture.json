@@ -1,0 +1,38 @@
+{
+  "captured_at": "2026-07-20T22:26:39Z",
+  "capture_tool": "playwright-cli",
+  "target": "published site",
+  "browser": "bundled Chromium",
+  "routes": [
+    {
+      "name": "Home",
+      "url": "https://mmmmm.studio/",
+      "desktop_viewport": "1440x900",
+      "mobile_viewport": "390x844",
+      "startup_settle_ms": 3000,
+      "desktop_screenshot": "screenshots/home-desktop-1440x900.png",
+      "mobile_screenshot": "screenshots/home-mobile-390x844.png"
+    },
+    {
+      "name": "Write",
+      "url": "https://mmmmm.studio/write",
+      "desktop_viewport": "1440x900",
+      "mobile_viewport": "390x844",
+      "desktop_screenshot": "screenshots/write-desktop-1440x900.png",
+      "mobile_screenshot": "screenshots/write-mobile-390x844.png"
+    },
+    {
+      "name": "Who",
+      "url": "https://mmmmm.studio/who",
+      "desktop_viewport": "1440x900",
+      "mobile_viewport": "390x844",
+      "desktop_screenshot": "screenshots/who-desktop-1440x900.png",
+      "mobile_screenshot": "screenshots/who-mobile-390x844.png"
+    }
+  ],
+  "home_console_logs": [
+    "home-browser-console-initial.log",
+    "home-browser-console.log"
+  ],
+  "note": "Screenshots are viewport captures after navigation. Home was allowed to settle past the startup design cuts before the retained captures. Console output is preserved as raw baseline evidence; it is not triaged in Phase 1."
+}

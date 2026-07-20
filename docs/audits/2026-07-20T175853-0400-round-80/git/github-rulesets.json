@@ -1,0 +1,74 @@
+[
+  {
+    "id": 19276535,
+    "name": "Protect main history",
+    "target": "branch",
+    "source_type": "Repository",
+    "source": "oceanncheung/mmmmmstudio",
+    "enforcement": "active",
+    "conditions": {
+      "ref_name": {
+        "exclude": [],
+        "include": [
+          "refs/heads/main"
+        ]
+      }
+    },
+    "rules": [
+      {
+        "type": "deletion"
+      },
+      {
+        "type": "non_fast_forward"
+      }
+    ],
+    "created_at": "2026-07-20T17:37:54.496-04:00",
+    "updated_at": "2026-07-20T17:37:54.514-04:00",
+    "bypass_actors": [],
+    "current_user_can_bypass": "never",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/oceanncheung/mmmmmstudio/rulesets/19276535"
+      },
+      "html": {
+        "href": "https://github.com/oceanncheung/mmmmmstudio/rules/19276535"
+      }
+    }
+  },
+  {
+    "id": 19276536,
+    "name": "Protect stable round tags",
+    "target": "tag",
+    "source_type": "Repository",
+    "source": "oceanncheung/mmmmmstudio",
+    "enforcement": "active",
+    "conditions": {
+      "ref_name": {
+        "exclude": [],
+        "include": [
+          "refs/tags/round-*"
+        ]
+      }
+    },
+    "rules": [
+      {
+        "type": "deletion"
+      },
+      {
+        "type": "non_fast_forward"
+      }
+    ],
+    "created_at": "2026-07-20T17:37:54.904-04:00",
+    "updated_at": "2026-07-20T17:37:54.929-04:00",
+    "bypass_actors": [],
+    "current_user_can_bypass": "never",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/oceanncheung/mmmmmstudio/rulesets/19276536"
+      },
+      "html": {
+        "href": "https://github.com/oceanncheung/mmmmmstudio/rules/19276536"
+      }
+    }
+  }
+]

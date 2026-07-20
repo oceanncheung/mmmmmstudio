@@ -21,3 +21,5 @@
 *.webp binary
 *.zip binary
 
+# Audit snapshots are byte-exact evidence; never normalize captured payloads.
+docs/audits/** -text

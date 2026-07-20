@@ -1,0 +1,36 @@
+[
+  {
+    "tag": "round-69-gold",
+    "tag_object": "67a1f20a46fdfc9c5ac9a644a234b29193118e98",
+    "object_type": "tag",
+    "peeled_commit": "18093409423fb5d268d64e049c31a91bbb78d51a",
+    "tagger_name": "Ocean Cheung",
+    "tagger_date": "2026-07-20T17:01:29-04:00",
+    "subject": "Round 69 gold — reconstructed canonical Cargo snapshot; partial archival scope documented",
+    "commit": {
+      "id": "18093409423fb5d268d64e049c31a91bbb78d51a",
+      "author_date": "2026-07-16T14:05:03+00:00",
+      "committer_date": "2026-07-20T17:01:29-04:00",
+      "author_name": "Ocean Cheung",
+      "committer_name": "Ocean Cheung",
+      "subject": "archive: reconstruct Round 69 gold baseline"
+    }
+  },
+  {
+    "tag": "round-80-stable",
+    "tag_object": "c138a57aa8064ffc0b8e720b306cf00193b4b2fb",
+    "object_type": "tag",
+    "peeled_commit": "d40b930b29bea66a63c2a3a5aa244b03da5a65cf",
+    "tagger_name": "Ocean Cheung",
+    "tagger_date": "2026-07-20T17:08:31-04:00",
+    "subject": "Round 80 stable — responsive-70 published baseline; 68 media IDs, 12 desktop scrubbers, verified pointer-focus safeguard",
+    "commit": {
+      "id": "d40b930b29bea66a63c2a3a5aa244b03da5a65cf",
+      "author_date": "2026-07-20T17:08:23-04:00",
+      "committer_date": "2026-07-20T17:08:23-04:00",
+      "author_name": "Ocean Cheung",
+      "committer_name": "Ocean Cheung",
+      "subject": "baseline: record Round 80 stable"
+    }
+  }
+]

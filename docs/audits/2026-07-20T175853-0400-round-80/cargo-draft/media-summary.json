@@ -1,0 +1,23 @@
+[
+  {
+    "page": "home",
+    "page_media_records": 260,
+    "nested_video_poster_records": 59,
+    "captured_from": "https://api.cargo.site/v1/pages/3626191/id/I2398594830",
+    "capture_mode": "authenticated read-only GET"
+  },
+  {
+    "page": "who",
+    "page_media_records": 0,
+    "nested_video_poster_records": 0,
+    "captured_from": "https://api.cargo.site/v1/pages/3626191/id/B2402536676",
+    "capture_mode": "authenticated read-only GET"
+  },
+  {
+    "page": "write",
+    "page_media_records": 0,
+    "nested_video_poster_records": 0,
+    "captured_from": "https://api.cargo.site/v1/pages/3626191/id/P0060651058",
+    "capture_mode": "authenticated read-only GET"
+  }
+]

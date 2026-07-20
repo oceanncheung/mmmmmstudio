@@ -1,0 +1,196 @@
+[
+  {
+    "id": "VariableID:5:2",
+    "name": "bg/page",
+    "resolvedType": "COLOR",
+    "collectionId": "VariableCollectionId:4:3",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:1": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:4:6"
+      },
+      "149:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:4:7"
+      },
+      "149:1": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:424:342"
+      },
+      "149:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:154:302"
+      },
+      "149:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:154:304"
+      }
+    }
+  },
+  {
+    "id": "VariableID:5:3",
+    "name": "text/primary",
+    "resolvedType": "COLOR",
+    "collectionId": "VariableCollectionId:4:3",
+    "scopes": [
+      "TEXT_FILL"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:1": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:4:7"
+      },
+      "149:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:4:6"
+      },
+      "149:1": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:18:36"
+      },
+      "149:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:154:303"
+      },
+      "149:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:154:305"
+      }
+    }
+  },
+  {
+    "id": "VariableID:5:4",
+    "name": "text/muted",
+    "resolvedType": "COLOR",
+    "collectionId": "VariableCollectionId:4:3",
+    "scopes": [
+      "TEXT_FILL"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:1": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:4:8"
+      },
+      "149:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:4:8"
+      },
+      "149:1": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:3"
+      },
+      "149:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:3"
+      },
+      "149:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:3"
+      }
+    }
+  },
+  {
+    "id": "VariableID:5:5",
+    "name": "link/default",
+    "resolvedType": "COLOR",
+    "collectionId": "VariableCollectionId:4:3",
+    "scopes": [
+      "TEXT_FILL"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:1": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:3"
+      },
+      "149:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:3"
+      },
+      "149:1": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:3"
+      },
+      "149:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:3"
+      },
+      "149:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:3"
+      }
+    }
+  },
+  {
+    "id": "VariableID:5:6",
+    "name": "link/visited",
+    "resolvedType": "COLOR",
+    "collectionId": "VariableCollectionId:4:3",
+    "scopes": [
+      "TEXT_FILL"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:1": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:3"
+      },
+      "149:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:3"
+      },
+      "149:1": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:3"
+      },
+      "149:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:3"
+      },
+      "149:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:3"
+      }
+    }
+  },
+  {
+    "id": "VariableID:19:35",
+    "name": "border/default",
+    "resolvedType": "COLOR",
+    "collectionId": "VariableCollectionId:4:3",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:1": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:3"
+      },
+      "149:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:3"
+      },
+      "149:1": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:3"
+      },
+      "149:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:3"
+      },
+      "149:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:3"
+      }
+    }
+  }
+]
+

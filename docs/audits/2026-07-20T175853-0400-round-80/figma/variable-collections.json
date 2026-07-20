@@ -1,0 +1,252 @@
+[
+  {
+    "id": "VariableCollectionId:4:2",
+    "name": "Primitives",
+    "defaultModeId": "4:0",
+    "modes": [
+      {
+        "name": "Value",
+        "modeId": "4:0"
+      }
+    ],
+    "variableIds": [
+      "VariableID:4:6",
+      "VariableID:4:7",
+      "VariableID:4:8",
+      "VariableID:4:9",
+      "VariableID:4:10",
+      "VariableID:18:36",
+      "VariableID:154:302",
+      "VariableID:154:303",
+      "VariableID:154:304",
+      "VariableID:154:305",
+      "VariableID:424:342"
+    ]
+  },
+  {
+    "id": "VariableCollectionId:4:3",
+    "name": "Color",
+    "defaultModeId": "4:1",
+    "modes": [
+      {
+        "name": "White",
+        "modeId": "4:1"
+      },
+      {
+        "name": "Black",
+        "modeId": "149:0"
+      },
+      {
+        "name": "Girly",
+        "modeId": "149:1"
+      },
+      {
+        "name": "Quirky",
+        "modeId": "149:2"
+      },
+      {
+        "name": "Contrast",
+        "modeId": "149:3"
+      }
+    ],
+    "variableIds": [
+      "VariableID:5:2",
+      "VariableID:5:3",
+      "VariableID:5:4",
+      "VariableID:5:5",
+      "VariableID:5:6",
+      "VariableID:19:35"
+    ]
+  },
+  {
+    "id": "VariableCollectionId:4:4",
+    "name": "Space",
+    "defaultModeId": "4:2",
+    "modes": [
+      {
+        "name": "Desktop",
+        "modeId": "4:2"
+      },
+      {
+        "name": "Mobile",
+        "modeId": "4:3"
+      },
+      {
+        "name": "Desktop 1800",
+        "modeId": "93:0"
+      },
+      {
+        "name": "Desktop 2560",
+        "modeId": "505:0"
+      }
+    ],
+    "variableIds": [
+      "VariableID:532:1060",
+      "VariableID:5:16",
+      "VariableID:365:853",
+      "VariableID:5:17",
+      "VariableID:5:18",
+      "VariableID:5:19",
+      "VariableID:5:20",
+      "VariableID:5:21",
+      "VariableID:5:22",
+      "VariableID:5:23",
+      "VariableID:5:24",
+      "VariableID:791:355",
+      "VariableID:82:251",
+      "VariableID:82:252",
+      "VariableID:82:253",
+      "VariableID:109:253",
+      "VariableID:110:253",
+      "VariableID:110:254",
+      "VariableID:134:253",
+      "VariableID:140:265",
+      "VariableID:494:358",
+      "VariableID:505:369",
+      "VariableID:505:370",
+      "VariableID:505:371",
+      "VariableID:505:372",
+      "VariableID:505:373",
+      "VariableID:505:374",
+      "VariableID:505:375",
+      "VariableID:505:376",
+      "VariableID:505:377",
+      "VariableID:585:366",
+      "VariableID:585:367",
+      "VariableID:585:368",
+      "VariableID:585:369",
+      "VariableID:585:370",
+      "VariableID:585:371",
+      "VariableID:585:372",
+      "VariableID:585:373",
+      "VariableID:585:374",
+      "VariableID:585:375",
+      "VariableID:585:376",
+      "VariableID:585:377",
+      "VariableID:585:378",
+      "VariableID:585:379",
+      "VariableID:585:380",
+      "VariableID:661:351",
+      "VariableID:661:352",
+      "VariableID:676:353"
+    ]
+  },
+  {
+    "id": "VariableCollectionId:4:5",
+    "name": "Type Scale",
+    "defaultModeId": "4:4",
+    "modes": [
+      {
+        "name": "Medium",
+        "modeId": "4:4"
+      },
+      {
+        "name": "Small",
+        "modeId": "51:4"
+      },
+      {
+        "name": "Large",
+        "modeId": "51:5"
+      },
+      {
+        "name": "XL",
+        "modeId": "51:6"
+      }
+    ],
+    "variableIds": [
+      "VariableID:5:26",
+      "VariableID:5:27",
+      "VariableID:41:312",
+      "VariableID:51:271",
+      "VariableID:51:272",
+      "VariableID:51:273",
+      "VariableID:117:253",
+      "VariableID:117:254",
+      "VariableID:117:255",
+      "VariableID:117:256",
+      "VariableID:117:257",
+      "VariableID:117:258",
+      "VariableID:121:253",
+      "VariableID:121:254",
+      "VariableID:121:255",
+      "VariableID:585:351",
+      "VariableID:585:352",
+      "VariableID:585:353",
+      "VariableID:585:354",
+      "VariableID:585:355",
+      "VariableID:585:356",
+      "VariableID:585:357",
+      "VariableID:585:358",
+      "VariableID:585:359",
+      "VariableID:585:360",
+      "VariableID:585:361",
+      "VariableID:585:362",
+      "VariableID:585:363",
+      "VariableID:585:364",
+      "VariableID:585:365",
+      "VariableID:676:351",
+      "VariableID:676:352"
+    ]
+  },
+  {
+    "id": "VariableCollectionId:51:269",
+    "name": "Typeface",
+    "defaultModeId": "51:0",
+    "modes": [
+      {
+        "name": "Serif",
+        "modeId": "51:0"
+      },
+      {
+        "name": "Sans",
+        "modeId": "51:1"
+      },
+      {
+        "name": "Mono",
+        "modeId": "51:2"
+      },
+      {
+        "name": "Gothic",
+        "modeId": "51:3"
+      }
+    ],
+    "variableIds": [
+      "VariableID:51:270",
+      "VariableID:117:259",
+      "VariableID:117:260",
+      "VariableID:117:261",
+      "VariableID:127:253",
+      "VariableID:162:301",
+      "VariableID:162:302",
+      "VariableID:676:354",
+      "VariableID:676:355"
+    ]
+  },
+  {
+    "id": "VariableCollectionId:112:340",
+    "name": "UI State",
+    "defaultModeId": "112:0",
+    "modes": [
+      {
+        "name": "State",
+        "modeId": "112:0"
+      }
+    ],
+    "variableIds": [
+      "VariableID:112:341",
+      "VariableID:112:342",
+      "VariableID:112:343",
+      "VariableID:112:344",
+      "VariableID:140:266",
+      "VariableID:140:267",
+      "VariableID:140:268",
+      "VariableID:140:269",
+      "VariableID:150:301",
+      "VariableID:150:302",
+      "VariableID:150:303",
+      "VariableID:150:304",
+      "VariableID:150:305"
+    ]
+  }
+]
+

@@ -1,0 +1,97 @@
+{
+  "id": "235:440",
+  "name": "-> touchbaes",
+  "children": [
+    {
+      "id": "235:441",
+      "name": "scene 1",
+      "type": "RECTANGLE",
+      "x": -1074,
+      "y": -1381,
+      "width": 1586,
+      "height": 1752,
+      "visible": true
+    },
+    {
+      "id": "235:442",
+      "name": "sticker-cat-placed 1",
+      "type": "RECTANGLE",
+      "x": 552,
+      "y": 64,
+      "width": 240,
+      "height": 307,
+      "visible": true
+    },
+    {
+      "id": "235:443",
+      "name": "sticker-cat 1",
+      "type": "RECTANGLE",
+      "x": 832,
+      "y": 56,
+      "width": 240,
+      "height": 315,
+      "visible": true
+    },
+    {
+      "id": "235:444",
+      "name": "sticker-plant 1",
+      "type": "RECTANGLE",
+      "x": -1074,
+      "y": 411,
+      "width": 320,
+      "height": 576,
+      "visible": true
+    },
+    {
+      "id": "235:445",
+      "name": "sticker-right-bottles 1",
+      "type": "RECTANGLE",
+      "x": -714,
+      "y": 411,
+      "width": 330,
+      "height": 242,
+      "visible": true
+    },
+    {
+      "id": "235:446",
+      "name": "sticker-touchbaes 1",
+      "type": "RECTANGLE",
+      "x": -344,
+      "y": 411,
+      "width": 640,
+      "height": 499,
+      "visible": true
+    },
+    {
+      "id": "235:447",
+      "name": "tweezer-close 1",
+      "type": "RECTANGLE",
+      "x": -1074,
+      "y": 1027,
+      "width": 570,
+      "height": 354,
+      "visible": true
+    },
+    {
+      "id": "235:448",
+      "name": "tweezer-front-arm 1",
+      "type": "RECTANGLE",
+      "x": -464,
+      "y": 1027,
+      "width": 570,
+      "height": 354,
+      "visible": true
+    },
+    {
+      "id": "235:449",
+      "name": "tweezer-open 1",
+      "type": "RECTANGLE",
+      "x": 146,
+      "y": 1027,
+      "width": 570,
+      "height": 352,
+      "visible": true
+    }
+  ]
+}
+

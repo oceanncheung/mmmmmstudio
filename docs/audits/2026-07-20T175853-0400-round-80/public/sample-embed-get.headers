@@ -1,0 +1,17 @@
+HTTP/2 200 
+content-type: text/html
+content-length: 49140
+date: Mon, 20 Jul 2026 21:49:07 GMT
+accept-ranges: none
+server: nginx
+last-modified: Mon, 20 Jul 2026 21:49:07 GMT
+cache-control: max-age=31536000
+etag: "6a5e97d3-bff4"
+access-control-expose-headers: Access-Control-Allow-Origin
+access-control-allow-origin: *
+x-cache: Hit from cloudfront
+via: 1.1 5fef2688877996791689cf17ab2832d0.cloudfront.net (CloudFront)
+x-amz-cf-pop: YTO50-P2
+x-amz-cf-id: 86gkiNSSYWas4QVvjd_22aLiYKDs6PeiEqFIPnSJ4KbHSpgg7LWC9Q==
+age: 846
+
