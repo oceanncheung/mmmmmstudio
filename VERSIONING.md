@@ -1,11 +1,13 @@
 # MM.S local version-control policy
 
-This directory is a local, code-only Git repository. Git protects source,
-deployment instructions, embedded-app code, and verified release baselines. It
-does not publish Cargo, modify Figma, or replace Cargo's reload verification.
+This directory is a code-only Git repository. Git protects source, deployment
+instructions, embedded-app code, and verified release baselines. It does not
+publish Cargo, modify Figma, or replace Cargo's reload verification.
 
-No remote is configured. Creating or pushing to GitHub, GitLab, or another
-remote requires separate authorization from Ocean.
+The private GitHub remote is `origin` at
+`https://github.com/oceanncheung/mmmmmstudio`. GitHub provides off-device
+backup, comparison, and release history; it is not an automatic deployment
+target. Local commits do not authorize a Cargo deployment or publication.
 
 ## Stable versions
 
