@@ -1,6 +1,6 @@
 # MM.S website
 
-Private source and release-control repository for the MM.S Cargo website.
+Source and release-control repository for the MM.S Cargo website.
 
 - Current stable baseline: `round-80-stable`
 - Protected historical reference: `round-69-gold`

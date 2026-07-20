@@ -4,10 +4,12 @@ This directory is a code-only Git repository. Git protects source, deployment
 instructions, embedded-app code, and verified release baselines. It does not
 publish Cargo, modify Figma, or replace Cargo's reload verification.
 
-The private GitHub remote is `origin` at
+The public GitHub remote is `origin` at
 `https://github.com/oceanncheung/mmmmmstudio`. GitHub provides off-device
 backup, comparison, and release history; it is not an automatic deployment
 target. Local commits do not authorize a Cargo deployment or publication.
+Because the repository is public, secrets and unlicensed creative originals
+must never be committed even temporarily.
 
 ## Stable versions
 
@@ -27,9 +29,13 @@ Round 80 workspace would invent history that was never captured. Future work
 descends from `round-80-stable` on `main`.
 
 Stable tags are immutable. Do not move, replace, or force-update them. GitHub
-release immutability is enabled for the private remote, and the published
+release immutability is enabled for the remote, and the published
 `Round 69 gold` and `Round 80 stable` releases enforce that policy by locking
 their associated tags.
+
+Active GitHub rulesets block branch deletion and non-fast-forward updates on
+`main`, and block deletion or rewriting of tags matching `round-*`. Normal
+fast-forward pushes to `main` remain available for the established workflow.
 
 ## What belongs in Git
 
