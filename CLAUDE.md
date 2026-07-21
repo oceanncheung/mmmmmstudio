@@ -2190,3 +2190,6 @@ current source of truth for the built site.
   `bash cargo/assemble-test.sh canonical` before later remediation work.
 - This first remediation did not change Cargo, Freight, Figma, or the public
   site and did not publish Cargo.
+- The protected gold tag/release points to commit
+  `07531485ca0ac4378fd3182ffa176ee6ccead7dd`. Draft PR 4 carries the guard from
+  `agent/deployment-manifest` to `round-81/audit-baseline`.

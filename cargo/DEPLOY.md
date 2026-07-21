@@ -4288,3 +4288,8 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
 - `cargo/assemble-test.sh canonical` and
   `audit/scripts/validate-phase2.sh` pass. This batch did not open or change the
   Cargo editor, Freight, Figma, or the public site, and did not publish Cargo.
+- Git commit `07531485ca0ac4378fd3182ffa176ee6ccead7dd` is preserved by the
+  protected tag and GitHub release `gold-2026-07-21-responsive-70`. Repository
+  rules now prevent deletion or non-fast-forward rewriting of both `round-*`
+  and `gold-*` tags. Draft PR 4 proposes the guard onto the merged audit
+  baseline.

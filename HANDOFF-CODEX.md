@@ -1166,3 +1166,6 @@ agent needs to continue this project without the prior chat history.
   `bash audit/scripts/validate-phase2.sh` before the next remediation batch.
 - This guard/gold batch is local/GitHub-only. It did not mutate Cargo, Freight,
   Figma, or the public site and did not publish Cargo.
+- Gold commit `07531485ca0ac4378fd3182ffa176ee6ccead7dd`, tag, and GitHub release
+  are remote and protected. Draft PR 4 targets `round-81/audit-baseline` from
+  `agent/deployment-manifest`.
