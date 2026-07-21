@@ -205,16 +205,6 @@ dialog.mms-panel:not([open]) { display: none; }
   height: calc(var(--asset-h) * var(--asset-u));
   aspect-ratio: var(--asset-w) / var(--asset-h);
 }
-/* WTW includes a 765.2 × 765.2 wordmark video. The generic 504-unit river
-   clipped its upper 261.2 units on expanded screens even though the frame and
-   source were both square. Let this one river hug its tallest item so every
-   asset remains fully visible and the existing bottom alignment is preserved. */
-@media (min-width: 1024px) {
-  [data-band="wtw"] .mms-river {
-    height: auto;
-    min-height: calc(504 * var(--media-u));
-  }
-}
 /* spacer eats the flex gap that follows it, so image 1 lands exactly on
    --offset — flush with the description block below */
 .mms-river .offset { width: calc(var(--offset, 0px) - var(--space-32)); height: 1px; }

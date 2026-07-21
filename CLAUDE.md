@@ -2145,3 +2145,10 @@ current source of truth for the built site.
   checks at 1024, 1440, and 1920px confirmed a square frame and video, zero top
   or bottom clipping, native 1600×1600 media, and zero page overflow. Cargo Last
   Published is 8:57pm EDT on 2026-07-20.
+# Round 82 correction — WTW display geometry
+
+- Figma nodes `409:599` / `409:613` are the reference for WTW. The second asset is a 504×504 display frame even though the MP4 source is 1600×1600.
+- Never infer intended on-page size from source resolution. Verify the Figma display frame before changing river height or media geometry.
+- Round 82 is published and public-verified: 504×504 at the 1440px reference,
+  square and unclipped at 1024/1920px, 68 unique media IDs, and zero page
+  overflow or stray CSS text in bodycopy.

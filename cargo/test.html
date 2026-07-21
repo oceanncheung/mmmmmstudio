@@ -428,16 +428,6 @@ dialog.mms-panel:not([open]) { display: none; }
   height: calc(var(--asset-h) * var(--asset-u));
   aspect-ratio: var(--asset-w) / var(--asset-h);
 }
-/* WTW includes a 765.2 × 765.2 wordmark video. The generic 504-unit river
-   clipped its upper 261.2 units on expanded screens even though the frame and
-   source were both square. Let this one river hug its tallest item so every
-   asset remains fully visible and the existing bottom alignment is preserved. */
-@media (min-width: 1024px) {
-  [data-band="wtw"] .mms-river {
-    height: auto;
-    min-height: calc(504 * var(--media-u));
-  }
-}
 /* spacer eats the flex gap that follows it, so image 1 lands exactly on
    --offset — flush with the description block below */
 .mms-river .offset { width: calc(var(--offset, 0px) - var(--space-32)); height: 1px; }
@@ -2696,7 +2686,7 @@ html[data-render-preview] .mms-frame { transition: none !important; }
 <div class="mms-frame" data-media-id="wtw-01" data-shape-policy="artwork" data-fit="contain" data-mobile-profile="standard" style="--asset-w:746.7;--asset-h:504">
 <img alt="" class="mms-img" decoding="async" loading="lazy" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/1494/q/85/i/C3028244178623348957641467017017/wtw-lanyard.png" srcset="https://freight.cargo.site/w/420/q/85/i/C3028244178623348957641467017017/wtw-lanyard.png 420w, https://freight.cargo.site/w/900/q/85/i/C3028244178623348957641467017017/wtw-lanyard.png 900w, https://freight.cargo.site/w/1494/q/85/i/C3028244178623348957641467017017/wtw-lanyard.png 1494w" style="background:transparent">
 </div>
-<div class="mms-frame" data-media-id="wtw-02" data-shape-policy="crop" data-fit="contain" data-mobile-profile="standard" style="--asset-w:765.2;--asset-h:765.2">
+<div class="mms-frame" data-media-id="wtw-02" data-shape-policy="crop" data-fit="contain" data-mobile-profile="standard" style="--asset-w:504;--asset-h:504">
 <video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/L3031232634561019862244141872953/24-wtw-wordmark-poster.jpg" data-src="https://freight.cargo.site/t/original/i/U3028243848518863758609040848697/wtw-wordmark.mp4" loop="" muted="" playsinline="" preload="none">
 </video>
 </div>

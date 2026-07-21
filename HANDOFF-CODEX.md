@@ -1118,3 +1118,13 @@ agent needs to continue this project without the prior chat history.
   at 1024, 1440, and 1920px found square geometry, zero clipping, a native
   1600×1600 loaded video, `object-fit: contain`, and zero page overflow. Cargo
   Last Published is 8:57pm EDT on 2026-07-20.
+# Round 82 correction — WTW display geometry
+
+- Figma is authoritative for the WTW second asset: nodes `409:599` / `409:613` specify 504×504, not 765.2×765.2.
+- `cargo/home.html` now declares `wtw-02` as `--asset-w:504;--asset-h:504`.
+- The Round 81 WTW river auto-height override has been removed from `cargo/site.css`.
+- Do not size a Cargo frame from its source raster/video dimensions; verify the intended Figma display frame first.
+- Round 82 is published. At 1440px the public frame and river are both exactly
+  504px high, with zero clipping; 1024px and 1920px are also square and
+  unclipped. The public bodycopy retains all 68 media IDs and contains no stray
+  CSS text.
