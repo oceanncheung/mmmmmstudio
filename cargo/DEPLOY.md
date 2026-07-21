@@ -4255,3 +4255,36 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   unique media items and 12 scrubbers, and measured zero page-level overflow.
   Shared runtime remains `responsive-70`; the protected Round 69 gold baseline
   was not modified.
+
+## Round 81a (2026-07-21): latest-gold freeze and fail-closed deployment manifest — LOCAL/GITHUB ONLY
+- Ocean clarified that the preservation target is the actual latest verified
+  site, not the historical Round 80 capture. The new immutable identity is
+  `gold-2026-07-21-responsive-70`. It contains the current `responsive-70`
+  site plus the approved post-Round-80 WTW 504×504 correction and the four
+  intentional Withered Green paragraph rotations. Round 69 and Round 80 remain
+  unchanged historical references.
+- Independently read back the current public Home, Who, Write, global CSS, and
+  Custom HTML. Public Home contains all 68 ordered media IDs, 13 bands, V7 6/6,
+  Touchbaes 7/7, WTW `wtw-02` at 504×504, and two `responsive-70` markers.
+  Public Write contains exactly four direct `eye-roll` body-paragraph hooks and
+  a static Withered Green heading.
+- Added `cargo/deployment-manifest.json` and a semantic HTML validator. The
+  manifest locks the approved runtime/head markers, page identities, exact
+  Home band and media order, per-band and kind counts, V7/Touchbaes/Montran
+  embed contracts, WTW geometry, Who media order, and empty Write media
+  inventory, and every image/video/poster/iframe source identity. It is an
+  explicit approval boundary and must never be generated automatically from a
+  possibly damaged payload.
+- Wired the manifest into `cargo/validate-cargo-payload.sh` and the aggregate
+  audit gate. Thirteen negative fixtures now prove rejection of stale runtime
+  or head markers, missing WTW/V7/Touchbaes content, wrong WTW geometry, stale
+  embed versions, blank or replaced media sources, unexpected live iframe
+  sources, and malformed bodycopy. Frozen Round 80 evidence remains
+  byte-identical; its known
+  WTW geometry is superseded only in memory during current-state validation.
+- Created the local rollback snapshot
+  `cargo/gold/2026-07-21-responsive-70/` with canonical source, assembled pages,
+  validators, public-artifact fingerprints, and a complete checksum inventory.
+- `cargo/assemble-test.sh canonical` and
+  `audit/scripts/validate-phase2.sh` pass. This batch did not open or change the
+  Cargo editor, Freight, Figma, or the public site, and did not publish Cargo.

@@ -2166,3 +2166,27 @@ current source of truth for the built site.
 - No Cargo, Figma, Freight, or public mutation occurred in this audit batch.
   Preserve the user-owned untracked `cargo/home 3.html`, `cargo/who 3.html`, and
   `cargo/write 3.html` files.
+
+## Current state — latest gold and deployment-completeness guard
+- Ocean's current gold is `gold-2026-07-21-responsive-70`, representing the
+  actual latest verified site rather than the older Round 80 capture. The local
+  immutable snapshot is `cargo/gold/2026-07-21-responsive-70/` and records both
+  canonical hashes and Cargo-serialized public hashes.
+- Round 69 and Round 80 remain immutable historical references. Do not move,
+  replace, edit, or retag them.
+- The current gold includes WTW `wtw-02` at 504×504 and exactly four rotating
+  Withered Green body paragraphs with a static heading.
+- Audit PR 3 is merged. The first remediation branch is
+  `agent/deployment-manifest`, based on merged commit `f650360`.
+- `cargo/deployment-manifest.json` is now an explicit reviewed approval
+  boundary for Ocean's site. `cargo/validate-deployment-manifest.py` checks the
+  exact runtime/head markers, Home band/media order and counts, every media
+  source identity, embed versions, WTW geometry, Who media, and Write inventory.
+  The regular payload validator invokes it for bodycopy and head deployments.
+- Never auto-regenerate the deployment manifest from current or deployed HTML.
+  A damaged payload must fail instead of redefining the approved baseline.
+- `audit/scripts/validate-phase2.sh` contains thirteen negative deployment fixtures
+  plus the Withered Green fixtures. Run it and
+  `bash cargo/assemble-test.sh canonical` before later remediation work.
+- This first remediation did not change Cargo, Freight, Figma, or the public
+  site and did not publish Cargo.

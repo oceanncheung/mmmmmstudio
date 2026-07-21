@@ -1143,3 +1143,26 @@ agent needs to continue this project without the prior chat history.
   or public page was changed or published during this audit batch.
 - Preserve the user-owned untracked files `cargo/home 3.html`, `cargo/who 3.html`,
   and `cargo/write 3.html`; never stage or overwrite them.
+
+## Current handoff — latest gold and first remediation guard (2026-07-21)
+- PR 3 is merged into `round-81/audit-baseline`. Remediation work continues on
+  `agent/deployment-manifest`; do not restart from the older audit branch.
+- Ocean designated the actual latest verified site as the current gold. Use
+  `gold-2026-07-21-responsive-70`, not Round 80, as the default comparison and
+  rollback target. Its immutable local snapshot is
+  `cargo/gold/2026-07-21-responsive-70/`. Keep `round-69-gold` and
+  `round-80-stable` unchanged as historical references.
+- The current gold includes the post-Round-80 corrections: WTW `wtw-02` is
+  504×504, and Withered Green keeps exactly four rotating body paragraphs with
+  a static heading.
+- The first approved remediation is the fail-closed deployment manifest:
+  `cargo/deployment-manifest.json` plus
+  `cargo/validate-deployment-manifest.py`. It locks exact page/runtime/media/
+  embed/geometry/source contracts and is invoked by the normal Cargo payload
+  gate. Never regenerate the manifest automatically from current HTML.
+- The aggregate audit gate includes thirteen destructive negative fixtures for the
+  deployment manifest as well as the three Withered Green fixtures. Run both
+  `bash cargo/assemble-test.sh canonical` and
+  `bash audit/scripts/validate-phase2.sh` before the next remediation batch.
+- This guard/gold batch is local/GitHub-only. It did not mutate Cargo, Freight,
+  Figma, or the public site and did not publish Cargo.
