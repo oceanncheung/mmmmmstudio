@@ -1,0 +1,27 @@
+<dialog aria-label="site controls" aria-modal="false" class="mms-panel" id="mms-panel" open="">
+  <div class="mms-panel-primary">
+    <div class="row dots">
+      <button aria-label="white theme" aria-pressed="true" class="mms-dot" data-theme-set="white" style="--dot-bg:var(--primitive-white);--dot-center:var(--primitive-black)"></button>
+      <button aria-label="girly theme" aria-pressed="false" class="mms-dot" data-theme-set="girly" style="--dot-bg:var(--primitive-green);--dot-center:var(--primitive-pink)"></button>
+      <button aria-label="quirky theme" aria-pressed="false" class="mms-dot" data-theme-set="quirky" style="--dot-bg:var(--primitive-sky);--dot-center:var(--primitive-brown)"></button>
+      <button aria-label="contrast theme" aria-pressed="false" class="mms-dot" data-theme-set="contrast" style="--dot-bg:var(--primitive-magenta);--dot-center:var(--primitive-yellow)"></button>
+      <button aria-label="black theme" aria-pressed="false" class="mms-dot" data-theme-set="black" style="--dot-bg:var(--primitive-black);--dot-center:var(--primitive-white)"></button>
+    </div>
+    <div class="mms-scale">
+      <span class="a-min">a</span>
+      <input aria-label="type scale" id="mms-scale" max="3" min="0" step="1" type="range" value="1">
+      <span class="a-max">a</span>
+    </div>
+  </div>
+  <div class="row grid2">
+    <button aria-pressed="true" class="mms-btn face-serif" data-face-set="serif"><span class="mms-face-label">Serif</span></button>
+    <button aria-pressed="false" class="mms-btn face-sans" data-face-set="sans"><span class="mms-face-label">Sans</span></button>
+    <button aria-pressed="false" class="mms-btn face-mono" data-face-set="mono"><span class="mms-face-label">Mono</span></button>
+    <button aria-pressed="false" class="mms-btn face-gothic" data-face-set="gothic"><span class="mms-face-label">Gothic</span></button>
+  </div>
+  <div class="mms-shapes">
+    <button aria-label="straight frames" aria-pressed="true" class="mms-shape straight" data-shape-set="straight"><svg viewBox="0 0 24 24"><path d="M2 20 L8.5 9.5 L13 15 L16.5 10.5 L22 20 Z"></path><circle cx="17.5" cy="6" r="2.5"></circle></svg></button>
+    <button aria-label="rounded frames" aria-pressed="false" class="mms-shape rounded" data-shape-set="rounded"><svg viewBox="0 0 24 24"><path d="M2 20 L8.5 9.5 L13 15 L16.5 10.5 L22 20 Z"></path><circle cx="17.5" cy="6" r="2.5"></circle></svg></button>
+    <button aria-label="oval frames" aria-pressed="false" class="mms-shape oval" data-shape-set="oval"><svg viewBox="0 0 24 24"><path d="M2 20 L8.5 9.5 L13 15 L16.5 10.5 L22 20 Z"></path><circle cx="17.5" cy="6" r="2.5"></circle></svg></button>
+  </div>
+</dialog>
