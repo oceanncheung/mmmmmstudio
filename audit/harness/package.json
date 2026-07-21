@@ -1,0 +1,23 @@
+{
+  "name": "mms-audit-harness",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Read-only browser audit harness for the MM.S Round 80 baseline",
+  "scripts": {
+    "audit": "node src/cli.mjs",
+    "list": "node src/cli.mjs --list",
+    "validate": "node src/cli.mjs --validate-config",
+    "schema-test": "node src/schema-self-test.mjs",
+    "self-test": "npm run schema-test && node src/self-test.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "axe-core": "4.10.3",
+    "playwright-core": "1.55.0"
+  }
+}

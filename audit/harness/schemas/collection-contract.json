@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "mms-audit/v1",
+  "collections": {
+    "dom": [
+      "title, URL, lang, metadata, canonical links",
+      "runtime markers and active state axes",
+      "heading order, resolved links, duplicate IDs",
+      "approved intentional-design hook counts and forbidden placements"
+    ],
+    "computedStyles": [
+      "display/position/z-index",
+      "box and overflow properties",
+      "touch-action/pointer-events",
+      "color/background/typography",
+      "borders/radius/clip/object fitting/visibility"
+    ],
+    "geometry": [
+      "viewport/document dimensions and page overflow",
+      "band rectangles",
+      "river client/scroll dimensions and touch action",
+      "media rendered/natural dimensions, source, poster, policy, profile",
+      "media visible bounds after clipping ancestors, clipped edges, responsible ancestors, documented exceptions, and fail-closed transformed-boundary evidence",
+      "control target rectangles and sub-44px inventory",
+      "elements extending beyond the viewport"
+    ],
+    "accessibility": [
+      "Chromium full accessibility tree",
+      "role counts and unnamed interactive controls",
+      "axe-core WCAG 2.0/2.1/2.2 A/AA violations and incomplete checks"
+    ],
+    "diagnostics": [
+      "console messages and page errors",
+      "unhandled rejections and resource errors",
+      "failed requests",
+      "sent window.postMessage calls in each instrumented frame",
+      "delivered message events in each instrumented frame",
+      "observer-frame URL/depth and explicit postMessage instrumentation limitations"
+    ],
+    "network": [
+      "request URL/method/type/status/duration",
+      "request and response byte sizes",
+      "cache/range headers and service-worker source",
+      "CDP initial priority, protocol, MIME, and cache source",
+      "separate startup, scroll-measurement, checkpoint-traversal, and post-checkpoint phases"
+    ],
+    "performance": [
+      "navigation and paint entries",
+      "buffered LCP entries",
+      "CLS entries and total",
+      "long tasks and event timing",
+      "Chromium performance metrics and JS heap",
+      "vertical and first-river frame cadence"
+    ],
+    "screenshots": [
+      "top-of-page viewport checkpoint",
+      "one viewport checkpoint per Home showcase band in full profiles",
+      "pairwise state screenshots across the master viewport matrix"
+    ]
+  },
+  "postMessageLimitations": [
+    "Only script-enabled frames reached by the browser-context init observer can report traffic.",
+    "window.postMessage calls are observed through a transparent Proxy; later page replacement of the method can bypass outbound capture.",
+    "Cross-origin WindowProxy access can bypass a realm wrapper or attribute a sent call to the target realm, so delivered receive records are authoritative cross-origin evidence.",
+    "MessagePort, BroadcastChannel, service-worker, and browser-internal messaging are outside this collector.",
+    "Transferable or non-cloneable payloads can be reduced to type summaries without changing their original transfer lists."
+  ],
+  "networkPhases": [
+    "startup",
+    "scroll-measurement",
+    "checkpoint-traversal",
+    "post-checkpoint"
+  ]
+}

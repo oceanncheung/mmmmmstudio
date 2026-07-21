@@ -1,0 +1,92 @@
+{
+  "schema_version": "mms-audit/browser-summary/v1",
+  "captured_at": "2026-07-21T03:11:26.348Z",
+  "target_revision": "post-Round-80 working tree",
+  "runs": {
+    "local_home_states": {
+      "run_id": "2026-07-21T02-56-11-678Z__local-deterministic__states",
+      "captures": 480,
+      "media_ids": 68,
+      "fatal": 0,
+      "non_200": 0,
+      "page_overflow": 0,
+      "state_mismatches": 0,
+      "intentional_design_contract_failures": 0,
+      "unexpected_clip_observations": 150,
+      "unexpected_clip_media": {
+        "randompics-01": 150
+      },
+      "maximum_randompics_bottom_clip_px": 166.1875
+    },
+    "local_home_visual": {
+      "run_id": "2026-07-21T03-09-20-305Z__local-deterministic__visual",
+      "captures": 264,
+      "viewport_widths_px": [320, 390, 430, 431, 600, 768, 1023, 1024, 1440, 1920, 2560, 2940],
+      "media_ids": 68,
+      "fatal": 0,
+      "non_200": 0,
+      "page_overflow": 0,
+      "state_mismatches": 0,
+      "intentional_design_contract_failures": 0,
+      "unexpected_clip_observations": 71,
+      "unexpected_clip_media": {
+        "touchbaes-05": {
+          "observations": 22,
+          "affected_widths_px": [1024],
+          "maximum_top_clip_px": 68.71875
+        },
+        "randompics-01": {
+          "observations": 49,
+          "affected_widths_px": [1024, 1440, 1920, 2560, 2940],
+          "maximum_bottom_clip_by_width_px": {
+            "1024": 288.953125,
+            "1440": 166.1875,
+            "1920": 74.25,
+            "2560": 8.34375,
+            "2940": 8.34375
+          }
+        }
+      },
+      "wtw_02": {
+        "observations": 264,
+        "non_square_observations": 0,
+        "unexpected_clip_observations": 0,
+        "reference_width_at_1440_px": 504,
+        "reference_height_at_1440_px": 504
+      }
+    },
+    "local_write_smoke": {
+      "run_id": "2026-07-21T02-53-00-615Z__local-deterministic__smoke",
+      "captures": 2,
+      "viewport_widths_px": [390, 1440],
+      "intentional_design_contract_failures": 0,
+      "page_overflow": 0
+    },
+    "published_write_smoke": {
+      "run_id": "2026-07-21T02-54-30-049Z__published__smoke",
+      "captures": 2,
+      "viewport_widths_px": [390, 1440],
+      "intentional_design_contract_failures": 0,
+      "page_overflow": 0
+    },
+    "published_home_smoke": {
+      "run_id": "2026-07-21T02-55-09-747Z__published__smoke",
+      "captures": 2,
+      "media_ids": 68,
+      "page_overflow": 0,
+      "wtw_02_unexpected_clip_observations": 0,
+      "randompics_01_bottom_clip_at_1440_px": 12.1875,
+      "axe": {
+        "html_has_lang": 1,
+        "scrollable_region_focusable": 12,
+        "aria_allowed_attr": 12,
+        "compact_target_size": 5
+      },
+      "cargo_runtime_river_mutation": {
+        "affected_rivers": 12,
+        "unexpected_attributes": ["hidden", "aria-valuenow"],
+        "local_fixture_reproduces": false
+      }
+    }
+  }
+}

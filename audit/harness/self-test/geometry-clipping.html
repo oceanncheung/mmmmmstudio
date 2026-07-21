@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Ancestor clipping self-test</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    .mms-river {
+      display: flex;
+      align-items: flex-end;
+      width: 504px;
+      height: 504px;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    .clipped-square { flex: 0 0 765.2px; width: 765.2px; height: 765.2px; }
+    .horizontal-item { flex: 0 0 800px; width: 800px; height: 100px; }
+    .self-shaped { width: 100px; height: 100px; clip-path: ellipse(50% 50% at 50% 50%); }
+    .rotated-wrap { transform: rotate(8deg); transform-origin: 0 0; }
+    .rotated-clip { width: 160px; height: 160px; overflow: hidden; }
+    .rotated-child { width: 200px; height: 200px; }
+  </style>
+</head>
+<body>
+  <div class="mms-river">
+    <div class="clipped-square" data-media-id="clipped-square"></div>
+  </div>
+  <div class="mms-river">
+    <div class="horizontal-item" data-media-id="horizontal-river-item"></div>
+  </div>
+  <div class="self-shaped" data-media-id="self-shaped-item"></div>
+  <div data-media-id="deferred-video-wrapper">
+    <video data-src="video.mp4" data-poster="poster.jpg"></video>
+  </div>
+  <div class="rotated-wrap">
+    <div class="rotated-clip">
+      <div class="rotated-child" data-media-id="rotated-ancestor-item"></div>
+    </div>
+  </div>
+</body>
+</html>

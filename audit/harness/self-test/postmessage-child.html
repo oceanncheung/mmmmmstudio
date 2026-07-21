@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MM.S audit postMessage child</title>
+</head>
+<body>
+  <script>
+    window.addEventListener("message", (event) => {
+      if (event.origin !== location.origin) return;
+      const { kind, token } = event.data || {};
+      if (kind === "parent-to-child") {
+        setTimeout(() => {
+          window.parent.postMessage({ kind: "child-to-parent", token }, location.origin);
+        }, 20);
+      }
+      if (kind === "port-offer" && event.ports[0]) {
+        event.ports[0].postMessage({ kind: "port-reply", token });
+      }
+    });
+  </script>
+</body>
+</html>
