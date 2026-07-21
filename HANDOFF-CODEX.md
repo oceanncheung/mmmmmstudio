@@ -1103,3 +1103,18 @@ agent needs to continue this project without the prior chat history.
 - Reloaded Cargo and independent public proof both found 12 scrubbers, all 68
   unique Home media IDs, and zero page-level overflow. Cargo Last Published is
   2:40pm EDT on 2026-07-20.
+
+## Current handoff — Round 81 published WTW square-video correction
+- Round 81 is published. Home, Who, and Write remain on `responsive-70`; the
+  protected Round 69 gold baseline remains immutable.
+- Preserve the WTW-specific expanded river-height rule. The `wtw-02` source,
+  poster, frame, and live video are square, but the former generic 504-unit
+  river clipped the 765.2-unit asset by 261.2 units from the top. The corrected
+  river uses `height: auto` with the existing 504-unit minimum so the complete
+  square is visible and bottom alignment remains unchanged.
+- Reload-persisted Cargo CSS is 86,543 bytes with SHA-256
+  `b02243254016e0f40964ffa062aa49dd7acc38c8eeadfcc0420f2e130a8c5f27`;
+  the Cargo head and all three managed font blocks remain intact. Public proof
+  at 1024, 1440, and 1920px found square geometry, zero clipping, a native
+  1600×1600 loaded video, `object-fit: contain`, and zero page overflow. Cargo
+  Last Published is 8:57pm EDT on 2026-07-20.
