@@ -1109,6 +1109,9 @@ agent needs to continue this project without the prior chat history.
   `docs/audits/2026-07-20T175853-0400-round-80/`, commit `afc8b22`; never edit
   that evidence or `cargo/gold/round-69/`. Post-baseline facts are additive in
   `docs/audits/2026-07-20-post-round-80-delta.md`.
+- The audit implementation/findings commit is `c8ef564`; GitHub draft PR 3
+  targets `round-81/audit-baseline`. Review or merge that PR before starting a
+  remediation branch; do not target `main` directly from the audit branch.
 - `audit/` contains the system and asset inventories, exact JSON schemas, the
   deterministic local/Cargo-snapshot/published browser harness, machine-readable
   intentional-design contracts, and evidence-backed findings. Run

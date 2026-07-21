@@ -2136,6 +2136,8 @@ current source of truth for the built site.
 - Work is isolated on `round-81/audit-harness`. The immutable Phase 1 Round 80
   capture lives at `docs/audits/2026-07-20T175853-0400-round-80/` and was
   committed as `afc8b22`. Treat both it and `cargo/gold/round-69/` as read-only.
+- Audit source and findings are committed at `c8ef564` and proposed through
+  GitHub draft PR 3 against `round-81/audit-baseline`, not `main`.
 - The checked-in `audit/` foundation inventories the system and 471 asset
   records, enforces JSON schemas with Ajv, and runs deterministic local,
   Cargo-snapshot, optional live-draft, and published browser targets. Its 240
