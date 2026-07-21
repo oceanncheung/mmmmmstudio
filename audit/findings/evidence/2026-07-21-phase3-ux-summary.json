@@ -1,0 +1,403 @@
+{
+  "schema_version": "mms-audit/phase3-ux-summary/v1",
+  "generated_at": "2026-07-21T00:39:05-0400",
+  "mode": "read-only",
+  "scope": {
+    "workstream": "Product, UX, and visual-direction review",
+    "surfaces": [
+      "Home / Work",
+      "Write",
+      "Who",
+      "compact control panel",
+      "expanded control panel",
+      "native showcase rivers",
+      "expanded fine-pointer river scrubbers"
+    ],
+    "assessment_topics": [
+      "primary visitor journey",
+      "visual hierarchy",
+      "control discoverability",
+      "river and scrubber affordance",
+      "secondary-page information architecture",
+      "page ending",
+      "deterministic anti-patterns"
+    ],
+    "mutations": {
+      "cargo": false,
+      "figma": false,
+      "public_site": false
+    }
+  },
+  "design_context": {
+    "audience": "Prospective clients reviewing MM.S work across desktop and mobile, often moving quickly through visual project rivers while testing the site controls.",
+    "primary_job": "Understand the studio, inspect relevant work, experiment with its presentation, and contact or book MM.S.",
+    "personality": [
+      "editorial",
+      "raw",
+      "playful",
+      "precise"
+    ],
+    "protected_direction": "A distinctive personal plain-HTML/no-design portfolio rather than a generic agency template."
+  },
+  "evidence": {
+    "published_route_run": {
+      "path": "audit/harness/output/2026-07-21T03-54-05-459Z__published__routes/run.json",
+      "sha256": "424eccdf64c108d2b08fc9be7a547ec036164c00b2d1d07ee46d656c647a00d6",
+      "captures": 6,
+      "viewports": [
+        {
+          "width": 390,
+          "height": 844,
+          "dpr": 2
+        },
+        {
+          "width": 1440,
+          "height": 900,
+          "dpr": 1
+        }
+      ],
+      "pages": [
+        "home",
+        "write",
+        "who"
+      ]
+    },
+    "tracked_visual_references": [
+      {
+        "path": "docs/audits/2026-07-20T175853-0400-round-80/public/screenshots/home-mobile-390x844.png",
+        "sha256": "21ad47f8ee2e9844b6d36ec079640b2c9375da60ec09f986e44b678f531b566b"
+      },
+      {
+        "path": "docs/audits/2026-07-20T175853-0400-round-80/public/screenshots/home-desktop-1440x900.png",
+        "sha256": "1f7a8da76bef67f6f570262daeaaee06f9ebf062315351784822a3ac4ffe3cfd"
+      },
+      {
+        "path": "docs/audits/2026-07-20T175853-0400-round-80/public/screenshots/write-mobile-390x844.png",
+        "sha256": "4e0c641e0e3d77e004c841e055cf4a68060a1f26e51e64c8149948298b1688dc"
+      },
+      {
+        "path": "docs/audits/2026-07-20T175853-0400-round-80/public/screenshots/write-desktop-1440x900.png",
+        "sha256": "f59cd1ec136b30e7cdf3fec4049a76f31cb4746adc1b5f742ac37636487d69c0"
+      },
+      {
+        "path": "docs/audits/2026-07-20T175853-0400-round-80/public/screenshots/who-mobile-390x844.png",
+        "sha256": "85ca9709d4a623d5d2c4b4bd9c90a56614c01bd95de74f39f40728f78ba6de3f"
+      },
+      {
+        "path": "docs/audits/2026-07-20T175853-0400-round-80/public/screenshots/who-desktop-1440x900.png",
+        "sha256": "c23a321fa0005311d100827bc9643733369bc580142b09816fcad38731331294"
+      }
+    ],
+    "cross_workstream_records": [
+      {
+        "path": "audit/findings/evidence/2026-07-21-phase3-runtime-summary.json",
+        "sha256": "94d7fa1052e9d7c3e8775063763b3f90939e33f711227b9dcca790957ceefaf9"
+      },
+      {
+        "path": "audit/findings/evidence/2026-07-21-phase3-content-summary.json",
+        "sha256": "ed3422ca2f78b23b4b240ff60dc015a49d10907f8cb71c10040ad18ed00ba7b6"
+      },
+      {
+        "path": "audit/findings/evidence/2026-07-21-phase3-figma-summary.json",
+        "sha256": "2c460a8cd26fceab702b584ea2b1b64ae04e2a0edeef64b02cf867c06e79ca88"
+      }
+    ],
+    "canonical_source_hashes": {
+      "cargo/home.template.html": "7d9446d75174c6096c268d3d46fb72d8972d50e75540e241c83a7f47bc88041e",
+      "cargo/write.template.html": "348a820f9d24755cad7dbdfa4ab8c0016d585d60b745737b819df7c823a02608",
+      "cargo/who.template.html": "1eb7e7aa4e3ae37ac2da9793f63e52b76e8d3bb92f60b0dd0b9b523a3f2c0e21",
+      "cargo/site.css": "c47485c1c3b55fc6b5cb577a7ad3c2115cd2cb6fdc7f3f1261ef20ae6a51f6f1",
+      "cargo/panel.js": "a5e7f492f987804df0b1ea999ae4d25aeabf49dbe81c39e6749cb8cfd9f68987"
+    },
+    "deterministic_anti_pattern_scan": {
+      "tool": "impeccable",
+      "version": "3.2.1",
+      "command": "npx --yes impeccable --json cargo/home.template.html cargo/write.template.html cargo/who.template.html",
+      "exit_code": 0,
+      "finding_count": 0,
+      "raw_result": []
+    }
+  },
+  "measured_journey": {
+    "home_compact": {
+      "document_height_css_px": 9611,
+      "project_band_count": 13,
+      "first_band": "eviive",
+      "first_band_top_css_px": 528,
+      "last_band": "wtw",
+      "last_band_bottom_css_px": 9547.09375,
+      "final_padding_css_px": 63.90625,
+      "native_horizontally_scrollable_rivers": 12
+    },
+    "home_expanded": {
+      "document_height_css_px": 11466,
+      "project_band_count": 13,
+      "last_band": "wtw",
+      "last_band_bottom_css_px": 11425.5,
+      "final_padding_css_px": 40.5,
+      "native_horizontally_scrollable_rivers": 12,
+      "fine_pointer_scrubbers": 12
+    },
+    "journey_assessment": [
+      {
+        "step": "arrive",
+        "result": "pass",
+        "evidence": "The studio proposition, Work/Write/Who navigation, contact links, clock, and control invitation all appear before the first project at the audited compact and expanded defaults."
+      },
+      {
+        "step": "understand MM.S",
+        "result": "pass",
+        "evidence": "The introduction states services, range, and the personal studio proposition without a generic agency hero or marketing claims."
+      },
+      {
+        "step": "browse work",
+        "result": "pass_with_known_defects",
+        "evidence": "Thirteen project bands preserve varied proportions and native rivers; the known expanded Random Pics clipping and absence of non-linear project destinations remain exceptions."
+      },
+      {
+        "step": "operate media",
+        "result": "pass",
+        "evidence": "Touch and trackpad retain native scrolling; fine-pointer expanded layouts add description-aligned scrubbers with track click, drag, and keyboard operation."
+      },
+      {
+        "step": "experiment with controls",
+        "result": "pass_with_discoverability_gap",
+        "evidence": "Home explicitly introduces the control panel and selected states are visible. Direct compact entry to Write or Who presents only an unexplained plus glyph visually."
+      },
+      {
+        "step": "contact or book",
+        "result": "fail_on_compact_page_end",
+        "evidence": "Desktop retains Email and LinkedIn in the rail. Compact navigation releases after the first project, while Home ends after WTW with only the MM.S/clock/plus header and no closing contact path."
+      }
+    ]
+  },
+  "design_health": {
+    "framework": "Nielsen heuristics, 0-4 each",
+    "scores": [
+      {
+        "id": 1,
+        "name": "Visibility of system status",
+        "score": 3,
+        "key_issue": "Control selections and loading states respond, but current route is not visually distinguished."
+      },
+      {
+        "id": 2,
+        "name": "Match between system and real world",
+        "score": 3,
+        "key_issue": "Native links and scrollbars are familiar; the compact plus is ambiguous without Home's explanatory copy."
+      },
+      {
+        "id": 3,
+        "name": "User control and freedom",
+        "score": 3,
+        "key_issue": "Rivers and panel have multiple exit/input paths, but compact visitors lack a direct end-of-page contact or return path."
+      },
+      {
+        "id": 4,
+        "name": "Consistency and standards",
+        "score": 3,
+        "key_issue": "The shared shell is coherent; visual route state and semantic page hierarchy are incomplete."
+      },
+      {
+        "id": 5,
+        "name": "Error prevention",
+        "score": 3,
+        "key_issue": "The low-risk browsing experience is guarded well, though known clipping and dead historic routes remain."
+      },
+      {
+        "id": 6,
+        "name": "Recognition rather than recall",
+        "score": 2,
+        "key_issue": "Compact visitors must remember top-of-page contact links after they scroll through the portfolio."
+      },
+      {
+        "id": 7,
+        "name": "Flexibility and efficiency",
+        "score": 4,
+        "key_issue": "Touch, trackpad, mouse scrubber, keyboard, and presentation controls provide complementary paths."
+      },
+      {
+        "id": 8,
+        "name": "Aesthetic and minimalist design",
+        "score": 4,
+        "key_issue": "The raw editorial system is focused, distinctive, and free of detected generic-interface patterns."
+      },
+      {
+        "id": 9,
+        "name": "Error recognition and recovery",
+        "score": 2,
+        "key_issue": "Posters prevent many empty media states, but the empty 404 and unavailable legacy destinations provide no recovery path."
+      },
+      {
+        "id": 10,
+        "name": "Help and documentation",
+        "score": 2,
+        "key_issue": "Home teaches the control panel briefly; secondary pages and the desktop scrubber rely on recognition rather than explicit help."
+      }
+    ],
+    "total": 29,
+    "maximum": 40,
+    "rating": "Good"
+  },
+  "cognitive_load": {
+    "failed_checklist_items": [
+      "Minimal choices: the open panel exposes 13 choices, although four-axis grouping makes this manageable.",
+      "Working memory: compact contact links disappear during the long portfolio and are not repeated at the ending."
+    ],
+    "failure_count": 2,
+    "rating": "moderate",
+    "qualifier": "The control panel is an optional playful tool rather than a required conversion step, so its grouped option count is not itself a redesign mandate."
+  },
+  "anti_pattern_verdict": {
+    "pass": true,
+    "looks_ai_generated": false,
+    "assessment": "The site has a specific authorial voice: browser-default links, deliberate asymmetry, variable media proportions, awkwardly direct copy, raw outlines, and an editorial rather than conversion-template composition. It avoids generic card grids, gradient text, glass surfaces, hero metrics, decorative dashboards, and safe agency calls to action.",
+    "detector_finding_count": 0,
+    "protected_non_defects": [
+      "browser-default underlined links",
+      "asymmetric composition",
+      "variable media proportions",
+      "native horizontal rivers",
+      "intentional awkwardness and abrupt editorial transitions",
+      "Random Pics as an untitled interlude",
+      "Withered Green paragraph rotation"
+    ]
+  },
+  "findings": [
+    {
+      "id": "UX-01",
+      "severity": "P1",
+      "title": "The compact portfolio journey ends without a contact path",
+      "surfaces": [
+        "Home compact",
+        "WTW ending",
+        "compact sticky header"
+      ],
+      "evidence": [
+        "The audited compact document is 9611px tall and WTW ends at 9547.09375px, leaving the approved approximately 64px final padding.",
+        "Work/Write/Who/Email/LinkedIn release after the first project; the remaining compact header exposes only MM.S, clock, and the control-panel plus.",
+        "cargo/home.template.html ends immediately after the WTW description and shared panel insertion."
+      ],
+      "impact": "A prospective client who finishes the strongest proof sequence has no visible way to email or book without returning roughly 9500px to the top. This blocks the final step of the stated primary journey on the most interruption-prone device class.",
+      "recommendation": "Add a minimal compact-only closing echo using the existing raw Email and LinkedIn links, optionally with a short sentence in the site's voice. Do not add a generic CTA card, rounded footer, or agency conversion block. Preserve the 64px final spacing contract.",
+      "decision_gate": "Ocean must approve whether the closing treatment is two plain links, one short contact sentence, or an intentional no-contact ending."
+    },
+    {
+      "id": "UX-02",
+      "severity": "P2",
+      "title": "Thirteen projects can only be traversed serially",
+      "surfaces": [
+        "Home compact",
+        "Home expanded",
+        "historic project links"
+      ],
+      "evidence": [
+        "Home contains 13 project bands across 9611px compact and 11466px expanded documents.",
+        "Project bands have data-band names but no stable fragment ids.",
+        "The content audit confirms currently indexed historic /work/* routes terminate at an empty 404."
+      ],
+      "impact": "A client looking for a known project cannot jump to it or share it, and returning visitors must replay the entire vertical sequence. The serial flow is attractive for discovery but inefficient for targeted review.",
+      "recommendation": "First add stable, invisible project fragments and map historic routes. Consider a raw text project index only if Ocean wants a non-linear browsing path; do not turn the page into a conventional portfolio grid or filter UI.",
+      "decision_gate": "Ocean must decide whether serial editorial discovery is intentionally exclusive or whether a minimal optional project index is desirable."
+    },
+    {
+      "id": "UX-03",
+      "severity": "P2",
+      "title": "Work, Write, and Who do not show visual current-location state",
+      "surfaces": [
+        "shared compact navigation",
+        "expanded rail",
+        "Write",
+        "Who"
+      ],
+      "evidence": [
+        "All five shared links use the same browser-default underline treatment.",
+        "aria-current is correct, but cargo/site.css defines no visual current-state treatment.",
+        "The content audit records no route-level heading and an incomplete project/article heading hierarchy."
+      ],
+      "impact": "Direct visitors to Write or Who must infer their location from the content, while every navigation choice looks equally active. This weakens the three-page information architecture without helping the editorial character.",
+      "recommendation": "Add a visual-neutral current-state distinction using existing typography or underline logic, and add a semantic route heading without changing the visible plain-HTML composition. Avoid pills, tabs, breadcrumbs, or new chrome.",
+      "decision_gate": "Ocean must approve the visible current-link treatment; the semantic heading repair can remain visually hidden if preferred."
+    },
+    {
+      "id": "UX-04",
+      "severity": "P2",
+      "title": "Random Pics breaks the expanded visual rhythm through clipping",
+      "surfaces": [
+        "Random Pics expanded",
+        "1024px structural boundary"
+      ],
+      "evidence": [
+        "The geometry audit records Random Pics as the only repeated expanded media clip: up to 288.953125px at 1024px, 12.1875px at the default 1440px state, and 8.34375px at the widest references.",
+        "The published expanded band screenshot shows the caption/reel unit competing with the persistent introduction layer instead of reading as the intended isolated interlude."
+      ],
+      "impact": "A deliberate non-work interlude reads as a layout failure at a key desktop transition, reducing confidence in the otherwise precise image choreography.",
+      "recommendation": "Fit the complete caption, 12px gap, and reel inside the band's intrinsic expanded height. Preserve its centered, untitled, offbeat interlude role and do not normalize it into a standard project card.",
+      "decision_gate": "Confirm the current Figma caption/reel grouping before any visible height change."
+    },
+    {
+      "id": "UX-05",
+      "severity": "P3",
+      "title": "The compact plus control is only explained on Home",
+      "surfaces": [
+        "Write compact",
+        "Who compact",
+        "shared mobile header"
+      ],
+      "evidence": [
+        "Home explicitly says 'Have fun with the + control panel'.",
+        "Write and Who contain the same plus trigger but no visible explanatory cue.",
+        "The button has the correct accessible label 'open site controls', so this is a visual first-time discoverability issue rather than an unlabeled-control defect."
+      ],
+      "impact": "A direct visual visitor may read the plus as create/add and never discover the site's presentation tool. Core content remains usable, so this is polish rather than a blocked journey.",
+      "recommendation": "Preserve the approved plus glyph. If direct-entry testing confirms confusion, introduce a restrained one-time or contextual cue on Write and Who rather than permanently labeling or redesigning the button.",
+      "decision_gate": "Ocean must choose whether the control panel should remain a discoverable surprise on secondary pages or receive a compact cue."
+    }
+  ],
+  "severity_counts": {
+    "P0": 0,
+    "P1": 1,
+    "P2": 3,
+    "P3": 1
+  },
+  "positive_findings": [
+    "The first viewport explains the studio quickly without a generic hero, service-card grid, testimonials, metrics, or sales copy.",
+    "The native river model preserves organic proportions and gives compact users a visible next-item cue; expanded fine-pointer scrubbers add mouse and keyboard access without intercepting native trackpad behavior.",
+    "The control panel is a genuine brand interaction rather than decorative configuration. Its four axes are grouped, states are visible, and it remains optional to the browsing task.",
+    "Work, Write, and Who share one recognizable shell while allowing deliberately different content rhythms: visual rivers, staggered writing, and founder profiles.",
+    "Who's expanded portraits settle at the viewport bottom after the introduction, creating a clear introduction-to-people sequence.",
+    "Write's irregular widths and whitespace feel authored. Withered Green's four rotating body paragraphs are an intentional Cargo-only motion requirement and must remain.",
+    "WTW remains a strong final visual project and its second media item is protected at the approved square 504 by 504 geometry.",
+    "The deterministic anti-pattern scan returned zero findings across the three canonical templates."
+  ],
+  "persona_observations": [
+    {
+      "persona": "Prospective creative client",
+      "result": "The studio proposition and range are immediately clear, but targeted project review and compact end-of-page contact are inefficient."
+    },
+    {
+      "persona": "Confused first-timer",
+      "result": "Home teaches the plus control and shows familiar links; direct Write/Who entry leaves the plus and current route visually ambiguous."
+    },
+    {
+      "persona": "Distracted mobile visitor",
+      "result": "Native swiping and persistent settings support interruption, but contact links disappear long before the 9611px journey ends."
+    }
+  ],
+  "decision_gates": [
+    "Approve or reject a compact-only closing contact echo after WTW.",
+    "Decide whether project traversal remains exclusively serial or gains an optional raw-text index after stable fragments exist.",
+    "Approve a minimal visible current-route treatment for Work, Write, and Who.",
+    "Decide whether direct compact entry to Write and Who needs a control-panel cue.",
+    "Confirm the Random Pics Figma grouping before correcting expanded intrinsic height."
+  ],
+  "protected_contracts": [
+    "Round 69 gold remains immutable.",
+    "The plain-HTML/no-design character must not be standardized into a generic agency site.",
+    "Browser-default links and intentional asymmetry are not defects by themselves.",
+    "Native horizontal rivers remain native; no wheel interception, forced stepping, snapping, or animated correction.",
+    "Expanded scrubbers remain a supplemental fine-pointer and keyboard route, not a replacement for native scrolling.",
+    "WTW wtw-02 remains 504 by 504 and unclipped.",
+    "Withered Green retains exactly four rotating direct body-paragraph spans and no rotating heading."
+  ]
+}

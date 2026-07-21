@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mmmmm.studio/audit/schemas/run.schema.json",
+  "title": "MM.S audit run manifest",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "kind",
+    "startedAt",
+    "target",
+    "suite",
+    "scenarioCount",
+    "browser",
+    "repository",
+    "baseline",
+    "safety",
+    "determinism",
+    "captures"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "mms-audit/v1" },
+    "kind": { "const": "run-manifest" },
+    "startedAt": { "type": "string", "format": "date-time" },
+    "completedAt": { "type": ["string", "null"], "format": "date-time" },
+    "target": {
+      "type": "object",
+      "required": ["name", "kind", "description", "authority", "limitations"],
+      "properties": {
+        "name": { "type": "string" },
+        "kind": { "enum": ["fixture", "remote", "remote-optional"] },
+        "description": { "type": "string" },
+        "authority": { "type": "string" },
+        "limitations": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "suite": { "enum": ["smoke", "routes", "states", "visual"] },
+    "pageSelection": { "enum": ["home", "write", "who", "all"] },
+    "scenarioCount": { "type": "integer", "minimum": 1 },
+    "browser": { "type": "object" },
+    "repository": { "type": "object" },
+    "baseline": { "type": "object" },
+    "safety": { "type": "object" },
+    "determinism": {
+      "type": "object",
+      "required": ["scenarioOrder", "stateMatrix", "runtimeMutation", "note"],
+      "properties": {
+        "scenarioOrder": { "const": "fixed" },
+        "stateMatrix": { "type": "string" },
+        "runtimeMutation": { "const": false },
+        "note": { "type": "string" }
+      }
+    },
+    "captures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["scenarioId", "path", "fatal", "requestFailures", "consoleErrors"],
+        "properties": {
+          "scenarioId": { "type": "string" },
+          "path": { "type": "string" },
+          "fatal": { "type": "boolean" },
+          "status": { "type": ["integer", "null"] },
+          "pageOverflowX": { "type": ["number", "null"] },
+          "unexpectedMediaClipping": { "type": ["integer", "null"], "minimum": 0 },
+          "axeViolations": { "type": ["integer", "null"] },
+          "consoleErrors": { "type": "integer", "minimum": 0 },
+          "requestFailures": { "type": "integer", "minimum": 0 },
+          "stateMismatch": { "type": ["boolean", "null"] },
+          "intentionalDesignContractFailures": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "screenshot": { "type": ["object", "null"] }
+        }
+      }
+    },
+    "platformProbes": { "type": "array", "items": { "type": "object" } },
+    "mediaEvidence": { "type": "object" },
+    "summary": { "type": ["object", "null"] }
+  }
+}

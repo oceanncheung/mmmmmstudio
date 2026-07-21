@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mmmmm.studio/audit/contracts/intentional-design-contracts.schema.json",
+  "title": "MM.S intentional design contracts",
+  "type": "object",
+  "required": ["schema_version", "contracts"],
+  "properties": {
+    "schema_version": { "const": "mms-audit/intentional-design-contracts/v1" },
+    "contracts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "authority",
+          "page",
+          "selector",
+          "expected_count",
+          "forbidden_selector",
+          "implementation",
+          "figma_parity",
+          "evidence",
+          "audit_treatment",
+          "baseline_context"
+        ],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "status": { "const": "required" },
+          "authority": { "type": "string", "minLength": 1 },
+          "page": { "enum": ["home", "write", "who"] },
+          "selector": { "type": "string", "minLength": 1 },
+          "expected_count": { "type": "integer", "minimum": 1 },
+          "forbidden_selector": { "type": "string", "minLength": 1 },
+          "implementation": {
+            "type": "object",
+            "required": ["provider", "effect", "behavior", "responsive_contract", "fixed_angle_required"]
+          },
+          "figma_parity": {
+            "type": "object",
+            "required": ["classification", "static_endpoint_rotation_degrees", "reference_nodes", "note"]
+          },
+          "evidence": {
+            "type": "object",
+            "required": ["published_route", "observed_widths_css_px", "observed_result"]
+          },
+          "audit_treatment": { "type": "string", "minLength": 1 },
+          "baseline_context": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

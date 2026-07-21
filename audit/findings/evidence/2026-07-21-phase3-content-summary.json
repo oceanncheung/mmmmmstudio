@@ -1,0 +1,290 @@
+{
+  "schema_version": "mms-audit/content-summary/v1",
+  "generated_at": "2026-07-21T03:58:27Z",
+  "target_revision": {
+    "git_commit": "afc8b220b10f7de46911b153afaee314a6f80a9e",
+    "description": "post-Round-80 working tree with additive audit and protected-contract changes",
+    "audit_mode": "read-only"
+  },
+  "scope": {
+    "purpose": "Phase 3 content, information-architecture, metadata, route, and link audit across canonical local Home, Write, and Who sources and the current published site",
+    "cargo_edited": false,
+    "figma_edited": false,
+    "deployed": false,
+    "published": false,
+    "limitations": [
+      "Published metadata and routes were observed from the public network at the generated_at time and may change after a later Cargo publication.",
+      "Search-result evidence establishes that named legacy work routes remain discoverable; it is not a complete index of every historic project URL.",
+      "Local standalone fixtures intentionally omit Cargo-owned title, description, social, favicon, robots, sitemap, and canonical metadata."
+    ]
+  },
+  "protected_contracts": {
+    "round_69_gold": "immutable rollback reference; not modified",
+    "native_rivers": "no wheel interception, forced stepping, snapping, or animated correction proposed",
+    "withered_green": {
+      "source": "cargo/write.template.html:31-37",
+      "expected_direct_paragraph_hooks": 4,
+      "published_direct_paragraph_hooks": 4,
+      "published_all_hooks": 4,
+      "published_heading_hooks": 0,
+      "published_contract_valid": true,
+      "requirement": "retain the intentional Cargo-native eye-roll rotation around each of the four body paragraphs; keep the heading static"
+    }
+  },
+  "canonical_local_sources": {
+    "cargo/home.template.html": "7d9446d75174c6096c268d3d46fb72d8972d50e75540e241c83a7f47bc88041e",
+    "cargo/home.html": "09555a6fe3ebaa54659057733d0f4bad4a5aaca7d9739f9853b7bfbfd3ff8c52",
+    "cargo/write.template.html": "348a820f9d24755cad7dbdfa4ab8c0016d585d60b745737b819df7c823a02608",
+    "cargo/write.html": "871140a2b7091a55495bf89e31adad1a82ac4108d2d5a88761ad1f9464655e33",
+    "cargo/who.template.html": "1eb7e7aa4e3ae37ac2da9793f63e52b76e8d3bb92f60b0dd0b9b523a3f2c0e21",
+    "cargo/who.html": "d15ae1d4af733983a70f3182e8374b5daad0d54301e9e713783c26976dbbe383",
+    "cargo/shared-desktop-nav.html": "62e0868865401120ab817fd5122b8c17e672b1a122cce55ef0f57f3258fabed7",
+    "cargo/shared-compact-nav.html": "48894f085c588618f509308d3dee1ee6066a3b4f280bd0ebf2598a4ff98f7ed1",
+    "cargo/shared-nav-items.html": "0f5ab94a8b59380ded80de9931af08d9072396a24411038254d6f245ba453361",
+    "cargo/site-head.html": "d677c1a7e81a20482d1aa02959284f51775f0fe39411521ef91d9a972657fd56"
+  },
+  "rendered_copy_parity": {
+    "normalization": "visible MM.S-root text with whitespace collapsed and dynamic HH:MM:SS clock values replaced by CLOCK",
+    "home": {
+      "local_text_sha256": "a52c6b5aae17e9fb15f6ca906bcbcfc7a7e728d872893a5352a53a8aaa2c6129",
+      "published_text_sha256": "a52c6b5aae17e9fb15f6ca906bcbcfc7a7e728d872893a5352a53a8aaa2c6129",
+      "match": true,
+      "bands": 13,
+      "project_descriptions": 12,
+      "wtw_category": "2023 – Brand identity and graphic design • Entertainment"
+    },
+    "write": {
+      "local_text_sha256": "43920ccd6988e25f1e2d18d805b8e59edbe093e4b7b5261c71fc816b6372db3a",
+      "published_text_sha256": "43920ccd6988e25f1e2d18d805b8e59edbe093e4b7b5261c71fc816b6372db3a",
+      "match": true,
+      "articles": 5,
+      "withered_green_rotation_preserved": true
+    },
+    "who": {
+      "local_text_sha256": "017dca5e88d1dbdd9cea686f5b2a9dd6d8575994506ecbbea4b449a4c7b9856d",
+      "published_text_sha256": "017dca5e88d1dbdd9cea686f5b2a9dd6d8575994506ecbbea4b449a4c7b9856d",
+      "match": true,
+      "profiles": 2
+    },
+    "encoding": {
+      "public_content_type": "text/html; charset=utf-8",
+      "mojibake_or_replacement_matches": 0,
+      "scan_patterns": [
+        "Ã",
+        "Â",
+        "â",
+        "U+FFFD"
+      ],
+      "explicit_language_override": "cargo/write.template.html:58 uses lang=yue-Hant for the Cantonese passage"
+    }
+  },
+  "published_documents": {
+    "home": {
+      "url": "https://mmmmm.studio/",
+      "status": 200,
+      "bytes": 524540,
+      "sha256": "91e99936a74efbf37dce49203e691b92b5e80b120915633c170f27bd15a19fe8",
+      "title": "MM.S",
+      "description": "MM.S is a design studio specializing in brand identity, digital, motion, and print design. Our work and non-work span between corporate OOH campaigns to DIY zines.",
+      "document_lang": "",
+      "canonical": [],
+      "robots_meta": "",
+      "og_url": "https://mmmmm.studio",
+      "og_image": "https://freight.cargo.site/w/1000/i/M3044271922434416013235404191545/screenshot-0493811108.jpg",
+      "twitter_card": "summary_large_image",
+      "favicon": "https://static.cargo.site/favicon/c3-favicon.ico"
+    },
+    "write": {
+      "url": "https://mmmmm.studio/write",
+      "status": 200,
+      "bytes": 527709,
+      "sha256": "7de1ebaad95908c5fd31e4f7efcc381ab832d68e21df18f19b779ba89ad0d138",
+      "title": "write — MM.S",
+      "description": "MM.S is a design studio specializing in brand identity, digital, motion, and print design. Our work and non-work span between corporate OOH campaigns to DIY zines.",
+      "document_lang": "",
+      "canonical": [],
+      "robots_meta": "",
+      "og_url": "https://mmmmm.studio/write",
+      "og_image": "https://freight.cargo.site/w/1000/i/M3044271922434416013235404191545/screenshot-0493811108.jpg",
+      "twitter_card": "summary_large_image",
+      "favicon": "https://static.cargo.site/favicon/c3-favicon.ico"
+    },
+    "who": {
+      "url": "https://mmmmm.studio/who",
+      "status": 200,
+      "bytes": 527951,
+      "sha256": "834528de2be936d60f0ae8bc8f3d48ce73dc7bb04e9b707881b97e957dba7e37",
+      "title": "who — MM.S",
+      "description": "MM.S is a design studio specializing in brand identity, digital, motion, and print design. Our work and non-work span between corporate OOH campaigns to DIY zines.",
+      "document_lang": "",
+      "canonical": [],
+      "robots_meta": "",
+      "og_url": "https://mmmmm.studio/who",
+      "og_image": "https://freight.cargo.site/w/1000/i/M3044271922434416013235404191545/screenshot-0493811108.jpg",
+      "twitter_card": "summary_large_image",
+      "favicon": "https://static.cargo.site/favicon/c3-favicon.ico"
+    }
+  },
+  "route_probes": {
+    "authoritative_routes": {
+      "/": 200,
+      "/write": 200,
+      "/who": 200
+    },
+    "duplicate_home_routes": {
+      "/home": {
+        "status": 200,
+        "text_sha256": "a52c6b5aae17e9fb15f6ca906bcbcfc7a7e728d872893a5352a53a8aaa2c6129",
+        "same_text_as_home": true,
+        "canonical": [],
+        "robots_meta": "",
+        "listed_in_sitemap": false
+      },
+      "/information": {
+        "status": 200,
+        "text_sha256": "a52c6b5aae17e9fb15f6ca906bcbcfc7a7e728d872893a5352a53a8aaa2c6129",
+        "same_text_as_home": true,
+        "canonical": [],
+        "robots_meta": "",
+        "listed_in_sitemap": true
+      }
+    },
+    "host_and_slash_variants": {
+      "http://mmmmm.studio/": "301 to https://mmmmm.studio/",
+      "http://www.mmmmm.studio/": "301 to https://www.mmmmm.studio/",
+      "https://www.mmmmm.studio/": "200; no redirect to apex; no canonical",
+      "https://mmmmm.studio/write/": "200; no slash normalization",
+      "https://mmmmm.studio/who/": "200; no slash normalization",
+      "https://mmmmm.studio/home/": "200; no slash normalization",
+      "https://mmmmm.studio/information/": "200; no slash normalization"
+    },
+    "legacy_indexed_work_routes": {
+      "/work/whats-the-word": 404,
+      "/work/anyday": 404,
+      "/work/eviive": 404,
+      "/work/montran": 404
+    },
+    "superseded_named_routes": {
+      "/write-1": 404,
+      "/who-1": 404
+    },
+    "missing_route": {
+      "path": "/__mms_content_audit_missing__",
+      "status": 404,
+      "title": "Page not found",
+      "rendered_body_text": "",
+      "landmarks": 0,
+      "links": 0
+    }
+  },
+  "robots_and_sitemap": {
+    "robots": {
+      "url": "https://mmmmm.studio/robots.txt",
+      "status": 200,
+      "bytes": 507,
+      "sha256": "590e3955ff68c78b17b21eddc4e7c11fa94cb35169764c2d1795b6b66aae9394",
+      "default_user_agent": "Allow: /",
+      "sitemap_directive": "https://mmmmm.studio/sitemap.xml"
+    },
+    "sitemap": {
+      "url": "https://mmmmm.studio/sitemap.xml",
+      "status": 200,
+      "bytes": 1672,
+      "sha256": "ec6175d0cbb09198eb1f9814fccf9c32e29c53928613f01a2d0fd19310ca2ac7",
+      "well_formed_xml": true,
+      "entries": [
+        "https://mmmmm.studio/who",
+        "https://mmmmm.studio/write",
+        "https://mmmmm.studio",
+        "https://mmmmm.studio/information"
+      ],
+      "duplicate_home_entry": "https://mmmmm.studio/information",
+      "home_image_entry": "https://freight.cargo.site/t/original/i/T3021061337325266132272427874105/eviive-3.jpg"
+    }
+  },
+  "links": {
+    "shared_navigation": {
+      "work": "/",
+      "write": "/write",
+      "who": "/who",
+      "email": "mailto:ocean@mmmmm.studio,alvis@mmmmm.studio",
+      "linkedin": "https://www.linkedin.com/company/mmmmmstudio/",
+      "aria_current_correct_on_all_three_routes": true,
+      "wordmark_links_home": true
+    },
+    "mailto_recipients": {
+      "shared_email": [
+        "ocean@mmmmm.studio",
+        "alvis@mmmmm.studio"
+      ],
+      "who_ocean": "ocean@mmmmm.studio",
+      "who_alvis": "alvis@mmmmm.studio",
+      "valid": true
+    },
+    "external_http_statuses": {
+      "https://eviive.ch/": 200,
+      "https://ellacportfolio.com/": 200,
+      "https://www.touchbaes.ca/": 200,
+      "https://www.travisleung.com/": 200,
+      "https://www.linkedin.com/company/mmmmmstudio/": 200
+    },
+    "project_url_policy": {
+      "explicit_project_or_collaborator_links_present": 4,
+      "all_other_project_url_rows_absent": true,
+      "observation": "This matches the recorded decision to omit placeholders until real destinations exist."
+    }
+  },
+  "information_architecture": {
+    "home": {
+      "main_landmarks": 1,
+      "sections": 13,
+      "headings": 0,
+      "project_title_elements": "div.title-group",
+      "description_figures": 12,
+      "accessible_figure_names": 0
+    },
+    "write": {
+      "main_landmarks": 1,
+      "articles": 5,
+      "h1_count": 5,
+      "page_level_heading": false
+    },
+    "who": {
+      "main_landmarks": 1,
+      "articles": 2,
+      "h1_count": 2,
+      "page_level_heading": false
+    },
+    "responsive_navigation": {
+      "compact_source_element": "nav.mms-mlinks",
+      "expanded_source_element": "aside.mms-rail",
+      "published_compact_ax_navigation_roles": 1,
+      "published_expanded_ax_navigation_roles": 0,
+      "published_expanded_ax_complementary_roles": 1
+    },
+    "document_language": {
+      "home": "",
+      "write": "",
+      "who": "",
+      "already_recorded_in": "audit/findings/preliminary-findings.md"
+    }
+  },
+  "source_captures": {
+    "published_home_compact": {
+      "path": "audit/harness/output/2026-07-21T02-55-09-747Z__published__smoke/captures/smoke__0000__home__compact__white-serif-m-straight.json",
+      "sha256": "918fcb5b0a912740c39903222657b03b35346c3c6e0cd092157b841c156ae81d"
+    },
+    "published_home_expanded": {
+      "path": "audit/harness/output/2026-07-21T02-55-09-747Z__published__smoke/captures/smoke__0001__home__expanded__white-serif-m-straight.json",
+      "sha256": "6b253fcc78a8a470d59bd4deda41976470b14670c9945b65efd48dfe660cb6ef"
+    },
+    "published_write_compact": {
+      "path": "audit/harness/output/2026-07-21T02-54-30-049Z__published__smoke/captures/smoke__0000__write__compact__white-serif-m-straight.json",
+      "sha256": "56739925f48b1519ec095b7f825600d99b3c6ffee1fe604bab0eb7a1e8e2707e"
+    },
+    "published_write_expanded": {
+      "path": "audit/harness/output/2026-07-21T02-54-30-049Z__published__smoke/captures/smoke__0001__write__expanded__white-serif-m-straight.json",
+      "sha256": "c972d5e34ec3d1fa291f234eeebd05fe37e7c6e818d705604f125b852c62e6c6"
+    }
+  }
+}

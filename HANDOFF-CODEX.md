@@ -1103,3 +1103,40 @@ agent needs to continue this project without the prior chat history.
 - Reloaded Cargo and independent public proof both found 12 scrubbers, all 68
   unique Home media IDs, and zero page-level overflow. Cargo Last Published is
   2:40pm EDT on 2026-07-20.
+
+## Current handoff — Round 81 whole-project audit (read-only)
+- The audit is on Git branch `round-81/audit-harness`. Phase 1 is frozen at
+  `docs/audits/2026-07-20T175853-0400-round-80/`, commit `afc8b22`; never edit
+  that evidence or `cargo/gold/round-69/`. Post-baseline facts are additive in
+  `docs/audits/2026-07-20-post-round-80-delta.md`.
+- `audit/` contains the system and asset inventories, exact JSON schemas, the
+  deterministic local/Cargo-snapshot/published browser harness, machine-readable
+  intentional-design contracts, and evidence-backed findings. Run
+  `audit/scripts/validate-phase2.sh` before committing later audit work.
+- WTW `wtw-02` is protected at the current approved 504×504 endpoint. The
+  complete 264-capture visual matrix observed it square and unclipped at every
+  state/width. Do not restore the superseded 765.2×765.2 geometry.
+- Ocean explicitly requires the four Withered Green body paragraphs to keep
+  Cargo's native `uses="eye-roll"` motion. The heading remains static. Source,
+  payload, schema, and browser checks fail closed if the section, route marker,
+  four direct hooks, or complete paragraph coverage drift.
+- Fresh all-route local and public runs cover Home, Write, and Who at 390 and
+  1440px. Both have zero fatal errors, non-200 main responses, page overflow,
+  state mismatches, or intentional-contract failures. Nonzero run exits record
+  detected site findings and are not automatically harness failures.
+- Current decision-gated findings include the 1024px Touchbaes crop, expanded
+  Random Pics crop, Cargo river-ARIA mutation, missing document language,
+  expressive-theme contrast failures, inaccessible media structure, continuous
+  motion without a pause pathway, published startup over-fetch, and several
+  Figma panel/Write structure drifts. Do not remediate palette, visible design,
+  or interaction findings until Ocean approves a batch.
+- The consolidated report is `audit/findings/master-audit-report.md`; the
+  44-item registry is `audit/findings/issue-registry.json` (0 P0, 16 P1,
+  24 P2, 4 P3). The highest systemic guards are the deployment completeness
+  manifest, single media/runtime owner with teardown, and deterministic V7/
+  Montran recovery. The current validator can otherwise pass a missing
+  `wtw-02` or consistently stale runtime marker.
+- The live Figma audit was read-only. No Cargo editor, Freight asset, Figma node,
+  or public page was changed or published during this audit batch.
+- Preserve the user-owned untracked files `cargo/home 3.html`, `cargo/who 3.html`,
+  and `cargo/write 3.html`; never stage or overwrite them.

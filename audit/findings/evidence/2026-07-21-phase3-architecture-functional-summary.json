@@ -1,0 +1,222 @@
+{
+  "schema_version": "mms-audit/architecture-functional-summary/v1",
+  "generated_at": "2026-07-21T04:41:59Z",
+  "target_revision": {
+    "git_commit": "afc8b220b10f7de46911b153afaee314a6f80a9e",
+    "description": "post-Round-80 working tree",
+    "audit_mode": "read-only"
+  },
+  "scope": {
+    "purpose": "Phase 3 front-end architecture, lifecycle, functional interaction, embed-contract, and deployment-guard audit",
+    "cargo_edited": false,
+    "figma_edited": false,
+    "deployed": false,
+    "published": false,
+    "limitations": [
+      "The two instrumented browser probes used the deterministic local Cargo fixture in headless Chrome at 390 by 844 CSS pixels, with reduced motion and external requests aborted.",
+      "The autoplay probe records attempted play and pause calls. It does not claim that every attempted off-screen playback transferred bytes in that isolated run.",
+      "The root-replacement probe deliberately models a Cargo or client-rendered .mms root replacement followed by runtime re-execution; it does not claim that every ordinary public navigation performs that replacement."
+    ]
+  },
+  "protected_contracts": {
+    "round_69_gold": "immutable rollback reference; not modified",
+    "native_rivers": "no wheel interception, forced stepping, snapping, or animated correction proposed",
+    "wtw_02": "remains the approved 504 by 504 square source contract; not modified",
+    "withered_green": "retain exactly four direct Cargo eye-roll hooks around the four body paragraphs; keep the heading static"
+  },
+  "canonical_source_hashes_sha256": {
+    "cargo/panel.js": "a5e7f492f987804df0b1ea999ae4d25aeabf49dbe81c39e6749cb8cfd9f68987",
+    "cargo/home-extras.html": "3c130e126b2726dcb743b79d37db06d1a45379329a071037e3e4a3c74e07bf2b",
+    "cargo/shared-early-init.html": "dbf6cb8d87f7ba7cbe1014520032bfcaab3943da73fd090ed2003e35bd1c9ecb",
+    "cargo/site-head.html": "d677c1a7e81a20482d1aa02959284f51775f0fe39411521ef91d9a972657fd56",
+    "cargo/site.css": "c47485c1c3b55fc6b5cb577a7ad3c2115cd2cb6fdc7f3f1261ef20ae6a51f6f1",
+    "cargo/validate-cargo-payload.sh": "d670922e7019ec79f214a4912589598c9d27837c09550eab0b18460f0dc7eff6",
+    "cargo/validate-shared-components.py": "440ae89cc0dd3ee9e3e37feb68efc9e82f395a896e6872bbec4637867cb85114",
+    "cargo/assemble-pages.py": "77585a8a31e0148f1c4656e8b74d2233860936753f1fa9f66453542d35b68e07",
+    "Portfolio assets/_for cargo deployment/V7/coffee cup 3d/coffee-cup-bundle.html": "ee09e9c282d928f8968b91e1301bc0ba2639102a27c1bf1cd40483ab1b609d0a",
+    "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/touchbaes-sticker-game-v10.html": "2c4f2c12a8d049ab0805fb8f72f246a95e715154671d5fd8cc808407995afcb5",
+    "work/montran-direct-pdf-v10-src/montran-booklet-direct-pdf-v17.html": "825cf2c3a1f130cb3445e62443985e845991204d19e0c2154cfd43a36126b49b",
+    "audit/harness/src/collector.mjs": "82c920a95a8de2553146169751254036944297bde2c12410d7342470bbde7c57",
+    "audit/harness/src/config.mjs": "702aaf36e927faf9beda46b476fa674a69138c095517f3bfbbffed261c91557d"
+  },
+  "static_validation": {
+    "commands": [
+      "./cargo/validate-cargo-payload.sh bodycopy cargo/home.html home",
+      "./cargo/validate-cargo-payload.sh bodycopy cargo/write.html write",
+      "./cargo/validate-cargo-payload.sh bodycopy cargo/who.html who",
+      "python3 cargo/validate-shared-components.py"
+    ],
+    "canonical_result": "PASS",
+    "shared_component_parity": "PASS for Home, Who, and Write"
+  },
+  "probes": {
+    "legacy_autoplay_probe": {
+      "target": "cargo/test.html",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1
+      },
+      "elapsed_ms": 2900,
+      "instrumentation": "HTMLMediaElement.play and pause were recorded before page scripts; external network requests were aborted",
+      "video_count": 27,
+      "play_calls": 60,
+      "unique_videos_receiving_play": 27,
+      "unique_videos_more_than_two_viewports_below_receiving_play": 21,
+      "pause_calls": 25,
+      "loaded_video_count": 2,
+      "interpretation": "The legacy Home helper attempts to play every video on start and every 2500 ms, including deferred and far-off-screen videos; this conflicts with panel.js pausing inactive media."
+    },
+    "root_replacement_probe": {
+      "target": "cargo/test.html plus canonical cargo/panel.js re-execution",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1
+      },
+      "procedure": "Replace the active .mms root with a fresh .mms parsed from the same payload, re-execute panel.js, open the new compact panel, then select the Girly theme.",
+      "before_theme_selection": {
+        "html_data_panel": "open",
+        "dialog_open": true
+      },
+      "after_theme_selection": {
+        "html_data_panel": null,
+        "dialog_open": true,
+        "theme": "girly"
+      },
+      "remaining_panel_count": 1,
+      "panel_runtime_version": "responsive-70",
+      "runtime_root_matches_current_root": true,
+      "interpretation": "The old document click listener survives reinitialization and closes the new root state while the new dialog remains natively open, creating contradictory panel state."
+    },
+    "bodycopy_guard_negative_controls": {
+      "stale_runtime_mutation": {
+        "mutation": "replace both responsive-70 strings with responsive-69 in memory",
+        "validator": "./cargo/validate-cargo-payload.sh bodycopy - home",
+        "result": "PASS"
+      },
+      "missing_wtw_asset_mutation": {
+        "mutation": "remove the complete data-media-id=wtw-02 frame from the Home payload in memory",
+        "validator": "./cargo/validate-cargo-payload.sh bodycopy - home",
+        "result": "PASS"
+      },
+      "interpretation": "The required deployment preflight checks marker self-consistency and payload hygiene, but not the canonical runtime version or the 68-item media identity contract."
+    }
+  },
+  "findings": [
+    {
+      "id": "ARCH-FUNC-001",
+      "severity": "P1",
+      "title": "The legacy Home autoplay helper defeats the deferred-media visibility controller",
+      "sources": [
+        "cargo/home-extras.html:1",
+        "cargo/panel.js:567-665",
+        "cargo/panel.js:681-693"
+      ],
+      "evidence": "The helper calls play on all .mms-video elements at startup, on visibility/page/input events, and every 2500 ms. The canonical media controller separately pauses inactive videos. The instrumented compact probe recorded all 27 videos receiving play calls, including 21 far below the active envelope, while only two videos had been marked loaded.",
+      "impact": "Videos that were loaded earlier can be restarted after the observer pauses them, undermining off-screen suspension, reduced resource use, predictable autoplay, and scroll performance.",
+      "recommended_fix": "Remove the legacy global retry loop. Keep one media lifecycle owner that retries muted inline playback only for loaded elements whose observer state is active; user-interaction retries should target the visible/near set only.",
+      "decision_gate": "No visible redesign is required; preserve iOS muted inline autoplay and the existing posters."
+    },
+    {
+      "id": "ARCH-FUNC-002",
+      "severity": "P1",
+      "title": "The deployment preflight can pass a stale runtime or a Home payload with a missing showcase asset",
+      "sources": [
+        "cargo/validate-cargo-payload.sh:75-115",
+        "cargo/PLAYBOOK.md:183-210",
+        "audit/scripts/generate-system-inventory.py:1009-1016"
+      ],
+      "evidence": "Two in-memory negative controls both passed the documented bodycopy validator: responsive-70 changed consistently to responsive-69, and the complete wtw-02 frame removed. The full inventory generator knows the 68-item contract, but it is not part of the documented per-deployment preflight.",
+      "impact": "The exact classes of regressions already seen in Cargo—missing media rivers and stale runtime payloads—can clear the mandatory local preflight and reach the editor unless a human catches them after reload.",
+      "recommended_fix": "Promote the current Home media-ID set, per-band counts, WTW 504 by 504 geometry, embed version/hash map, and expected panel runtime into a lightweight deployment manifest. Make bodycopy validation compare against that manifest before transfer and again against the persisted Cargo DOM after reload.",
+      "decision_gate": "Treat Round 69 and the current approved WTW square as immutable references; update the deployment manifest only through an explicit audited baseline step."
+    },
+    {
+      "id": "ARCH-FUNC-003",
+      "severity": "P2",
+      "title": "Runtime reinitialization is root-aware but not teardown-safe",
+      "sources": [
+        "cargo/panel.js:5-21",
+        "cargo/panel.js:94-148",
+        "cargo/panel.js:387-496",
+        "cargo/panel.js:602-693",
+        "cargo/panel.js:918-1008",
+        "cargo/home-extras.html:3-4",
+        "cargo/home-extras.html:20-30",
+        "cargo/home-extras.html:160-176"
+      ],
+      "evidence": "panel.js deliberately reinitializes when the .mms root identity changes, but old document/window listeners, intervals, media observers, resize observers, media-query listeners, and timeouts have no teardown registry. The compact probe reproduced contradictory state after one root replacement. Home extras takes the opposite approach: its one-time guard prevents rebinding while frame and river references captured at first initialization become stale.",
+      "impact": "A valid Cargo root replacement can create duplicate global behavior, a panel that visually closes while dialog.open remains true, clock/observer leaks, and a replacement Touchbaes frame that misses load or mode synchronization.",
+      "recommended_fix": "Create one runtime owner with AbortController-backed listeners and explicit cleanup for intervals, animation frames, observers, media-query listeners, object URLs, and embed state. On a new root, teardown the old owner before initializing the new one. Make Home enhancements use the same lifecycle rather than a permanent boolean guard.",
+      "decision_gate": "Refactor behind existing data hooks and behavior; native rivers and all approved visuals remain unchanged."
+    },
+    {
+      "id": "ARCH-FUNC-004",
+      "severity": "P2",
+      "title": "Embed message contracts are inconsistent and partly wildcarded",
+      "sources": [
+        "cargo/panel.js:567-575",
+        "cargo/home-extras.html:102-110",
+        "Portfolio assets/_for cargo deployment/V7/coffee cup 3d/coffee-cup-bundle.html:424-440",
+        "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/touchbaes-sticker-game-v10.html:1254-1277",
+        "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/touchbaes-sticker-game-v10.html:1310-1321",
+        "work/montran-direct-pdf-v10-src/montran-booklet-direct-pdf-v17.html:429-464"
+      ],
+      "evidence": "The parent posts generic visibility and Touchbaes mode messages to '*'. V7 accepts any message carrying __mmsEmbedVisibility without checking event.source or event.origin. Touchbaes checks that the sender is window.parent but not the expected parent origin. In contrast, Montran validates both parent source and the parsed parent origin and versions its ready message.",
+      "impact": "Unrelated windows or stale/incompatible embed code can alter animation or layout state, and future payload evolution has no uniform version gate. The inconsistency also makes integration failures harder to diagnose.",
+      "recommended_fix": "Use one versioned message envelope with kind, version, and payload. Derive exact target origins from data-src, validate source and origin at both ends, bound every numeric field, and log rejected development messages without changing production behavior.",
+      "decision_gate": "Do not add iframe sandbox restrictions until each embed capability is inventoried; harden message transport independently first."
+    },
+    {
+      "id": "ARCH-FUNC-005",
+      "severity": "P2",
+      "title": "The compact Montran booklet has no keyboard-operable page-turn path",
+      "sources": [
+        "cargo/panel.js:254-291",
+        "cargo/panel.js:315-374",
+        "cargo/site.css:1237-1264"
+      ],
+      "evidence": "Compact mode disables iframe pointer interaction and transfers turning to two transparent parent buttons. Both buttons are explicitly assigned tabIndex -1, so the retained keyboard/programmatic click branch cannot be reached through normal keyboard navigation.",
+      "impact": "Compact users with an external keyboard, switch navigation, or a keyboard-like assistive pathway cannot advance the report even though pointer tapping works.",
+      "recommended_fix": "Keep the viewer visually control-free, but expose a semantic focusable page-turn path in the overlay and support Left/Right keys. Verify focus treatment with VoiceOver and external keyboards while preserving the center dead zone and native river panning.",
+      "decision_gate": "Ocean should approve whether keyboard focus is allowed to have a visible minimal indicator over the booklet or whether the focusable controls receive a separate off-canvas instruction."
+    },
+    {
+      "id": "ARCH-FUNC-006",
+      "severity": "P2",
+      "title": "The browser harness records interaction geometry but does not execute primary interactions",
+      "sources": [
+        "audit/harness/src/collector.mjs:618-706",
+        "audit/harness/src/collector.mjs:782-823",
+        "audit/harness/src/collector.mjs:942-1085"
+      ],
+      "evidence": "The harness inventories controls and programmatically changes scroll offsets, but the collector contains no page click, keyboard press, pointer drag, touch gesture, breakpoint-transition, storage-failure, root-replacement, or malformed postMessage step. The defects reproduced in ARCH-FUNC-001 and ARCH-FUNC-003 are therefore invisible to the current standard matrix.",
+      "impact": "A matrix can report stable geometry while the control panel, scrubbers, embeds, persistence, or reinitialization fails under actual input. Manual proof remains the only release gate for several high-risk behaviors.",
+      "recommended_fix": "Add a small deterministic interaction suite for panel open/select/outside tap/Escape, scrubber pointer and keyboard control, native river pass-through, breakpoint transitions, saved-state reload, startup interruption, embed ready/size/visibility messages, Montran single-turn locking, and one root-replacement lifecycle test.",
+      "decision_gate": "No product decision is required; keep interaction tests separate from screenshot/state matrices so they remain fast and diagnostic."
+    }
+  ],
+  "positive_findings": [
+    "Canonical Home, Who, and Write bodycopies pass the current UTF-8 and shared-component parity checks.",
+    "assemble-pages.py stages all three pages, validates them, commits atomically, and restores backups if commit validation fails.",
+    "The startup preview has one controller, explicit interruption cleanup, four 375 ms hard cuts totaling 1.5 seconds, and exact target-state restoration.",
+    "Montran v17 is the strongest embed contract: it validates parent source and origin, validates direction and numeric bounds, enforces a center dead zone, and versions readiness.",
+    "Touchbaes compact height messages validate source, origin, geometry version, mode, finite height, and bounded edge reserves on the parent side.",
+    "Scrubber generation is idempotent for an unchanged DOM and provides Arrow, Page, Home, and End keyboard behavior without altering native river scrolling.",
+    "The Withered Green four-paragraph eye-roll contract is enforced by the bodycopy validator and the audit harness."
+  ],
+  "health_scores": {
+    "front_end_architecture_out_of_4": 2,
+    "functional_integration_out_of_4": 2,
+    "deployment_guarding_out_of_4": 2,
+    "rationale": "The system has strong deterministic assembly and several careful interaction contracts, but ownership is split across overlapping runtimes, teardown is absent, a legacy autoplay loop conflicts with the media controller, and the required deployment guard does not enforce the approved media/runtime manifest."
+  },
+  "recommended_remediation_order": [
+    "Add fail-closed runtime/media/embed manifest validation before any further visual refinement.",
+    "Remove the legacy all-video autoplay loop and verify observer-governed playback on iPhone Safari and desktop Chromium.",
+    "Introduce a teardown-safe runtime owner and lock it with the root-replacement regression test.",
+    "Version and origin-lock the V7 and Touchbaes message bridges using Montran as the reference pattern.",
+    "Add compact booklet keyboard operation and the focused interaction suite."
+  ]
+}

@@ -2131,3 +2131,36 @@ current source of truth for the built site.
   post-pointer thumb at 8px with a 1px border, no retained focus, 12 desktop
   scrubbers, 68/68 unique Home media items, and zero page overflow. Cargo Last
   Published is 2:40pm EDT on 2026-07-20.
+
+## Current state — Round 81 whole-project audit branch
+- Work is isolated on `round-81/audit-harness`. The immutable Phase 1 Round 80
+  capture lives at `docs/audits/2026-07-20T175853-0400-round-80/` and was
+  committed as `afc8b22`. Treat both it and `cargo/gold/round-69/` as read-only.
+- The checked-in `audit/` foundation inventories the system and 471 asset
+  records, enforces JSON schemas with Ajv, and runs deterministic local,
+  Cargo-snapshot, optional live-draft, and published browser targets. Its 240
+  state product and 22-state pairwise matrix validate without configuration
+  errors. `audit/scripts/validate-phase2.sh` is the aggregate local gate.
+- Current WTW geometry is exactly 504×504 for `wtw-02`; 264 browser observations
+  prove it square and free of ancestor clipping. Historical 765.2×765.2 rows are
+  superseded only through the additive geometry record, never rewritten.
+- Withered Green is an intentional Cargo-only motion exception. Keep exactly one
+  direct `<span uses="eye-roll">` around each of its four body paragraphs and
+  none on the heading. Figma shows only the static zero-degree endpoint. Do not
+  classify this rotation as accidental motion or remove it during accessibility
+  remediation.
+- Phase 3 Figma and runtime findings are tracked under `audit/findings/` with
+  hash-bound evidence. They are audit results, not authorization to change the
+  palette, structure, interactions, assets, Cargo draft, or public site.
+- `audit/findings/master-audit-report.md` consolidates the Phase 3 workstreams;
+  `audit/findings/issue-registry.json` contains 44 deduplicated findings: 0 P0,
+  16 P1, 24 P2, and 4 P3. Do not start remediation until Ocean approves a
+  proposed batch. First proposed guard is a fail-closed deployment manifest;
+  the current payload validator can accept missing `wtw-02` or a stale runtime.
+- Fresh Home/Write/Who route runs at 390 and 1440px have zero fatal, non-200,
+  page-overflow, state, or intentional-contract failures. Known detector hits
+  include Random Pics clipping, accessibility issues, and expected aborted
+  deferred media/PDF requests.
+- No Cargo, Figma, Freight, or public mutation occurred in this audit batch.
+  Preserve the user-owned untracked `cargo/home 3.html`, `cargo/who 3.html`, and
+  `cargo/write 3.html` files.

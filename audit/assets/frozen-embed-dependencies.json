@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "captured_at_utc": "2026-07-21T00:33:10Z",
+  "baseline": "docs/audits/2026-07-20T175853-0400-round-80",
+  "baseline_manifest_sha256": "efe8a99a378e769db0fd4cf1fbc10033096673d66a5acce00192f1b7198983a6",
+  "method": "One-time, read-only extraction from each active bundle whose SHA-256 is frozen in the Phase 1 embed manifest. Generation consumes this evidence file and never reopens ignored or live bundle files.",
+  "parents": [
+    {
+      "kind": "touchbaes",
+      "version": "10",
+      "page": "home",
+      "owning_showcase": "touchbaes",
+      "media_id": "touchbaes-05",
+      "freight_url": "https://freight.cargo.site/m/E3031754669080377521238157342521/touchbaes-sticker-game-v10.html",
+      "bundle_sha256": "2c4f2c12a8d049ab0805fb8f72f246a95e715154671d5fd8cc808407995afcb5",
+      "bundle_evidence": "docs/audits/2026-07-20T175853-0400-round-80/local/embed-manifest.json",
+      "audit_note": "The active v10 bundle contains nine absolute Freight image dependencies and no model, font, audio, video, or other runtime asset URL.",
+      "children": [
+        {
+          "role": "scene",
+          "url": "https://freight.cargo.site/t/original/i/S3022869107342463920768450869049/scene.png",
+          "freight_id": "S3022869107342463920768450869049",
+          "filename": "scene.png",
+          "loading_priority": "embed-initial (parent iframe near)",
+          "source_file": "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/assets/optimized/scene.webp",
+          "source_sha256": "c27c1290010a5e76556f0237ab74c2a279a1dcf6b9b536b3609fcef39a291815",
+          "source_relation": "role-matched optimized source; delivery is a separately encoded Cargo PNG"
+        },
+        {
+          "role": "loose sticker",
+          "url": "https://freight.cargo.site/t/original/i/U3022869107434697641136998627129/sticker-touchbaes.png",
+          "freight_id": "U3022869107434697641136998627129",
+          "filename": "sticker-touchbaes.png",
+          "loading_priority": "embed-initial (parent iframe near)",
+          "source_file": "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/assets/optimized/sticker-touchbaes.webp",
+          "source_sha256": "93f9dfcb1cacb5b48cb208b5d229d2cf1abeea6e61247b82d54c6ef9d2380ad3",
+          "source_relation": "role-matched optimized source; delivery is a separately encoded Cargo PNG"
+        },
+        {
+          "role": "loose sticker",
+          "url": "https://freight.cargo.site/t/original/i/B3022869107397804152989579523897/sticker-plant.png",
+          "freight_id": "B3022869107397804152989579523897",
+          "filename": "sticker-plant.png",
+          "loading_priority": "embed-initial (parent iframe near)",
+          "source_file": "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/assets/optimized/sticker-plant.webp",
+          "source_sha256": "6233aa5fcf517d4d437e7365c9e75ec895c4175ce79c5ee5cd55110860a7a8e7",
+          "source_relation": "role-matched optimized source; delivery is a separately encoded Cargo PNG"
+        },
+        {
+          "role": "loose sticker",
+          "url": "https://freight.cargo.site/t/original/i/F3022869107379357408915869972281/sticker-cat.png",
+          "freight_id": "F3022869107379357408915869972281",
+          "filename": "sticker-cat.png",
+          "loading_priority": "embed-initial (parent iframe near)",
+          "source_file": "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/assets/optimized/sticker-cat.webp",
+          "source_sha256": "343cef8265a60566386325ed188ed3c377f13c299264b68813373f666b0f471e",
+          "source_relation": "role-matched optimized source; delivery is a separately encoded Cargo PNG"
+        },
+        {
+          "role": "placed sticker state",
+          "url": "https://freight.cargo.site/t/original/i/Z3022869107360910664842160420665/sticker-cat-placed.png",
+          "freight_id": "Z3022869107360910664842160420665",
+          "filename": "sticker-cat-placed.png",
+          "loading_priority": "embed-initial (parent iframe near)",
+          "source_file": "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/assets/optimized/sticker-cat-placed.webp",
+          "source_sha256": "c452588b6727ee5614ac14a43d88bec213061a9b4531c967e2b6e99b4c522fe9",
+          "source_relation": "role-matched optimized source; delivery is a separately encoded Cargo PNG"
+        },
+        {
+          "role": "loose sticker",
+          "url": "https://freight.cargo.site/t/original/i/Q3022869107416250897063289075513/sticker-right-bottles.png",
+          "freight_id": "Q3022869107416250897063289075513",
+          "filename": "sticker-right-bottles.png",
+          "loading_priority": "embed-initial (parent iframe near)",
+          "source_file": "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/assets/optimized/sticker-right-bottles.webp",
+          "source_sha256": "c48edb324bdc10730e592172f20cb095da95bfb30aaade20cd50bea2572030fa",
+          "source_relation": "role-matched optimized source; delivery is a separately encoded Cargo PNG"
+        },
+        {
+          "role": "tweezer open state",
+          "url": "https://freight.cargo.site/t/original/i/T3022869107490037873358127281977/tweezer-open.png",
+          "freight_id": "T3022869107490037873358127281977",
+          "filename": "tweezer-open.png",
+          "loading_priority": "embed-initial (parent iframe near)",
+          "source_file": "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/assets/optimized/tweezer-open.webp",
+          "source_sha256": "ef66f4ef20d968460132e2f5f704f1f95dfdd8565bcd5f69397e35b93930761c",
+          "source_relation": "role-matched optimized source; delivery is a separately encoded Cargo PNG"
+        },
+        {
+          "role": "tweezer front arm",
+          "url": "https://freight.cargo.site/t/original/i/V3022869107471591129284417730361/tweezer-front-arm.png",
+          "freight_id": "V3022869107471591129284417730361",
+          "filename": "tweezer-front-arm.png",
+          "loading_priority": "embed-initial (parent iframe near)",
+          "source_file": "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/assets/optimized/tweezer-front-arm.webp",
+          "source_sha256": "6d9eb9077bfc516ecc0e10f19877a8338e8ac25df8ccb32b5f638167116cb153",
+          "source_relation": "role-matched optimized source; delivery is a separately encoded Cargo PNG"
+        },
+        {
+          "role": "tweezer closed state",
+          "url": "https://freight.cargo.site/t/original/i/N3022869107453144385210708178745/tweezer-close.png",
+          "freight_id": "N3022869107453144385210708178745",
+          "filename": "tweezer-close.png",
+          "loading_priority": "embed-initial (parent iframe near)",
+          "source_file": "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/assets/optimized/tweezer-close.webp",
+          "source_sha256": "ace76483773cfba622b42ad8dfc575c8f80cea400e580b0ce9733b88d01cc3e8",
+          "source_relation": "role-matched optimized source; delivery is a separately encoded Cargo PNG"
+        }
+      ],
+      "inline_assets": []
+    },
+    {
+      "kind": "v7-cup",
+      "version": "three-r160",
+      "page": "home",
+      "owning_showcase": "v7",
+      "media_id": "v7-01",
+      "freight_url": "https://freight.cargo.site/m/Z3031274916472238420423367767865/coffee-cup-bundle.html",
+      "bundle_sha256": "ee09e9c282d928f8968b91e1301bc0ba2639102a27c1bf1cd40483ab1b609d0a",
+      "bundle_evidence": "docs/audits/2026-07-20T175853-0400-round-80/local/embed-manifest.json",
+      "audit_note": "Three.js r160 and the procedural cup are inline. There is no external model or runtime asset request. One cup-wrap PNG is embedded as a data URI.",
+      "children": [],
+      "inline_assets": [
+        {
+          "role": "cup texture",
+          "filename": "cup-wrap.png",
+          "mime_type": "image/png",
+          "decoded_bytes": 72593,
+          "decoded_sha256": "1c584551776b366770de2a51c2beaa7a79fcd5c015e40a913ce2cafc23826ecf",
+          "natural_width_px": 2110,
+          "natural_height_px": 1244,
+          "transparency": "no",
+          "loading_priority": "embed-critical",
+          "source_file": "Portfolio assets/_for cargo deployment/V7/coffee cup 3d/assets/cup-wrap.png",
+          "source_sha256": "1c584551776b366770de2a51c2beaa7a79fcd5c015e40a913ce2cafc23826ecf",
+          "source_relation": "one-time exact decoded-byte match to the inline data URI"
+        }
+      ]
+    },
+    {
+      "kind": "montran-booklet",
+      "version": "17",
+      "page": "home",
+      "owning_showcase": "montran",
+      "media_id": "montran-01",
+      "freight_url": "https://freight.cargo.site/m/U3034412351395654863674388559673/montran-booklet-direct-pdf-v17.html",
+      "bundle_sha256": "825cf2c3a1f130cb3445e62443985e845991204d19e0c2154cfd43a36126b49b",
+      "bundle_evidence": "docs/audits/2026-07-20T175853-0400-round-80/local/embed-manifest.json",
+      "audit_note": "PDF.js, PageFlip, worker code, and the loading poster are inline. The only external runtime asset is the PDF supplied by the parent iframe query, already represented separately in the manifest. There is no external model or other asset URL.",
+      "children": [],
+      "inline_assets": [
+        {
+          "role": "loading poster",
+          "filename": "loading-poster.jpg",
+          "mime_type": "image/jpeg",
+          "decoded_bytes": 97671,
+          "decoded_sha256": "16afcfe464baa343846b6e7593054f063efec1ef90e07a6e0c6b6db27cfbd0f4",
+          "natural_width_px": 2022,
+          "natural_height_px": 1008,
+          "transparency": "no",
+          "loading_priority": "embed-initial (parent iframe lazy)",
+          "source_file": "work/montran-direct-pdf-v10-src/loading-poster.jpg",
+          "source_sha256": "16afcfe464baa343846b6e7593054f063efec1ef90e07a6e0c6b6db27cfbd0f4",
+          "source_relation": "exact decoded-byte match to the tracked source captured in the Phase 1 source manifest"
+        }
+      ]
+    }
+  ]
+}

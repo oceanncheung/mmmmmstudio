@@ -1,0 +1,35 @@
+{
+  "schema_version": "mms-audit/intentional-design-contracts/v1",
+  "contracts": [
+    {
+      "id": "write-withered-green-eye-roll",
+      "status": "required",
+      "authority": "Ocean's latest explicit decision",
+      "page": "write",
+      "surface": "Withered green body copy",
+      "selector": ".mms-writing-withered .mms-writing-plate > p > span[uses=\"eye-roll\"]",
+      "expected_count": 4,
+      "forbidden_selector": ".mms-writing-withered h1 [uses=\"eye-roll\"], .mms-writing-withered h1[uses=\"eye-roll\"]",
+      "implementation": {
+        "provider": "Cargo native effect",
+        "effect": "eye-roll",
+        "behavior": "Retain Cargo's native eye-roll behavior on each paragraph; the exact live angle remains runtime-owned.",
+        "responsive_contract": "The same effect remains present in compact and expanded layouts; text reflow may change each live center.",
+        "fixed_angle_required": false
+      },
+      "figma_parity": {
+        "classification": "intentional Cargo-only interaction",
+        "static_endpoint_rotation_degrees": 0,
+        "reference_nodes": ["756:729", "736:611"],
+        "note": "Figma documents the resting composition. The absence of a Figma rotation value is not permission to remove the Cargo interaction."
+      },
+      "evidence": {
+        "published_route": "https://mmmmm.studio/write",
+        "observed_widths_css_px": [390, 1440],
+        "observed_result": "Four native eye-roll hosts were present and initialized at their resting transform on 2026-07-20."
+      },
+      "audit_treatment": "Preserve and test. Never report the rotation itself as accidental motion or normalize it away.",
+      "baseline_context": "Added after the frozen Round 80 capture; Round 69 gold and the Round 80 snapshot intentionally remain unchanged."
+    }
+  ]
+}

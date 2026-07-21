@@ -1,0 +1,237 @@
+{
+  "schema_version": "mms-audit/platform-security-summary/v1",
+  "generated_at": "2026-07-21",
+  "target_revision": {
+    "git_commit": "afc8b220b10f7de46911b153afaee314a6f80a9e",
+    "description": "post-Round-80 working tree",
+    "audit_mode": "read-only"
+  },
+  "scope": {
+    "areas": [
+      "cross-document messaging",
+      "iframe isolation and permissions",
+      "HTML injection sinks",
+      "secrets and external origins",
+      "PDF.js, StPageFlip, and Three.js provenance",
+      "HTTPS, CORS, range loading, and caching",
+      "JavaScript dependencies and licenses",
+      "analytics, cookies, storage, and privacy",
+      "source recovery and release protection"
+    ],
+    "cargo_edited": false,
+    "figma_edited": false,
+    "deployed": false,
+    "published": false,
+    "protected_contracts": {
+      "round_69_gold_untouched": true,
+      "withered_green_rotation_preserved": true,
+      "wtw_second_asset_square_preserved": true,
+      "native_rivers_preserved": true
+    }
+  },
+  "finding_counts": {
+    "P0": 0,
+    "P1": 2,
+    "P2": 6,
+    "P3": 1
+  },
+  "findings": [
+    {
+      "id": "P1-SEC-01",
+      "severity": "P1",
+      "title": "Touchbaes sends serialized HTML across the iframe boundary and the parent injects it with innerHTML",
+      "evidence": [
+        "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/touchbaes-sticker-game-v10.html:1330-1337",
+        "cargo/home-extras.html:51-60",
+        "cargo/home-extras.html:123-147"
+      ],
+      "risk": "The parent correctly checks the expected iframe window and Freight origin, but compromise or accidental replacement of that exact child document becomes a same-page markup injection path in the MM.S parent.",
+      "remediation": "Replace the html field with a bounded declarative tweezer-state message and construct the parent rig from trusted local DOM and allowlisted asset identifiers. Do not pass child markup into parent innerHTML.",
+      "verification": "Assert that no message-derived string reaches innerHTML, insertAdjacentHTML, or a parser sink, while the desktop tweezer position and interaction remain unchanged."
+    },
+    {
+      "id": "P1-REC-01",
+      "severity": "P1",
+      "title": "The active V7 and Montran embed bundles are not reproducible from tracked source",
+      "evidence": [
+        "docs/audits/2026-07-20T175853-0400-round-80/local/embed-manifest.json:4-17",
+        "docs/audits/2026-07-20T175853-0400-round-80/local/embed-manifest.json:37-63",
+        "audit/assets/frozen-embed-dependencies.json:112-149"
+      ],
+      "risk": "A clean checkout cannot recreate two active runtime artifacts. The Montran builder produces a different hash and omits FreightRangeTransport, the 1600px render ceiling, and the v17 ready contract, so recovery can silently regress the approved viewer.",
+      "remediation": "Track the authoritative V7 application source and deterministic bundler. Bring the tracked Montran source and builder to exact v17 parity, produce byte- or contract-reproducible outputs, and gate release on frozen hash and contract checks.",
+      "verification": "A clean checkout rebuilds both bundles without ignored inputs and passes hash or documented deterministic-contract verification against the active artifacts."
+    },
+    {
+      "id": "P2-SEC-02",
+      "severity": "P2",
+      "title": "All three executable cross-origin iframes are unsandboxed and have no explicit permission or referrer policy",
+      "evidence": [
+        "cargo/home.template.html:67",
+        "cargo/home.template.html:117",
+        "cargo/home.template.html:209"
+      ],
+      "risk": "V7, Touchbaes, and Montran execute with the default iframe capability set. Their behavior depends on browser defaults rather than a reviewed minimum-capability contract, and same-origin PDF requests expose the complete viewer URL in Referer.",
+      "remediation": "Test and apply the narrowest working sandbox, permission policy, and referrer policy per embed. Start from scripts plus only required same-origin capability; preserve Montran's validated parent-origin messaging when changing referrer behavior.",
+      "verification": "Each embed retains its approved interaction with explicit attributes, cannot navigate the top page unexpectedly, and sends no fuller referrer than its integration requires."
+    },
+    {
+      "id": "P2-SEC-03",
+      "severity": "P2",
+      "title": "V7 and Touchbaes retain wildcard postMessage targets or incomplete inbound origin checks",
+      "evidence": [
+        "cargo/panel.js:567-574",
+        "cargo/home-extras.html:102-110",
+        "Portfolio assets/_for cargo deployment/V7/coffee cup 3d/coffee-cup-bundle.html:424-439",
+        "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/touchbaes-sticker-game-v10.html:1254-1277",
+        "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/touchbaes-sticker-game-v10.html:1310-1323"
+      ],
+      "risk": "The parent validates ready and geometry responses, and Montran uses exact origins, but the remaining wildcard and source-only paths make the protocol reusable by unintended embedders and weaken defense in depth.",
+      "remediation": "Derive and freeze an expected parent/child origin for every protocol, require both event.source and event.origin on inbound messages, use exact targetOrigin outbound, and validate message schema and protocol version.",
+      "verification": "Messages from wrong windows, wrong origins, wrong kinds, and wrong versions are ignored; no application postMessage call uses a wildcard target."
+    },
+    {
+      "id": "P2-SEC-04",
+      "severity": "P2",
+      "title": "The public Montran viewer accepts an unrestricted PDF URL query parameter",
+      "evidence": [
+        "work/montran-direct-pdf-v10-src/montran-booklet-direct-pdf-v17.html:1101-1107",
+        "work/montran-direct-pdf-v10-src/montran-booklet-direct-pdf-v17.html:1111-1160",
+        "work/montran-direct-pdf-v10-src/montran-booklet-direct-pdf-v17.html:1191-1202"
+      ],
+      "risk": "Any CORS-readable URL can be supplied to a public PDF parser endpoint. This expands the PDF.js input surface beyond the approved Montran report and exposes users to unnecessary third-party fetches and parser risk.",
+      "remediation": "Allowlist the exact approved Freight PDF URL or a narrowly defined HTTPS host and path set before any HEAD, range, or full fetch. Use credentials omit and a deliberate referrer policy where compatible.",
+      "verification": "The approved report still range-loads; non-HTTPS, non-Freight, and unapproved Freight paths fail before network fetch."
+    },
+    {
+      "id": "P2-PLAT-01",
+      "severity": "P2",
+      "title": "The captured public homepage response lacks browser security policy headers",
+      "evidence": [
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.headers:1-7"
+      ],
+      "risk": "The evidence contains no Content-Security-Policy, frame-ancestors protection, Referrer-Policy, Permissions-Policy, X-Content-Type-Options, or HSTS. The injection boundary and third-party embeds therefore have no response-layer containment.",
+      "remediation": "Determine which headers Cargo can configure. Introduce CSP in Report-Only first, then enforce a tested nonce/hash or narrowly scoped policy; set frame-ancestors, referrer, permissions, nosniff, and HSTS at Cargo or an approved edge layer.",
+      "verification": "Fresh public responses expose the approved headers and all three embeds, fonts, media, native rivers, and control interactions still work without policy violations."
+    },
+    {
+      "id": "P2-DEP-01",
+      "severity": "P2",
+      "title": "The local Framer API tool resolves latest and contains a high-severity vulnerable devalue version",
+      "evidence": [
+        "Framer/MM.S Framer API/package.json:10-12",
+        "Framer/MM.S Framer API/package-lock.json:20-34",
+        "npm audit 2026-07-21: GHSA-77vg-94rm-hx3p, devalue 5.7.1, high severity"
+      ],
+      "risk": "This is design tooling rather than public-site runtime, but unbounded latest resolution and the vulnerable deserializer reduce repeatability and can affect authenticated Figma/Framer automation.",
+      "remediation": "Pin an reviewed framer-api version and update or override devalue to a release outside the vulnerable range, then rerun the tooling and npm audit.",
+      "verification": "The lockfile is deterministic, the design reads still work, and npm audit reports zero known vulnerabilities."
+    },
+    {
+      "id": "P2-LIC-01",
+      "severity": "P2",
+      "title": "StPageFlip is identifiable but its MIT notice is not retained in the vendored runtime or repository",
+      "evidence": [
+        "work/montran-direct-pdf-v10-src/vendor/page-flip.browser.js sha256 bbaca0bbef57a22bb66a3fc69d67baf9a17fb9a9c89ec9ed35e2b91abe4bd1e7",
+        "npm page-flip 2.0.7 dist/js/page-flip.browser.js has the identical SHA-256 and declares MIT",
+        "tracked LICENSE/NOTICE inventory: zero files"
+      ],
+      "risk": "The dependency can be traced to StPageFlip 2.0.7, but the distributed copy does not carry the upstream MIT notice and the project has no consolidated third-party notice record.",
+      "remediation": "Add a tracked third-party notices file containing the StPageFlip 2.0.7 MIT copyright and license, plus the already preserved PDF.js and Three.js provenance, and make bundle generation retain required notices.",
+      "verification": "A clean release inventory maps every vendored runtime library to version, hash, source, and license text."
+    },
+    {
+      "id": "P3-PRIV-01",
+      "severity": "P3",
+      "title": "The site is low-collection but has no concise third-party and storage disclosure",
+      "evidence": [
+        "cargo/shared-early-init.html:38-163",
+        "cargo/panel.js:61-86",
+        "published compact capture: Cargo, Freight, Google Fonts, and MM.S network origins; zero Cookie or Authorization request headers observed"
+      ],
+      "risk": "No analytics, tracking pixel, form submission, or persistent personal data was found. Preference storage is limited to appearance settings, but Cargo, Freight, and Google Fonts still receive ordinary network metadata and this is not documented.",
+      "remediation": "Document the four appearance preference keys, one session render-sequence key, the absence of analytics/cookies, and the external infrastructure providers. Self-host fonts only if privacy or resilience requirements justify it.",
+      "verification": "The disclosure matches a fresh network capture and no unapproved tracker, cookie, or personal-data collection appears."
+    }
+  ],
+  "positive_controls": {
+    "montran_parent_protocol": "Inbound messages require the exact parent window and referrer-derived parent origin; outbound ready messages use that exact origin.",
+    "homepage_embed_ready_protocol": "The parent validates iframe window, kind, and expected origin before accepting ready messages.",
+    "touchbaes_parent_receiver": "The parent validates the expected iframe window and Freight origin and bounds-checks geometry fields.",
+    "transport": "Canonical URLs are HTTPS; no mixed content was found.",
+    "pdf_range": "The published report returned HTTP 206 with 262144-byte range chunks, Content-Range, ETag, and one-year cache control; v17 has a full-download fallback and PDF magic check.",
+    "secrets": "Sixty-four scoped canonical and tooling text files produced zero matches for AWS keys, GitHub tokens, OpenAI-style keys, PEM private keys, or obvious assigned secrets.",
+    "analytics_and_cookies": "No analytics or tracker code was found; the published compact capture observed no Cookie or Authorization request headers.",
+    "release_recovery": "GitHub actively protects main and round-* history from deletion and non-fast-forward updates; round-69-gold and round-80-stable are immutable releases."
+  },
+  "dependency_inventory": [
+    {
+      "component": "Three.js",
+      "version": "r160",
+      "license": "MIT",
+      "provenance": "license banner retained in active V7 bundle",
+      "runtime": true
+    },
+    {
+      "component": "PDF.js",
+      "version": "6.1.200",
+      "license": "Apache-2.0",
+      "provenance": "full license notice retained in pdf.min.mjs and pdf.worker.min.mjs",
+      "runtime": true
+    },
+    {
+      "component": "StPageFlip/page-flip",
+      "version": "2.0.7",
+      "license": "MIT",
+      "sha256": "bbaca0bbef57a22bb66a3fc69d67baf9a17fb9a9c89ec9ed35e2b91abe4bd1e7",
+      "provenance": "vendored hash equals npm page-flip 2.0.7 browser distribution",
+      "runtime": true
+    },
+    {
+      "component": "mms-audit-harness",
+      "versions": {
+        "ajv": "8.20.0",
+        "ajv-formats": "3.0.1",
+        "axe-core": "4.10.3",
+        "playwright-core": "1.55.0"
+      },
+      "npm_audit": "0 vulnerabilities on 2026-07-21",
+      "runtime": false
+    },
+    {
+      "component": "mms-framer-api",
+      "versions": {
+        "framer-api": "0.1.7",
+        "devalue": "5.7.1"
+      },
+      "npm_audit": "1 high vulnerability on 2026-07-21",
+      "runtime": false
+    }
+  ],
+  "transport_evidence": {
+    "homepage": {
+      "status": 200,
+      "server": "Cargo",
+      "security_headers_observed": []
+    },
+    "sample_embed": {
+      "status": 200,
+      "access_control_allow_origin": "*",
+      "cache_control": "max-age=31536000",
+      "etag_present": true
+    },
+    "sample_pdf_range": {
+      "status": 206,
+      "access_control_allow_origin": "*",
+      "cache_control": "max-age=31536000",
+      "etag_present": true,
+      "content_range": "bytes 0-0/13634937"
+    }
+  },
+  "limitations": [
+    "No penetration test or active exploit was attempted.",
+    "No Cargo, Figma, Freight, public-site, or GitHub setting was changed.",
+    "npm advisory results are a 2026-07-21 point-in-time snapshot.",
+    "Header evidence is the frozen Round 80 capture and should be refreshed after any platform configuration change."
+  ]
+}

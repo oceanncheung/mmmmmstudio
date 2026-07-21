@@ -1,0 +1,21 @@
+{
+  "schema_version": "mms-audit/rendered-measurement-provenance/v1",
+  "artifact": "audit/assets/rendered-media-measurements.json",
+  "artifact_sha256": "c2ef285f988a717572803cc21cfc057a19b9354e2f2ae94207023e811171951e",
+  "source_run_id": "2026-07-21T03-09-20-305Z__local-deterministic__visual",
+  "source_run": "audit/findings/evidence/2026-07-21-phase2-browser-summary.json",
+  "source_record_path": ["runs", "local_home_visual"],
+  "target_name": "local-deterministic",
+  "target_kind": "fixture",
+  "suite": "visual",
+  "scenario_count": 264,
+  "capture_count": 264,
+  "media_id_count": 68,
+  "viewport_widths_px": [320, 390, 430, 431, 600, 768, 1023, 1024, 1440, 1920, 2560, 2940],
+  "completed_at": "2026-07-21T03:11:26.348Z",
+  "authority": "complete current-local visual matrix",
+  "limitations": [
+    "This is not an authenticated Cargo-draft snapshot.",
+    "Cargo sanitizer, editor hydration, managed font injection, CDN behavior, and public routing require their own evidence."
+  ]
+}

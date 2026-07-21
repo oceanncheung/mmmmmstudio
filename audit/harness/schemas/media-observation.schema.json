@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mmmmm.studio/audit/schemas/media-observation.schema.json",
+  "title": "MM.S rendered media observation",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "kind",
+    "scenarioId",
+    "page",
+    "viewport",
+    "state",
+    "mediaId",
+    "band",
+    "tag",
+    "shapePolicy",
+    "fit",
+    "mobileProfile",
+    "rect",
+    "ancestorClipping",
+    "naturalWidth",
+    "naturalHeight",
+    "source",
+    "poster"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "mms-audit/v1" },
+    "kind": { "const": "media-observation" },
+    "scenarioId": { "type": "string" },
+    "page": { "enum": ["home", "write", "who"] },
+    "viewport": { "type": "object" },
+    "state": { "type": "object" },
+    "mediaId": { "type": "string" },
+    "band": { "type": "string" },
+    "tag": { "type": "string" },
+    "shapePolicy": { "enum": ["crop", "artwork", "interactive", ""] },
+    "fit": { "type": "string" },
+    "mobileProfile": { "type": "string" },
+    "rect": { "type": "object" },
+    "ancestorClipping": {
+      "type": "object",
+      "required": [
+        "visibleRect",
+        "clippedPixels",
+        "retainedWidthRatio",
+        "retainedHeightRatio",
+        "clippingAncestors",
+        "horizontalRiverScrollportExcluded",
+        "measurementReliable",
+        "unsupportedGeometry",
+        "exception",
+        "unexpected"
+      ],
+      "properties": {
+        "visibleRect": { "type": "object" },
+        "clippedPixels": { "type": "object" },
+        "retainedWidthRatio": { "type": "number", "minimum": 0, "maximum": 1 },
+        "retainedHeightRatio": { "type": "number", "minimum": 0, "maximum": 1 },
+        "clippingAncestors": { "type": "array", "items": { "type": "object" } },
+        "horizontalRiverScrollportExcluded": { "const": true },
+        "measurementReliable": { "type": "boolean" },
+        "unsupportedGeometry": { "type": "array", "items": { "type": "object" } },
+        "exception": { "type": ["object", "null"] },
+        "unexpected": { "type": "boolean" }
+      }
+    },
+    "naturalWidth": { "type": "number", "minimum": 0 },
+    "naturalHeight": { "type": "number", "minimum": 0 },
+    "source": { "type": "string" },
+    "poster": { "type": "string" }
+  }
+}

@@ -1,0 +1,4775 @@
+{
+  "baseline": {
+    "captured_at": "2026-07-20T18:39:41-04:00",
+    "evidence_root": "docs/audits/2026-07-20T175853-0400-round-80",
+    "id": "2026-07-20T175853-0400-round-80",
+    "manifest_integrity": {
+      "all_entries_verified": true,
+      "entry_count": 122,
+      "expected_entry_count": 122,
+      "expected_manifest_sha256": "efe8a99a378e769db0fd4cf1fbc10033096673d66a5acce00192f1b7198983a6",
+      "manifest": "docs/audits/2026-07-20T175853-0400-round-80/SHA256SUMS",
+      "manifest_sha256": "efe8a99a378e769db0fd4cf1fbc10033096673d66a5acce00192f1b7198983a6",
+      "verified_bytes": 5219625
+    },
+    "protected_commit": "18093409423fb5d268d64e049c31a91bbb78d51a",
+    "protected_reference": "round-69-gold",
+    "source_precedence": [
+      "Explicit latest Ocean decision",
+      "Current approved Figma endpoint for visual intent",
+      "Reload-verified Cargo draft for deployed behavior",
+      "Local source mirror for implementation intent",
+      "Historical logs for diagnosis only"
+    ],
+    "stable_commit": "d40b930b29bea66a63c2a3a5aa244b03da5a65cf",
+    "stable_reference": "round-80-stable"
+  },
+  "browser_capabilities": [
+    {
+      "capability": "CSS Grid, Flexbox, clamp, and sticky positioning",
+      "detected_in_frozen_payload": true,
+      "evidence": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/global.css"
+      ],
+      "fallback": "no polyfill captured; unsupported browsers receive normal CSS cascade where declarations are ignored",
+      "missing_evidence_markers": [],
+      "use": "responsive shell, bands, panels, and fluid grid"
+    },
+    {
+      "capability": "native horizontal overflow and touch panning",
+      "detected_in_frozen_payload": true,
+      "evidence": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/global.css",
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html"
+      ],
+      "fallback": "desktop scrubbers add pointer and keyboard scrolling; native overflow remains the base interaction",
+      "missing_evidence_markers": [],
+      "use": "portfolio rivers remain natively scrollable by touch and trackpad"
+    },
+    {
+      "capability": "HTMLDialogElement non-modal show/close",
+      "detected_in_frozen_payload": true,
+      "evidence": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html"
+      ],
+      "fallback": "no dialog polyfill is captured; the source open attribute preserves expanded initial visibility but compact behavior requires dialog methods",
+      "missing_evidence_markers": [],
+      "use": "one control panel moves between compact body portal and expanded rail"
+    },
+    {
+      "capability": "localStorage",
+      "detected_in_frozen_payload": true,
+      "evidence": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html"
+      ],
+      "fallback": "all storage access is guarded by try/catch and defaults remain available",
+      "missing_evidence_markers": [],
+      "use": "persists theme, typeface, scale, and shape"
+    },
+    {
+      "capability": "sessionStorage",
+      "detected_in_frozen_payload": true,
+      "evidence": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html"
+      ],
+      "fallback": "try/catch makes signature persistence optional; a new sequence is still generated",
+      "missing_evidence_markers": [],
+      "use": "avoids repeating the prior startup sequence signature"
+    },
+    {
+      "capability": "cryptographic random values",
+      "detected_in_frozen_payload": true,
+      "evidence": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html"
+      ],
+      "fallback": "explicit Math.random fallback",
+      "missing_evidence_markers": [],
+      "use": "randomizes startup combinations"
+    },
+    {
+      "capability": "matchMedia, reduced motion, and Save-Data",
+      "detected_in_frozen_payload": true,
+      "evidence": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/global.css"
+      ],
+      "fallback": "absent APIs evaluate as not reduced and not Save-Data; core content remains available",
+      "missing_evidence_markers": [],
+      "use": "selects compact/fine-pointer behavior and skips startup motion for user or network preference"
+    },
+    {
+      "capability": "requestAnimationFrame",
+      "detected_in_frozen_payload": true,
+      "evidence": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html"
+      ],
+      "fallback": "explicit 16 ms setTimeout fallback for the startup controller; no general animation polyfill captured",
+      "missing_evidence_markers": [],
+      "use": "startup hard-cut paint confirmation and scrubber synchronization"
+    },
+    {
+      "capability": "IntersectionObserver",
+      "detected_in_frozen_payload": true,
+      "evidence": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html"
+      ],
+      "fallback": "explicit eager activation of every deferred element when unavailable",
+      "missing_evidence_markers": [],
+      "use": "prewarms rivers and activates deferred video/iframe sources near the viewport"
+    },
+    {
+      "capability": "ResizeObserver",
+      "detected_in_frozen_payload": true,
+      "evidence": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html"
+      ],
+      "fallback": "load/resize/orientation listeners and scheduled measurements are retained; no ResizeObserver polyfill captured",
+      "missing_evidence_markers": [],
+      "use": "updates scrubbers, Montran map fit, and compact header measurements"
+    },
+    {
+      "capability": "muted inline autoplay and posters",
+      "detected_in_frozen_payload": true,
+      "evidence": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html"
+      ],
+      "fallback": "play rejection is caught and the poster/background remains visible",
+      "missing_evidence_markers": [],
+      "use": "plays motion inline on iOS while preserving a static first frame until readiness"
+    },
+    {
+      "capability": "visibility lifecycle",
+      "detected_in_frozen_payload": true,
+      "evidence": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html"
+      ],
+      "fallback": "if messaging is unavailable, posters and document content remain; iframe internal motion control is not guaranteed",
+      "missing_evidence_markers": [],
+      "use": "pauses/resumes video and notifies iframe motion when the page or media is not visible"
+    },
+    {
+      "capability": "validated iframe postMessage",
+      "detected_in_frozen_payload": true,
+      "evidence": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/local/embed-manifest.json"
+      ],
+      "fallback": "iframe posters remain until a valid ready message; outbound visibility/mode messages use captured wildcard targets",
+      "missing_evidence_markers": [],
+      "use": "accepts ready messages from the expected V7, Touchbaes, and Montran frame"
+    },
+    {
+      "capability": "WebGL embed",
+      "detected_in_frozen_payload": true,
+      "evidence": [
+        "docs/audits/2026-07-20T175853-0400-round-80/local/embed-manifest.json"
+      ],
+      "fallback": "static iframe poster remains until the validated ready signal; no alternate live renderer captured",
+      "missing_evidence_markers": [],
+      "use": "renders the V7 Three.js cup inside a cross-origin Freight iframe"
+    },
+    {
+      "capability": "PDF canvas and HTTP range transport",
+      "detected_in_frozen_payload": true,
+      "evidence": [
+        "docs/audits/2026-07-20T175853-0400-round-80/local/embed-manifest.json",
+        "work/montran-direct-pdf-v10-src/vendor/pdf.min.mjs"
+      ],
+      "fallback": "the frozen manifest records range transport and a 1600 px ceiling but does not prove the active full-download fallback; the poster/loader is the captured parent fallback",
+      "missing_evidence_markers": [],
+      "use": "renders the Montran booklet selectively inside a Freight iframe"
+    },
+    {
+      "capability": "viewport-fit and safe-area environment variables",
+      "detected_in_frozen_payload": true,
+      "evidence": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/site-head.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/global.css"
+      ],
+      "fallback": "regular viewport padding and a 1 px sampler minimum apply when safe-area values resolve to zero",
+      "missing_evidence_markers": [],
+      "use": "allows content bleed while protecting compact header and panel controls on iOS"
+    },
+    {
+      "capability": "Pointer Events and keyboard control",
+      "detected_in_frozen_payload": true,
+      "evidence": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html"
+      ],
+      "fallback": "native river scrolling remains available where custom pointer handling does not own the gesture",
+      "missing_evidence_markers": [],
+      "use": "drag/tap interactions plus scrubber arrows, page keys, Home, and End"
+    }
+  ],
+  "cargo_platform": {
+    "custom_head": {
+      "bytes": 1879,
+      "marker": "49",
+      "removes_apple_standalone_status_meta": true,
+      "removes_theme_color": true,
+      "sha256": "3e3b287a4a7800e2caf7ec1a5b3d16a0eb296d82ae6da969b60ac233632cad2a",
+      "viewport_fit_cover": true
+    },
+    "global_css": {
+      "bytes": 86129,
+      "complete_local_bundle_bytes": 78609,
+      "complete_local_bundle_sha256": "ee1c2af629f8f31c765fd43b52264d0768baf02144e7055f41b31281ed030af0",
+      "managed_font_blocks": [
+        {
+          "class": "mms-mono",
+          "font_family": "\"Gaisyr Semi-Mono\"",
+          "text_style": "mms mono"
+        },
+        {
+          "class": "mms-sans",
+          "font_family": "\"TeX Gyre Heros Condensed\"",
+          "text_style": "mms sans"
+        },
+        {
+          "class": "mms-gothic",
+          "font_family": "UnifrakturMaguntia",
+          "text_style": "mms gothic"
+        }
+      ],
+      "required_deploy_composer": "cargo/compose-css-bundle.sh",
+      "sha256": "756d73e5e63bfd4551326e06888ba93574601837a9fbf552ffb3fac4d7710bb3",
+      "template_override_contracts": [
+        "html[data-theme] .page-layout",
+        "html[data-theme] .page-content",
+        "html[data-theme] .page",
+        "html[data-theme] body"
+      ]
+    },
+    "override_contracts": {
+      "contracts": [
+        {
+          "behavior": "Cargo wrappers remain transparent so the MM.S composition and edge-to-edge media own the visible surface",
+          "evidence": "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/global.css",
+          "name": "wrapper_transparency",
+          "ordering_or_risk": "must remain scoped to data-mms-site; an opaque wrapper breaks iOS edge content",
+          "selectors": [
+            "html[data-mms-site] .page",
+            "html[data-mms-site] .page-layout",
+            "html[data-mms-site] .page-content",
+            "html[data-mms-site] bodycopy"
+          ]
+        },
+        {
+          "behavior": "removes Cargo max-width and page-content padding",
+          "evidence": "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/global.css",
+          "name": "layout_width_and_padding",
+          "ordering_or_risk": "uses !important to override Cargo template geometry",
+          "selectors": [
+            "html[data-theme] .page-layout",
+            "html[data-theme] .page-content"
+          ]
+        },
+        {
+          "behavior": "removes Cargo bodycopy max-width so the internal responsive grid owns width",
+          "evidence": "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/global.css",
+          "name": "bodycopy_width",
+          "ordering_or_risk": "must be paired with the scoped .mms reset rather than a global content reset",
+          "selectors": [
+            "html[data-theme] bodycopy"
+          ]
+        },
+        {
+          "behavior": "hides Cargo's pinned duplicate page surface",
+          "evidence": "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/global.css",
+          "name": "pinned_page_suppression",
+          "ordering_or_risk": "removing this may expose a second page layer",
+          "selectors": [
+            "html[data-theme] .page.pinned"
+          ]
+        },
+        {
+          "behavior": "the one non-modal dialog is moved under body in compact mode so fixed positioning is not trapped by transformed Cargo wrappers, then restored to the expanded rail",
+          "evidence": "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+          "name": "compact_dialog_portal",
+          "ordering_or_risk": "the placeholder preserves the source slot and control state; cloning the dialog would duplicate IDs and preferences",
+          "selectors": [
+            "dialog.mms-panel"
+          ]
+        },
+        {
+          "behavior": "reasserts owned margins and padding after Cargo's generated #mobile-offset-styles clones",
+          "evidence": "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/global.css",
+          "name": "mobile_offset_neutralizer",
+          "ordering_or_risk": "the neutralizer is intentionally the final general spacing section and requires !important because Cargo injects clones after the stylesheet",
+          "selectors": [
+            ".mms",
+            ".mms *",
+            ".mms-rail",
+            ".mms-panel",
+            ".mms-main",
+            ".mms-river",
+            ".mms-desc"
+          ]
+        }
+      ],
+      "wrapper_stack": [
+        ".page",
+        ".page-layout",
+        ".page-content",
+        "bodycopy",
+        ".mms"
+      ]
+    },
+    "routing_and_metadata": {
+      "canonical_links": {
+        "home": [],
+        "who": [],
+        "write": []
+      },
+      "captured_route_redirects": {
+        "home": 0,
+        "who": 0,
+        "write": 0
+      },
+      "favicon": "https://static.cargo.site/favicon/c3-favicon.ico",
+      "homepage_id": "I2398594830",
+      "page_settings_beyond captured API summary": "not captured in Phase 1",
+      "redirect_rules": "not captured in Phase 1",
+      "robots_meta_in_captured_pages": {
+        "home": false,
+        "who": false,
+        "write": false
+      },
+      "robots_txt_behavior": "not captured in Phase 1",
+      "routes_captured": [
+        "/",
+        "/write",
+        "/who"
+      ],
+      "rss": "https://mmmmm.studio/rss",
+      "sitemap_behavior": "not captured in Phase 1"
+    },
+    "site": {
+      "access_level": "public",
+      "capture_mode": "authenticated read-only GET",
+      "captured_from": "https://api.cargo.site/v1/sites/3626191",
+      "css_url": "https://mmmmm.studio/stylesheet",
+      "custom_html_bytes": 1879,
+      "direct_link": "https://mmmmm.studio",
+      "display_url": "mmmmm.studio",
+      "domain": "mmmmm.studio",
+      "domain_active": true,
+      "domain_pending": false,
+      "favicon_url": "https://static.cargo.site/favicon/c3-favicon.ico",
+      "homepage_id": "I2398594830",
+      "id": 3626191,
+      "is_deleted": false,
+      "is_private": false,
+      "is_upgraded": false,
+      "recent_date": "2026-07-20 18:40:28",
+      "rss_url": "https://mmmmm.studio/rss",
+      "show_cargo_logo": false,
+      "site_url": "592756",
+      "total_file_size": 234600471,
+      "version": "Cargo3",
+      "website_title": "MM.S"
+    }
+  },
+  "dependencies": [
+    {
+      "capabilities": [
+        "custom HTML",
+        "global CSS",
+        "page bodycopy",
+        "Cargo custom elements"
+      ],
+      "delivery": "page rendering, editor sanitization, site configuration",
+      "evidence": "cargo-draft/identity.json",
+      "license": "hosted platform; license not represented in repository",
+      "name": "Cargo 3",
+      "origin": "https://cargo.site",
+      "version": "Cargo3"
+    },
+    {
+      "capabilities": [
+        "Cargo document shell",
+        "platform components",
+        "base responsive presentation"
+      ],
+      "delivery": "published-document stylesheet loaded from Cargo's build origin",
+      "evidence": "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+      "license": "hosted platform; license not represented in repository",
+      "name": "Cargo frontend stylesheet",
+      "origin": "https://build.cargo.site",
+      "version": "cbf2d0 capture path; package version unresolved"
+    },
+    {
+      "capabilities": [
+        "immutable media delivery",
+        "responsive image renditions",
+        "HTTP range requests for PDF"
+      ],
+      "delivery": "images, video, posters, PDF, and self-contained embeds",
+      "evidence": "freight/asset-manifest.csv and public header probes",
+      "license": "hosted platform; asset rights are not captured by the CDN response",
+      "name": "Cargo Freight",
+      "origin": "https://freight.cargo.site",
+      "version": "platform-managed"
+    },
+    {
+      "capabilities": [
+        "PDF parsing",
+        "range transport",
+        "canvas page rendering"
+      ],
+      "delivery": "tracked vendor source used by the Montran reconstruction path",
+      "evidence": "work/montran-direct-pdf-v10-src/vendor/pdf.min.mjs",
+      "license": "Apache-2.0 notice present in tracked vendor file",
+      "name": "PDF.js",
+      "origin": "self-contained Freight embed",
+      "version": "6.1.200"
+    },
+    {
+      "capabilities": [
+        "desktop fold",
+        "drag and tap page turning",
+        "page shadow"
+      ],
+      "delivery": "tracked vendor source used by the Montran reconstruction path",
+      "evidence": "work/montran-direct-pdf-v10-src/vendor/page-flip.browser.js",
+      "license": "unresolved; no license notice observed in vendored file",
+      "name": "StPageFlip",
+      "origin": "self-contained Freight embed",
+      "version": "unresolved; vendored minified file has no version marker"
+    },
+    {
+      "capabilities": [
+        "WebGL rendering",
+        "GLTF loading",
+        "animation loop"
+      ],
+      "delivery": "active version identity captured in the frozen embed manifest",
+      "evidence": "docs/audits/2026-07-20T175853-0400-round-80/local/embed-manifest.json",
+      "license": "not captured in the frozen embed manifest; no license claim is inferred",
+      "name": "Three.js",
+      "origin": "self-contained Freight embed",
+      "version": "r160"
+    },
+    {
+      "capabilities": [
+        "pointer and touch drag",
+        "responsive size reporting",
+        "visibility and mode messages"
+      ],
+      "delivery": "active version identity captured in the frozen embed manifest",
+      "evidence": "docs/audits/2026-07-20T175853-0400-round-80/local/embed-manifest.json",
+      "license": "not captured in the frozen embed manifest",
+      "name": "Touchbaes game runtime",
+      "origin": "self-contained Freight embed",
+      "version": "10"
+    },
+    {
+      "capabilities": [
+        "Cargo Diatype",
+        "Cargo Marist",
+        "Gaisyr Semi-Mono",
+        "TeX Gyre Heros Condensed",
+        "UnifrakturMaguntia"
+      ],
+      "delivery": "Cargo-managed @font-face rules and font files",
+      "evidence": "docs/audits/2026-07-20T175853-0400-round-80/public/home.html and cargo-draft/global.css",
+      "license": "provider attribution comments are captured; complete license texts are not",
+      "name": "Cargo-hosted fonts",
+      "origin": "https://type.cargo.site",
+      "version": "platform-managed"
+    }
+  ],
+  "design_source": {
+    "capture_limitation": {
+      "condition": "full-file and full Home-page traversal exceeded the Figma bridge request window and returned HTTP 504",
+      "retained_scope": "approved Home endpoints and screenshots, variables, components, and the other page inventories",
+      "source": "docs/audits/2026-07-20T175853-0400-round-80/figma/README.md",
+      "unavailable_scope": "complete full Home tree"
+    },
+    "capture_mode": "read-only",
+    "collection_count": 6,
+    "collections": [
+      {
+        "id": "VariableCollectionId:4:2",
+        "modes": [
+          "Value"
+        ],
+        "name": "Primitives",
+        "variable_count": 11
+      },
+      {
+        "id": "VariableCollectionId:4:3",
+        "modes": [
+          "White",
+          "Black",
+          "Girly",
+          "Quirky",
+          "Contrast"
+        ],
+        "name": "Color",
+        "variable_count": 6
+      },
+      {
+        "id": "VariableCollectionId:4:4",
+        "modes": [
+          "Desktop",
+          "Mobile",
+          "Desktop 1800",
+          "Desktop 2560"
+        ],
+        "name": "Space",
+        "variable_count": 48
+      },
+      {
+        "id": "VariableCollectionId:4:5",
+        "modes": [
+          "Medium",
+          "Small",
+          "Large",
+          "XL"
+        ],
+        "name": "Type Scale",
+        "variable_count": 32
+      },
+      {
+        "id": "VariableCollectionId:51:269",
+        "modes": [
+          "Serif",
+          "Sans",
+          "Mono",
+          "Gothic"
+        ],
+        "name": "Typeface",
+        "variable_count": 9
+      },
+      {
+        "id": "VariableCollectionId:112:340",
+        "modes": [
+          "State"
+        ],
+        "name": "UI State",
+        "variable_count": 13
+      }
+    ],
+    "component_and_component_set_count": 71,
+    "evidence": {
+      "collections": "docs/audits/2026-07-20T175853-0400-round-80/figma/variable-collections.json",
+      "components": "docs/audits/2026-07-20T175853-0400-round-80/figma/components.json",
+      "reference_nodes": "docs/audits/2026-07-20T175853-0400-round-80/figma/reference-nodes.json",
+      "screenshots": "docs/audits/2026-07-20T175853-0400-round-80/figma/screenshots"
+    },
+    "file_key": "aaJEv2Z8j6HaegMHou4N09",
+    "file_name": "web design",
+    "page_count": 10,
+    "pages": [
+      {
+        "id": "0:1",
+        "name": "home/work",
+        "type": "PAGE"
+      },
+      {
+        "id": "502:465",
+        "name": "who",
+        "type": "PAGE"
+      },
+      {
+        "id": "532:1207",
+        "name": "write",
+        "type": "PAGE"
+      },
+      {
+        "id": "1:36",
+        "name": "---",
+        "type": "PAGE"
+      },
+      {
+        "id": "6:2",
+        "name": "library — foundations",
+        "type": "PAGE"
+      },
+      {
+        "id": "6:3",
+        "name": "library — components",
+        "type": "PAGE"
+      },
+      {
+        "id": "782:351",
+        "name": "draft",
+        "type": "PAGE"
+      },
+      {
+        "id": "235:439",
+        "name": "---",
+        "type": "PAGE"
+      },
+      {
+        "id": "235:438",
+        "name": "interactive",
+        "type": "PAGE"
+      },
+      {
+        "id": "235:440",
+        "name": "-> touchbaes",
+        "type": "PAGE"
+      }
+    ],
+    "reference_endpoint_count": 8,
+    "reference_endpoints": [
+      {
+        "boundVariables": {
+          "fills": [
+            {
+              "id": "VariableID:5:2",
+              "type": "VARIABLE_ALIAS"
+            }
+          ],
+          "layoutGrids": [
+            {
+              "id": "VariableID:5:19",
+              "type": "VARIABLE_ALIAS"
+            },
+            {
+              "id": "VariableID:5:20",
+              "type": "VARIABLE_ALIAS"
+            },
+            {
+              "id": "VariableID:5:23",
+              "type": "VARIABLE_ALIAS"
+            }
+          ],
+          "paddingBottom": {
+            "id": "VariableID:5:21",
+            "type": "VARIABLE_ALIAS"
+          },
+          "paddingRight": {
+            "id": "VariableID:5:23",
+            "type": "VARIABLE_ALIAS"
+          }
+        },
+        "childCount": 3,
+        "clipsContent": false,
+        "counterAxisSizingMode": "FIXED",
+        "explicitVariableModes": {
+          "VariableCollectionId:4:4": "4:2",
+          "VariableCollectionId:4:5": "4:4"
+        },
+        "height": 942,
+        "id": "83:251",
+        "itemSpacing": 0,
+        "layoutMode": "NONE",
+        "name": "home / desktop — rework (WIP)",
+        "opacity": 1,
+        "paddingBottom": 40,
+        "paddingLeft": 0,
+        "paddingRight": 40,
+        "paddingTop": 0,
+        "primaryAxisSizingMode": "FIXED",
+        "type": "FRAME",
+        "visible": true,
+        "width": 1440,
+        "x": 1560,
+        "y": 0
+      },
+      {
+        "boundVariables": {
+          "fills": [
+            {
+              "id": "VariableID:5:2",
+              "type": "VARIABLE_ALIAS"
+            }
+          ],
+          "itemSpacing": {
+            "id": "VariableID:5:20",
+            "type": "VARIABLE_ALIAS"
+          },
+          "layoutGrids": [
+            {
+              "id": "VariableID:5:18",
+              "type": "VARIABLE_ALIAS"
+            },
+            {
+              "id": "VariableID:5:19",
+              "type": "VARIABLE_ALIAS"
+            },
+            {
+              "id": "VariableID:5:23",
+              "type": "VARIABLE_ALIAS"
+            }
+          ],
+          "paddingBottom": {
+            "id": "VariableID:5:23",
+            "type": "VARIABLE_ALIAS"
+          },
+          "paddingLeft": {
+            "id": "VariableID:5:23",
+            "type": "VARIABLE_ALIAS"
+          },
+          "paddingRight": {
+            "id": "VariableID:5:23",
+            "type": "VARIABLE_ALIAS"
+          },
+          "paddingTop": {
+            "id": "VariableID:5:23",
+            "type": "VARIABLE_ALIAS"
+          }
+        },
+        "childCount": 2,
+        "clipsContent": true,
+        "counterAxisSizingMode": "FIXED",
+        "explicitVariableModes": {
+          "VariableCollectionId:4:4": "4:3",
+          "VariableCollectionId:4:5": "4:4",
+          "VariableCollectionId:51:269": "51:0"
+        },
+        "height": 844,
+        "id": "11:31",
+        "itemSpacing": 32,
+        "layoutMode": "VERTICAL",
+        "name": "home / mobile",
+        "opacity": 1,
+        "paddingBottom": 20,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 20,
+        "primaryAxisSizingMode": "FIXED",
+        "type": "FRAME",
+        "visible": true,
+        "width": 390,
+        "x": 9053,
+        "y": 0
+      },
+      {
+        "boundVariables": {
+          "fills": [
+            {
+              "id": "VariableID:5:2",
+              "type": "VARIABLE_ALIAS"
+            }
+          ],
+          "layoutGrids": [
+            {
+              "id": "VariableID:5:19",
+              "type": "VARIABLE_ALIAS"
+            },
+            {
+              "id": "VariableID:5:20",
+              "type": "VARIABLE_ALIAS"
+            },
+            {
+              "id": "VariableID:5:23",
+              "type": "VARIABLE_ALIAS"
+            }
+          ],
+          "paddingBottom": {
+            "id": "VariableID:5:21",
+            "type": "VARIABLE_ALIAS"
+          },
+          "paddingRight": {
+            "id": "VariableID:5:23",
+            "type": "VARIABLE_ALIAS"
+          }
+        },
+        "childCount": 3,
+        "clipsContent": false,
+        "counterAxisSizingMode": "FIXED",
+        "explicitVariableModes": {
+          "VariableCollectionId:4:4": "4:2",
+          "VariableCollectionId:4:5": "4:4"
+        },
+        "height": 942,
+        "id": "502:466",
+        "itemSpacing": 0,
+        "layoutMode": "NONE",
+        "name": "who / desktop",
+        "opacity": 1,
+        "paddingBottom": 40,
+        "paddingLeft": 0,
+        "paddingRight": 40,
+        "paddingTop": 0,
+        "primaryAxisSizingMode": "FIXED",
+        "type": "FRAME",
+        "visible": true,
+        "width": 1440,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "boundVariables": {
+          "fills": [
+            {
+              "id": "VariableID:5:2",
+              "type": "VARIABLE_ALIAS"
+            }
+          ],
+          "itemSpacing": {
+            "id": "VariableID:5:20",
+            "type": "VARIABLE_ALIAS"
+          },
+          "layoutGrids": [
+            {
+              "id": "VariableID:5:18",
+              "type": "VARIABLE_ALIAS"
+            },
+            {
+              "id": "VariableID:5:19",
+              "type": "VARIABLE_ALIAS"
+            },
+            {
+              "id": "VariableID:5:23",
+              "type": "VARIABLE_ALIAS"
+            }
+          ],
+          "paddingBottom": {
+            "id": "VariableID:5:22",
+            "type": "VARIABLE_ALIAS"
+          },
+          "paddingLeft": {
+            "id": "VariableID:5:23",
+            "type": "VARIABLE_ALIAS"
+          },
+          "paddingRight": {
+            "id": "VariableID:5:23",
+            "type": "VARIABLE_ALIAS"
+          },
+          "paddingTop": {
+            "id": "VariableID:5:23",
+            "type": "VARIABLE_ALIAS"
+          }
+        },
+        "childCount": 2,
+        "clipsContent": false,
+        "counterAxisSizingMode": "FIXED",
+        "explicitVariableModes": {
+          "VariableCollectionId:4:4": "4:3",
+          "VariableCollectionId:4:5": "4:4"
+        },
+        "height": 1279.1400146484375,
+        "id": "638:432",
+        "itemSpacing": 32,
+        "layoutMode": "VERTICAL",
+        "name": "who / mobile",
+        "opacity": 1,
+        "paddingBottom": 64,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 20,
+        "primaryAxisSizingMode": "AUTO",
+        "type": "FRAME",
+        "visible": true,
+        "width": 390,
+        "x": 1490,
+        "y": 0
+      },
+      {
+        "boundVariables": {
+          "fills": [
+            {
+              "id": "VariableID:5:2",
+              "type": "VARIABLE_ALIAS"
+            }
+          ],
+          "layoutGrids": [
+            {
+              "id": "VariableID:5:19",
+              "type": "VARIABLE_ALIAS"
+            },
+            {
+              "id": "VariableID:5:20",
+              "type": "VARIABLE_ALIAS"
+            },
+            {
+              "id": "VariableID:5:23",
+              "type": "VARIABLE_ALIAS"
+            }
+          ],
+          "paddingBottom": {
+            "id": "VariableID:5:21",
+            "type": "VARIABLE_ALIAS"
+          },
+          "paddingRight": {
+            "id": "VariableID:5:23",
+            "type": "VARIABLE_ALIAS"
+          }
+        },
+        "childCount": 3,
+        "clipsContent": false,
+        "counterAxisSizingMode": "FIXED",
+        "explicitVariableModes": {
+          "VariableCollectionId:4:4": "4:2",
+          "VariableCollectionId:4:5": "4:4"
+        },
+        "height": 942,
+        "id": "532:1208",
+        "itemSpacing": 0,
+        "layoutMode": "NONE",
+        "name": "write / desktop",
+        "opacity": 1,
+        "paddingBottom": 40,
+        "paddingLeft": 0,
+        "paddingRight": 40,
+        "paddingTop": 0,
+        "primaryAxisSizingMode": "FIXED",
+        "type": "FRAME",
+        "visible": true,
+        "width": 1440,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "boundVariables": {
+          "fills": [
+            {
+              "id": "VariableID:5:2",
+              "type": "VARIABLE_ALIAS"
+            }
+          ],
+          "itemSpacing": {
+            "id": "VariableID:5:20",
+            "type": "VARIABLE_ALIAS"
+          },
+          "layoutGrids": [
+            {
+              "id": "VariableID:5:18",
+              "type": "VARIABLE_ALIAS"
+            },
+            {
+              "id": "VariableID:5:19",
+              "type": "VARIABLE_ALIAS"
+            },
+            {
+              "id": "VariableID:5:23",
+              "type": "VARIABLE_ALIAS"
+            }
+          ],
+          "paddingBottom": {
+            "id": "VariableID:5:22",
+            "type": "VARIABLE_ALIAS"
+          },
+          "paddingLeft": {
+            "id": "VariableID:5:23",
+            "type": "VARIABLE_ALIAS"
+          },
+          "paddingRight": {
+            "id": "VariableID:5:23",
+            "type": "VARIABLE_ALIAS"
+          },
+          "paddingTop": {
+            "id": "VariableID:5:23",
+            "type": "VARIABLE_ALIAS"
+          }
+        },
+        "childCount": 2,
+        "clipsContent": false,
+        "counterAxisSizingMode": "FIXED",
+        "explicitVariableModes": {
+          "VariableCollectionId:4:4": "4:3",
+          "VariableCollectionId:4:5": "4:4"
+        },
+        "height": 1938,
+        "id": "640:448",
+        "itemSpacing": 32,
+        "layoutMode": "VERTICAL",
+        "name": "write / mobile",
+        "opacity": 1,
+        "paddingBottom": 64,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 20,
+        "primaryAxisSizingMode": "AUTO",
+        "type": "FRAME",
+        "visible": true,
+        "width": 390,
+        "x": 1490,
+        "y": 0
+      },
+      {
+        "boundVariables": {
+          "fills": [
+            {
+              "id": "VariableID:5:2",
+              "type": "VARIABLE_ALIAS"
+            }
+          ],
+          "itemSpacing": {
+            "id": "VariableID:5:18",
+            "type": "VARIABLE_ALIAS"
+          },
+          "paddingBottom": {
+            "id": "VariableID:5:19",
+            "type": "VARIABLE_ALIAS"
+          },
+          "paddingLeft": {
+            "id": "VariableID:5:18",
+            "type": "VARIABLE_ALIAS"
+          },
+          "paddingRight": {
+            "id": "VariableID:5:18",
+            "type": "VARIABLE_ALIAS"
+          },
+          "paddingTop": {
+            "id": "VariableID:5:19",
+            "type": "VARIABLE_ALIAS"
+          },
+          "strokes": [
+            {
+              "id": "VariableID:19:35",
+              "type": "VARIABLE_ALIAS"
+            }
+          ],
+          "width": {
+            "id": "VariableID:82:251",
+            "type": "VARIABLE_ALIAS"
+          }
+        },
+        "childCount": 4,
+        "clipsContent": true,
+        "counterAxisSizingMode": "FIXED",
+        "explicitVariableModes": {
+          "VariableCollectionId:4:5": "4:4"
+        },
+        "height": 248,
+        "id": "1:1039",
+        "itemSpacing": 16,
+        "layoutMode": "VERTICAL",
+        "name": "Control Panel",
+        "opacity": 1,
+        "paddingBottom": 24,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 24,
+        "primaryAxisSizingMode": "AUTO",
+        "type": "COMPONENT",
+        "visible": true,
+        "width": 200,
+        "x": 39,
+        "y": 50
+      },
+      {
+        "boundVariables": {
+          "fills": [
+            {
+              "id": "VariableID:5:2",
+              "type": "VARIABLE_ALIAS"
+            }
+          ],
+          "paddingBottom": {
+            "id": "VariableID:5:18",
+            "type": "VARIABLE_ALIAS"
+          },
+          "paddingLeft": {
+            "id": "VariableID:5:23",
+            "type": "VARIABLE_ALIAS"
+          },
+          "paddingRight": {
+            "id": "VariableID:5:23",
+            "type": "VARIABLE_ALIAS"
+          },
+          "paddingTop": {
+            "id": "VariableID:5:18",
+            "type": "VARIABLE_ALIAS"
+          },
+          "strokes": [
+            {
+              "id": "VariableID:19:35",
+              "type": "VARIABLE_ALIAS"
+            }
+          ]
+        },
+        "childCount": 3,
+        "clipsContent": true,
+        "counterAxisSizingMode": "FIXED",
+        "explicitVariableModes": {
+          "VariableCollectionId:4:4": "4:3"
+        },
+        "height": 178,
+        "id": "1:2899",
+        "itemSpacing": 0,
+        "layoutMode": "VERTICAL",
+        "name": "Control Panel / Sheet",
+        "opacity": 1,
+        "paddingBottom": 16,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 16,
+        "primaryAxisSizingMode": "AUTO",
+        "type": "COMPONENT",
+        "visible": true,
+        "width": 390,
+        "x": 30,
+        "y": 53
+      }
+    ],
+    "variable_categories": [
+      {
+        "category": "color",
+        "count": 6,
+        "source": "docs/audits/2026-07-20T175853-0400-round-80/figma/variables/color.json"
+      },
+      {
+        "category": "primitives",
+        "count": 11,
+        "source": "docs/audits/2026-07-20T175853-0400-round-80/figma/variables/primitives.json"
+      },
+      {
+        "category": "space",
+        "count": 48,
+        "source": "docs/audits/2026-07-20T175853-0400-round-80/figma/variables/space.json"
+      },
+      {
+        "category": "type-scale",
+        "count": 32,
+        "source": "docs/audits/2026-07-20T175853-0400-round-80/figma/variables/type-scale.json"
+      },
+      {
+        "category": "typeface",
+        "count": 9,
+        "source": "docs/audits/2026-07-20T175853-0400-round-80/figma/variables/typeface.json"
+      },
+      {
+        "category": "ui-state",
+        "count": 13,
+        "source": "docs/audits/2026-07-20T175853-0400-round-80/figma/variables/ui-state.json"
+      }
+    ],
+    "variable_count": 119
+  },
+  "evidence_gaps": [
+    {
+      "area": "Cargo platform configuration",
+      "missing": [
+        "redirect rules",
+        "robots.txt behavior",
+        "sitemap behavior",
+        "complete page-design settings",
+        "social-preview configuration provenance"
+      ],
+      "next_evidence": "authenticated read-only Cargo settings capture plus public endpoint probes"
+    },
+    {
+      "area": "Third-party provenance",
+      "missing": [
+        "StPageFlip version and license notice",
+        "Cargo-hosted font versions and licenses",
+        "license/owner metadata for every portfolio asset"
+      ],
+      "next_evidence": "vendor lockfile or upstream source record and an asset provenance manifest"
+    },
+    {
+      "area": "Reproducible embeds",
+      "missing": [
+        "tracked V7 source/build command",
+        "tracked Montran v17 behavior matching the active bundle"
+      ],
+      "next_evidence": "promote exact active sources and add deterministic bundle tests after audit approval"
+    },
+    {
+      "area": "Rendered media requirements",
+      "missing": [
+        "measured maximum render size by viewport/state",
+        "DPR coverage",
+        "verified transparency intent for every object",
+        "source-file ownership mapping"
+      ],
+      "next_evidence": "Phase 2 browser harness output plus the separate asset manifest"
+    }
+  ],
+  "generator": {
+    "determinism": "no wall-clock fields; sorted output; complete manifest-verified Phase 1 evidence plus tracked vendor inputs only",
+    "fresh_clone_contract": "does not read ignored active bundles or mutable cargo/*.css/html/js runtime mirrors",
+    "script": "audit/scripts/generate-system-inventory.py",
+    "version": "1.2.0"
+  },
+  "media_and_embeds": {
+    "embeds": [
+      {
+        "bytes": 780341,
+        "freight_url": "https://freight.cargo.site/m/Z3031274916472238420423367767865/coffee-cup-bundle.html",
+        "git_state": "ignored",
+        "kind": "v7-cup",
+        "local_path": "Portfolio assets/_for cargo deployment/V7/coffee cup 3d/coffee-cup-bundle.html",
+        "ready_message": {
+          "__mmsEmbedReady": 1,
+          "kind": "v7-cup"
+        },
+        "rebuild_entrypoint": null,
+        "reproducible_from_tracked_source": false,
+        "sha256": "ee09e9c282d928f8968b91e1301bc0ba2639102a27c1bf1cd40483ab1b609d0a",
+        "version": "three-r160"
+      },
+      {
+        "alias_path": "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/touchbaes-sticker-game.html",
+        "alias_sha256": "2c4f2c12a8d049ab0805fb8f72f246a95e715154671d5fd8cc808407995afcb5",
+        "bytes": 49140,
+        "documentation_note": "README predates v10 sizing and message details",
+        "freight_url": "https://freight.cargo.site/m/E3031754669080377521238157342521/touchbaes-sticker-game-v10.html",
+        "git_state": "tracked",
+        "kind": "touchbaes",
+        "local_path": "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/touchbaes-sticker-game-v10.html",
+        "ready_message": {
+          "__mmsEmbedReady": 1,
+          "kind": "touchbaes"
+        },
+        "rebuild_entrypoint": null,
+        "reproducible_from_tracked_source": true,
+        "sha256": "2c4f2c12a8d049ab0805fb8f72f246a95e715154671d5fd8cc808407995afcb5",
+        "version": 10
+      },
+      {
+        "bytes": 1936356,
+        "freight_url": "https://freight.cargo.site/m/U3034412351395654863674388559673/montran-booklet-direct-pdf-v17.html",
+        "git_state": "ignored",
+        "kind": "montran-booklet",
+        "local_path": "work/montran-direct-pdf-v10-src/montran-booklet-direct-pdf-v17.html",
+        "range_transport": "FreightRangeTransport",
+        "ready_message": {
+          "__mmsBookletReady": 1,
+          "kind": "montran-booklet",
+          "version": 17
+        },
+        "rebuild_entrypoint": "work/montran-direct-pdf-v10-src/build-bundle.py",
+        "rebuild_observed": {
+          "bytes": 1926763,
+          "missing_contracts": [
+            "FreightRangeTransport",
+            "RENDER_WIDTH_LIMIT = 1600",
+            "__mmsBookletReady",
+            "version: 17"
+          ],
+          "sha256": "56f5c03c64a2f6ea418484a604f14ef750bd0d3796e3d481973c839748562587"
+        },
+        "render_width_limit": 1600,
+        "reproducible_from_tracked_source": false,
+        "sha256": "825cf2c3a1f130cb3445e62443985e845991204d19e0c2154cfd43a36126b49b",
+        "version": 17
+      }
+    ],
+    "freight_baseline": {
+      "all_http_200": true,
+      "all_sha256_present": true,
+      "kind_counts": {
+        "embed": 3,
+        "image": 68,
+        "pdf": 1,
+        "video": 31
+      },
+      "manifest": "docs/audits/2026-07-20T175853-0400-round-80/freight/asset-manifest.csv",
+      "underlying_objects": 103
+    },
+    "home": {
+      "media_items": 68,
+      "shape_policy_counts": {
+        "artwork": 6,
+        "crop": 59,
+        "interactive": 3
+      },
+      "showcase_bands": 13,
+      "tag_counts": {
+        "iframe": 3,
+        "img": 38,
+        "video": 27
+      },
+      "unique_media_ids": 68
+    },
+    "iframe_messaging": {
+      "parent_validation": "panel.js matches event.source and expected embed kind; Montran also validates origin",
+      "ready_contracts": [
+        {
+          "__mmsEmbedReady": 1,
+          "kind": "v7-cup"
+        },
+        {
+          "__mmsEmbedReady": 1,
+          "kind": "touchbaes"
+        },
+        {
+          "__mmsBookletReady": 1,
+          "kind": "montran-booklet",
+          "version": 17
+        }
+      ],
+      "wildcard_messages_observed": [
+        "V7 ready",
+        "Touchbaes ready/size/mode",
+        "generic embed visibility"
+      ]
+    },
+    "video_runtime": {
+      "alpha_fallback_count": 2,
+      "behavior": [
+        "IntersectionObserver deferred sources",
+        "poster retained until media ready",
+        "muted inline autoplay",
+        "visibility pause/resume"
+      ],
+      "critical_count": 3,
+      "home_video_count": 27,
+      "near_count": 26,
+      "poster_count": 28
+    }
+  },
+  "observed_origins": [
+    {
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "http://www.webtype.com"
+    },
+    {
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://abcdinamo.com"
+    },
+    {
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/identity.json",
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/pages.json"
+      ],
+      "origin": "https://api.cargo.site"
+    },
+    {
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://build.cargo.site"
+    },
+    {
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://ellacportfolio.com"
+    },
+    {
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://eviive.ch"
+    },
+    {
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/who.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/public-baseline.json",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://freight.cargo.site"
+    },
+    {
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/identity.json",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/public-baseline.json",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://mmmmm.studio"
+    },
+    {
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/global.css",
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/identity.json",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://static.cargo.site"
+    },
+    {
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://type.cargo.site"
+    },
+    {
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/who.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/write.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://www.linkedin.com"
+    },
+    {
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://www.touchbaes.ca"
+    },
+    {
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://www.travisleung.com"
+    },
+    {
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/who.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/write.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "mailto:"
+    }
+  ],
+  "operations": {
+    "backup_and_rollback": [
+      "protected round-69-gold Git reference and cargo/gold/round-69",
+      "round-80-stable Git reference and docs/versioning/ROUND-80-STABLE.md",
+      "docs/audits/2026-07-20T175853-0400-round-80",
+      "cargo/DEPLOY.md round ledger"
+    ],
+    "build": [
+      {
+        "command": "python3 cargo/assemble-pages.py",
+        "purpose": "generate named-page bodycopy from templates and shared partials"
+      },
+      {
+        "command": "bash cargo/compose-css-bundle.sh",
+        "purpose": "compose the complete tokens.css plus site.css payload"
+      },
+      {
+        "command": "python3 cargo/compose-persisted-css.py PERSISTED_CSS",
+        "purpose": "splice the preserved Cargo head, local tokens, all three Cargo-managed text-style blocks, and local site CSS with strict marker/order checks"
+      },
+      {
+        "command": "bash cargo/assemble-test.sh",
+        "purpose": "assemble the deterministic Home test mirror"
+      },
+      {
+        "command": "bash cargo/assemble-named-pages.sh",
+        "purpose": "assemble named-page test mirrors"
+      },
+      {
+        "command": "bash cargo/build-motion-posters.sh",
+        "purpose": "build motion posters"
+      }
+    ],
+    "canonical_sources": [
+      "cargo/tokens.css",
+      "cargo/site.css",
+      "cargo/panel.js",
+      "cargo/site-head.html",
+      "cargo/home.template.html",
+      "cargo/who.template.html",
+      "cargo/write.template.html"
+    ],
+    "deployment_contract": [
+      "edit canonical local sources first",
+      "deploy complete composed CSS while preserving Cargo head and all three managed font blocks",
+      "replace complete bodycopy with UTF-8-safe innerHTML plus bubbling InputEvent",
+      "save where required, reload Cargo, and verify persistence",
+      "publication is separate and requires explicit authorization"
+    ],
+    "deployment_helpers": [
+      {
+        "command": "python3 cargo/upload-cargo-assets.py FILE [FILE ...]",
+        "purpose": "manual authenticated Dia/Cargo drag-and-drop upload plus Freight resource probe",
+        "side_effect": "writes to Cargo/Freight; never run during read-only audit"
+      }
+    ],
+    "documentation": [
+      "CLAUDE.md",
+      "HANDOFF-CODEX.md",
+      "VERSIONING.md",
+      "cargo/PLAYBOOK.md",
+      "cargo/DEPLOY.md",
+      "cargo/GOLD-BASELINE.md",
+      "cargo/GAME-VIDEO-STATUS.md",
+      "docs/versioning/ROUND-80-STABLE.md"
+    ],
+    "validation": [
+      "bash cargo/validate-cargo-payload.sh",
+      "python3 cargo/validate-shared-components.py",
+      "python3 cargo/validate-test-mirrors.py"
+    ]
+  },
+  "origin_boundaries": [
+    {
+      "classification": "first-party-document",
+      "data_exchange": "same-origin page navigation and document/runtime loading",
+      "evidence_status": "observed in frozen capture",
+      "executes_code": true,
+      "fallback": "captured Cargo page bodycopy is the reconstruction source; no offline application fallback",
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/identity.json",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/public-baseline.json",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://mmmmm.studio",
+      "runtime_role": [
+        "published HTML document",
+        "navigation targets",
+        "site metadata and RSS"
+      ]
+    },
+    {
+      "classification": "platform-vendor-identity",
+      "data_exchange": "no direct request to this origin was observed in the frozen documents",
+      "evidence_status": "classified contract; URL not found by literal scan",
+      "executes_code": false,
+      "fallback": "not applicable; concrete runtime resources use Cargo's build, type, static, API, and Freight origins",
+      "observed_in": [],
+      "origin": "https://cargo.site",
+      "runtime_role": [
+        "Cargo 3 service vendor represented by the frozen site identity"
+      ]
+    },
+    {
+      "classification": "platform-cdn-and-cross-origin-embed",
+      "data_exchange": "media GETs, PDF range requests, and iframe postMessage contracts",
+      "evidence_status": "observed in frozen capture",
+      "executes_code": true,
+      "fallback": "video and iframe posters remain visible; Montran records a full-download fallback when range loading fails",
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/who.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/public-baseline.json",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://freight.cargo.site",
+      "runtime_role": [
+        "images",
+        "video",
+        "posters",
+        "PDF",
+        "V7/Touchbaes/Montran iframes"
+      ]
+    },
+    {
+      "classification": "platform-static",
+      "data_exchange": "read-only asset GETs",
+      "evidence_status": "observed in frozen capture",
+      "executes_code": false,
+      "fallback": "browser default presentation if a non-essential platform asset is unavailable",
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/global.css",
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/identity.json",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://static.cargo.site",
+      "runtime_role": [
+        "Cargo-managed static UI and favicon assets"
+      ]
+    },
+    {
+      "classification": "platform-frontend-stylesheet",
+      "data_exchange": "read-only cross-origin stylesheet GET",
+      "evidence_status": "observed in frozen capture",
+      "executes_code": false,
+      "fallback": "the captured document still contains MM.S global CSS and bodycopy, but Cargo shell presentation may degrade",
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://build.cargo.site",
+      "runtime_role": [
+        "Cargo frontend CSS loaded by each published document"
+      ]
+    },
+    {
+      "classification": "platform-font-cdn",
+      "data_exchange": "read-only cross-origin font GETs",
+      "evidence_status": "observed in frozen capture",
+      "executes_code": false,
+      "fallback": "captured CSS font-family fallback stacks apply if a font file is unavailable",
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://type.cargo.site",
+      "runtime_role": [
+        "Cargo-managed webfont files referenced by published @font-face rules"
+      ]
+    },
+    {
+      "classification": "operational-api-not-page-runtime",
+      "data_exchange": "editor/API operations outside the published page runtime",
+      "evidence_status": "observed in frozen capture",
+      "executes_code": false,
+      "fallback": "manual authenticated Cargo editor workflow",
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/identity.json",
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/pages.json"
+      ],
+      "origin": "https://api.cargo.site",
+      "runtime_role": [
+        "authenticated Cargo capture and deployment readback"
+      ]
+    },
+    {
+      "classification": "font-license-attribution-comment",
+      "data_exchange": "none during page runtime; the literal is documentation, not a fetched resource",
+      "evidence_status": "observed in frozen capture",
+      "executes_code": false,
+      "fallback": "not applicable",
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://abcdinamo.com",
+      "runtime_role": [
+        "provider URL present only in captured CSS license comments"
+      ]
+    },
+    {
+      "classification": "font-license-attribution-comment",
+      "data_exchange": "none during page runtime; the literal is documentation, not a fetched resource",
+      "evidence_status": "observed in frozen capture",
+      "executes_code": false,
+      "fallback": "not applicable",
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "http://www.webtype.com",
+      "runtime_role": [
+        "provider URL present only in captured CSS license comments"
+      ]
+    },
+    {
+      "classification": "external-protocol-handler",
+      "data_exchange": "delegates to the visitor's configured mail client",
+      "evidence_status": "observed in frozen capture",
+      "executes_code": false,
+      "fallback": "addresses remain visible in the page copy",
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/who.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/write.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "mailto:",
+      "runtime_role": [
+        "contact action"
+      ]
+    },
+    {
+      "classification": "outbound-navigation",
+      "data_exchange": "ordinary visitor-initiated navigation; destination behavior is out of scope",
+      "evidence_status": "observed in frozen capture",
+      "executes_code": false,
+      "fallback": "linked label remains readable if navigation fails",
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://ellacportfolio.com",
+      "runtime_role": [
+        "project or profile destination"
+      ]
+    },
+    {
+      "classification": "outbound-navigation",
+      "data_exchange": "ordinary visitor-initiated navigation; destination behavior is out of scope",
+      "evidence_status": "observed in frozen capture",
+      "executes_code": false,
+      "fallback": "linked label remains readable if navigation fails",
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://eviive.ch",
+      "runtime_role": [
+        "project or profile destination"
+      ]
+    },
+    {
+      "classification": "outbound-navigation",
+      "data_exchange": "ordinary visitor-initiated navigation; destination behavior is out of scope",
+      "evidence_status": "observed in frozen capture",
+      "executes_code": false,
+      "fallback": "linked label remains readable if navigation fails",
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/who.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/write.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://www.linkedin.com",
+      "runtime_role": [
+        "project or profile destination"
+      ]
+    },
+    {
+      "classification": "outbound-navigation",
+      "data_exchange": "ordinary visitor-initiated navigation; destination behavior is out of scope",
+      "evidence_status": "observed in frozen capture",
+      "executes_code": false,
+      "fallback": "linked label remains readable if navigation fails",
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://www.touchbaes.ca",
+      "runtime_role": [
+        "project or profile destination"
+      ]
+    },
+    {
+      "classification": "outbound-navigation",
+      "data_exchange": "ordinary visitor-initiated navigation; destination behavior is out of scope",
+      "evidence_status": "observed in frozen capture",
+      "executes_code": false,
+      "fallback": "linked label remains readable if navigation fails",
+      "observed_in": [
+        "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/who.html",
+        "docs/audits/2026-07-20T175853-0400-round-80/public/write.html"
+      ],
+      "origin": "https://www.travisleung.com",
+      "runtime_role": [
+        "project or profile destination"
+      ]
+    }
+  ],
+  "pages": {
+    "home": {
+      "cargo": {
+        "capture_mode": "authenticated read-only GET",
+        "captured_from": "https://api.cargo.site/v1/pages/3626191/id/I2398594830",
+        "content_bytes": 130742,
+        "id": "I2398594830",
+        "local_css_bytes": 79,
+        "requested_page_id": "I2398594830",
+        "response_keys": [
+          "access_level",
+          "backdrops",
+          "content",
+          "display",
+          "id",
+          "index",
+          "local_css",
+          "media",
+          "overlay",
+          "overlay_options",
+          "page_count",
+          "page_design_options",
+          "page_type",
+          "password_enabled",
+          "pin",
+          "pin_options",
+          "purl",
+          "set_id",
+          "sort",
+          "stack",
+          "tags",
+          "thumb_media_id",
+          "thumb_meta",
+          "thumbnail",
+          "title"
+        ],
+        "slug": "home",
+        "title": "Home"
+      },
+      "public_route": {
+        "canonical_urls": [],
+        "document_title": "MM.S",
+        "effective_url": "https://mmmmm.studio/",
+        "http_status": 200,
+        "metadata": {
+          "description": "building better brands. brand identity, graphic design, motion graphics, digital and print",
+          "og:description": "building better brands. brand identity, graphic design, motion graphics, digital and print",
+          "og:image": "https://freight.cargo.site/w/1000/i/D3043801849626102382991858251577/screenshot-0760154348.jpg",
+          "og:title": "MM.S",
+          "og:type": "website",
+          "og:url": "https://mmmmm.studio"
+        },
+        "redirect_count": 0,
+        "url": "https://mmmmm.studio/",
+        "utf8_replacement_chars": 0
+      },
+      "structure": {
+        "bytes": 130742,
+        "control_panel": {
+          "aria_modal": "false",
+          "element": "dialog",
+          "face_buttons": 4,
+          "id": "mms-panel",
+          "open_in_source": true,
+          "scale_sliders": 1,
+          "shape_buttons": 3,
+          "theme_buttons": 5
+        },
+        "media_contracts": [
+          {
+            "asset_height": "432",
+            "asset_width": "432",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "eviive-01",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "critical",
+            "poster": "https://freight.cargo.site/t/original/i/A3031230889628157697836525860665/01-Logo-symbol_Animation_EVIIVE-cargo-h264-poster.jpg",
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/t/original/i/W3028308513949149028916421769017/Logo-symbol_Animation_EVIIVE-cargo-h264.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "279",
+            "asset_width": "279",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "eviive-02",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "critical",
+            "poster": "https://freight.cargo.site/t/original/i/V3031232001837698134006521444153/02-6x-images-for-MMS_EVIIVE_Image-5-web-smooth-hq-white-bg-poster.jpg",
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/t/original/i/F3022813868419761244926460344121/6x-images-for-MMS_EVIIVE_Image-5-web-smooth-hq-white-bg.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "896",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "eviive-03",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/3600/q/90/i/T3029359532540439699946090313529/eviive-sequence-3-retina.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "372",
+            "asset_width": "443",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "eviive-04",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/886/q/85/i/J3028246254011184458481990678329/eviive-4.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "372",
+            "asset_width": "558",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "eviive-05",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/B3031232030079663310855844968249/03-Final_Navy_EVIIVE-Logo-Animation_Jul-2026-web-hq-1800-h264-poster.jpg",
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/t/original/i/B3028308528632757311589224855353/Final_Navy_EVIIVE-Logo-Animation_Jul-2026-web-hq-1800-h264.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "377.593",
+            "asset_width": "670",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "eviive-06",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/2800/q/90/i/X3029359532558886444019799865145/eviive-sequence-6-retina.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "307",
+            "asset_width": "307",
+            "embed_kind": "v7-cup",
+            "fallback_mp4": null,
+            "fit": "none",
+            "id": "v7-01",
+            "loading": "lazy",
+            "mobile_profile": "embed",
+            "motion_priority": "critical",
+            "poster": "https://freight.cargo.site/t/original/i/F3031232775678612026122211735353/v7-cup-poster.png",
+            "shape_policy": "interactive",
+            "slot": null,
+            "source": "https://freight.cargo.site/m/Z3031274916472238420423367767865/coffee-cup-bundle.html",
+            "tag": "iframe"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "336",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "v7-02",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/680/q/85/i/R3025118182046317275766954964793/v7-postcard.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "759",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "v7-03",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/B3031232058413862208073716250425/04-OOH_Train-Station_Video-Slide-cargo-small-h264-poster.jpg",
+            "shape_policy": "crop",
+            "slot": "v7-ooh-train-video",
+            "source": "https://freight.cargo.site/t/original/i/X3028308543445492802777994803001/OOH_Train-Station_Video-Slide-cargo-small-h264.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "197",
+            "asset_width": "788",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "v7-04",
+            "loading": "none",
+            "mobile_profile": "panorama",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/E3031232087873312493787870181177/05-Freetothink_motionthecity_260303-upscaled-4x-retina-h264-poster.jpg",
+            "shape_policy": "crop",
+            "slot": "v7-freetothink-motion",
+            "source": "https://freight.cargo.site/t/original/i/B3028308558313568526187893405497/Freetothink_motionthecity_260303-upscaled-4x-retina-h264.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "672",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "v7-05",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/J3031232116853147433585575769913/06-Mockup_Video-Truck_V7-cargo-small-h264-poster.jpg",
+            "shape_policy": "crop",
+            "slot": "v7-video-truck",
+            "source": "https://freight.cargo.site/t/original/i/P3028308573144750761450372904761/Mockup_Video-Truck_V7-cargo-small-h264.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "374",
+            "asset_width": "281",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "v7-06",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/1122/q/90/i/A3029359532632673420314638071609/v7-sequence-6-retina.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "417",
+            "asset_width": "417",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "touchbaes-01",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/P3031232147548529572238269658937/07-3d-animation_social-nov-8-cargo-under-1mb-1080-h264-poster.jpg",
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/t/original/i/V3028308587975932996712852404025/3d-animation_social-nov-8-cargo-under-1mb-1080-h264.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "494",
+            "asset_width": "278",
+            "embed_kind": null,
+            "fallback_mp4": "https://freight.cargo.site/t/original/i/K3028483048076456848870970275641/8bit-girls-alpha-v2.mp4",
+            "fit": "contain",
+            "id": "touchbaes-02",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/L3031232176454577535741137041209/08-8bit-girls-final-alpha-1080-poster.png",
+            "shape_policy": "artwork",
+            "slot": null,
+            "source": "https://freight.cargo.site/t/original/i/C3022812573698134943474161071929/8bit-girls-final-alpha-1080.webm",
+            "tag": "video"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "403",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "touchbaes-03",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/840/q/85/i/J3022057905776630719280532993849/touchbaes-booking.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "606.5",
+            "asset_width": "262.5",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "touchbaes-04",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/525/q/85/i/Q3028246600809973044221561059129/touchbaes-sticker-v2.png",
+            "tag": "img"
+          },
+          {
+            "asset_height": null,
+            "asset_width": null,
+            "embed_kind": "touchbaes",
+            "fallback_mp4": null,
+            "fit": "none",
+            "id": "touchbaes-05",
+            "loading": "lazy",
+            "mobile_profile": "embed",
+            "motion_priority": "near",
+            "poster": null,
+            "shape_policy": "interactive",
+            "slot": null,
+            "source": "https://freight.cargo.site/m/E3031754669080377521238157342521/touchbaes-sticker-game-v10.html",
+            "tag": "iframe"
+          },
+          {
+            "asset_height": "372",
+            "asset_width": "372",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "touchbaes-06",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/Y3031232205692666892570776352569/09-video-small-poster.jpg",
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/t/original/i/K3022811110465501528685107787577/video-small.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "372",
+            "asset_width": "558",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "touchbaes-07",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/2400/q/90/i/Y3029359532614226676240928519993/touchbaes-last-retina.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "900",
+            "asset_width": "675",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "mandy-01",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/C3031232234580268111999934183225/10-SATAIC-transformation-Comp-cargo-small-h264-poster.jpg",
+            "shape_policy": "crop",
+            "slot": "mandy-sataic-video",
+            "source": "https://freight.cargo.site/t/original/i/S3028308617638297467237811402553/SATAIC-transformation-Comp-cargo-small-h264.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "779",
+            "embed_kind": null,
+            "fallback_mp4": "https://freight.cargo.site/t/original/i/E3028483072094117632840806479673/mandy-hf-alpha-v2.mp4",
+            "fit": "contain",
+            "id": "mandy-02",
+            "loading": "none",
+            "mobile_profile": "wide",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/N3031232263191168170323448739641/11-hf_20260708_032138_2ca7e18b-6113-498e-9b3e-603f187014fb-alpha-small-ratio-1.5466-poster.png",
+            "shape_policy": "artwork",
+            "slot": "mandy-hf-alpha-video",
+            "source": "https://freight.cargo.site/t/original/i/V3025158174716596286590825314105/hf_20260708_032138_2ca7e18b-6113-498e-9b3e-603f187014fb-alpha-small-ratio-1.5466.webm",
+            "tag": "video"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "377",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "mandy-03",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/752/q/85/i/A3025291300404464182587126495033/mandy-photo1-fix.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "504",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "mandy-04",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/1000/q/85/i/M3025118651718868136485848659769/mandy-tee.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "344",
+            "asset_width": "612",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "mandy-05",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/1240/q/85/i/E3025118669852017560942337898297/mandy-photo-2.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "344",
+            "asset_width": "344",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "mandy-06",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/700/q/85/i/G3025118686970596061344801797945/mandy-ig.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "200",
+            "asset_width": "335",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "mandy-07",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "artwork",
+            "slot": "mandy-mewmew-element",
+            "source": "https://freight.cargo.site/w/703/q/85/i/I3025317449180697499940409620281/mandy-mewmew-v4.png",
+            "tag": "img"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "766",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "loop-01",
+            "loading": "eager",
+            "mobile_profile": "loop-cover",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/1530/q/85/i/H3025362994634537346592378763065/loop-cover.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "504",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "loop-02",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/Y3031232291119538697919709886265/12-v3_Loop-Wrapped_Animated-illustration-cargo-small-h264-poster.jpg",
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/t/original/i/K3028308647282215193689060849465/v3_Loop-Wrapped_Animated-illustration-cargo-small-h264.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "354",
+            "asset_width": "472",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "loop-03",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/P3031232318789654808484037310265/13-Loop-Card_3D-Animation-cargo-h264-poster.jpg",
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/t/original/i/S3028308662094950684877830797113/Loop-Card_3D-Animation-cargo-h264.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "579",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "loop-04",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/1157/q/85/i/U3026333005972541800612566185785/loop-image-2-v2.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "252",
+            "asset_width": "290",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "loop-05",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/1374/q/90/i/K3029442176001478510919090222905/loop-sequence-last-retina.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "1176",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "none",
+            "id": "montran-01",
+            "loading": "lazy",
+            "mobile_profile": "booklet-wide",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "interactive",
+            "slot": "montran-booklet",
+            "source": "https://freight.cargo.site/m/U3034412351395654863674388559673/montran-booklet-direct-pdf-v17.html?pdf=https%3A%2F%2Ffreight.cargo.site%2Ft%2Foriginal%2Fi%2FP3028590574867085520722012452665%2Fmontran_sustainability-report_2025_v4-web.pdf",
+            "tag": "iframe"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "733",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "montran-02",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/3200/q/90/i/J3029442176019925254992799774521/montran-sequence-2-retina.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "400",
+            "asset_width": "400",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "montran-03",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/G3031232346146176269795302356793/14-montran-icon-animation-poster.jpg",
+            "shape_policy": "crop",
+            "slot": "montran-icon-video",
+            "source": "https://freight.cargo.site/t/original/i/C3026651793472485332597365847865/montran-icon-animation.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "442",
+            "asset_width": "690",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "montran-04",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "artwork",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/3200/q/90/i/H3029359532577333188093509416761/map-generator-retina.png",
+            "tag": "img"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "403",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "montran-05",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/Y3031232375033777489224460187449/15-Montran_CSD_RS_EN-noaudio-poster.jpg",
+            "shape_policy": "crop",
+            "slot": "montran-csd-video",
+            "source": "https://freight.cargo.site/t/original/i/E3026651808137646871196459382585/Montran_CSD_RS_EN-noaudio.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "391",
+            "asset_width": "695",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "montran-06",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/2782/q/90/i/M3029359532595779932167218968377/montran-last-retina.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "376",
+            "asset_width": "565",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "anyday-01",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/P3031232402132044533503791511353/16-anyday-logo-slideshow-v3-h264-poster.jpg",
+            "shape_policy": "crop",
+            "slot": "anyday-logo-video",
+            "source": "https://freight.cargo.site/t/original/i/E3028308676907686176066600744761/anyday-logo-slideshow-v3-h264.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "308",
+            "asset_width": "308",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "anyday-02",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/T3031232431296346914038592616249/17-anyday-money-moments-h264-poster.jpg",
+            "shape_policy": "crop",
+            "slot": "anyday-money-video",
+            "source": "https://freight.cargo.site/t/original/i/L3028308691757315155402789795641/anyday-money-moments-h264.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "504",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "anyday-03",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/R3031232462416004166386606192441/18-anyday-hotel-report-h264-poster.jpg",
+            "shape_policy": "crop",
+            "slot": "anyday-hotel-video",
+            "source": "https://freight.cargo.site/t/original/i/G3028308706570050646591559743289/anyday-hotel-report-h264.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "378.9",
+            "asset_width": "435.3",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "anyday-04",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/952/q/85/i/L3027048668493509838917526402873/anyday-image6.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "469.2",
+            "asset_width": "351.9",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "anyday-05",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/M3031232490676416087309639268153/19-anyday-scroller-h264-poster.jpg",
+            "shape_policy": "crop",
+            "slot": "anyday-scroller-video",
+            "source": "https://freight.cargo.site/t/original/i/I3028308721419679625927748794169/anyday-scroller-h264.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "380.2",
+            "asset_width": "523.4",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "kelly-01",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/1046/q/85/i/N3027049860337644441291656312633/kelly-sgc30-6.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "380.2",
+            "asset_width": "523.4",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "kelly-02",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/1046/q/85/i/R3027049892102937736219504195385/kelly-sgc30-3.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "380.2",
+            "asset_width": "523.4",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "kelly-03",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/1046/q/85/i/L3027050213316092291723926484793/kelly-sgc30-5.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "380.2",
+            "asset_width": "523.4",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "kelly-04",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/1046/q/85/i/L3027050230656031721010905003833/kelly-sgc30-1.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "327",
+            "asset_width": "376",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "curate-01",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/752/q/85/i/Z3028481505928652286752455178041/curate-image2-v2.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "894",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "curate-02",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/F3031232519896058700065569027897/20-curate-image1-vid-h264-poster.jpg",
+            "shape_policy": "crop",
+            "slot": "curate-image1-video",
+            "source": "https://freight.cargo.site/t/original/i/R3028308736250861861190228293433/curate-image1-vid-h264.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "504",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "curate-03",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/1008/q/85/i/J3027050938125560435919628580665/curate-hf.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "402",
+            "asset_width": "462",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "curate-04",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/2200/q/90/i/K3029359532521992955872380761913/curate-last-retina.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "667.2",
+            "asset_width": "432",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "randompics-01",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/F3031232547566174810629896451897/21-randompics-slideshow-h264-poster.jpg",
+            "shape_policy": "crop",
+            "slot": "randompics-video",
+            "source": "https://freight.cargo.site/t/original/i/L3028308751008257120157869586233/randompics-slideshow-h264.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "783.9",
+            "asset_width": "627.2",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "purelove-01",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/1254/q/85/i/I3028246618297486426098215991097/purelove-1.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "680",
+            "asset_width": "544.3",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "purelove-02",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/1088/q/85/i/Q3028246916120169496138926831417/purelove-2.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "550",
+            "asset_width": "440",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "purelove-03",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/880/q/85/i/G3028246944196113976324864390969/purelove-3.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "680",
+            "asset_width": "873",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "purelove-04",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "artwork",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/1746/q/85/i/S3028289855602474049842539181881/purelove-4-v2.png",
+            "tag": "img"
+          },
+          {
+            "asset_height": "448.4",
+            "asset_width": "336.3",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "purelove-05",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/N3031232577062518584491469485881/22-purelove-flash-poster.jpg",
+            "shape_policy": "crop",
+            "slot": "purelove-flash-video",
+            "source": "https://freight.cargo.site/t/original/i/S3028279585838879613892415764281/purelove-flash.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "358",
+            "asset_width": "411.3",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "deadgood-01",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/t/original/i/K3028244189709842145940907538233/dg-image2.gif",
+            "tag": "img"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "894.4",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "deadgood-02",
+            "loading": "eager",
+            "mobile_profile": "deadgood-wide",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/1788/q/85/i/A3028247346261347806898251413305/dg-image4.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "579",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "deadgood-03",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/N3031232606872457007606104897337/23-dg-slides-poster.jpg",
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/t/original/i/W3028244200907015798682605369145/dg-slides.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "358",
+            "asset_width": "411.3",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "deadgood-04",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/822/q/85/i/R3028483060048393752708469274425/dg-image3-v2.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "358",
+            "asset_width": "543.5",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "deadgood-05",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/1088/q/85/i/K3028247312208658246830419130169/dg-cover.jpg",
+            "tag": "img"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "746.7",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "wtw-01",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "artwork",
+            "slot": null,
+            "source": "https://freight.cargo.site/w/1494/q/85/i/C3028244178623348957641467017017/wtw-lanyard.png",
+            "tag": "img"
+          },
+          {
+            "asset_height": "765.2",
+            "asset_width": "765.2",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "wtw-02",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/L3031232634561019862244141872953/24-wtw-wordmark-poster.jpg",
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/t/original/i/U3028243848518863758609040848697/wtw-wordmark.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "333.50625",
+            "asset_width": "592.9",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "cover",
+            "id": "wtw-03",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/t/original/i/X3028243859623803690982190921529/wtw-image1.gif",
+            "tag": "img"
+          },
+          {
+            "asset_height": "388.2",
+            "asset_width": "388.2",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "wtw-04",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/P3031232663448621081673299703609/25-wtw-grid-logo-poster.jpg",
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/t/original/i/J3028243826290537149789031151417/wtw-grid-logo.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "388.2",
+            "asset_width": "388.2",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "wtw-05",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/S3031232692022627651849395156793/26-wtw-grid-image-poster.jpg",
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/t/original/i/K3028243512603654176358105921337/wtw-grid-image.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "579",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "wtw-06",
+            "loading": "eager",
+            "mobile_profile": "standard",
+            "motion_priority": null,
+            "poster": null,
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/t/original/i/M3028243870784083855576469649209/wtw-image6.gif",
+            "tag": "img"
+          },
+          {
+            "asset_height": "504",
+            "asset_width": "896",
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "contain",
+            "id": "wtw-07",
+            "loading": "none",
+            "mobile_profile": "standard",
+            "motion_priority": "near",
+            "poster": "https://freight.cargo.site/t/original/i/P3031232719434489345381788858169/27-wtw-grid-animation-poster.jpg",
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/t/original/i/L3028243501517160988058665400121/wtw-grid-animation.mp4",
+            "tag": "video"
+          }
+        ],
+        "navigation_links": [
+          {
+            "current": false,
+            "href": "/",
+            "label": "MM.S"
+          },
+          {
+            "current": true,
+            "href": "/",
+            "label": "Work"
+          },
+          {
+            "current": false,
+            "href": "/who",
+            "label": "Who?"
+          },
+          {
+            "current": false,
+            "href": "/write",
+            "label": "Write"
+          },
+          {
+            "current": false,
+            "href": "https://ellacportfolio.com",
+            "label": "Ella Cheng"
+          },
+          {
+            "current": false,
+            "href": "https://eviive.ch",
+            "label": "eviive.ch"
+          },
+          {
+            "current": false,
+            "href": "https://www.linkedin.com/company/mmmmmstudio/",
+            "label": "Linkedin"
+          },
+          {
+            "current": false,
+            "href": "https://www.touchbaes.ca",
+            "label": "here"
+          },
+          {
+            "current": false,
+            "href": "https://www.travisleung.com",
+            "label": "Travis Leung"
+          },
+          {
+            "current": false,
+            "href": "mailto:ocean@mmmmm.studio,alvis@mmmmm.studio",
+            "label": "Email"
+          }
+        ],
+        "sha256": "03a7f20f1f5d7359d260c065ab239c8d6552f24e581118ccffeec934f9b96cd4",
+        "shell": {
+          "clock_instances": 2,
+          "compact_navigation": 1,
+          "control_panel_instances": 1,
+          "desktop_rail": 1,
+          "introduction_instances": 1,
+          "mobile_header": 1,
+          "wordmark_home_links": 2
+        },
+        "showcase_band_count": 13,
+        "showcase_bands": [
+          {
+            "id": "eviive",
+            "links": [
+              {
+                "href": "https://eviive.ch",
+                "label": "eviive.ch"
+              }
+            ],
+            "media": [
+              {
+                "asset_height": "432",
+                "asset_width": "432",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "eviive-01",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "critical",
+                "poster": "https://freight.cargo.site/t/original/i/A3031230889628157697836525860665/01-Logo-symbol_Animation_EVIIVE-cargo-h264-poster.jpg",
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/t/original/i/W3028308513949149028916421769017/Logo-symbol_Animation_EVIIVE-cargo-h264.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "279",
+                "asset_width": "279",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "eviive-02",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "critical",
+                "poster": "https://freight.cargo.site/t/original/i/V3031232001837698134006521444153/02-6x-images-for-MMS_EVIIVE_Image-5-web-smooth-hq-white-bg-poster.jpg",
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/t/original/i/F3022813868419761244926460344121/6x-images-for-MMS_EVIIVE_Image-5-web-smooth-hq-white-bg.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "504",
+                "asset_width": "896",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "eviive-03",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/3600/q/90/i/T3029359532540439699946090313529/eviive-sequence-3-retina.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "372",
+                "asset_width": "443",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "eviive-04",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/886/q/85/i/J3028246254011184458481990678329/eviive-4.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "372",
+                "asset_width": "558",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "eviive-05",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/B3031232030079663310855844968249/03-Final_Navy_EVIIVE-Logo-Animation_Jul-2026-web-hq-1800-h264-poster.jpg",
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/t/original/i/B3028308528632757311589224855353/Final_Navy_EVIIVE-Logo-Animation_Jul-2026-web-hq-1800-h264.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "377.593",
+                "asset_width": "670",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "eviive-06",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/2800/q/90/i/X3029359532558886444019799865145/eviive-sequence-6-retina.jpg",
+                "tag": "img"
+              }
+            ],
+            "media_count": 6,
+            "offset": "4",
+            "paragraphs": [
+              "In the branding project with EVIIVE, a Swiss biotech startup, we identified precision, early detection and scalability as the key visual cues, presented through an electric yet authoritative color palette, a clean, precise layout system and a touch of abstract microorganism imagery."
+            ],
+            "project_heading": "EVIIVE 2025 – Brand identity and web design • Biotech"
+          },
+          {
+            "id": "v7",
+            "links": [],
+            "media": [
+              {
+                "asset_height": "307",
+                "asset_width": "307",
+                "embed_kind": "v7-cup",
+                "fallback_mp4": null,
+                "fit": "none",
+                "id": "v7-01",
+                "loading": "lazy",
+                "mobile_profile": "embed",
+                "motion_priority": "critical",
+                "poster": "https://freight.cargo.site/t/original/i/F3031232775678612026122211735353/v7-cup-poster.png",
+                "shape_policy": "interactive",
+                "slot": null,
+                "source": "https://freight.cargo.site/m/Z3031274916472238420423367767865/coffee-cup-bundle.html",
+                "tag": "iframe"
+              },
+              {
+                "asset_height": "504",
+                "asset_width": "336",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "v7-02",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/680/q/85/i/R3025118182046317275766954964793/v7-postcard.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "504",
+                "asset_width": "759",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "v7-03",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/B3031232058413862208073716250425/04-OOH_Train-Station_Video-Slide-cargo-small-h264-poster.jpg",
+                "shape_policy": "crop",
+                "slot": "v7-ooh-train-video",
+                "source": "https://freight.cargo.site/t/original/i/X3028308543445492802777994803001/OOH_Train-Station_Video-Slide-cargo-small-h264.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "197",
+                "asset_width": "788",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "v7-04",
+                "loading": "none",
+                "mobile_profile": "panorama",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/E3031232087873312493787870181177/05-Freetothink_motionthecity_260303-upscaled-4x-retina-h264-poster.jpg",
+                "shape_policy": "crop",
+                "slot": "v7-freetothink-motion",
+                "source": "https://freight.cargo.site/t/original/i/B3028308558313568526187893405497/Freetothink_motionthecity_260303-upscaled-4x-retina-h264.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "504",
+                "asset_width": "672",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "v7-05",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/J3031232116853147433585575769913/06-Mockup_Video-Truck_V7-cargo-small-h264-poster.jpg",
+                "shape_policy": "crop",
+                "slot": "v7-video-truck",
+                "source": "https://freight.cargo.site/t/original/i/P3028308573144750761450372904761/Mockup_Video-Truck_V7-cargo-small-h264.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "374",
+                "asset_width": "281",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "v7-06",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/1122/q/90/i/A3029359532632673420314638071609/v7-sequence-6-retina.jpg",
+                "tag": "img"
+              }
+            ],
+            "media_count": 6,
+            "offset": null,
+            "paragraphs": [
+              "What does it mean to stay human when so much of work is being reshaped by AI? We kept coming back to imperfection. People pause, doubt, read context, notice nuance, and make calls that are not purely quantitative. For V7’s London OOH and cafe activation, we turned professional pressure into motion. With the quantitative groundwork handled beneath the surface, overload shifts into focus."
+            ],
+            "project_heading": "V7 Labs 2026 – OOH campaign graphic and motion design • Artificial Intelligence"
+          },
+          {
+            "id": "touchbaes",
+            "links": [
+              {
+                "href": "https://ellacportfolio.com",
+                "label": "Ella Cheng"
+              },
+              {
+                "href": "https://www.touchbaes.ca",
+                "label": "here"
+              }
+            ],
+            "media": [
+              {
+                "asset_height": "417",
+                "asset_width": "417",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "touchbaes-01",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/P3031232147548529572238269658937/07-3d-animation_social-nov-8-cargo-under-1mb-1080-h264-poster.jpg",
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/t/original/i/V3028308587975932996712852404025/3d-animation_social-nov-8-cargo-under-1mb-1080-h264.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "494",
+                "asset_width": "278",
+                "embed_kind": null,
+                "fallback_mp4": "https://freight.cargo.site/t/original/i/K3028483048076456848870970275641/8bit-girls-alpha-v2.mp4",
+                "fit": "contain",
+                "id": "touchbaes-02",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/L3031232176454577535741137041209/08-8bit-girls-final-alpha-1080-poster.png",
+                "shape_policy": "artwork",
+                "slot": null,
+                "source": "https://freight.cargo.site/t/original/i/C3022812573698134943474161071929/8bit-girls-final-alpha-1080.webm",
+                "tag": "video"
+              },
+              {
+                "asset_height": "504",
+                "asset_width": "403",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "touchbaes-03",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/840/q/85/i/J3022057905776630719280532993849/touchbaes-booking.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "606.5",
+                "asset_width": "262.5",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "touchbaes-04",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/525/q/85/i/Q3028246600809973044221561059129/touchbaes-sticker-v2.png",
+                "tag": "img"
+              },
+              {
+                "asset_height": null,
+                "asset_width": null,
+                "embed_kind": "touchbaes",
+                "fallback_mp4": null,
+                "fit": "none",
+                "id": "touchbaes-05",
+                "loading": "lazy",
+                "mobile_profile": "embed",
+                "motion_priority": "near",
+                "poster": null,
+                "shape_policy": "interactive",
+                "slot": null,
+                "source": "https://freight.cargo.site/m/E3031754669080377521238157342521/touchbaes-sticker-game-v10.html",
+                "tag": "iframe"
+              },
+              {
+                "asset_height": "372",
+                "asset_width": "372",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "touchbaes-06",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/Y3031232205692666892570776352569/09-video-small-poster.jpg",
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/t/original/i/K3022811110465501528685107787577/video-small.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "372",
+                "asset_width": "558",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "touchbaes-07",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/2400/q/90/i/Y3029359532614226676240928519993/touchbaes-last-retina.jpg",
+                "tag": "img"
+              }
+            ],
+            "media_count": 7,
+            "offset": "2",
+            "paragraphs": [
+              "Once a badass, hot and cunty vintage clothing store, selling baes you could wear. Now a badass, hot and cunty nail + lash salon, serving every bae with that polished touch. Happy to work with Ella Cheng on the rebrand <3",
+              "Book a nail appointment here"
+            ],
+            "project_heading": "touchbaes 2026 – Brand identity, illustration and 3d animation • Fashion & Beauty"
+          },
+          {
+            "id": "mandy",
+            "links": [],
+            "media": [
+              {
+                "asset_height": "900",
+                "asset_width": "675",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "mandy-01",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/C3031232234580268111999934183225/10-SATAIC-transformation-Comp-cargo-small-h264-poster.jpg",
+                "shape_policy": "crop",
+                "slot": "mandy-sataic-video",
+                "source": "https://freight.cargo.site/t/original/i/S3028308617638297467237811402553/SATAIC-transformation-Comp-cargo-small-h264.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "504",
+                "asset_width": "779",
+                "embed_kind": null,
+                "fallback_mp4": "https://freight.cargo.site/t/original/i/E3028483072094117632840806479673/mandy-hf-alpha-v2.mp4",
+                "fit": "contain",
+                "id": "mandy-02",
+                "loading": "none",
+                "mobile_profile": "wide",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/N3031232263191168170323448739641/11-hf_20260708_032138_2ca7e18b-6113-498e-9b3e-603f187014fb-alpha-small-ratio-1.5466-poster.png",
+                "shape_policy": "artwork",
+                "slot": "mandy-hf-alpha-video",
+                "source": "https://freight.cargo.site/t/original/i/V3025158174716596286590825314105/hf_20260708_032138_2ca7e18b-6113-498e-9b3e-603f187014fb-alpha-small-ratio-1.5466.webm",
+                "tag": "video"
+              },
+              {
+                "asset_height": "504",
+                "asset_width": "377",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "mandy-03",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/752/q/85/i/A3025291300404464182587126495033/mandy-photo1-fix.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "504",
+                "asset_width": "504",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "mandy-04",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/1000/q/85/i/M3025118651718868136485848659769/mandy-tee.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "344",
+                "asset_width": "612",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "mandy-05",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/1240/q/85/i/E3025118669852017560942337898297/mandy-photo-2.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "344",
+                "asset_width": "344",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "mandy-06",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/700/q/85/i/G3025118686970596061344801797945/mandy-ig.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "200",
+                "asset_width": "335",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "mandy-07",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "artwork",
+                "slot": "mandy-mewmew-element",
+                "source": "https://freight.cargo.site/w/703/q/85/i/I3025317449180697499940409620281/mandy-mewmew-v4.png",
+                "tag": "img"
+              }
+            ],
+            "media_count": 7,
+            "offset": "2",
+            "paragraphs": [
+              "Mandy Ma is an alter ego who struggles between corporate and art. Wall Street and Bushwick. MBA or MA. Masculinity and femininity. Wanting more and being content. Accelerating the world into a living hell and saving everyone."
+            ],
+            "project_heading": "Mandy Ma & Co. 2026 – Graphic design • Fashion"
+          },
+          {
+            "id": "loop",
+            "links": [],
+            "media": [
+              {
+                "asset_height": "504",
+                "asset_width": "766",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "loop-01",
+                "loading": "eager",
+                "mobile_profile": "loop-cover",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/1530/q/85/i/H3025362994634537346592378763065/loop-cover.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "504",
+                "asset_width": "504",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "loop-02",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/Y3031232291119538697919709886265/12-v3_Loop-Wrapped_Animated-illustration-cargo-small-h264-poster.jpg",
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/t/original/i/K3028308647282215193689060849465/v3_Loop-Wrapped_Animated-illustration-cargo-small-h264.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "354",
+                "asset_width": "472",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "loop-03",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/P3031232318789654808484037310265/13-Loop-Card_3D-Animation-cargo-h264-poster.jpg",
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/t/original/i/S3028308662094950684877830797113/Loop-Card_3D-Animation-cargo-h264.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "504",
+                "asset_width": "579",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "loop-04",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/1157/q/85/i/U3026333005972541800612566185785/loop-image-2-v2.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "252",
+                "asset_width": "290",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "loop-05",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/1374/q/90/i/K3029442176001478510919090222905/loop-sequence-last-retina.jpg",
+                "tag": "img"
+              }
+            ],
+            "media_count": 5,
+            "offset": null,
+            "paragraphs": [
+              "Our work with Loop spanned everything from card program launches and OOH campaigns to event materials and everyday brand collateral. The challenge? Keeping every execution fresh while staying unmistakably Loop: direct, global, and built for business."
+            ],
+            "project_heading": "Loop Financial 2025 – OOH campaign graphic and motion design • Fintech"
+          },
+          {
+            "id": "montran",
+            "links": [],
+            "media": [
+              {
+                "asset_height": "504",
+                "asset_width": "1176",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "none",
+                "id": "montran-01",
+                "loading": "lazy",
+                "mobile_profile": "booklet-wide",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "interactive",
+                "slot": "montran-booklet",
+                "source": "https://freight.cargo.site/m/U3034412351395654863674388559673/montran-booklet-direct-pdf-v17.html?pdf=https%3A%2F%2Ffreight.cargo.site%2Ft%2Foriginal%2Fi%2FP3028590574867085520722012452665%2Fmontran_sustainability-report_2025_v4-web.pdf",
+                "tag": "iframe"
+              },
+              {
+                "asset_height": "504",
+                "asset_width": "733",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "montran-02",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/3200/q/90/i/J3029442176019925254992799774521/montran-sequence-2-retina.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "400",
+                "asset_width": "400",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "montran-03",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/G3031232346146176269795302356793/14-montran-icon-animation-poster.jpg",
+                "shape_policy": "crop",
+                "slot": "montran-icon-video",
+                "source": "https://freight.cargo.site/t/original/i/C3026651793472485332597365847865/montran-icon-animation.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "442",
+                "asset_width": "690",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "montran-04",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "artwork",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/3200/q/90/i/H3029359532577333188093509416761/map-generator-retina.png",
+                "tag": "img"
+              },
+              {
+                "asset_height": "504",
+                "asset_width": "403",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "montran-05",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/Y3031232375033777489224460187449/15-Montran_CSD_RS_EN-noaudio-poster.jpg",
+                "shape_policy": "crop",
+                "slot": "montran-csd-video",
+                "source": "https://freight.cargo.site/t/original/i/E3026651808137646871196459382585/Montran_CSD_RS_EN-noaudio.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "391",
+                "asset_width": "695",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "montran-06",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/2782/q/90/i/M3029359532595779932167218968377/montran-last-retina.jpg",
+                "tag": "img"
+              }
+            ],
+            "media_count": 6,
+            "offset": "2",
+            "paragraphs": [
+              "A rebranding exercise with a small constraint: logo, color palette, and typefaces had to stay the same. We developed a new set of illustrations, motion assets, icons, and graphic devices to modernize the brand experience without touching the parts clients already recognize."
+            ],
+            "project_heading": "Montran 2025 – Brand identity, web development, graphic and motion design • Fintech"
+          },
+          {
+            "id": "anyday",
+            "links": [],
+            "media": [
+              {
+                "asset_height": "376",
+                "asset_width": "565",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "anyday-01",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/P3031232402132044533503791511353/16-anyday-logo-slideshow-v3-h264-poster.jpg",
+                "shape_policy": "crop",
+                "slot": "anyday-logo-video",
+                "source": "https://freight.cargo.site/t/original/i/E3028308676907686176066600744761/anyday-logo-slideshow-v3-h264.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "308",
+                "asset_width": "308",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "anyday-02",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/T3031232431296346914038592616249/17-anyday-money-moments-h264-poster.jpg",
+                "shape_policy": "crop",
+                "slot": "anyday-money-video",
+                "source": "https://freight.cargo.site/t/original/i/L3028308691757315155402789795641/anyday-money-moments-h264.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "504",
+                "asset_width": "504",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "anyday-03",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/R3031232462416004166386606192441/18-anyday-hotel-report-h264-poster.jpg",
+                "shape_policy": "crop",
+                "slot": "anyday-hotel-video",
+                "source": "https://freight.cargo.site/t/original/i/G3028308706570050646591559743289/anyday-hotel-report-h264.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "378.9",
+                "asset_width": "435.3",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "anyday-04",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/952/q/85/i/L3027048668493509838917526402873/anyday-image6.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "469.2",
+                "asset_width": "351.9",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "anyday-05",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/M3031232490676416087309639268153/19-anyday-scroller-h264-poster.jpg",
+                "shape_policy": "crop",
+                "slot": "anyday-scroller-video",
+                "source": "https://freight.cargo.site/t/original/i/I3028308721419679625927748794169/anyday-scroller-h264.mp4",
+                "tag": "video"
+              }
+            ],
+            "media_count": 5,
+            "offset": "2",
+            "paragraphs": [
+              "At the heart of AnyDay is a simple idea: workers deserve access to their hard-earned wages and tips as soon as the shift is done. The visual direction was designed to make digital payments feel immediate, approachable, and credible."
+            ],
+            "project_heading": "AnyDay Financial 2024 – Brand identity, graphic and motion design • Fintech"
+          },
+          {
+            "id": "kelly",
+            "links": [],
+            "media": [
+              {
+                "asset_height": "380.2",
+                "asset_width": "523.4",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "kelly-01",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/1046/q/85/i/N3027049860337644441291656312633/kelly-sgc30-6.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "380.2",
+                "asset_width": "523.4",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "kelly-02",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/1046/q/85/i/R3027049892102937736219504195385/kelly-sgc30-3.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "380.2",
+                "asset_width": "523.4",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "kelly-03",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/1046/q/85/i/L3027050213316092291723926484793/kelly-sgc30-5.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "380.2",
+                "asset_width": "523.4",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "kelly-04",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/1046/q/85/i/L3027050230656031721010905003833/kelly-sgc30-1.jpg",
+                "tag": "img"
+              }
+            ],
+            "media_count": 4,
+            "offset": "4",
+            "paragraphs": [
+              "Kelly Chen, our childhood diva, is the Hong Kong Kylie Minogue musically, with a Victoria Beckham lifestyle. This intimate, personal zine contains poems, photography, and graphic design as a confession of twin flame love."
+            ],
+            "project_heading": "Kelly’s Kelly 2025 – Graphic design • Editorial"
+          },
+          {
+            "id": "curate",
+            "links": [],
+            "media": [
+              {
+                "asset_height": "327",
+                "asset_width": "376",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "curate-01",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/752/q/85/i/Z3028481505928652286752455178041/curate-image2-v2.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "504",
+                "asset_width": "894",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "curate-02",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/F3031232519896058700065569027897/20-curate-image1-vid-h264-poster.jpg",
+                "shape_policy": "crop",
+                "slot": "curate-image1-video",
+                "source": "https://freight.cargo.site/t/original/i/R3028308736250861861190228293433/curate-image1-vid-h264.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "504",
+                "asset_width": "504",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "curate-03",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/1008/q/85/i/J3027050938125560435919628580665/curate-hf.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "402",
+                "asset_width": "462",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "curate-04",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/2200/q/90/i/K3029359532521992955872380761913/curate-last-retina.jpg",
+                "tag": "img"
+              }
+            ],
+            "media_count": 4,
+            "offset": null,
+            "paragraphs": [
+              "A set of brand applications for Curate Health, from exterior signage and window graphics to printed programs and menus. The project expands the identity into a more complete spatial system."
+            ],
+            "project_heading": "Curate Health 2024 – Graphic design • Wellness"
+          },
+          {
+            "id": "randompics",
+            "links": [],
+            "media": [
+              {
+                "asset_height": "667.2",
+                "asset_width": "432",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "randompics-01",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/F3031232547566174810629896451897/21-randompics-slideshow-h264-poster.jpg",
+                "shape_policy": "crop",
+                "slot": "randompics-video",
+                "source": "https://freight.cargo.site/t/original/i/L3028308751008257120157869586233/randompics-slideshow-h264.mp4",
+                "tag": "video"
+              }
+            ],
+            "media_count": 1,
+            "offset": "2",
+            "paragraphs": [],
+            "project_heading": null
+          },
+          {
+            "id": "purelove",
+            "links": [
+              {
+                "href": "https://www.travisleung.com",
+                "label": "Travis Leung"
+              }
+            ],
+            "media": [
+              {
+                "asset_height": "783.9",
+                "asset_width": "627.2",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "purelove-01",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/1254/q/85/i/I3028246618297486426098215991097/purelove-1.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "680",
+                "asset_width": "544.3",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "purelove-02",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/1088/q/85/i/Q3028246916120169496138926831417/purelove-2.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "550",
+                "asset_width": "440",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "purelove-03",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/880/q/85/i/G3028246944196113976324864390969/purelove-3.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "680",
+                "asset_width": "873",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "purelove-04",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "artwork",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/1746/q/85/i/S3028289855602474049842539181881/purelove-4-v2.png",
+                "tag": "img"
+              },
+              {
+                "asset_height": "448.4",
+                "asset_width": "336.3",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "purelove-05",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/N3031232577062518584491469485881/22-purelove-flash-poster.jpg",
+                "shape_policy": "crop",
+                "slot": "purelove-flash-video",
+                "source": "https://freight.cargo.site/t/original/i/S3028279585838879613892415764281/purelove-flash.mp4",
+                "tag": "video"
+              }
+            ],
+            "media_count": 5,
+            "offset": "4",
+            "paragraphs": [
+              "Maybe unreturned love is the purest love. PURE LOVE is a photography art direction project with photographer Travis Leung about obsession, passive power, and being worshipped without giving anything back."
+            ],
+            "project_heading": "PURE LOVE（純愛） 2024 – Art direction • Personal project"
+          },
+          {
+            "id": "deadgood",
+            "links": [],
+            "media": [
+              {
+                "asset_height": "358",
+                "asset_width": "411.3",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "deadgood-01",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/t/original/i/K3028244189709842145940907538233/dg-image2.gif",
+                "tag": "img"
+              },
+              {
+                "asset_height": "504",
+                "asset_width": "894.4",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "deadgood-02",
+                "loading": "eager",
+                "mobile_profile": "deadgood-wide",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/1788/q/85/i/A3028247346261347806898251413305/dg-image4.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "504",
+                "asset_width": "579",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "deadgood-03",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/N3031232606872457007606104897337/23-dg-slides-poster.jpg",
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/t/original/i/W3028244200907015798682605369145/dg-slides.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "358",
+                "asset_width": "411.3",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "deadgood-04",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/822/q/85/i/R3028483060048393752708469274425/dg-image3-v2.jpg",
+                "tag": "img"
+              },
+              {
+                "asset_height": "358",
+                "asset_width": "543.5",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "deadgood-05",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/1088/q/85/i/K3028247312208658246830419130169/dg-cover.jpg",
+                "tag": "img"
+              }
+            ],
+            "media_count": 5,
+            "offset": null,
+            "paragraphs": [
+              "Dead Good's name itself is a striking combination of concepts. We capture this duality through the interplay of black and white with soft, glowing light leaks. A nod to the name's inherent contrasts, this fusion imparts a sense of timelessness and boundlessness."
+            ],
+            "project_heading": "Dead Good 2023 – Brand identity and graphic design • Photography studio"
+          },
+          {
+            "id": "wtw",
+            "links": [],
+            "media": [
+              {
+                "asset_height": "504",
+                "asset_width": "746.7",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "wtw-01",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "artwork",
+                "slot": null,
+                "source": "https://freight.cargo.site/w/1494/q/85/i/C3028244178623348957641467017017/wtw-lanyard.png",
+                "tag": "img"
+              },
+              {
+                "asset_height": "765.2",
+                "asset_width": "765.2",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "wtw-02",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/L3031232634561019862244141872953/24-wtw-wordmark-poster.jpg",
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/t/original/i/U3028243848518863758609040848697/wtw-wordmark.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "333.50625",
+                "asset_width": "592.9",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "cover",
+                "id": "wtw-03",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/t/original/i/X3028243859623803690982190921529/wtw-image1.gif",
+                "tag": "img"
+              },
+              {
+                "asset_height": "388.2",
+                "asset_width": "388.2",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "wtw-04",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/P3031232663448621081673299703609/25-wtw-grid-logo-poster.jpg",
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/t/original/i/J3028243826290537149789031151417/wtw-grid-logo.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "388.2",
+                "asset_width": "388.2",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "wtw-05",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/S3031232692022627651849395156793/26-wtw-grid-image-poster.jpg",
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/t/original/i/K3028243512603654176358105921337/wtw-grid-image.mp4",
+                "tag": "video"
+              },
+              {
+                "asset_height": "504",
+                "asset_width": "579",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "wtw-06",
+                "loading": "eager",
+                "mobile_profile": "standard",
+                "motion_priority": null,
+                "poster": null,
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/t/original/i/M3028243870784083855576469649209/wtw-image6.gif",
+                "tag": "img"
+              },
+              {
+                "asset_height": "504",
+                "asset_width": "896",
+                "embed_kind": null,
+                "fallback_mp4": null,
+                "fit": "contain",
+                "id": "wtw-07",
+                "loading": "none",
+                "mobile_profile": "standard",
+                "motion_priority": "near",
+                "poster": "https://freight.cargo.site/t/original/i/P3031232719434489345381788858169/27-wtw-grid-animation-poster.jpg",
+                "shape_policy": "crop",
+                "slot": null,
+                "source": "https://freight.cargo.site/t/original/i/L3028243501517160988058665400121/wtw-grid-animation.mp4",
+                "tag": "video"
+              }
+            ],
+            "media_count": 7,
+            "offset": null,
+            "paragraphs": [
+              "WTW? is a Hong Kong-based platform for curated hip hop events. The identity was designed as a flexible system. A consistent typographic structure and graphic treatments, paired with modular layouts create recognition across posters, social content and event communications, while allowing each program to have its own visual direction."
+            ],
+            "project_heading": "WTW? (What’s the Word?) 2023 – Brand identity and graphic design • Entertainment"
+          }
+        ],
+        "showcase_media_count": 68,
+        "source": "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+        "tag_counts": {
+          "a": 16,
+          "aside": 1,
+          "br": 13,
+          "button": 13,
+          "circle": 3,
+          "dialog": 1,
+          "div": 115,
+          "em": 12,
+          "figure": 12,
+          "header": 2,
+          "iframe": 3,
+          "img": 38,
+          "input": 1,
+          "li": 10,
+          "main": 1,
+          "nav": 1,
+          "p": 18,
+          "path": 5,
+          "script": 4,
+          "section": 13,
+          "span": 25,
+          "style": 1,
+          "svg": 5,
+          "text-icon": 4,
+          "ul": 4,
+          "video": 27
+        }
+      }
+    },
+    "who": {
+      "cargo": {
+        "capture_mode": "authenticated read-only GET",
+        "captured_from": "https://api.cargo.site/v1/pages/3626191/id/B2402536676",
+        "content_bytes": 68236,
+        "id": "B2402536676",
+        "local_css_bytes": 0,
+        "requested_page_id": "B2402536676",
+        "response_keys": [
+          "access_level",
+          "backdrops",
+          "content",
+          "display",
+          "id",
+          "index",
+          "local_css",
+          "media",
+          "overlay",
+          "overlay_options",
+          "page_count",
+          "page_design_options",
+          "page_type",
+          "password_enabled",
+          "pin",
+          "pin_options",
+          "purl",
+          "set_id",
+          "sort",
+          "stack",
+          "tags",
+          "thumb_media_id",
+          "thumb_meta",
+          "thumbnail",
+          "title"
+        ],
+        "slug": "who",
+        "title": "who"
+      },
+      "public_route": {
+        "canonical_urls": [],
+        "document_title": "who — MM.S",
+        "effective_url": "https://mmmmm.studio/who",
+        "http_status": 200,
+        "metadata": {
+          "description": "building better brands. brand identity, graphic design, motion graphics, digital and print",
+          "og:description": "building better brands. brand identity, graphic design, motion graphics, digital and print",
+          "og:image": "https://freight.cargo.site/w/1000/i/D3043801849626102382991858251577/screenshot-0760154348.jpg",
+          "og:title": "who — MM.S",
+          "og:type": "website",
+          "og:url": "https://mmmmm.studio/who"
+        },
+        "redirect_count": 0,
+        "url": "https://mmmmm.studio/who",
+        "utf8_replacement_chars": 0
+      },
+      "structure": {
+        "bytes": 68236,
+        "control_panel": {
+          "aria_modal": "false",
+          "element": "dialog",
+          "face_buttons": 4,
+          "id": "mms-panel",
+          "open_in_source": true,
+          "scale_sliders": 1,
+          "shape_buttons": 3,
+          "theme_buttons": 5
+        },
+        "media_contracts": [
+          {
+            "asset_height": null,
+            "asset_width": null,
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "cover",
+            "id": "who-ocean",
+            "loading": "none",
+            "mobile_profile": null,
+            "motion_priority": "critical",
+            "poster": "https://freight.cargo.site/t/original/i/C3033703303563517008361575462713/profile-chy-poster.jpg",
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/t/original/i/W3033697092268086229249903081273/profile-chy.mp4",
+            "tag": "video"
+          },
+          {
+            "asset_height": null,
+            "asset_width": null,
+            "embed_kind": null,
+            "fallback_mp4": null,
+            "fit": "cover",
+            "id": "who-alvis",
+            "loading": "none",
+            "mobile_profile": null,
+            "motion_priority": "critical",
+            "poster": "https://freight.cargo.site/t/original/i/A3033712492901311047143260731193/profile-cch-poster.jpg",
+            "shape_policy": "crop",
+            "slot": null,
+            "source": "https://freight.cargo.site/t/original/i/M3033713145657796839429454214969/profile-cch.mp4",
+            "tag": "video"
+          }
+        ],
+        "navigation_links": [
+          {
+            "current": false,
+            "href": "/",
+            "label": "MM.S"
+          },
+          {
+            "current": false,
+            "href": "/",
+            "label": "Work"
+          },
+          {
+            "current": true,
+            "href": "/who",
+            "label": "Who?"
+          },
+          {
+            "current": false,
+            "href": "/write",
+            "label": "Write"
+          },
+          {
+            "current": false,
+            "href": "https://www.linkedin.com/company/mmmmmstudio/",
+            "label": "Linkedin"
+          },
+          {
+            "current": false,
+            "href": "mailto:alvis@mmmmm.studio",
+            "label": "alvis@mmmmm.studio"
+          },
+          {
+            "current": false,
+            "href": "mailto:ocean@mmmmm.studio",
+            "label": "ocean@mmmmm.studio"
+          },
+          {
+            "current": false,
+            "href": "mailto:ocean@mmmmm.studio,alvis@mmmmm.studio",
+            "label": "Email"
+          }
+        ],
+        "people": [
+          {
+            "contact_links": [
+              {
+                "href": "mailto:ocean@mmmmm.studio",
+                "label": "ocean@mmmmm.studio"
+              }
+            ],
+            "media_ids": [
+              "who-ocean"
+            ],
+            "name": "Ocean Cheung"
+          },
+          {
+            "contact_links": [
+              {
+                "href": "mailto:alvis@mmmmm.studio",
+                "label": "alvis@mmmmm.studio"
+              }
+            ],
+            "media_ids": [
+              "who-alvis"
+            ],
+            "name": "Alvis Choi"
+          }
+        ],
+        "sha256": "36ed459ef60f030b82e1941adac41b6b549c66c1738b6c51c96168d46e5df365",
+        "shell": {
+          "clock_instances": 2,
+          "compact_navigation": 1,
+          "control_panel_instances": 1,
+          "desktop_rail": 1,
+          "introduction_instances": 2,
+          "mobile_header": 1,
+          "wordmark_home_links": 2
+        },
+        "source": "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/who.bodycopy.html",
+        "tag_counts": {
+          "a": 14,
+          "article": 2,
+          "aside": 1,
+          "button": 13,
+          "circle": 3,
+          "dialog": 1,
+          "div": 19,
+          "h1": 2,
+          "header": 3,
+          "input": 1,
+          "li": 10,
+          "main": 1,
+          "nav": 1,
+          "p": 4,
+          "path": 5,
+          "script": 2,
+          "section": 1,
+          "span": 9,
+          "svg": 5,
+          "ul": 4,
+          "video": 2
+        }
+      }
+    },
+    "write": {
+      "cargo": {
+        "capture_mode": "authenticated read-only GET",
+        "captured_from": "https://api.cargo.site/v1/pages/3626191/id/P0060651058",
+        "content_bytes": 67787,
+        "id": "P0060651058",
+        "local_css_bytes": 0,
+        "requested_page_id": "P0060651058",
+        "response_keys": [
+          "access_level",
+          "backdrops",
+          "content",
+          "display",
+          "id",
+          "index",
+          "local_css",
+          "media",
+          "overlay",
+          "overlay_options",
+          "page_count",
+          "page_design_options",
+          "page_type",
+          "password_enabled",
+          "pin",
+          "pin_options",
+          "purl",
+          "set_id",
+          "sort",
+          "stack",
+          "tags",
+          "thumb_media_id",
+          "thumb_meta",
+          "thumbnail",
+          "title"
+        ],
+        "slug": "write",
+        "title": "write"
+      },
+      "public_route": {
+        "canonical_urls": [],
+        "document_title": "write — MM.S",
+        "effective_url": "https://mmmmm.studio/write",
+        "http_status": 200,
+        "metadata": {
+          "description": "building better brands. brand identity, graphic design, motion graphics, digital and print",
+          "og:description": "building better brands. brand identity, graphic design, motion graphics, digital and print",
+          "og:image": "https://freight.cargo.site/w/1000/i/D3043801849626102382991858251577/screenshot-0760154348.jpg",
+          "og:title": "write — MM.S",
+          "og:type": "website",
+          "og:url": "https://mmmmm.studio/write"
+        },
+        "redirect_count": 0,
+        "url": "https://mmmmm.studio/write",
+        "utf8_replacement_chars": 0
+      },
+      "structure": {
+        "bytes": 67787,
+        "control_panel": {
+          "aria_modal": "false",
+          "element": "dialog",
+          "face_buttons": 4,
+          "id": "mms-panel",
+          "open_in_source": true,
+          "scale_sliders": 1,
+          "shape_buttons": 3,
+          "theme_buttons": 5
+        },
+        "media_contracts": [],
+        "navigation_links": [
+          {
+            "current": false,
+            "href": "/",
+            "label": "MM.S"
+          },
+          {
+            "current": false,
+            "href": "/",
+            "label": "Work"
+          },
+          {
+            "current": false,
+            "href": "/who",
+            "label": "Who?"
+          },
+          {
+            "current": true,
+            "href": "/write",
+            "label": "Write"
+          },
+          {
+            "current": false,
+            "href": "https://www.linkedin.com/company/mmmmmstudio/",
+            "label": "Linkedin"
+          },
+          {
+            "current": false,
+            "href": "mailto:ocean@mmmmm.studio,alvis@mmmmm.studio",
+            "label": "Email"
+          }
+        ],
+        "sha256": "acd08c42532bf7138b6058a3f08302f76a7ed1fa38307704bd6f77f2b26cc2e9",
+        "shell": {
+          "clock_instances": 2,
+          "compact_navigation": 1,
+          "control_panel_instances": 1,
+          "desktop_rail": 1,
+          "introduction_instances": 0,
+          "mobile_header": 1,
+          "wordmark_home_links": 2
+        },
+        "source": "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/write.bodycopy.html",
+        "tag_counts": {
+          "a": 12,
+          "article": 5,
+          "aside": 1,
+          "br": 23,
+          "button": 13,
+          "circle": 3,
+          "dialog": 1,
+          "div": 18,
+          "h1": 5,
+          "header": 1,
+          "input": 1,
+          "li": 24,
+          "main": 1,
+          "nav": 1,
+          "ol": 1,
+          "p": 6,
+          "path": 5,
+          "script": 2,
+          "span": 11,
+          "svg": 5,
+          "ul": 5
+        },
+        "writing": {
+          "container_aria_label": "writing by MM.S",
+          "piece_count": 5,
+          "pieces": [
+            {
+              "classes": [
+                "mms-writing-piece",
+                "mms-writing-selfhelp"
+              ],
+              "title": "More self help books for more self help books"
+            },
+            {
+              "classes": [
+                "mms-writing-clout",
+                "mms-writing-piece"
+              ],
+              "title": "Clout fleeing"
+            },
+            {
+              "classes": [
+                "mms-writing-piece",
+                "mms-writing-withered"
+              ],
+              "title": "Withered green"
+            },
+            {
+              "classes": [
+                "mms-writing-amazon",
+                "mms-writing-piece"
+              ],
+              "title": "Amazon return reasons"
+            },
+            {
+              "classes": [
+                "mms-writing-piece",
+                "mms-writing-world"
+              ],
+              "title": "World, conquered"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "schema_version": 1,
+  "shared_system": {
+    "clock": {
+      "instances_per_page": {
+        "home": 2,
+        "who": 2,
+        "write": 2
+      },
+      "runtime": "the frozen Cargo bodycopy runtime updates every .js-clock element"
+    },
+    "control_panel": {
+      "compact": "non-modal persistent viewport tray portaled to body",
+      "expanded": "left-rail panel restored to its source slot",
+      "shared_dialog_id": "mms-panel",
+      "state_persistence": [
+        "mms-theme",
+        "mms-face",
+        "mms-scale",
+        "mms-shape"
+      ]
+    },
+    "introduction": {
+      "compact_contract": "intro and compact links share the introduction wrapper and release beneath following content",
+      "expanded_contract": "introduction and clock occupy the sticky head while showcase content scrolls",
+      "instances_per_page": {
+        "home": 1,
+        "who": 2,
+        "write": 0
+      }
+    },
+    "navigation": {
+      "canonical_targets": [
+        "/",
+        "/who",
+        "/write",
+        "https://ellacportfolio.com",
+        "https://eviive.ch",
+        "https://www.linkedin.com/company/mmmmmstudio/",
+        "https://www.touchbaes.ca",
+        "https://www.travisleung.com",
+        "mailto:alvis@mmmmm.studio",
+        "mailto:ocean@mmmmm.studio",
+        "mailto:ocean@mmmmm.studio,alvis@mmmmm.studio"
+      ],
+      "email_recipients": [
+        "ocean@mmmmm.studio",
+        "alvis@mmmmm.studio"
+      ],
+      "surfaces": [
+        "compact in-flow/sticky navigation",
+        "expanded left rail",
+        "wordmark home link"
+      ]
+    },
+    "runtime": {
+      "head_marker": "49",
+      "marker_counts": {
+        "responsive-70": 2
+      },
+      "shared_marker": "responsive-70",
+      "source": "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html"
+    },
+    "state_axes": {
+      "combination_count": 240,
+      "defaults": {
+        "image_shape": "straight",
+        "scale": "m",
+        "theme": "white",
+        "typeface": "serif"
+      },
+      "image_shape": [
+        "straight",
+        "rounded",
+        "oval"
+      ],
+      "scale": [
+        "s",
+        "m",
+        "l",
+        "xl"
+      ],
+      "startup_preview": {
+        "evidence": "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+        "hold_ms_per_cut": 375,
+        "preview_cuts": 4,
+        "total_preview_ms": 1500,
+        "transition": "hard cuts; final stored/default state restored after preview"
+      },
+      "theme": [
+        "white",
+        "girly",
+        "quirky",
+        "contrast",
+        "black"
+      ],
+      "typeface": [
+        "serif",
+        "sans",
+        "mono",
+        "gothic"
+      ]
+    }
+  }
+}
