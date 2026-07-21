@@ -4255,3 +4255,44 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   unique media items and 12 scrubbers, and measured zero page-level overflow.
   Shared runtime remains `responsive-70`; the protected Round 69 gold baseline
   was not modified.
+
+## Round 81 (2026-07-20): WTW square-video river correction — PUBLISHED
+- Reproduced the WTW second-asset crop and traced it to the parent river rather
+  than the media source. `wtw-02`, its poster, and its live MP4 are square; the
+  loaded video reports 1600×1600 and uses `object-fit: contain`. The expanded
+  WTW river was nevertheless fixed at 504 scaled units while the asset is
+  765.2×765.2, so `overflow-y: hidden` removed 261.2 scaled units from its top.
+- Added one WTW-scoped expanded rule that lets this river hug its tallest item
+  while retaining the existing 504-unit minimum and lower-edge alignment. No
+  other river, media source, bodycopy, responsive runtime, scrubber, or compact
+  behavior changed.
+- Built and deployed the complete `tokens.css` + `site.css` bundle, preserving
+  Cargo's head and all three managed font blocks. The reload-persisted editor is
+  86,543 bytes with SHA-256
+  `b02243254016e0f40964ffa062aa49dd7acc38c8eeadfcc0420f2e130a8c5f27`;
+  it exactly matched the prevalidated payload after both paste and reload.
+- Reloaded Cargo measured the WTW frame and river at the same 891.13px height,
+  with a square frame and zero page overflow. Independent public Chromium proof
+  at 1024, 1440, and 1920px measured square frame/video geometry, zero top and
+  bottom clipping, `object-fit: contain`, and zero page overflow. After bringing
+  the asset into view, the public MP4 loaded at its native 1600×1600 resolution.
+- Published at 8:57pm EDT. Home, Who, and Write remain on `responsive-70`; the
+  protected Round 69 gold baseline was not modified.
+# Round 82 — WTW second asset restored to the Figma 504×504 frame (2026-07-20)
+
+- Corrected the Round 81 diagnosis after checking the live Figma source rather than inferring intended display size from the 1600×1600 video source.
+- Figma nodes `409:599` / `409:613` define WTW's second asset as a 504×504 frame inside a 504px gallery viewport.
+- Changed `wtw-02` from the incorrect `765.2 × 765.2` Cargo design geometry to `504 × 504`.
+- Removed the WTW-only auto-height river workaround. The standard 504-unit expanded river now matches Figma and contains the square asset without cropping or enlargement.
+- Deployed the complete token + site CSS bundle while preserving Cargo's head
+  and all three managed font regions. The reloaded 86,099-byte stylesheet
+  matched the prevalidated payload byte-for-byte and contains no WTW-specific
+  river override.
+- Reloaded Cargo bodycopy proof retained 68 unique media IDs and persisted
+  `wtw-02` as 504×504. A transfer-focus check caught stray stylesheet text
+  inserted ahead of `wtw-01`; it was removed, saved, reloaded, and verified as
+  one image child with zero text before publication.
+- Published at 9:37pm EDT. Public 1440px proof is exactly 504×504 in a 504px
+  river, with zero top/bottom clipping, a native 1600×1600 video, zero page
+  overflow, 68 media IDs, and no bodycopy contamination. Public 1024px and
+  1920px checks remain square, match their river heights, and have zero clip.

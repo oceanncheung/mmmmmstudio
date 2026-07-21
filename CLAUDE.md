@@ -2131,3 +2131,24 @@ current source of truth for the built site.
   post-pointer thumb at 8px with a 1px border, no retained focus, 12 desktop
   scrubbers, 68/68 unique Home media items, and zero page overflow. Cargo Last
   Published is 2:40pm EDT on 2026-07-20.
+
+## Current handoff — Round 81 published WTW square-video correction
+- Round 81 is published. Home, Who, and Write remain on `responsive-70`; never
+  edit the protected Round 69 gold baseline.
+- Keep the WTW-only expanded river-height exception. `wtw-02` and its live MP4
+  are 1:1, but the generic 504-unit parent river previously clipped the
+  765.2-unit frame by 261.2 units at the top. The WTW river now hugs its tallest
+  item while retaining the existing 504-unit minimum and bottom alignment.
+- Reloaded Cargo exactly matches the validated 86,543-byte persisted CSS,
+  SHA-256 `b02243254016e0f40964ffa062aa49dd7acc38c8eeadfcc0420f2e130a8c5f27`,
+  with its head and all three managed font blocks preserved. Independent public
+  checks at 1024, 1440, and 1920px confirmed a square frame and video, zero top
+  or bottom clipping, native 1600×1600 media, and zero page overflow. Cargo Last
+  Published is 8:57pm EDT on 2026-07-20.
+# Round 82 correction — WTW display geometry
+
+- Figma nodes `409:599` / `409:613` are the reference for WTW. The second asset is a 504×504 display frame even though the MP4 source is 1600×1600.
+- Never infer intended on-page size from source resolution. Verify the Figma display frame before changing river height or media geometry.
+- Round 82 is published and public-verified: 504×504 at the 1440px reference,
+  square and unclipped at 1024/1920px, 68 unique media IDs, and zero page
+  overflow or stray CSS text in bodycopy.

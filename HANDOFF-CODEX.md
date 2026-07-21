@@ -1103,3 +1103,28 @@ agent needs to continue this project without the prior chat history.
 - Reloaded Cargo and independent public proof both found 12 scrubbers, all 68
   unique Home media IDs, and zero page-level overflow. Cargo Last Published is
   2:40pm EDT on 2026-07-20.
+
+## Current handoff — Round 81 published WTW square-video correction
+- Round 81 is published. Home, Who, and Write remain on `responsive-70`; the
+  protected Round 69 gold baseline remains immutable.
+- Preserve the WTW-specific expanded river-height rule. The `wtw-02` source,
+  poster, frame, and live video are square, but the former generic 504-unit
+  river clipped the 765.2-unit asset by 261.2 units from the top. The corrected
+  river uses `height: auto` with the existing 504-unit minimum so the complete
+  square is visible and bottom alignment remains unchanged.
+- Reload-persisted Cargo CSS is 86,543 bytes with SHA-256
+  `b02243254016e0f40964ffa062aa49dd7acc38c8eeadfcc0420f2e130a8c5f27`;
+  the Cargo head and all three managed font blocks remain intact. Public proof
+  at 1024, 1440, and 1920px found square geometry, zero clipping, a native
+  1600×1600 loaded video, `object-fit: contain`, and zero page overflow. Cargo
+  Last Published is 8:57pm EDT on 2026-07-20.
+# Round 82 correction — WTW display geometry
+
+- Figma is authoritative for the WTW second asset: nodes `409:599` / `409:613` specify 504×504, not 765.2×765.2.
+- `cargo/home.html` now declares `wtw-02` as `--asset-w:504;--asset-h:504`.
+- The Round 81 WTW river auto-height override has been removed from `cargo/site.css`.
+- Do not size a Cargo frame from its source raster/video dimensions; verify the intended Figma display frame first.
+- Round 82 is published. At 1440px the public frame and river are both exactly
+  504px high, with zero clipping; 1024px and 1920px are also square and
+  unclipped. The public bodycopy retains all 68 media IDs and contains no stray
+  CSS text.
