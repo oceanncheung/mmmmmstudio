@@ -17,7 +17,7 @@ Minimal Node scaffold for the [Framer Server API](https://www.framer.com/develop
    Edit `.env` and set `FRAMER_PROJECT_URL` (the URL of your project, e.g. `https://framer.com/projects/<id>`) and `FRAMER_API_KEY`.
 3. **Install:**
    ```sh
-   npm install
+   npm ci
    ```
 
 ## Run
@@ -52,8 +52,29 @@ Fonts in use (1): Inter
 - `index.mjs` — entrypoint: `connect()` → `getProjectInfo()` → `disconnect()`
 - `read-design-system.mjs` — pulls color/text styles + fonts, writes `design-system.json`
 - `package.json` — declares `framer-api` dependency and npm scripts
+- `dependency-smoke-test.mjs` — executes both entrypoints against a read-only
+  Proxy fixture and verifies the installed SDK still exports `connect()`
 - `.env.example` — template for required env vars (copy to `.env`)
 - `.gitignore` — excludes `node_modules/`, `.env`, generated `design-system.json`
+
+## Dependency verification
+
+The helper is private tooling and is not bundled into the MM.S website.
+`framer-api` is pinned to the already-reviewed 0.1.7 release, while the
+transitive `devalue` serializer is pinned to 5.8.2, outside
+`GHSA-77vg-94rm-hx3p`.
+
+Run these checks before using the helper or changing its lockfile:
+
+```sh
+npm ci --ignore-scripts
+npm test
+npm run audit:dependencies
+```
+
+The repository Phase 2 gate independently validates the exact package and
+lockfile identities, clean installation, zero-vulnerability audit, and the
+read-only remote-call boundary.
 
 ## What else the SDK exposes
 

@@ -1542,3 +1542,36 @@ agent needs to continue this project without the prior chat history.
   already-uploaded Freight HTML file now contains the StPageFlip MIT text.
   A future versioned successor must ship or accompany the notice, receive a
   new reviewed hash, and be promoted separately.
+
+## Current handoff — Round 96 Framer helper dependency advisory (2026-07-22)
+- Round 96 is tooling-only repository work on
+  `round-96/framer-dependency-advisory`. It addresses `MMS-AUD-038` without
+  modifying Cargo, Figma, Freight, site runtime, embed artifacts, visual
+  geometry, or `gold-2026-07-21-responsive-70`.
+- Keep the private helper on exact `framer-api` 0.1.7. This is the same SDK
+  release the former lockfile used, now deterministic instead of `latest`.
+  Keep the exact `devalue` 5.8.2 override; it is outside
+  `GHSA-77vg-94rm-hx3p` and satisfies the SDK's existing `^5.6.4` range.
+- The mandatory repository contract is
+  `audit/contracts/framer-helper-dependencies.json`; the validator is
+  `audit/scripts/validate-framer-helper-dependencies.py`. It must continue to
+  run from `validate-phase2.sh` with destructive fixtures, an isolated clean
+  install, dynamic entrypoint smoke test, clean dependency tree, and online
+  zero-vulnerability audit at `audit-level=low`. It must also reject any
+  declared contract, validator, config, smoke, or read-only source that is not
+  present in the Git index.
+- `Framer/MM.S Framer API/dependency-smoke-test.mjs` executes both actual
+  helper entrypoints against a Proxy that exposes only `getProjectInfo`,
+  `getColorStyles`, `getTextStyles`, and `disconnect`. It verifies exact local
+  design-output structure, disconnect on success/failure, and refusal to
+  connect without credentials. Do not weaken it to source regex alone.
+- No credentials are stored here, so the live authenticated design read is a
+  documented external confirmation rather than a claimed test result. Before
+  the helper is next used, run `npm ci --ignore-scripts`, `npm test`,
+  `npm run audit:dependencies`, then `npm run read:design` with the approved
+  environment and inspect the generated JSON. Never commit `.env`,
+  `node_modules`, or `design-system.json`.
+- Focused checks and the complete Phase 2 suite pass, including 122/122 frozen
+  hashes, both 240-state matrices, native rivers, WTW and Withered Green,
+  Touchbaes/iPad and Montran behavior, source purity, runtime teardown, and
+  deployment-negative fixtures. Nothing was deployed or published.

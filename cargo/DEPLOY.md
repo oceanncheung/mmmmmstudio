@@ -4811,3 +4811,43 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   a tracked repository record; it does not claim the immutable legacy Freight
   HTML gained an internal StPageFlip banner. Any future distributed successor
   must ship or accompany this notice in its separately reviewed promotion.
+
+## Round 96 (2026-07-22): Framer helper dependency advisory — TOOLING-ONLY / NOT DEPLOYED
+- Closed the repository remediation for `MMS-AUD-038` without touching Cargo,
+  Figma, Freight, any public page, active embed, or protected visual source.
+  The private Framer helper now pins its already-used `framer-api` release at
+  exact version 0.1.7 instead of resolving `latest`, avoiding an unnecessary
+  pre-1.0 SDK upgrade.
+- Added an exact `devalue` 5.8.2 override. It still satisfies the SDK's
+  `^5.6.4` constraint and lies outside `GHSA-77vg-94rm-hx3p`, whose affected
+  range is 5.6.3 through 5.8.0. The lockfile retains `csstype` 3.2.3 and
+  `std-env` 4.1.0 and resolves only the reviewed five lock nodes.
+- Added `dependency-smoke-test.mjs`. It imports the installed SDK, executes
+  both unchanged helper entrypoints against a throwing read-only Proxy,
+  verifies exact project/style reads, local output shape, missing-credential
+  refusal, failure cleanup, and guaranteed disconnect, and rejects any
+  unreviewed remote client property.
+- Added `audit/contracts/framer-helper-dependencies.json` and the mandatory
+  `validate-framer-helper-dependencies.py` gate. It hash-locks the helper
+  config, lockfile, smoke test, and read-only sources; rejects floating pins,
+  vulnerable or extra packages, integrity drift, lifecycle hooks, remote
+  mutations, and disconnect loss; performs an isolated `npm ci`; runs the
+  dynamic smoke test and clean dependency-tree check; and requires an online
+  audit with zero findings at every severity. It also requires the contract,
+  validator, and every declared helper input to be Git-tracked. Seven
+  destructive fixtures pass.
+- Focused verification passed: 122/122 protected hashes, isolated install,
+  helper API smoke, zero-vulnerability npm audit, ignored-output guard, and no
+  protected site/runtime path changes. The complete Phase 2 gate also passes,
+  including both 240-state gold matrices, native rivers, Touchbaes/iPad and
+  Montran behavior, WTW/Withered contracts, source purity, root replacement,
+  and all deployment-negative fixtures.
+- No Framer credentials or `.env` are present in this checkout, so a live
+  authenticated `npm run read:design` was not claimed. The SDK itself remains
+  at the already-used 0.1.7; before the helper is next used with credentials,
+  run the documented clean install, smoke test, zero-vulnerability audit, and
+  authenticated read. Generated `.env`, `node_modules`, and
+  `design-system.json` remain ignored and untracked.
+- This round is repository tooling only. It was not deployed or published,
+  and `gold-2026-07-21-responsive-70`, Round 69, and Round 80 evidence remain
+  unchanged.
