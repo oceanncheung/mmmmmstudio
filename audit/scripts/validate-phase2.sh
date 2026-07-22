@@ -7,6 +7,7 @@ ROOT=$(CDPATH= cd -- "$(dirname "$0")/../.." && pwd)
 "$ROOT/audit/scripts/verify-phase1-baseline.sh"
 python3 "$ROOT/audit/scripts/generate-system-inventory.py" --check
 python3 "$ROOT/audit/scripts/generate-asset-manifest.py" --check
+python3 "$ROOT/audit/scripts/validate-embed-reproducibility.py" --self-test
 
 python3 - "$ROOT" <<'PY'
 import json

@@ -2404,3 +2404,24 @@ current source of truth for the built site.
   `npm run embed-montran-test`, and the complete
   `bash audit/scripts/validate-phase2.sh`. The protected gold baseline remains
   `gold-2026-07-21-responsive-70` and was not edited.
+
+## Current state — Round 92 active V7 and Montran source recovery
+- Round 92 closes `MMS-AUD-034` in the repository only. It does not deploy or
+  publish Cargo and does not change any approved visual or runtime behavior.
+- The authoritative active V7 source is `work/v7-cup-src/`. Its builder must
+  reproduce exactly 780,341 bytes and SHA-256
+  `ee09e9c282d928f8968b91e1301bc0ba2639102a27c1bf1cd40483ab1b609d0a`.
+  The older split V7 runtime was stale; do not substitute it.
+- The authoritative active Montran source remains
+  `work/montran-direct-pdf-v10-src/`, now recovered to exact v17 parity. Its
+  builder must reproduce exactly 1,936,356 bytes and SHA-256
+  `825cf2c3a1f130cb3445e62443985e845991204d19e0c2154cfd43a36126b49b`.
+- `audit/contracts/active-embed-builds.json` and
+  `audit/scripts/validate-embed-reproducibility.py` fail closed on missing or
+  duplicate embed kinds, untracked or hash-drifted inputs, removed behavioral
+  contracts, nondeterministic builds, and output divergence from frozen Round
+  80 evidence. The check is mandatory in `validate-phase2.sh`.
+- Focused exact-build and embed interaction checks pass, as does the complete
+  Phase 2 gate. Keep `gold-2026-07-21-responsive-70` immutable. Handle Montran
+  PDF allowlisting (`MMS-AUD-036`) and third-party notices (`MMS-AUD-039`) only
+  in independent later batches.

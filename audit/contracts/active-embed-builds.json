@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "frozen_evidence": "docs/audits/2026-07-20T175853-0400-round-80/local/embed-manifest.json",
+  "entries": [
+    {
+      "kind": "v7-cup",
+      "version": "three-r160",
+      "source_root": "work/v7-cup-src",
+      "builder": "work/v7-cup-src/build-bundle.py",
+      "output_name": "coffee-cup-bundle.html",
+      "expected_bytes": 780341,
+      "expected_sha256": "ee09e9c282d928f8968b91e1301bc0ba2639102a27c1bf1cd40483ab1b609d0a",
+      "inputs": [
+        {
+          "path": "work/v7-cup-src/index.html",
+          "sha256": "5a0d6a381583a16bc804255b1902c8cb2a05365a6119f6d61c468cdac7d606e5"
+        },
+        {
+          "path": "work/v7-cup-src/styles.css",
+          "sha256": "e63d8bc5418c8c236a83fd734e8e1ff22d9ab47ca774562687a93eec0d4a5db3"
+        },
+        {
+          "path": "work/v7-cup-src/assets/cup-wrap.png",
+          "sha256": "1c584551776b366770de2a51c2beaa7a79fcd5c015e40a913ce2cafc23826ecf"
+        },
+        {
+          "path": "work/v7-cup-src/vendor/three.min.js",
+          "sha256": "170c6789f43217c96b3170f4b42fafe135de7f7cd48497a4218f9757ee1d49fa"
+        },
+        {
+          "path": "work/v7-cup-src/src/main.js",
+          "sha256": "0c0feabcfb9788d982f1d091799c259a3fd8333496c917faea4cc2c9fba53335"
+        },
+        {
+          "path": "work/v7-cup-src/build-bundle.py",
+          "sha256": "bed4c65ff21b138c3eb024fe166667c21e25014c234cadd2085a89645098c5d3"
+        }
+      ],
+      "required_contracts": [
+        {
+          "path": "work/v7-cup-src/styles.css",
+          "contains": [
+            "background: transparent;"
+          ]
+        },
+        {
+          "path": "work/v7-cup-src/src/main.js",
+          "contains": [
+            "preserveDrawingBuffer: false",
+            "compact ? 1.5 : 2",
+            "function fitCameraToCup()",
+            "params.get('speed') || '0.0115'",
+            "startAngle : -0.35",
+            "event.data.__mmsEmbedVisibility !== 1",
+            "__mmsEmbedReady: 1, kind: 'v7-cup'"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "montran-booklet",
+      "version": 17,
+      "source_root": "work/montran-direct-pdf-v10-src",
+      "builder": "work/montran-direct-pdf-v10-src/build-bundle.py",
+      "output_name": "montran-booklet-direct-pdf-v17.html",
+      "expected_bytes": 1936356,
+      "expected_sha256": "825cf2c3a1f130cb3445e62443985e845991204d19e0c2154cfd43a36126b49b",
+      "inputs": [
+        {
+          "path": "work/montran-direct-pdf-v10-src/index.html",
+          "sha256": "6de8f74d45e36420a111a58fbad604c76ccbcfbfaefc3d9168c6e121f746f7ff"
+        },
+        {
+          "path": "work/montran-direct-pdf-v10-src/booklet.config.json",
+          "sha256": "7eb731382380de3e80fd29cfd018119f18b6cef49dde106fc4402002253891d9"
+        },
+        {
+          "path": "work/montran-direct-pdf-v10-src/loading-poster.jpg",
+          "sha256": "16afcfe464baa343846b6e7593054f063efec1ef90e07a6e0c6b6db27cfbd0f4"
+        },
+        {
+          "path": "work/montran-direct-pdf-v10-src/vendor/page-flip.browser.js",
+          "sha256": "bbaca0bbef57a22bb66a3fc69d67baf9a17fb9a9c89ec9ed35e2b91abe4bd1e7"
+        },
+        {
+          "path": "work/montran-direct-pdf-v10-src/vendor/pdf.min.mjs",
+          "sha256": "4ba2f15599b03fde8755ad91349920c21dadd3e8fd6b6460a7663d46d4cf21b5"
+        },
+        {
+          "path": "work/montran-direct-pdf-v10-src/vendor/pdf.worker.min.mjs",
+          "sha256": "2ab9e09667296dab1a618868b3ce6e6c23d5b8f48120ae7c5b34e7e335ed01fa"
+        },
+        {
+          "path": "work/montran-direct-pdf-v10-src/build-bundle.py",
+          "sha256": "b7d127672b5091d0dacd35959c2392c0313af2525a90bd314e0f99f179d383ab"
+        }
+      ],
+      "required_contracts": [
+        {
+          "path": "work/montran-direct-pdf-v10-src/booklet.config.json",
+          "contains": [
+            "\"startAtPdfPage\": 19"
+          ]
+        },
+        {
+          "path": "work/montran-direct-pdf-v10-src/index.html",
+          "contains": [
+            "class FreightRangeTransport",
+            "const chunkSize = 262144",
+            "const RENDER_WIDTH_LIMIT = 1600",
+            "const RENDER_CACHE_LIMIT = 12",
+            "disableAutoFetch: true",
+            "disableStream: true",
+            "__mmsBookletReady: 1",
+            "kind: \"montran-booklet\"",
+            "version: 17",
+            "html.mms-parent-turn .book-mount",
+            "pageFlip.getState() !== \"fold_corner\"",
+            "showPageCorners: false"
+          ]
+        }
+      ]
+    }
+  ]
+}

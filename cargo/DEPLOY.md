@@ -4648,3 +4648,36 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   runtime root replacement, and destructive deployment fixtures.
 - This round is local repository work only. It was not deployed to Cargo, not
   published, and `gold-2026-07-21-responsive-70` was not edited.
+
+## Round 92 (2026-07-22): active V7 and Montran source recovery — TEST-ONLY / NOT DEPLOYED
+- Closed recovery issue `MMS-AUD-034` without changing either active embed.
+  Added authoritative tracked V7 source recovered from the approved Freight
+  artifact and brought the tracked Montran source to exact v17 parity.
+- Added deterministic byte-mode builders. Clean-input V7 builds are exactly
+  780,341 bytes with SHA-256
+  `ee09e9c282d928f8968b91e1301bc0ba2639102a27c1bf1cd40483ab1b609d0a`;
+  Montran v17 builds are exactly 1,936,356 bytes with SHA-256
+  `825cf2c3a1f130cb3445e62443985e845991204d19e0c2154cfd43a36126b49b`.
+  Both match the active Freight files and the frozen Round 80 evidence
+  byte-for-byte.
+- Added `audit/contracts/active-embed-builds.json` and
+  `audit/scripts/validate-embed-reproducibility.py`. The gate requires exactly
+  one V7 and one Montran entry, Git-tracked hash-locked inputs, retained
+  behavioral markers, two identical isolated builds, and output identity with
+  the frozen evidence. Seven destructive fixtures prove missing or duplicate
+  kinds, missing or untracked inputs, input drift, contract removal, and output
+  hash drift fail closed.
+- The focused embed/Montran browser contract passes. The first aggregate run
+  encountered one transient existing Montran breakpoint-message timeout after
+  the earlier matrices passed; the isolated test immediately passed, and a
+  complete rerun of `bash audit/scripts/validate-phase2.sh` passed in full.
+  That rerun includes 122/122 frozen hashes, both 240-state gold matrices,
+  media ownership, Touchbaes readiness, all primary interactions, source
+  purity, root replacement, and all 30 deployment-negative fixtures.
+- The external Montran PDF remains outside this viewer-bundle build. PDF URL
+  allowlisting remains separate issue `MMS-AUD-036`; third-party notices remain
+  separate issue `MMS-AUD-039`.
+- This round is repository recovery and verification only. It was not deployed
+  to Cargo, not published, and did not alter Figma, Cargo payloads, Freight
+  assets, visual geometry, runtime behavior, or
+  `gold-2026-07-21-responsive-70`.

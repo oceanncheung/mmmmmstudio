@@ -1414,3 +1414,29 @@ agent needs to continue this project without the prior chat history.
   home extras/generated mirrors, focused `npm run embed-montran-test`, and the
   complete `bash audit/scripts/validate-phase2.sh`.
 - `gold-2026-07-21-responsive-70` remains immutable and unchanged.
+
+## Current handoff — Round 92 active embed source recovery (2026-07-22)
+- Round 92 is repository-only work on branch
+  `round-92/embed-source-recovery`; it is not deployed to Cargo and is not
+  published.
+- `work/v7-cup-src/` is now the authoritative tracked source for the active V7
+  cup. Its deterministic builder must continue producing exactly 780,341 bytes
+  with SHA-256
+  `ee09e9c282d928f8968b91e1301bc0ba2639102a27c1bf1cd40483ab1b609d0a`.
+  Do not restore the stale older split runtime or edit the generated upload
+  bundle directly.
+- `work/montran-direct-pdf-v10-src/index.html` is now the authoritative
+  recovered v17 viewer source. Its builder must continue producing exactly
+  1,936,356 bytes with SHA-256
+  `825cf2c3a1f130cb3445e62443985e845991204d19e0c2154cfd43a36126b49b`.
+- `audit/scripts/validate-embed-reproducibility.py --self-test` is part of the
+  normal Phase 2 gate. It requires both unique embeds, tracked and hash-locked
+  inputs, approved source contracts, deterministic isolated double builds, and
+  exact frozen output identity. Do not weaken it to a local generated-file
+  comparison.
+- Focused exact-build and embed interaction checks pass, and the complete
+  Phase 2 gate passes with protected visual parity and frozen hashes intact.
+  The protected `gold-2026-07-21-responsive-70` tree was not edited.
+- Keep `MMS-AUD-036` PDF URL allowlisting and `MMS-AUD-039` third-party notices
+  as separate later batches because either can change distribution behavior or
+  bytes. No Cargo deployment is required for Round 92 itself.
