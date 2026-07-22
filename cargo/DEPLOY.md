@@ -4293,3 +4293,36 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   rules now prevent deletion or non-fast-forward rewriting of both `round-*`
   and `gold-*` tags. Draft PR 4 proposes the guard onto the merged audit
   baseline.
+
+## Round 82 (2026-07-21): single Home media-playback owner — LOCAL/GITHUB ONLY
+- Remediated only `MMS-AUD-027`. Removed the legacy Home helper that called
+  `play()` on all 27 portfolio videos at startup, on four document/window
+  events, and every 2.5 seconds. The existing deferred-media observer in
+  `cargo/panel.js` is now the sole Home video playback owner; its source
+  activation, visible/near envelope, muted inline autoplay, posters, and
+  bounded resume path were not changed.
+- Added a fail-closed ownership check to the normal Cargo bodycopy validator
+  and a focused Chrome probe. The protected gold fixture correctly reproduces
+  the defect by growing from 122 to 176 play attempts after lifecycle
+  settlement. The candidate holds at 14
+  visible/near attempts with zero later 2.5-second retry and no play call on an
+  unloaded or horizontally/vertically far-offscreen video. A fourteenth
+  destructive deployment fixture proves stale autoplay bodycopy is rejected.
+- Added a reusable latest-gold parity probe. Compact and expanded runs each
+  passed all 240 theme/face/scale/shape states, an exact masked screenshot,
+  control-panel behavior, and native river scrolling. This batch changes no
+  CSS, layout, media dimensions, source identities, visible composition, or
+  interaction algorithm.
+- The immutable Round 80 Cargo snapshot contains runtime-activated deferred
+  `src` attributes. The aggregate test now removes only those live attributes
+  in memory before validating the saved-source contract. The frozen files
+  remain byte-identical and the production deployment validator remains strict.
+- The audit-only Playwright pin advances to 1.61.1 so the mandatory local
+  Chrome gates do not hang against the installed browser. Both browser probes
+  now run inside `audit/scripts/validate-phase2.sh` and have finite watchdogs.
+- `cargo/assemble-test.sh canonical`, `audit/scripts/validate-phase2.sh`,
+  `npm run media-owner-test`, and `npm run gold-parity-test` pass. Physical
+  iPhone Safari autoplay remains the required final environment check before
+  this delta is deployed to Cargo.
+- No Cargo editor, Freight asset, Figma node, or public site was changed or
+  published. `MMS-AUD-029` root teardown remains the next separate batch.
