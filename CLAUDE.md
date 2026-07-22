@@ -191,6 +191,19 @@ the lineage of tracyma.com. Built/hosted on **cargo.site**; prototyped in
 
 ## Open items
 
+**[2026-07-22] Round 90 — PRIMARY INTERACTION COVERAGE, TEST-ONLY (not deployed).**
+Branch `round-90/primary-interaction-coverage` closes audit gap `MMS-AUD-032`
+with browser contracts for compact panel behavior, scrubbers, native rivers,
+startup state, embed readiness, Touchbaes sizing messages, and Montran compact
+turn filtering. No Cargo, Figma, Freight, public-site, or visible UI mutation
+was made. Full `bash audit/scripts/validate-phase2.sh` passed, including
+122/122 frozen hashes, both 240-state gold parity matrices, media ownership,
+swatch focus, Touchbaes iPad readiness, the new interaction suite, runtime root
+replacement, source purity, and destructive deployment fixtures. The protected
+gold `cargo/gold/2026-07-21-responsive-70` remains unchanged. Known deferred
+issue: production `applyGameHeight()` still clamps zero/negative finite
+Touchbaes heights to 1px; fix that in a later embed-validation batch.
+
 **[2026-07-12] Round 30 — MOBILE NAV/CAPTIONS/GAME ENVELOPE/PENCIL, DRAFT (not published).**
 Prepared `responsive-32`: mobile links now scroll away while the compact header
 row remains at z10 under z20 showcases; Montran/Kelly/Random Pics share matched
@@ -2323,3 +2336,92 @@ current source of truth for the built site.
   paragraphs and a static heading. The complete Phase 2 gate passes.
 - The sole current gold is still `gold-2026-07-21-responsive-70`; it was not
   edited. Keep the next iPad/Safari media-readiness remediation separate.
+
+## Current state — Round 88 gold swatch border with Arrow-only focus frame
+- Round 88 is deployed to the Cargo draft and reload-verified; it is not
+  published. The swatch artwork again has the protected gold's permanent 1px
+  circular border in expanded and compact modes, with the existing fine-pointer
+  hover halo unchanged.
+- Keep the dotted target outline suppressed for load/autofocus, Tab-only and
+  programmatic focus, pointer, and touch. Only an unmodified Arrow key on a
+  focused swatch may set `data-mms-swatch-nav="arrow"`, move focus to the
+  adjacent wrapping swatch, and expose the 1px dotted outline at 3px offset.
+  Pointer/touch clears that mode. Do not restore Round 86's solid circular
+  keyboard halo.
+- The Arrow listener and transient attribute belong to the shared panel
+  lifecycle. Any future panel-runtime edit must reassemble and deploy Home,
+  Who, and Write together.
+- Reloaded Cargo CSS is exactly 86,758 UTF-8 bytes, SHA-256
+  `95c35fff5d9ec49bd3ea2f4c0878794918ad087b377c079bf3ac5de68075be4c`,
+  with Cargo's head and all three managed font blocks preserved. Home, Who,
+  and Write are reload-verified with their protected media and Withered Green
+  contracts intact and zero page-level horizontal overflow.
+- The focused compact/expanded test, canonical assembly, and complete Phase 2
+  gate pass. The public site still serves Round 87 until Ocean explicitly
+  authorizes a publish. `gold-2026-07-21-responsive-70` remains immutable.
+
+## Current state — Round 89 Touchbaes iPad readiness
+- The Touchbaes second asset now has a targeted manifest-safe readiness path:
+  runtime-only 720px poster rendition, `preload="auto"` only after existing
+  proximity activation, and one `loadeddata` play retry. Source identities,
+  saved preload/poster attributes, media geometry, layout, and the protected
+  gold remain unchanged. A video error keeps the poster visible.
+- `npm run touchbaes-readiness-test` passes at 768x1024 and 1024x1366, and the
+  complete Phase 2 gate passes. Physical iPad Safari remains the final decoder
+  and autoplay proof.
+- Cargo is reload-verified with the same Round 89 shared runtime on Home, Who,
+  and Write, and it remains unpublished. Chrome's Home editor kept the direct
+  channel blocked behind the paused V7 response, so the complete canonical Home
+  was transferred through the authenticated in-app Cargo editor using direct
+  `bodycopy.innerHTML` plus `InputEvent`, Cmd+S, and reload. Never replace Home
+  through Code View.
+- Cargo's raw saved Home record passes the schema-2 source-purity validator and
+  retains 68 unique media IDs, seven Touchbaes items, no live source, no native
+  poster, `preload="none"`, the original approved poster identity, zero page
+  overflow, and protected 504x504 WTW geometry at 1440px. Physical iPad Safari
+  remains the final Touchbaes decoder/autoplay proof.
+
+## Current state — Round 91 Touchbaes parent message hardening
+- Round 91 is a local/test-only repository batch on branch
+  `round-91/touchbaes-message-hardening`; it has not been deployed to Cargo or
+  published.
+- The Touchbaes parent escaped rig is hardened for `MMS-AUD-033`: never assign
+  child-supplied `data.html` to `innerHTML`. Keep using trusted local DOM
+  construction from approved Freight tweezer/sticker URLs and bounded numeric
+  placement/style values, then mount through `replaceChildren()`.
+- Keep the existing child iframe v10 source unless a future batch explicitly
+  creates and uploads a structured-message child. The parent can safely accept
+  v10's legacy `html` field only because it is parsed as declarative data and
+  not injected.
+- Preserve the fallback lookup for `#mms-tw-rig`: the assembled marker is
+  outside `.mms` before runtime mounting, so querying only inside `.mms` breaks
+  desktop tweezer rendering.
+- Zero and negative finite Touchbaes compact height messages are rejected
+  before clamping. The focused embed harness covers valid rig construction,
+  script/event/URL rejection, invalid coordinate hiding, height-message
+  rejection, Montran readiness, and Montran turn locks.
+- Verification passed: syntax checks, canonical assembly, focused
+  `npm run embed-montran-test`, and the complete
+  `bash audit/scripts/validate-phase2.sh`. The protected gold baseline remains
+  `gold-2026-07-21-responsive-70` and was not edited.
+
+## Current state — Round 92 active V7 and Montran source recovery
+- Round 92 closes `MMS-AUD-034` in the repository only. It does not deploy or
+  publish Cargo and does not change any approved visual or runtime behavior.
+- The authoritative active V7 source is `work/v7-cup-src/`. Its builder must
+  reproduce exactly 780,341 bytes and SHA-256
+  `ee09e9c282d928f8968b91e1301bc0ba2639102a27c1bf1cd40483ab1b609d0a`.
+  The older split V7 runtime was stale; do not substitute it.
+- The authoritative active Montran source remains
+  `work/montran-direct-pdf-v10-src/`, now recovered to exact v17 parity. Its
+  builder must reproduce exactly 1,936,356 bytes and SHA-256
+  `825cf2c3a1f130cb3445e62443985e845991204d19e0c2154cfd43a36126b49b`.
+- `audit/contracts/active-embed-builds.json` and
+  `audit/scripts/validate-embed-reproducibility.py` fail closed on missing or
+  duplicate embed kinds, untracked or hash-drifted inputs, removed behavioral
+  contracts, nondeterministic builds, and output divergence from frozen Round
+  80 evidence. The check is mandatory in `validate-phase2.sh`.
+- Focused exact-build and embed interaction checks pass, as does the complete
+  Phase 2 gate. Keep `gold-2026-07-21-responsive-70` immutable. Handle Montran
+  PDF allowlisting (`MMS-AUD-036`) and third-party notices (`MMS-AUD-039`) only
+  in independent later batches.

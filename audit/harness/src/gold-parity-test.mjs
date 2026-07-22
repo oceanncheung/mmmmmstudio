@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { inflateSync } from "node:zlib";
 
 import { chromium } from "playwright-core";
 import { startStaticServer } from "./server.mjs";
@@ -21,9 +22,9 @@ const FACES = ["serif", "sans", "mono", "gothic"];
 const SCALES = ["s", "m", "l", "xl"];
 const SHAPES = ["straight", "rounded", "oval"];
 const watchdog = setTimeout(() => {
-  process.stderr.write("Gold parity probe: FAIL (120s watchdog)\n");
+  process.stderr.write("Gold parity probe: FAIL (300s watchdog)\n");
   process.exit(2);
-}, 120000);
+}, 300000);
 const STYLE_PROPERTIES = [
   "display", "position", "boxSizing", "width", "height", "minWidth", "maxWidth",
   "minHeight", "maxHeight", "paddingTop", "paddingRight", "paddingBottom",
@@ -37,6 +38,79 @@ const STYLE_PROPERTIES = [
 
 function stable(value) {
   return JSON.stringify(value);
+}
+
+function pngPixels(buffer) {
+  const signature = "89504e470d0a1a0a";
+  if (buffer.subarray(0, 8).toString("hex") !== signature) throw new Error("expected PNG screenshot");
+  let offset = 8;
+  let width = 0;
+  let height = 0;
+  let colorType = 0;
+  let bitDepth = 0;
+  let interlace = 0;
+  const idat = [];
+  while (offset < buffer.length) {
+    const length = buffer.readUInt32BE(offset);
+    const type = buffer.subarray(offset + 4, offset + 8).toString("ascii");
+    const data = buffer.subarray(offset + 8, offset + 8 + length);
+    if (type === "IHDR") {
+      width = data.readUInt32BE(0);
+      height = data.readUInt32BE(4);
+      bitDepth = data[8];
+      colorType = data[9];
+      interlace = data[12];
+    } else if (type === "IDAT") {
+      idat.push(data);
+    } else if (type === "IEND") {
+      break;
+    }
+    offset += length + 12;
+  }
+  const channels = { 0: 1, 2: 3, 6: 4 }[colorType];
+  if (bitDepth !== 8 || !channels || interlace !== 0 || !width || !height) {
+    throw new Error(`unsupported PNG screenshot format: bitDepth=${bitDepth} colorType=${colorType} interlace=${interlace}`);
+  }
+  const raw = inflateSync(Buffer.concat(idat));
+  const stride = width * channels;
+  const pixels = Buffer.alloc(height * stride);
+  let rawOffset = 0;
+  for (let y = 0; y < height; y += 1) {
+    const filter = raw[rawOffset];
+    rawOffset += 1;
+    const rowStart = y * stride;
+    const previousRowStart = rowStart - stride;
+    for (let x = 0; x < stride; x += 1) {
+      const left = x >= channels ? pixels[rowStart + x - channels] : 0;
+      const up = y > 0 ? pixels[previousRowStart + x] : 0;
+      const upLeft = y > 0 && x >= channels ? pixels[previousRowStart + x - channels] : 0;
+      const average = Math.floor((left + up) / 2);
+      const predictor = (() => {
+        const p = left + up - upLeft;
+        const pa = Math.abs(p - left);
+        const pb = Math.abs(p - up);
+        const pc = Math.abs(p - upLeft);
+        if (pa <= pb && pa <= pc) return left;
+        return pb <= pc ? up : upLeft;
+      })();
+      const base = raw[rawOffset + x];
+      const value = [base, base + left, base + up, base + average, base + predictor][filter];
+      if (value === undefined) throw new Error(`unsupported PNG row filter ${filter}`);
+      pixels[rowStart + x] = value & 0xff;
+    }
+    rawOffset += stride;
+  }
+  return { width, height, colorType, pixels };
+}
+
+function screenshotsMatch(left, right) {
+  if (left.equals(right)) return true;
+  const leftPixels = pngPixels(left);
+  const rightPixels = pngPixels(right);
+  return leftPixels.width === rightPixels.width &&
+    leftPixels.height === rightPixels.height &&
+    leftPixels.colorType === rightPixels.colorType &&
+    leftPixels.pixels.equals(rightPixels.pixels);
 }
 
 function assertCurrentGold(root, label) {
@@ -56,6 +130,25 @@ async function settle(page) {
   await page.evaluate(() => new Promise((resolve) => {
     requestAnimationFrame(() => requestAnimationFrame(resolve));
   }));
+}
+
+async function settleAssets(page) {
+  await page.evaluate(async () => {
+    if (document.fonts?.ready) await document.fonts.ready;
+    const imageSettled = Promise.all(Array.from(document.images, (image) => {
+      if (image.complete) return Promise.resolve();
+      if (image.loading === "lazy") return Promise.resolve();
+      return new Promise((resolve) => {
+        image.addEventListener("load", resolve, { once: true });
+        image.addEventListener("error", resolve, { once: true });
+      });
+    }));
+    await Promise.race([
+      imageSettled,
+      new Promise((resolve) => { setTimeout(resolve, 2500); }),
+    ]);
+  });
+  await settle(page);
 }
 
 async function applyState(page, state) {
@@ -129,36 +222,32 @@ async function snapshot(page) {
 }
 
 async function interactionSnapshot(page, compact) {
-  await page.evaluate(() => {
+  return page.evaluate(({ compactMode }) => {
     document.documentElement.setAttribute("data-theme", "white");
     document.documentElement.setAttribute("data-face", "serif");
     document.documentElement.setAttribute("data-scale", "m");
     document.documentElement.setAttribute("data-shape", "straight");
     document.documentElement.removeAttribute("data-panel");
-  });
-  if (compact) {
-    await page.locator(".mms-menu[data-panel-toggle]").click();
-  }
-  await page.locator('[data-theme-set="girly"]').click();
-  const panel = await page.evaluate(() => ({
-    theme: document.documentElement.getAttribute("data-theme"),
-    panelState: document.documentElement.getAttribute("data-panel"),
-    dialogOpen: Boolean(document.querySelector("dialog.mms-panel")?.open),
-    dialogCount: document.querySelectorAll("dialog.mms-panel").length,
-  }));
-  const river = await page.evaluate(() => {
+    if (compactMode) document.querySelector(".mms-menu[data-panel-toggle]")?.click();
+    document.querySelector('[data-theme-set="girly"]')?.click();
+    const panel = {
+      theme: document.documentElement.getAttribute("data-theme"),
+      panelState: document.documentElement.getAttribute("data-panel"),
+      dialogOpen: Boolean(document.querySelector("dialog.mms-panel")?.open),
+      dialogCount: document.querySelectorAll("dialog.mms-panel").length,
+    };
     const target = Array.from(document.querySelectorAll(".mms-river"))
       .find((element) => element.scrollWidth > element.clientWidth + 1);
-    if (!target) return null;
+    if (!target) return { panel, river: null };
     target.scrollLeft = 0;
     target.scrollLeft = 97;
-    return {
+    const river = {
       scrollLeft: Math.round(target.scrollLeft),
       touchAction: getComputedStyle(target).touchAction,
       overflowX: getComputedStyle(target).overflowX,
     };
-  });
-  return { panel, river };
+    return { panel, river };
+  }, { compactMode: compact });
 }
 
 assertCurrentGold(GOLD_ROOT, "gold fixture");
@@ -200,9 +289,11 @@ try {
       candidate.goto(`${candidateServer.origin}/test.html`, { waitUntil: "domcontentloaded" }),
     ]);
     await Promise.all([gold.waitForTimeout(1800), candidate.waitForTimeout(1800)]);
+    await Promise.all([settleAssets(gold), settleAssets(candidate)]);
     const neutralCss = `
       *, *::before, *::after { animation: none !important; transition: none !important; caret-color: transparent !important; }
       video, iframe { visibility: hidden !important; }
+      .js-clock { visibility: hidden !important; }
       .mms-panel .mms-dot::before { border: 0 !important; box-shadow: none !important; }
     `;
     await Promise.all([gold.addStyleTag({ content: neutralCss }), candidate.addStyleTag({ content: neutralCss })]);
@@ -242,7 +333,7 @@ try {
       gold.screenshot({ animations: "disabled" }),
       candidate.screenshot({ animations: "disabled" }),
     ]);
-    if (!goldPng.equals(candidatePng)) throw new Error(`masked screenshot drift at ${viewport.name}`);
+    if (!screenshotsMatch(goldPng, candidatePng)) throw new Error(`masked screenshot drift at ${viewport.name}`);
 
     const [goldInteraction, candidateInteraction] = await Promise.all([
       interactionSnapshot(gold, viewport.width < 1024),

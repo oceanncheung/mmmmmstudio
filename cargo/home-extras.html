@@ -6,7 +6,7 @@
   if (!registry || registry.apiVersion !== 1 || !currentMms) return;
   registry.teardownStale(currentMms);
   var previousOwner = registry.owners.home;
-  var currentRig = currentMms.querySelector('#mms-tw-rig');
+  var currentRig = currentMms.querySelector('#mms-tw-rig') || document.getElementById('mms-tw-rig');
   var currentFrame = currentMms.querySelector('iframe.mms-game');
   var currentRiver = currentFrame && currentFrame.closest('.mms-river');
   if (previousOwner && previousOwner.root === currentMms &&
@@ -58,6 +58,15 @@
   var lastGameWidth = 0;
   var gameHeightLocked = false;
   var EASE = 'left .45s cubic-bezier(.22,.61,.36,1), top .45s cubic-bezier(.22,.61,.36,1)';
+  var TWEEZER_OPEN_SRC = 'https://freight.cargo.site/t/original/i/T3022869107490037873358127281977/tweezer-open.png';
+  var TWEEZER_CLOSED_SRC = 'https://freight.cargo.site/t/original/i/N3022869107453144385210708178745/tweezer-close.png';
+  var TWEEZER_FRONT_SRC = 'https://freight.cargo.site/t/original/i/V3022869107471591129284417730361/tweezer-front-arm.png';
+  var APPROVED_STICKER_SRCS = {
+    'https://freight.cargo.site/t/original/i/U3022869107434697641136998627129/sticker-touchbaes.png': true,
+    'https://freight.cargo.site/t/original/i/B3022869107397804152989579523897/sticker-plant.png': true,
+    'https://freight.cargo.site/t/original/i/F3022869107379357408915869972281/sticker-cat.png': true,
+    'https://freight.cargo.site/t/original/i/Q3022869107416250897063289075513/sticker-right-bottles.png': true
+  };
 
   function syncCompactGeometry(force) {
     if (!compact()) return;
@@ -77,6 +86,66 @@
     currentMms.style.setProperty('--mobile-game-px-height', fallbackHeight + 'px');
   }
 
+  function attrValue(tag, name) {
+    var pattern = new RegExp("(?:^|\\s)" + name + "\\s*=\\s*([\\\"'])(.*?)\\1", "i");
+    var match = String(tag || '').match(pattern);
+    return match ? match[2] : '';
+  }
+  function imgTag(html, className) {
+    var source = String(html || '');
+    var pattern = /<img\b[^>]*>/gi;
+    var match;
+    while ((match = pattern.exec(source))) {
+      var tag = match[0];
+      if (attrValue(tag, 'class').split(/\s+/).indexOf(className) !== -1) return tag;
+    }
+    return '';
+  }
+  function numericStyle(style, property, unit) {
+    var pattern = new RegExp('(?:^|;)\\s*' + property.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*:\\s*(-?\\d+(?:\\.\\d+)?)' + unit + '\\s*(?:;|$)');
+    var match = String(style || '').match(pattern);
+    return match ? match[1] + unit : '';
+  }
+  function trustedImage(className, source, hidden) {
+    var image = document.createElement('img');
+    image.className = className;
+    image.alt = '';
+    image.src = source;
+    image.hidden = Boolean(hidden);
+    return image;
+  }
+  function trustedRigMarkup(data) {
+    var html = typeof data.html === 'string' && data.html.length < 5000 ? data.html : '';
+    var backTag = imgTag(html, 'tweezer-back');
+    var dragTag = imgTag(html, 'drag-sticker');
+    var frontTag = imgTag(html, 'tweezer-front');
+    var backSrc = attrValue(backTag, 'src');
+    var frontSrc = attrValue(frontTag, 'src');
+    if (backSrc !== TWEEZER_OPEN_SRC && backSrc !== TWEEZER_CLOSED_SRC) return null;
+    if (frontSrc !== TWEEZER_FRONT_SRC) return null;
+    var fragment = document.createDocumentFragment();
+    fragment.appendChild(trustedImage('tweezer-back', backSrc, /\shidden(?:\s|>|=)/i.test(backTag)));
+    var dragSrc = attrValue(dragTag, 'src');
+    var drag = trustedImage('drag-sticker', APPROVED_STICKER_SRCS[dragSrc] ? dragSrc : TWEEZER_OPEN_SRC,
+      !APPROVED_STICKER_SRCS[dragSrc] || /\shidden(?:\s|>|=)/i.test(dragTag));
+    var dragStyle = attrValue(dragTag, 'style');
+    var width = numericStyle(dragStyle, 'width', 'px');
+    if (width) drag.style.width = width;
+    [
+      ['--drag-r', 'deg'],
+      ['--drag-offset-x', 'px'],
+      ['--drag-offset-y', 'px'],
+      ['--drag-origin-x', 'px'],
+      ['--drag-origin-y', 'px']
+    ].forEach(function (entry) {
+      var value = numericStyle(dragStyle, entry[0], entry[1]);
+      if (value) drag.style.setProperty(entry[0], value);
+    });
+    fragment.appendChild(drag);
+    fragment.appendChild(trustedImage('tweezer-front', frontSrc, /\shidden(?:\s|>|=)/i.test(frontTag)));
+    return fragment;
+  }
+
   function place(data, animate) {
     var node = mountRig();
     var iframe = gameFrame();
@@ -84,9 +153,23 @@
       hideRig();
       return;
     }
+    var width = Number(data.w);
+    var tx = Number(data.tx);
+    var ty = Number(data.ty);
+    if (!Number.isFinite(width) || width < 1 || width > 600 ||
+        !Number.isFinite(tx) || Math.abs(tx) > 4000 ||
+        !Number.isFinite(ty) || Math.abs(ty) > 4000) {
+      hideRig();
+      return;
+    }
     node.style.zIndex = '20';
-    node.style.width = data.w + 'px';
-    if (typeof data.html === 'string' && data.html !== node.innerHTML) node.innerHTML = data.html;
+    node.style.width = width + 'px';
+    var trusted = trustedRigMarkup(data);
+    if (!trusted) {
+      hideRig();
+      return;
+    }
+    node.replaceChildren(trusted);
     var offsetParent = node.offsetParent || document.body;
     var parentRect = offsetParent.getBoundingClientRect();
     var frameRect = iframe.getBoundingClientRect();
@@ -96,14 +179,14 @@
     } else {
       node.style.transition = 'none';
     }
-    node.style.left = frameRect.left - parentRect.left + data.tx + 'px';
-    node.style.top = frameRect.top - parentRect.top + data.ty + 'px';
+    node.style.left = frameRect.left - parentRect.left + tx + 'px';
+    node.style.top = frameRect.top - parentRect.top + ty + 'px';
     node.style.display = 'block';
   }
 
   function applyGameHeight(height, edgeReserve) {
     var iframe = gameFrame();
-    if (!iframe || !compact() || !Number.isFinite(height)) return;
+    if (!iframe || !compact() || !Number.isFinite(height) || height <= 0) return;
     if (!edgeReserve || ['left', 'right', 'bottom'].some(function (key) {
       var value = Number(edgeReserve[key]);
       return !Number.isFinite(value) || value < 0 || value > 320;
@@ -223,7 +306,7 @@
     if (node) {
       node.style.display = 'none';
       node.style.transition = 'none';
-      node.innerHTML = '';
+      node.replaceChildren();
     }
     if (registry.owners.home === runtime && window.__mmsTwOverlayV3 === 1) {
       delete window.__mmsTwOverlayV3;

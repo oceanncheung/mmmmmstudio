@@ -4485,3 +4485,199 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   Public Who retains two videos; Write retains four Withered Green body
   rotations with a static heading. The protected
   `gold-2026-07-21-responsive-70` snapshot was not changed.
+
+## Round 88 (2026-07-22): gold swatch border with Arrow-only focus frame — DRAFT ONLY
+- Ocean superseded Round 87's borderless-rest decision. Restored the protected
+  gold swatch artwork border exactly: every visible expanded and compact theme
+  dot again has a permanent 1px circular `var(--color-border)` stroke. The
+  existing fine-pointer hover halo remains unchanged.
+- Kept the dotted rectangular target outline separate from the artwork. It is
+  absent on initial/dialog focus, programmatic focus, Tab alone, pointer, and
+  touch. An unmodified Left/Right/Up/Down key while a theme swatch owns focus
+  enters Arrow-navigation mode, wraps focus within the five-dot palette, and
+  exposes the 1px dotted gold target outline with a 3px offset. The next
+  pointer or touch contact clears that transient mode.
+- Added the Arrow modality listener through the existing lifecycle owner, so
+  root replacement and teardown remove both listeners and the transient root
+  attribute. Target geometry, theme selection, panel persistence, layout,
+  typography, media, and saved preferences were not changed.
+- Reassembled Home, Who, and Write from the canonical shared runtime. Deployed
+  the complete four-region CSS while preserving Cargo's head and all three
+  managed font blocks. Reloaded CSS is exactly 86,758 UTF-8 bytes, SHA-256
+  `95c35fff5d9ec49bd3ea2f4c0878794918ad087b377c079bf3ac5de68075be4c`,
+  and passes the complete persisted-CSS residue contract.
+- Replaced all three bodycopies through UTF-8-safe direct `innerHTML` plus
+  `InputEvent`, saved with Cmd+S, and reload-verified. Home retains 68/68
+  unique media IDs and zero page overflow; Who retains two deferred videos;
+  Write retains exactly four Withered Green `eye-roll` body spans and no
+  rotating heading. Every page contains the shared Arrow runtime and computes
+  the 1px gold circle with no initial target outline.
+- The focused compact/expanded five-theme browser test now proves initial,
+  hover, pointer, quiet-focus, Arrow-wrap, and pointer-reset states. Canonical
+  assembly and the complete Phase 2 gate pass: 122/122 frozen hashes, both
+  240-state gold matrices, media ownership, root teardown, source purity,
+  native rivers, and all 30 destructive deployment fixtures.
+- Cargo's contenteditable editor reclaims inner focus after a simulated Arrow
+  press, so the Arrow frame is proven in the standalone browser contract and
+  must be rechecked on the non-editing site after a later authorized publish.
+  This round is saved in the Cargo draft only. It was not published, and
+  `gold-2026-07-21-responsive-70` was not edited.
+
+## Round 89 (2026-07-22): Touchbaes iPad alpha-video readiness — DRAFT DEPLOYED / RELOAD-VERIFIED
+- Physical-iPad follow-up reported that Touchbaes asset 2 could remain on its
+  first-frame poster for minutes. The selected iPad source is the valid,
+  fast-started 1080x1920 HEVC-alpha MP4: 4.046 seconds, 2,078,186 bytes, with
+  `moov` at byte 32. Freight does not serve byte ranges for it. The old path
+  concurrently requested the 1,728,991-byte original transparent PNG poster
+  while leaving the activated video at `preload="none"`.
+- Added a manifest-safe runtime correction owned only by
+  `touchbaes-02`: when the existing near-media observer activates it, preload
+  switches to `auto`, the first decoded `loadeddata` frame gets one bounded
+  playback retry, and the native poster uses Freight's 720px rendition
+  (408,732 bytes) instead of the original. The saved `data-poster`,
+  `data-src`, `data-mp4`, source priority, dimensions, deployment manifest,
+  and protected gold are unchanged. A failed video retains that optimized
+  poster.
+- Added `touchbaes-readiness-test.mjs` at 768x1024 and 1024x1366 iPad
+  contexts. It proves HEVC selection, target-only `preload="auto"`, runtime
+  poster substitution without saved-source drift, exactly one first-frame
+  retry, retained error poster, unchanged sibling preload, native river
+  behavior, intact geometry, and zero page overflow. The focused test and the
+  complete Phase 2 gate pass, including 122/122 frozen hashes, both 240-state
+  gold matrices, media ownership, root teardown, source purity, and all 30
+  destructive deployment fixtures.
+- Reassembled all three canonical bodycopies. Who and Write were deployed
+  through UTF-8-safe direct `innerHTML` plus `InputEvent`, saved, reloaded, and
+  verified: Who retains two videos and zero overflow; Write retains exactly
+  four rotating Withered Green body spans, a static heading, and zero
+  overflow. The shared readiness helper is inert on both pages because neither
+  contains `touchbaes-02`.
+- Chrome's Home editor continued resolving the V7 Freight document response,
+  so its raw direct-edit channel remained unavailable. The authenticated
+  in-app Cargo editor exposed the same supported hydrated bodycopy and a clean
+  direct-edit channel. Replaced the complete canonical Home through
+  `bodycopy.innerHTML` plus `InputEvent`, saved with Cmd+S, and reloaded. Cargo
+  Code View was never used.
+- Extracted Cargo's raw saved Home record after reload and passed it through
+  the schema-2 bodycopy validator. It contains 68/68 unique media IDs, seven
+  Touchbaes items, the Round 89 helper, two `responsive-70` markers, no live
+  video source, no native poster, `preload="none"`, and the original approved
+  `data-poster`. The activated preview legitimately uses the 720px runtime
+  poster. Compact and expanded probes retain native rivers, zero page-level
+  overflow, one root, all 68 media IDs, and the protected 504x504 WTW geometry
+  at a 1440px composition.
+- Home, Who, and Write now contain the same canonical shared runtime and are
+  reload-verified in the Cargo draft. This round was not published; the public
+  site remains Round 87. Physical iPad Safari remains the final decoder and
+  autoplay proof for Touchbaes asset 2.
+
+## Round 90 (2026-07-22): Primary interaction coverage — TEST-ONLY / NOT DEPLOYED
+- Closed audit gap `MMS-AUD-032` with dedicated browser contracts for the
+  primary interaction surfaces, without changing Cargo source behavior or any
+  visible UI. No Cargo, Figma, Freight, or public-site mutation occurred.
+- Added `panel-scrubber-transition-test.mjs`: compact panel open/close,
+  outside tap versus scroll behavior, pointer focus presentation, scrubber
+  track/drag/mouse-leave/keyboard behavior, real coarse-touch horizontal and
+  vertical river pass-through, 1023/1024 transition behavior, persisted state,
+  and storage-failure fallback. The test confirms native compact rivers retain
+  `pan-x pan-y` and zero page-level overflow.
+- Added `startup-state-interaction-test.mjs`: startup completes as four
+  375ms hard cuts plus exact saved/default landing, visitor interaction cancels
+  the sequence permanently, storage fallback works, and back-forward/cache
+  restoration keeps the selected theme/face/scale/shape.
+- Added `embed-montran-interaction-test.mjs`: V7/Touchbaes/Montran ready
+  messages are accepted only from the expected Freight frame/origin/kind,
+  stale/malformed/wrong-origin messages are rejected, Touchbaes compact height
+  locks after the first valid measurement, and Montran compact taps obey the
+  primary-pointer, moved/cancelled/non-primary/secondary-button, center
+  dead-zone, one-turn-lock, and compact/expanded breakpoint contracts.
+- Folded the new suite into `audit/scripts/validate-phase2.sh` through
+  `npm run interaction-test`. Stabilized `gold-parity-test.mjs` for the
+  current browser matrix by extending its watchdog to 300s, settling fonts and
+  eager images before parity snapshots, comparing screenshots by decoded
+  pixels rather than PNG byte streams, masking the live clock in masked
+  screenshots, and using DOM handler clicks for parity-only interaction
+  snapshots. The parity assertions still compare all 240 states per viewport,
+  masked screenshots, and native river readbacks against the protected gold.
+- Verification passed: `bash audit/scripts/verify-phase1-baseline.sh`;
+  `npm run gold-parity-test`; `npm run interaction-test`;
+  `npm run embed-montran-test`; and the complete
+  `bash audit/scripts/validate-phase2.sh`. The full gate includes 122/122
+  frozen hashes, system inventory, current asset manifest, syntax/config,
+  media ownership, both 240-state gold parity matrices, swatch focus,
+  Touchbaes iPad readiness, the new interaction suite, source purity,
+  shared-component parity, generated test mirrors, runtime root replacement,
+  and destructive deployment fixtures.
+- Known limitation left for a later embed-validation batch: production
+  `applyGameHeight()` still clamps zero or negative finite Touchbaes heights to
+  1px instead of rejecting them before clamping. This round intentionally
+  remained test-only and did not alter runtime behavior.
+
+## Round 91 (2026-07-22): Touchbaes parent message hardening — TEST-ONLY / NOT DEPLOYED
+- Closed audit gap `MMS-AUD-033` for the parent-side Touchbaes escaped tweezer
+  rig. The parent no longer assigns child-supplied `data.html` into
+  `innerHTML`; it parses only the legacy declarative values it needs, validates
+  approved Freight asset URLs and bounded numeric placement/style values, and
+  rebuilds the rig from trusted local DOM nodes with `replaceChildren()`.
+- Preserved the existing Touchbaes visual behavior and interaction contract:
+  the desktop escaped tweezer still accepts the approved open/closed tweezer,
+  front arm, and four approved sticker assets; compact mode continues hiding
+  the escaped rig. The existing Cargo child iframe v10 can keep sending its
+  legacy `html` field because no message-derived string reaches executable
+  parent markup.
+- Fixed the local Round 90 height-validation limitation by rejecting zero and
+  negative finite Touchbaes size messages before clamping. Added zero and
+  negative cases to the focused embed harness.
+- Fixed a source-only mounting bug exposed by the hardening test: the generated
+  rig element is assembled outside `.mms`, so the overlay now falls back from
+  `.mms #mms-tw-rig` to `document.getElementById('mms-tw-rig')` before moving
+  that existing node into the current root. This does not alter layout.
+- Extended `embed-montran-interaction-test.mjs` to prove the trusted rig path:
+  valid approved markup renders exactly three trusted images and preserves
+  bounded numeric sticker offsets; scripts, event attributes, unapproved image
+  URLs, and invalid coordinates do not reach the live parent rig. The Montran
+  section now resets to compact mode after the new desktop Touchbaes coverage
+  so its existing compact-mode assertions remain deterministic.
+- Verification passed: syntax checks for the edited harness and extracted
+  `home-extras` script; `bash cargo/assemble-test.sh`; no `innerHTML`
+  occurrences remain in `cargo/home-extras.html`, `cargo/home.html`, or
+  `cargo/test.html`; focused `npm run embed-montran-test`; and the complete
+  `bash audit/scripts/validate-phase2.sh`. The full gate includes 122/122
+  frozen hashes, both 240-state gold parity matrices, swatch focus, iPad
+  readiness, the full interaction suite, source purity, generated test mirrors,
+  runtime root replacement, and destructive deployment fixtures.
+- This round is local repository work only. It was not deployed to Cargo, not
+  published, and `gold-2026-07-21-responsive-70` was not edited.
+
+## Round 92 (2026-07-22): active V7 and Montran source recovery — TEST-ONLY / NOT DEPLOYED
+- Closed recovery issue `MMS-AUD-034` without changing either active embed.
+  Added authoritative tracked V7 source recovered from the approved Freight
+  artifact and brought the tracked Montran source to exact v17 parity.
+- Added deterministic byte-mode builders. Clean-input V7 builds are exactly
+  780,341 bytes with SHA-256
+  `ee09e9c282d928f8968b91e1301bc0ba2639102a27c1bf1cd40483ab1b609d0a`;
+  Montran v17 builds are exactly 1,936,356 bytes with SHA-256
+  `825cf2c3a1f130cb3445e62443985e845991204d19e0c2154cfd43a36126b49b`.
+  Both match the active Freight files and the frozen Round 80 evidence
+  byte-for-byte.
+- Added `audit/contracts/active-embed-builds.json` and
+  `audit/scripts/validate-embed-reproducibility.py`. The gate requires exactly
+  one V7 and one Montran entry, Git-tracked hash-locked inputs, retained
+  behavioral markers, two identical isolated builds, and output identity with
+  the frozen evidence. Seven destructive fixtures prove missing or duplicate
+  kinds, missing or untracked inputs, input drift, contract removal, and output
+  hash drift fail closed.
+- The focused embed/Montran browser contract passes. The first aggregate run
+  encountered one transient existing Montran breakpoint-message timeout after
+  the earlier matrices passed; the isolated test immediately passed, and a
+  complete rerun of `bash audit/scripts/validate-phase2.sh` passed in full.
+  That rerun includes 122/122 frozen hashes, both 240-state gold matrices,
+  media ownership, Touchbaes readiness, all primary interactions, source
+  purity, root replacement, and all 30 deployment-negative fixtures.
+- The external Montran PDF remains outside this viewer-bundle build. PDF URL
+  allowlisting remains separate issue `MMS-AUD-036`; third-party notices remain
+  separate issue `MMS-AUD-039`.
+- This round is repository recovery and verification only. It was not deployed
+  to Cargo, not published, and did not alter Figma, Cargo payloads, Freight
+  assets, visual geometry, runtime behavior, or
+  `gold-2026-07-21-responsive-70`.

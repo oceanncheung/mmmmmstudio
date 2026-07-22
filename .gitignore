@@ -41,6 +41,7 @@ node_modules/
 /work/montran-direct-pdf-v10-src/rendered/
 /work/montran-direct-pdf-v10-src/*bundle*.html
 /work/montran-direct-pdf-v10-src/montran-booklet-direct-pdf-v*.html
+/work/v7-cup-src/coffee-cup-bundle.html
 
 # Framer source is tracked, but secrets, dependencies, generated data, and the
 # exported social image are not.

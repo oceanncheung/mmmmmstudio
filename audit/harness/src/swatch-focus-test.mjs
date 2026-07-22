@@ -66,8 +66,11 @@ try {
         `${viewport.name}: swatch target geometry drifted (${target.width}x${target.height})`,
       );
     }
-    if (target.borderWidth !== "0px" || (target.ring && target.ring !== "none")) {
-      throw new Error(`${viewport.name}: swatch has a ring before hover ${JSON.stringify(target)}`);
+    if (target.borderWidth !== "1px" || (target.ring && target.ring !== "none")) {
+      throw new Error(
+        `${viewport.name}: gold circular border is missing or hover ring leaked ` +
+        JSON.stringify(target),
+      );
     }
 
     await white.hover();
@@ -91,8 +94,10 @@ try {
         outlineStyle: getComputedStyle(element).outlineStyle,
         ring: getComputedStyle(element, "::before").boxShadow,
         panelOpen: Boolean(document.querySelector("dialog.mms-panel")?.open),
+        arrowMode: document.documentElement.getAttribute("data-mms-swatch-nav"),
       }));
-    if (pointerState.active || pointerState.focusVisible || pointerState.outlineStyle === "dotted") {
+    if (pointerState.active || pointerState.focusVisible || pointerState.outlineStyle === "dotted" ||
+        pointerState.arrowMode !== null) {
       throw new Error(`${viewport.name}: pointer activation retained a focus frame`);
     }
     if (!pointerState.panelOpen) {
@@ -106,10 +111,10 @@ try {
     for (const theme of THEMES) {
       await page.evaluate((nextTheme) => {
         document.documentElement.setAttribute("data-theme", nextTheme);
+        document.documentElement.removeAttribute("data-mms-swatch-nav");
       }, theme);
-      await page.keyboard.press("Tab");
       await white.focus();
-      const keyboardState = await white.evaluate((element) => {
+      const quietKeyboardState = await white.evaluate((element) => {
         const style = getComputedStyle(element);
         const art = getComputedStyle(element, "::before");
         const rect = element.getBoundingClientRect();
@@ -118,27 +123,60 @@ try {
           focusVisible: element.matches(":focus-visible"),
           outlineStyle: style.outlineStyle,
           outlineWidth: style.outlineWidth,
+          borderWidth: art.borderTopWidth,
           ring: art.boxShadow,
           width: rect.width,
           height: rect.height,
+          arrowMode: document.documentElement.getAttribute("data-mms-swatch-nav"),
         };
       });
-      if (!keyboardState.active || !keyboardState.focusVisible) {
-        throw new Error(`${viewport.name}/${theme}: keyboard focus state did not reach swatch`);
+      if (!quietKeyboardState.active) {
+        throw new Error(`${viewport.name}/${theme}: quiet focus did not reach swatch`);
       }
-      if (keyboardState.outlineStyle !== "none") {
+      if (quietKeyboardState.outlineStyle !== "none" || quietKeyboardState.arrowMode !== null) {
         throw new Error(
-          `${viewport.name}/${theme}: button-box outline survived ` +
-          JSON.stringify(keyboardState),
+          `${viewport.name}/${theme}: pre-arrow focus exposed the dotted frame ` +
+          JSON.stringify(quietKeyboardState),
         );
       }
-      if (keyboardState.ring && keyboardState.ring !== "none") {
-        throw new Error(`${viewport.name}/${theme}: keyboard focus incorrectly drew a ring`);
+      if (quietKeyboardState.borderWidth !== "1px" ||
+          (quietKeyboardState.ring && quietKeyboardState.ring !== "none")) {
+        throw new Error(`${viewport.name}/${theme}: gold artwork border drifted`);
       }
-      if (Math.abs(keyboardState.width - target.width) > 0.01 ||
-          Math.abs(keyboardState.height - target.height) > 0.01) {
+      if (Math.abs(quietKeyboardState.width - target.width) > 0.01 ||
+          Math.abs(quietKeyboardState.height - target.height) > 0.01) {
         throw new Error(`${viewport.name}/${theme}: focus changed target geometry`);
       }
+
+      await page.keyboard.press("ArrowRight");
+      const arrowState = await girly.evaluate((element) => {
+        const style = getComputedStyle(element);
+        return {
+          active: document.activeElement === element,
+          outlineStyle: style.outlineStyle,
+          outlineWidth: style.outlineWidth,
+          outlineOffset: style.outlineOffset,
+          arrowMode: document.documentElement.getAttribute("data-mms-swatch-nav"),
+        };
+      });
+      if (!arrowState.active || arrowState.arrowMode !== "arrow" ||
+          arrowState.outlineStyle !== "dotted" || arrowState.outlineWidth !== "1px" ||
+          arrowState.outlineOffset !== "3px") {
+        throw new Error(
+          `${viewport.name}/${theme}: Arrow navigation did not expose gold dotted frame ` +
+          JSON.stringify(arrowState),
+        );
+      }
+
+      await girly.click();
+      const pointerReset = await girly.evaluate((element) => ({
+        outlineStyle: getComputedStyle(element).outlineStyle,
+        arrowMode: document.documentElement.getAttribute("data-mms-swatch-nav"),
+      }));
+      if (pointerReset.outlineStyle === "dotted" || pointerReset.arrowMode !== null) {
+        throw new Error(`${viewport.name}/${theme}: pointer did not clear Arrow focus mode`);
+      }
+      await page.mouse.move(0, 0);
     }
 
     const overflow = await page.evaluate(() =>

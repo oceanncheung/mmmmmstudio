@@ -7,6 +7,7 @@ ROOT=$(CDPATH= cd -- "$(dirname "$0")/../.." && pwd)
 "$ROOT/audit/scripts/verify-phase1-baseline.sh"
 python3 "$ROOT/audit/scripts/generate-system-inventory.py" --check
 python3 "$ROOT/audit/scripts/generate-asset-manifest.py" --check
+python3 "$ROOT/audit/scripts/validate-embed-reproducibility.py" --self-test
 
 python3 - "$ROOT" <<'PY'
 import json
@@ -42,6 +43,8 @@ echo "Phase 2 harness configuration: PASS"
 (cd "$ROOT/audit/harness" && npm run media-owner-test)
 (cd "$ROOT/audit/harness" && npm run gold-parity-test)
 (cd "$ROOT/audit/harness" && npm run swatch-focus-test)
+(cd "$ROOT/audit/harness" && npm run touchbaes-readiness-test)
+(cd "$ROOT/audit/harness" && npm run interaction-test)
 
 "$ROOT/cargo/validate-cargo-payload.sh" bodycopy "$ROOT/cargo/home.html"
 "$ROOT/cargo/validate-cargo-payload.sh" bodycopy "$ROOT/cargo/who.html"

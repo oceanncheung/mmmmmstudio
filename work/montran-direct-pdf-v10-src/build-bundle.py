@@ -3,11 +3,15 @@
 Self-contained single file: page-flip inlined classic, pdf.js + worker as
 text/plain blocks -> blob imports, config JSON inlined. PDF stays external
 (passed via ?pdf= query param on the deployed iframe)."""
-import base64, json, pathlib, sys
+import argparse
+import base64
+import json
+import pathlib
+import sys
 
 root = pathlib.Path(__file__).parent
-html = (root / "index.html").read_text()
-pageflip = (root / "vendor/page-flip.browser.js").read_text()
+html = (root / "index.html").read_text(encoding="utf-8")
+pageflip = (root / "vendor/page-flip.browser.js").read_text(encoding="utf-8")
 # Promise.withResolvers ships in Safari/iOS 17.4+ only; pdf.js v4 uses it in
 # BOTH the main library and the worker. Prepend a polyfill to each blob so
 # older iPads (16.x-17.3) don't die on load.
@@ -16,9 +20,10 @@ POLYFILL = (
     "var a,b,p=new Promise(function(res,rej){a=res;b=rej;});"
     "return{promise:p,resolve:a,reject:b};};}\n"
 )
-pdfmjs = POLYFILL + (root / "vendor/pdf.min.mjs").read_text()
-worker = POLYFILL + (root / "vendor/pdf.worker.min.mjs").read_text()
-cfg = json.load(open(root / "booklet.config.json"))
+pdfmjs = POLYFILL + (root / "vendor/pdf.min.mjs").read_text(encoding="utf-8")
+worker = POLYFILL + (root / "vendor/pdf.worker.min.mjs").read_text(encoding="utf-8")
+with (root / "booklet.config.json").open(encoding="utf-8") as config_file:
+    cfg = json.load(config_file)
 poster = root / "loading-poster.jpg"
 if poster.exists():
     cfg.setdefault("viewerOptions", {})["loadingPoster"] = (
@@ -57,6 +62,15 @@ html = swap(
     "config = " + json.dumps(cfg) + ";",
     "config fetch",
 )
-out = root / "montran-booklet-bundle.html"
-out.write_text(html)
-print(f"built {out.name}: {out.stat().st_size} bytes")
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "--output",
+    type=pathlib.Path,
+    default=root / "montran-booklet-bundle.html",
+    help="output bundle path",
+)
+args = parser.parse_args()
+out = args.output.resolve()
+out.parent.mkdir(parents=True, exist_ok=True)
+out.write_bytes(html.encode("utf-8"))
+print(f"built {out}: {out.stat().st_size} bytes")

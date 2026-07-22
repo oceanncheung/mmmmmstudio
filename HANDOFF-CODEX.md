@@ -132,6 +132,17 @@ agent needs to continue this project without the prior chat history.
   The rework frame 83:251 carries the 12-col layout grid.
 
 ## Current state (2026-07-16, Round 69 GOLD STANDARD PUBLISHED)
+- Audit/remediation continuity update, 2026-07-22: Round 90 lives on branch
+  `round-90/primary-interaction-coverage` as a test-only batch. It was not
+  deployed to Cargo, Figma, Freight, or the public site. It adds primary
+  interaction coverage for the compact panel, scrubbers, native rivers,
+  startup state, embed readiness, Touchbaes sizing messages, and Montran
+  compact turn filtering. The complete `bash audit/scripts/validate-phase2.sh`
+  gate passed after stabilizing the gold parity harness for the current browser
+  matrix. Protected gold `cargo/gold/2026-07-21-responsive-70` was not edited.
+  Remaining known limitation: production `applyGameHeight()` still clamps zero
+  or negative finite Touchbaes heights to 1px; handle that in a later
+  embed-validation batch, not as part of Round 90's test-only scope.
 - Ocean explicitly accepted Round 69 as the MM.S standard gold version. It is
   the visual, interaction, and rollback baseline for all subsequent type-scale
   and spacing refinements. Preserve its exact artifact record in
@@ -1325,3 +1336,107 @@ agent needs to continue this project without the prior chat history.
 - The full Phase 2 gate passes. The sole current gold remains
   `gold-2026-07-21-responsive-70` and was not edited. The next separate
   remediation remains the iPad/Safari media-readiness batch.
+
+## Current handoff — Round 88 gold swatch border with Arrow-only focus frame (2026-07-22)
+- Round 88 is saved and reload-verified in the Cargo draft but is not
+  published. It supersedes Round 87's borderless-rest decision: expanded and
+  compact theme dots again use the protected gold's permanent 1px circular
+  artwork border. Fine-pointer hover still adds the existing outer halo.
+- The dotted rectangular target frame is quiet on load, dialog autofocus,
+  programmatic focus, Tab alone, pointer, and touch. It appears only after an
+  unmodified Arrow key moves focus within the five swatches, wraps at the row
+  ends, and is cleared by the next pointer/touch contact. Do not restore Round
+  86's solid two-layer circular keyboard halo.
+- The transient `data-mms-swatch-nav="arrow"` state and document listeners are
+  owned by the shared panel lifecycle and are removed during teardown. Home,
+  Who, and Write were rebuilt from that one shared runtime and deployed through
+  the UTF-8-safe direct bodycopy/InputEvent workflow.
+- Reloaded Cargo CSS is 86,758 UTF-8 bytes, SHA-256
+  `95c35fff5d9ec49bd3ea2f4c0878794918ad087b377c079bf3ac5de68075be4c`,
+  with the Cargo head, all three managed font regions, one token region, and
+  one layout region preserved. Home has 68/68 unique media IDs and zero
+  overflow; Who retains two videos; Write retains four rotating Withered
+  Green body spans and a static heading.
+- The focused browser test, canonical assembly, and complete Phase 2 gate pass.
+  The editor's contenteditable shell cannot retain inner swatch focus after a
+  simulated Arrow press, so repeat that one visual interaction on the public
+  non-editing page only after Ocean explicitly authorizes publication.
+- The sole current gold remains `gold-2026-07-21-responsive-70` and is
+  unchanged. Keep the separate iPad/Safari media-readiness remediation next.
+
+## Current handoff — Round 89 Touchbaes iPad readiness (2026-07-22)
+- Round 89 fixes only the reported Touchbaes second-asset stall. The runtime
+  identifies `[data-media-id="touchbaes-02"] video`, selects its existing
+  HEVC-alpha fallback on iPad/Safari, sets `preload="auto"` only when the
+  near-media observer activates it, retries once at `loadeddata`, and uses the
+  720px Freight poster rendition at runtime. Saved media attributes, manifest,
+  dimensions, layout, and `gold-2026-07-21-responsive-70` are unchanged.
+- The original poster is 1,728,991 bytes; the 720px runtime rendition is
+  408,732 bytes. The 2,078,186-byte MP4 is valid and fast-started but Freight
+  reports no range support. The focused 768x1024 and 1024x1366 iPad contract
+  and the complete Phase 2 gate pass.
+- Home, Who, and Write now contain the updated shared runtime and are
+  reload-verified in the Cargo draft. Chrome's Home editor remained blocked by
+  the paused V7 document response, so Home was transferred through the
+  authenticated in-app Cargo editor using the required UTF-8-safe direct
+  `bodycopy.innerHTML` plus `InputEvent` path, Cmd+S, and reload. Code View was
+  never used.
+- Cargo's raw saved Home record passes the schema-2 source-purity validator:
+  68/68 unique media IDs, seven Touchbaes items, the Round 89 helper, two
+  `responsive-70` markers, no live source, no native poster, `preload="none"`,
+  and the original approved poster identity. Compact and expanded probes retain
+  native rivers, zero page-level horizontal overflow, and WTW at 504x504 in
+  the 1440px composition. Who and Write retain their protected media and
+  four/static Withered Green contracts.
+- The remaining acceptance gate is physical iPad Safari playback of the second
+  Touchbaes asset. Do not publish without Ocean's explicit authorization.
+
+## Current handoff — Round 91 Touchbaes parent message hardening (2026-07-22)
+- Round 91 is local repository work on branch
+  `round-91/touchbaes-message-hardening`; it is not deployed to Cargo and is
+  not published.
+- It closes `MMS-AUD-033`: the parent Touchbaes escaped tweezer rig no longer
+  writes child-supplied `data.html` to `innerHTML`. The parent accepts only
+  approved Freight tweezer/sticker URLs and bounded numeric placement/style
+  fields parsed from the legacy message, then builds trusted DOM nodes with
+  `replaceChildren()`.
+- The existing Touchbaes child iframe v10 is intentionally unchanged for this
+  round. Its legacy `html` message is treated only as a declarative carrier;
+  no message-derived string reaches live parent markup. Compact mode still
+  suppresses the escaped rig; desktop visual behavior is preserved.
+- The source overlay now locates the generated `#mms-tw-rig` even though the
+  assembled marker starts outside `.mms`, then mounts that same node into the
+  current root. Do not revert this to a `.mms`-only query.
+- The Round 90 height limitation is also closed: zero and negative finite
+  Touchbaes height messages are rejected before clamping.
+- Verification passed: extracted `home-extras` script syntax, harness syntax,
+  `bash cargo/assemble-test.sh`, no `innerHTML` occurrences in the Touchbaes
+  home extras/generated mirrors, focused `npm run embed-montran-test`, and the
+  complete `bash audit/scripts/validate-phase2.sh`.
+- `gold-2026-07-21-responsive-70` remains immutable and unchanged.
+
+## Current handoff — Round 92 active embed source recovery (2026-07-22)
+- Round 92 is repository-only work on branch
+  `round-92/embed-source-recovery`; it is not deployed to Cargo and is not
+  published.
+- `work/v7-cup-src/` is now the authoritative tracked source for the active V7
+  cup. Its deterministic builder must continue producing exactly 780,341 bytes
+  with SHA-256
+  `ee09e9c282d928f8968b91e1301bc0ba2639102a27c1bf1cd40483ab1b609d0a`.
+  Do not restore the stale older split runtime or edit the generated upload
+  bundle directly.
+- `work/montran-direct-pdf-v10-src/index.html` is now the authoritative
+  recovered v17 viewer source. Its builder must continue producing exactly
+  1,936,356 bytes with SHA-256
+  `825cf2c3a1f130cb3445e62443985e845991204d19e0c2154cfd43a36126b49b`.
+- `audit/scripts/validate-embed-reproducibility.py --self-test` is part of the
+  normal Phase 2 gate. It requires both unique embeds, tracked and hash-locked
+  inputs, approved source contracts, deterministic isolated double builds, and
+  exact frozen output identity. Do not weaken it to a local generated-file
+  comparison.
+- Focused exact-build and embed interaction checks pass, and the complete
+  Phase 2 gate passes with protected visual parity and frozen hashes intact.
+  The protected `gold-2026-07-21-responsive-70` tree was not edited.
+- Keep `MMS-AUD-036` PDF URL allowlisting and `MMS-AUD-039` third-party notices
+  as separate later batches because either can change distribution behavior or
+  bytes. No Cargo deployment is required for Round 92 itself.

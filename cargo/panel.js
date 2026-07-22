@@ -243,6 +243,40 @@
     !/Chrome|Chromium|CriOS|Edg|EdgiOS|OPR|FxiOS|Firefox/.test(userAgent);
   var earlyPreview = window.__mmsRenderPreview || null;
   var renderPreviewStop = null;
+  var SWATCH_NAV_ATTRIBUTE = 'data-mms-swatch-nav';
+  root.removeAttribute(SWATCH_NAV_ATTRIBUTE);
+  runtime.cleanup(function () { root.removeAttribute(SWATCH_NAV_ATTRIBUTE); });
+
+  /* A swatch receives the dotted gold focus frame only after deliberate
+     Arrow-key navigation within the palette. Tab/programmatic focus alone is
+     quiet, and the next mouse, pen, or touch contact returns to pointer mode. */
+  runtime.on(document, 'keydown', function (event) {
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.isComposing) return;
+    var direction = {
+      ArrowLeft: -1,
+      ArrowUp: -1,
+      ArrowRight: 1,
+      ArrowDown: 1
+    }[event.key];
+    if (!direction) return;
+    var active = document.activeElement;
+    if (!active || !active.classList || !active.classList.contains('mms-dot')) return;
+    var row = active.closest('.row.dots');
+    if (!row) return;
+    var swatches = Array.prototype.slice.call(row.querySelectorAll('.mms-dot'));
+    var index = swatches.indexOf(active);
+    if (index < 0 || swatches.length < 2) return;
+    event.preventDefault();
+    root.setAttribute(SWATCH_NAV_ATTRIBUTE, 'arrow');
+    var next = swatches[(index + direction + swatches.length) % swatches.length];
+    try { next.focus({ preventScroll: true }); } catch (e) { next.focus(); }
+  }, true);
+  runtime.on(document, 'pointerdown', function () {
+    root.removeAttribute(SWATCH_NAV_ATTRIBUTE);
+  }, true);
+  runtime.on(document, 'touchstart', function () {
+    root.removeAttribute(SWATCH_NAV_ATTRIBUTE);
+  }, { capture: true, passive: true });
   function ensureFullBleedViewport() {
     var viewport = document.querySelector('meta[name="viewport"]');
     if (!viewport) {
@@ -738,6 +772,18 @@
     }
     return element.getAttribute('data-src');
   }
+  function isTouchbaesAlphaVideo(element) {
+    var frame = element && element.closest ? element.closest('[data-media-id="touchbaes-02"]') : null;
+    return Boolean(frame && element.tagName === 'VIDEO');
+  }
+  function deferredPoster(element) {
+    var poster = element.getAttribute('data-poster');
+    if (!poster || !isTouchbaesAlphaVideo(element)) return poster;
+    /* The original transparent PNG is 1.7 MB. The 720px Freight rendition is
+       still at least 2x the asset's maximum settled iPad width while avoiding
+       a redundant original-size transfer beside the 2 MB HEVC-alpha video. */
+    return poster.replace('/t/original/i/', '/w/720/q/85/i/');
+  }
   function activateDeferred(element) {
     if (!element || element.dataset.mmsLoaded === '1') return;
     var source = deferredSource(element);
@@ -745,8 +791,9 @@
     element.removeAttribute('src');
     element.dataset.mmsSource = source;
     element.dataset.mmsLoaded = '1';
-    var poster = element.getAttribute('data-poster');
+    var poster = deferredPoster(element);
     if (element.tagName === 'VIDEO') {
+      if (isTouchbaesAlphaVideo(element)) element.setAttribute('preload', 'auto');
       if (poster && !element.getAttribute('poster')) element.setAttribute('poster', poster);
       element.muted = true;
       element.defaultMuted = true;
@@ -761,6 +808,9 @@
     if (element.tagName === 'VIDEO') {
       try { element.load(); } catch (e) {}
       runtime.on(element, 'loadedmetadata', function () { requestVideoPlay(element); }, { once: true });
+      if (isTouchbaesAlphaVideo(element)) {
+        runtime.on(element, 'loadeddata', function () { requestVideoPlay(element); }, { once: true });
+      }
       runtime.on(element, 'canplay', function () { requestVideoPlay(element); }, { once: true });
       runtime.on(element, 'playing', function () {
         element.dataset.motionReady = '1';
@@ -805,7 +855,7 @@
       image.setAttribute('loading', 'eager');
     });
     container.querySelectorAll('video[data-poster], iframe[data-poster]').forEach(function (element) {
-      var poster = element.getAttribute('data-poster');
+      var poster = deferredPoster(element);
       if (!poster) return;
       if (element.tagName === 'VIDEO') {
         if (!element.getAttribute('poster')) element.setAttribute('poster', poster);
