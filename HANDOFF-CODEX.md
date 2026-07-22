@@ -1169,3 +1169,34 @@ agent needs to continue this project without the prior chat history.
 - Gold commit `07531485ca0ac4378fd3182ffa176ee6ccead7dd`, tag, and GitHub release
   are remote and protected. Draft PR 4 targets `round-81/audit-baseline` from
   `agent/deployment-manifest`.
+
+## Current handoff — Round 82 media playback ownership (2026-07-21)
+- Work is isolated on `round-82/media-playback-owner` from merged
+  `round-81/audit-baseline`. It remediates only `MMS-AUD-027` and remains
+  local/GitHub-only.
+- `cargo/home-extras.html` no longer contains the legacy all-video autoplay
+  interval. `cargo/panel.js` remains unchanged and is the sole owner of deferred
+  video activation, visible/near playback, pause, and bounded resume behavior.
+- `audit/scripts/validate-media-playback-owner.py` prevents the legacy marker,
+  unbounded video selector, or Home-extras interval from returning. It accepts
+  the bodycopy under test and is invoked by the normal Cargo payload gate, so
+  reload persistence cannot silently retain the old owner. The browser probe
+  is `npm run media-owner-test`; latest-gold visual/interaction parity is
+  `npm run gold-parity-test`.
+- Gold reproduces the old defect at 122 then 176 play attempts. The candidate
+  passes with 14 loaded visible/near attempts and no post-lifecycle growth.
+  Lifecycle/interaction events and both horizontal and vertical distance are
+  covered. Both
+  240-state compact and expanded parity matrices, masked screenshots, panel
+  interactions, and native river checks match
+  `gold-2026-07-21-responsive-70` exactly.
+- The complete canonical assembly and Phase 2 audit gate pass, including 14
+  destructive deployment fixtures and both mandatory browser probes. The immutable
+  Round 80 snapshot stays unchanged; runtime-added deferred `src` attributes
+  are stripped only from an in-memory fixture while the production manifest
+  validator continues to reject them.
+- The audit-only Playwright dependency is pinned at 1.61.1; both browser tests
+  have finite watchdogs after the older pin intermittently stalled at launch.
+- Do not deploy or publish this batch yet. Physical iPhone Safari must confirm
+  that visible/near muted inline video still autoplays. The next independent
+  remediation is `MMS-AUD-029`, explicit root-runtime teardown.

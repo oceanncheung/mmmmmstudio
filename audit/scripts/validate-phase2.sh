@@ -39,13 +39,17 @@ for source in "$ROOT"/audit/harness/src/*.mjs; do
 done
 node "$ROOT/audit/harness/src/cli.mjs" --validate-config >/dev/null
 echo "Phase 2 harness configuration: PASS"
+(cd "$ROOT/audit/harness" && npm run media-owner-test)
+(cd "$ROOT/audit/harness" && npm run gold-parity-test)
 
 "$ROOT/cargo/validate-cargo-payload.sh" bodycopy "$ROOT/cargo/home.html"
 "$ROOT/cargo/validate-cargo-payload.sh" bodycopy "$ROOT/cargo/who.html"
 "$ROOT/cargo/validate-cargo-payload.sh" bodycopy "$ROOT/cargo/write.html"
 "$ROOT/cargo/validate-cargo-payload.sh" head "$ROOT/cargo/site-head.html"
+python3 "$ROOT/audit/scripts/validate-media-playback-owner.py"
 FROZEN_CARGO="$ROOT/docs/audits/2026-07-20T175853-0400-round-80/cargo-draft"
 python3 - "$ROOT" "$FROZEN_CARGO" <<'PY'
+import re
 import subprocess
 import sys
 import tempfile
@@ -60,6 +64,19 @@ manifest_validator = root / "cargo/validate-deployment-manifest.py"
 # persistence fixture; never rewrite the frozen evidence.
 home = (snapshot / "home.bodycopy.html").read_text(encoding="utf-8")
 home = home.replace("--asset-w:765.2;--asset-h:765.2", "--asset-w:504;--asset-h:504", 1)
+
+# The authenticated snapshot was captured after Cargo's runtime had activated
+# some deferred videos. Normalize only those runtime-owned live src attributes
+# in memory so this fixture exercises the saved bodycopy contract. The frozen
+# evidence remains byte-identical and the production validator stays strict.
+def strip_runtime_src(match):
+    tag = match.group(0)
+    if " data-src=" not in tag:
+        return tag
+    return re.sub(r'\s+src="[^"]*"', "", tag)
+
+
+home = re.sub(r'<(?:video|iframe)\b[^>]*>', strip_runtime_src, home)
 with tempfile.NamedTemporaryFile("w", suffix=".html", encoding="utf-8") as handle:
     handle.write(home)
     handle.flush()
@@ -189,6 +206,10 @@ bodycopy_mutations = {
         '<iframe class="mms-img mms-cup"',
         '<iframe src="https://example.invalid/" class="mms-img mms-cup"',
         1,
+    ),
+    "legacy all-video playback owner": home + (
+        '<script>/*mms-video-autoplay*/document.querySelectorAll("video.mms-video")'
+        '.forEach(function(video){video.play()});</script>'
     ),
     "unclosed MM.S root": home.replace(
         "</dialog>\n</div>\n<script>",

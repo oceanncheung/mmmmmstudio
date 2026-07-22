@@ -2193,3 +2193,30 @@ current source of truth for the built site.
 - The protected gold tag/release points to commit
   `07531485ca0ac4378fd3182ffa176ee6ccead7dd`. Draft PR 4 carries the guard from
   `agent/deployment-manifest` to `round-81/audit-baseline`.
+
+## Current state — Round 82 single media playback owner
+- The active cleanup branch is `round-82/media-playback-owner`, based on the
+  merged latest-gold/deployment-guard baseline. It changes only
+  `MMS-AUD-027` and is not deployed or published.
+- The legacy `mms-video-autoplay` helper is removed from
+  `cargo/home-extras.html` and generated Home mirrors. Do not restore any
+  all-video selector, global interaction retry, or 2.5-second playback interval.
+  `cargo/panel.js` owns deferred activation and visible/near playback.
+- Run `python3 audit/scripts/validate-media-playback-owner.py`, then from
+  `audit/harness` run `npm run media-owner-test` and
+  `npm run gold-parity-test`. Gold must reproduce the old interval failure;
+  the candidate must hold at loaded nearby attempts only after lifecycle
+  events. The parity test covers all
+  240 design states at compact and expanded widths plus exact masked
+  screenshots, panel behavior, and native river movement.
+- The ownership validator is part of `cargo/validate-cargo-payload.sh`, accepts
+  the actual bodycopy being checked, and has a destructive stale-helper
+  fixture. Do not reduce it to a local-source-only check. Browser gates use
+  Playwright 1.61.1 and run inside the aggregate Phase 2 gate.
+- The aggregate gate passes with the frozen Phase 1 hashes intact. Round 80's
+  runtime-activated deferred `src` attributes are normalized only in memory;
+  never weaken `cargo/validate-deployment-manifest.py` or edit the frozen
+  capture.
+- Before a Cargo deployment, verify muted inline visible/near autoplay on a
+  physical iPhone Safari. Root-aware runtime teardown (`MMS-AUD-029`) is a
+  separate next batch and must not be mixed into this one.

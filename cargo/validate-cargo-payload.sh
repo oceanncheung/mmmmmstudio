@@ -232,6 +232,8 @@ PY
     fi
     python3 "$(dirname "$0")/validate-deployment-manifest.py" bodycopy "$tmp" "$expected_page" \
       || fail "bodycopy does not match the reviewed deployment manifest"
+    python3 "$(dirname "$0")/../audit/scripts/validate-media-playback-owner.py" "$tmp" \
+      || fail "bodycopy restores a competing video playback owner"
     ;;
 
   head)
