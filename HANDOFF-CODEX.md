@@ -1257,3 +1257,22 @@ agent needs to continue this project without the prior chat history.
 - Next separate batches are a fail-closed source-purity preflight, the swatch
   focus treatment, iPad Montran pointer-mode alignment, and durable Safari
   poster readiness. Do not mix them with this recovery.
+
+## Current handoff — Round 85 saved-source purity (2026-07-21)
+- Work is isolated on `round-85/source-purity-guard`. The deployment manifest
+  is schema 2 and requires an exact `source_purity` contract for every page.
+- `cargo/validate-deployment-manifest.py` parses markup structurally, so runtime
+  JavaScript strings do not cause false positives. It compares live
+  video/iframe/child sources, native posters, runtime markers, river state,
+  generated scrubbers, deferred-source counts, eager-image identities,
+  image/iframe loading, and video preload against the reviewed manifest.
+- The normal `cargo/validate-cargo-payload.sh bodycopy` path invokes this gate.
+  Future Cargo saves must be checked from the raw saved bodycopy, not the
+  runtime-mutated preview DOM. A mismatch must block deployment rather than
+  redefining the manifest.
+- The aggregate gate contains 30 destructive deployment fixtures; thirteen
+  purity fixtures assert that this exact guard caused rejection. The protected
+  gold and frozen Round 80 evidence remain immutable.
+- Canonical assembly and the complete Phase 2 gate pass. This batch is
+  validation-only and is not a Cargo deployment. The next independent visual
+  batch is the color-swatch focus treatment.

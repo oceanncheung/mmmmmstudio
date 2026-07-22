@@ -44,6 +44,25 @@ SOURCE_ATTRIBUTES = (
     "data-mp4",
     "data-webm",
 )
+SOURCE_PURITY_KEYS = {
+    "live_video_src",
+    "live_iframe_src",
+    "live_source_src",
+    "native_media_poster",
+    "data_mms_loaded",
+    "data_motion_ready",
+    "data_mms_source",
+    "hidden_rivers",
+    "generated_scrubbers",
+    "deferred_data_src",
+    "eager_image_ids",
+    "image_loading",
+    "iframe_loading",
+    "video_preload",
+}
+IMAGE_LOADING_KEYS = {"eager", "lazy", "other"}
+IFRAME_LOADING_KEYS = {"eager", "lazy", "other"}
+VIDEO_PRELOAD_KEYS = {"none", "auto", "metadata", "other"}
 
 
 class ManifestError(RuntimeError):
@@ -58,6 +77,22 @@ class BodycopyAudit(HTMLParser):
         self.bands: list[str] = []
         self.media: list[dict[str, object]] = []
         self.errors: list[str] = []
+        self.source_purity = {
+            "live_video_src": 0,
+            "live_iframe_src": 0,
+            "live_source_src": 0,
+            "native_media_poster": 0,
+            "data_mms_loaded": 0,
+            "data_motion_ready": 0,
+            "data_mms_source": 0,
+            "hidden_rivers": 0,
+            "generated_scrubbers": 0,
+            "deferred_data_src": 0,
+            "eager_image_ids": [],
+            "image_loading": {"eager": 0, "lazy": 0, "other": 0},
+            "iframe_loading": {"eager": 0, "lazy": 0, "other": 0},
+            "video_preload": {"none": 0, "auto": 0, "metadata": 0, "other": 0},
+        }
 
     @staticmethod
     def _classes(attrs: dict[str, str | None]) -> set[str]:
@@ -74,6 +109,41 @@ class BodycopyAudit(HTMLParser):
         tag = tag.lower()
         attr_map = dict(attrs)
         classes = self._classes(attr_map)
+
+        if tag == "video" and "src" in attr_map:
+            self.source_purity["live_video_src"] += 1
+        if tag == "iframe" and "src" in attr_map:
+            self.source_purity["live_iframe_src"] += 1
+        if tag == "source" and "src" in attr_map:
+            self.source_purity["live_source_src"] += 1
+        if tag in {"video", "iframe"} and "poster" in attr_map:
+            self.source_purity["native_media_poster"] += 1
+        if "data-mms-loaded" in attr_map:
+            self.source_purity["data_mms_loaded"] += 1
+        if "data-motion-ready" in attr_map:
+            self.source_purity["data_motion_ready"] += 1
+        if "data-mms-source" in attr_map:
+            self.source_purity["data_mms_source"] += 1
+        if "data-src" in attr_map:
+            self.source_purity["deferred_data_src"] += 1
+        if tag == "img":
+            loading = attr_map.get("loading")
+            loading_key = loading if loading in {"eager", "lazy"} else "other"
+            self.source_purity["image_loading"][loading_key] += 1
+        if tag == "iframe":
+            loading = attr_map.get("loading")
+            loading_key = loading if loading in {"eager", "lazy"} else "other"
+            self.source_purity["iframe_loading"][loading_key] += 1
+        if tag == "video":
+            preload = attr_map.get("preload")
+            preload_key = preload if preload in {"none", "auto", "metadata"} else "other"
+            self.source_purity["video_preload"][preload_key] += 1
+        if "mms-river" in classes:
+            style = re.sub(r"\s+", "", attr_map.get("style") or "").lower()
+            if "hidden" in attr_map or re.search(r"(?:^|;)display:none(?:;|$)", style):
+                self.source_purity["hidden_rivers"] += 1
+        if "mms-river-scrubber" in classes:
+            self.source_purity["generated_scrubbers"] += 1
 
         if "mms" in classes:
             self.roots.append(attr_map.get("data-page") or "home")
@@ -106,6 +176,14 @@ class BodycopyAudit(HTMLParser):
                 self.errors.append(
                     f"media {media['id']} contains multiple media kinds: {current_kind}, {tag}"
                 )
+        if tag == "img" and attr_map.get("loading") == "eager":
+            eager_media_id = attr_map.get("data-media-id") or (
+                media.get("id") if media is not None else None
+            )
+            if eager_media_id is None:
+                self.errors.append("eager image has no data-media-id owner")
+            else:
+                self.source_purity["eager_image_ids"].append(eager_media_id)
 
         if media is not None and tag in SOURCE_TAGS:
             if tag in {"video", "iframe"} and attr_map.get("src") is not None:
@@ -154,8 +232,8 @@ def load_manifest(path: Path) -> dict:
     except (OSError, json.JSONDecodeError) as error:
         raise ManifestError(f"cannot read manifest {path}: {error}") from error
 
-    if manifest.get("schema_version") != 1:
-        raise ManifestError("deployment manifest schema_version must be 1")
+    if manifest.get("schema_version") != 2:
+        raise ManifestError("deployment manifest schema_version must be 2")
     if not manifest.get("site"):
         raise ManifestError("deployment manifest must name its site")
     if manifest.get("approved_baseline") != APPROVED_BASELINE:
@@ -175,11 +253,67 @@ def require_equal(label: str, actual, expected) -> None:
 
 def validate_manifest_consistency(manifest: dict) -> None:
     for page, spec in manifest["pages"].items():
+        source_purity = spec.get("source_purity")
+        if not isinstance(source_purity, dict):
+            raise ManifestError(f"{page}: source_purity must be an object")
+        if set(source_purity) != SOURCE_PURITY_KEYS:
+            raise ManifestError(
+                f"{page}: source_purity keys must be {sorted(SOURCE_PURITY_KEYS)}"
+            )
+        loading_contracts = {
+            "image_loading": IMAGE_LOADING_KEYS,
+            "iframe_loading": IFRAME_LOADING_KEYS,
+            "video_preload": VIDEO_PRELOAD_KEYS,
+        }
+        for contract, required_keys in loading_contracts.items():
+            values = source_purity.get(contract)
+            if not isinstance(values, dict) or set(values) != required_keys:
+                raise ManifestError(
+                    f"{page}: source_purity.{contract} keys must be {sorted(required_keys)}"
+                )
+            if any(not isinstance(value, int) or value < 0 for value in values.values()):
+                raise ManifestError(
+                    f"{page}: source_purity.{contract} counts must be non-negative integers"
+                )
+        eager_image_ids = source_purity.get("eager_image_ids")
+        if not isinstance(eager_image_ids, list) or any(
+            not isinstance(media_id, str) or not media_id for media_id in eager_image_ids
+        ):
+            raise ManifestError(f"{page}: source_purity.eager_image_ids must be a string list")
+        if len(eager_image_ids) != len(set(eager_image_ids)):
+            raise ManifestError(f"{page}: source_purity.eager_image_ids contains duplicates")
+        scalar_purity = {
+            key: value
+            for key, value in source_purity.items()
+            if key not in {*loading_contracts, "eager_image_ids"}
+        }
+        if any(not isinstance(value, int) or value < 0 for value in scalar_purity.values()):
+            raise ManifestError(f"{page}: source_purity counts must be non-negative integers")
+        expected_image_count = spec.get("media_kind_counts", {}).get("img", 0)
+        if sum(source_purity["image_loading"].values()) != expected_image_count:
+            raise ManifestError(
+                f"{page}: source_purity.image_loading must account for every image"
+            )
+        expected_iframe_count = spec.get("media_kind_counts", {}).get("iframe", 0)
+        if sum(source_purity["iframe_loading"].values()) != expected_iframe_count:
+            raise ManifestError(
+                f"{page}: source_purity.iframe_loading must account for every iframe"
+            )
+        expected_video_count = spec.get("media_kind_counts", {}).get("video", 0)
+        if sum(source_purity["video_preload"].values()) != expected_video_count:
+            raise ManifestError(
+                f"{page}: source_purity.video_preload must account for every video"
+            )
+
         media_ids = spec.get("media_ids")
         if not isinstance(media_ids, list):
             raise ManifestError(f"{page}: media_ids must be a list")
         if len(media_ids) != len(set(media_ids)):
             raise ManifestError(f"{page}: manifest contains duplicate media IDs")
+        if any(media_id not in media_ids for media_id in eager_image_ids):
+            raise ManifestError(
+                f"{page}: every eager_image_id must belong to the reviewed media IDs"
+            )
 
         bands = spec.get("bands", [])
         if len(bands) != len(set(bands)):
@@ -251,6 +385,12 @@ def validate_bodycopy(source: str, expected_page: str, manifest: dict) -> None:
     )
 
     require_equal(f"{expected_page}: band order", audit.bands, spec.get("bands", []))
+
+    require_equal(
+        f"{expected_page}: saved-source purity",
+        audit.source_purity,
+        spec["source_purity"],
+    )
 
     actual_ids = [item["id"] for item in audit.media]
     if len(actual_ids) != len(set(actual_ids)):

@@ -4386,3 +4386,28 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   gold only. Round 82 media ownership and Round 83 root-runtime teardown remain
   merged GitHub remediation work and were not deployed by this restore. No
   physical iPad claim is made until Ocean verifies the public site on-device.
+
+## Round 85 (2026-07-21): fail-closed saved-source purity — LOCAL/GITHUB ONLY
+- Advanced the reviewed deployment manifest to schema 2 and added exact
+  saved-source contracts for Home, Who, and Write. The normal bodycopy gate now
+  rejects live video/iframe/child-source URLs, native media posters, runtime
+  loaded/ready/source markers, hidden rivers, generated scrubbers, changed
+  deferred-source counts, eager-image identity drift, image/iframe loading
+  drift, and video-preload drift.
+- Home is locked to 68 media IDs, 30 deferred `data-src` attributes,
+  `eviive-03` as the sole eager image, 37 lazy images, 3 lazy iframes, and 27
+  videos with `preload="none"`. Who remains two deferred videos with
+  `preload="none"`; Write remains media-free.
+- Expanded the destructive deployment suite to 30 rejected fixtures. Thirteen
+  source-purity mutations must fail specifically through the new
+  `saved-source purity` comparison, including an eager-image identity swap that
+  preserves the 1/37 totals.
+- The authenticated Round 80 capture remains byte-identical. Its known runtime
+  residue is normalized only in memory before the current manifest validator
+  runs; the production validation path remains strict.
+- `cargo/assemble-test.sh canonical` and the full
+  `audit/scripts/validate-phase2.sh` gate pass, including 122/122 frozen hashes,
+  current-gold compact and expanded 240-state parity, media ownership, root
+  replacement, shared components, and native river movement. No Cargo editor,
+  Freight asset, Figma node, public source, visual geometry, or interaction was
+  changed or published in this round.
