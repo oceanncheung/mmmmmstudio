@@ -10,6 +10,7 @@ python3 "$ROOT/audit/scripts/generate-asset-manifest.py" --check
 python3 "$ROOT/audit/scripts/validate-embed-reproducibility.py" --self-test
 python3 "$ROOT/audit/scripts/validate-embed-message-protocol.py" --self-test
 python3 "$ROOT/audit/scripts/validate-montran-pdf-allowlist.py" --self-test
+python3 "$ROOT/audit/scripts/validate-third-party-runtime-notices.py" --self-test
 
 python3 - "$ROOT" <<'PY'
 import json

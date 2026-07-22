@@ -21,7 +21,7 @@ from typing import Any, Callable, Iterable
 from urllib.parse import urlparse
 
 
-GENERATOR_VERSION = "1.2.0"
+GENERATOR_VERSION = "1.3.0"
 DEFAULT_BASELINE = "docs/audits/2026-07-20T175853-0400-round-80"
 BASELINE_MANIFEST_SHA256 = "efe8a99a378e769db0fd4cf1fbc10033096673d66a5acce00192f1b7198983a6"
 BASELINE_MANIFEST_ENTRIES = 122
@@ -463,15 +463,25 @@ def origin_boundaries(observed: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def dependency_inventory(root: Path, embed_manifest: dict[str, Any]) -> list[dict[str, Any]]:
     entries_by_kind = {entry["kind"]: entry for entry in embed_manifest["entries"]}
-    pdf_vendor = root / "work/montran-direct-pdf-v10-src/vendor/pdf.min.mjs"
-    pageflip_vendor = root / "work/montran-direct-pdf-v10-src/vendor/page-flip.browser.js"
-    if not pdf_vendor.is_file() or not pageflip_vendor.is_file():
-        raise RuntimeError("Tracked Montran vendor inputs are missing from this checkout")
-    pdf_text = pdf_vendor.read_text(encoding="utf-8", errors="replace")
-    version_match = re.search(r"pdfjsVersion\s*=\s*([0-9.]+)", pdf_text)
-    pdf_version = version_match.group(1) if version_match else "unresolved"
+    notice_contract_path = root / "audit/contracts/third-party-runtime-notices.json"
+    notice_path = root / "THIRD_PARTY_NOTICES.md"
+    if not notice_contract_path.is_file() or not notice_path.is_file():
+        raise RuntimeError("Tracked third-party runtime notice evidence is missing")
+    notice_contract = load_json(notice_contract_path)
+    if notice_contract.get("schema_version") != 1 or notice_contract.get("issue") != "MMS-AUD-039":
+        raise RuntimeError("Third-party runtime notice contract identity is invalid")
+    notice_components = {
+        component["id"]: component for component in notice_contract.get("components", [])
+    }
+    if set(notice_components) != {"stpageflip", "pdfjs", "three-js"}:
+        raise RuntimeError("Third-party runtime notice component set is incomplete")
     three_manifest_version = str(entries_by_kind["v7-cup"].get("version", "unresolved"))
-    three_version = three_manifest_version.removeprefix("three-")
+    if three_manifest_version != "three-r160":
+        raise RuntimeError("Frozen V7 revision no longer matches the Three.js notice record")
+    notice_evidence = "audit/contracts/third-party-runtime-notices.json and THIRD_PARTY_NOTICES.md"
+    pdf = notice_components["pdfjs"]
+    pageflip = notice_components["stpageflip"]
+    three = notice_components["three-js"]
     return [
         {
             "name": "Cargo 3",
@@ -502,30 +512,30 @@ def dependency_inventory(root: Path, embed_manifest: dict[str, Any]) -> list[dic
         },
         {
             "name": "PDF.js",
-            "version": pdf_version,
-            "license": "Apache-2.0 notice present in tracked vendor file",
+            "version": pdf["version"],
+            "license": "Apache-2.0; retained vendor notices and complete tracked package license",
             "delivery": "tracked vendor source used by the Montran reconstruction path",
             "origin": "self-contained Freight embed",
             "capabilities": ["PDF parsing", "range transport", "canvas page rendering"],
-            "evidence": relative_path(pdf_vendor, root),
+            "evidence": notice_evidence,
         },
         {
             "name": "StPageFlip",
-            "version": "unresolved; vendored minified file has no version marker",
-            "license": "unresolved; no license notice observed in vendored file",
+            "version": pageflip["version"],
+            "license": "MIT; complete upstream package license retained in tracked notice record",
             "delivery": "tracked vendor source used by the Montran reconstruction path",
             "origin": "self-contained Freight embed",
             "capabilities": ["desktop fold", "drag and tap page turning", "page shadow"],
-            "evidence": relative_path(pageflip_vendor, root),
+            "evidence": notice_evidence,
         },
         {
             "name": "Three.js",
-            "version": three_version,
-            "license": "not captured in the frozen embed manifest; no license claim is inferred",
-            "delivery": "active version identity captured in the frozen embed manifest",
+            "version": f"{three['version']} (r160)",
+            "license": "MIT; retained vendor banner and complete tracked package license",
+            "delivery": "tracked vendor source used by the V7 reconstruction path",
             "origin": "self-contained Freight embed",
             "capabilities": ["WebGL rendering", "GLTF loading", "animation loop"],
-            "evidence": "docs/audits/2026-07-20T175853-0400-round-80/local/embed-manifest.json",
+            "evidence": notice_evidence,
         },
         {
             "name": "Touchbaes game runtime",
@@ -799,7 +809,7 @@ def build_inventory(root: Path, baseline_root: Path) -> dict[str, Any]:
         "generator": {
             "version": GENERATOR_VERSION,
             "script": "audit/scripts/generate-system-inventory.py",
-            "determinism": "no wall-clock fields; sorted output; complete manifest-verified Phase 1 evidence plus tracked vendor inputs only",
+            "determinism": "no wall-clock fields; sorted output; complete manifest-verified Phase 1 evidence plus tracked vendor and notice inputs only",
             "fresh_clone_contract": "does not read ignored active bundles or mutable cargo/*.css/html/js runtime mirrors",
         },
         "baseline": {
@@ -993,8 +1003,8 @@ def build_inventory(root: Path, baseline_root: Path) -> dict[str, Any]:
             },
             {
                 "area": "Third-party provenance",
-                "missing": ["StPageFlip version and license notice", "Cargo-hosted font versions and licenses", "license/owner metadata for every portfolio asset"],
-                "next_evidence": "vendor lockfile or upstream source record and an asset provenance manifest",
+                "missing": ["Cargo-hosted font versions and licenses", "license/owner metadata for every portfolio asset"],
+                "next_evidence": "Cargo font-license evidence and an asset provenance manifest",
             },
             {
                 "area": "Reproducible embeds",
