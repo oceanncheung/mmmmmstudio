@@ -4770,3 +4770,44 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   atomically change the Montran iframe URL and manifest, reload-verify Cargo,
   then promote the new active artifact identity. Do not overwrite v17 or the
   frozen Round 80 evidence.
+
+## Round 95 (2026-07-22): third-party runtime notice record — TEST-ONLY / NOT DEPLOYED
+- Completed the tracked repository provenance and notice portion of
+  `MMS-AUD-039` without changing any active or prepared embed bytes. Added
+  `THIRD_PARTY_NOTICES.md` with exact package/version/source/file identities
+  and the complete upstream license texts for StPageFlip/page-flip 2.0.7,
+  PDF.js/pdfjs-dist 6.1.200, and Three.js 0.160.0 (r160).
+- Added `audit/contracts/third-party-runtime-notices.json` and the mandatory
+  `validate-third-party-runtime-notices.py` gate. It requires the exact three
+  runtime components, exact four tracked vendor files, complete hash-locked
+  license blocks, retained PDF.js/Three.js banners, and exact coverage of all
+  active and prepared vendor-bearing artifacts. A newly added or unassigned
+  `work/**/vendor/*` file fails closed.
+- The validator rebuilds every mapped artifact and proves each relevant raw
+  vendor payload occurs exactly once. The identities remain unchanged: active
+  V7 780,341 bytes / `ee09e9c282d928f8968b91e1301bc0ba2639102a27c1bf1cd40483ab1b609d0a`;
+  prepared V7 781,074 bytes /
+  `0e196aa0f2e1d35f0671ea1d746f5453037ee7e320a36ca189b1a5d817cf256f`;
+  Montran v17 1,936,356 bytes /
+  `825cf2c3a1f130cb3445e62443985e845991204d19e0c2154cfd43a36126b49b`;
+  prepared Montran v18 1,938,550 bytes /
+  `ca9ee9c69594af7c9e4a214f422413d00e43cbd5b493ec48f1f033295690e512`.
+- Seventeen destructive fixtures prove schema/issue drift, missing or duplicate
+  components/artifacts, wrong metadata, duplicate vendor assignment, untracked
+  or altered notices, truncated licenses, vendor hash/banner drift, artifact
+  identity drift, missing component links, uncovered vendor input, and removed
+  or duplicated embedded payloads all reject. Existing active recovery,
+  protocol-candidate, and PDF-allowlist focused gates also pass.
+- Regenerated the deterministic system inventory from the new notice contract.
+  StPageFlip now resolves to 2.0.7 MIT; PDF.js and Three.js point to their
+  tracked license evidence; only unrelated Cargo-font and portfolio-asset
+  provenance gaps remain in that section.
+- The complete `bash audit/scripts/validate-phase2.sh` gate passes: 122/122
+  frozen hashes, both 240-state protected visual matrices, native rivers,
+  WTW/Withered contracts, embed/browser interactions, iPad readiness, source
+  purity, root replacement, and all destructive release fixtures remain clean.
+- This round changed no Cargo/Figma/Freight source, URL, upload, draft, or
+  publication, and did not edit `gold-2026-07-21-responsive-70`. The sidecar is
+  a tracked repository record; it does not claim the immutable legacy Freight
+  HTML gained an internal StPageFlip banner. Any future distributed successor
+  must ship or accompany this notice in its separately reviewed promotion.

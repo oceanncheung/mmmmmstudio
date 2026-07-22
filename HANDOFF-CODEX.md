@@ -1511,3 +1511,34 @@ agent needs to continue this project without the prior chat history.
   complete payload, reload-verify Cargo, and only then record the new active
   identity. Until that happens, the public/direct v17 viewer remains outside
   this prepared allowlist fix.
+
+## Current handoff — Round 95 third-party runtime notice record (2026-07-22)
+- Round 95 is repository-only on `round-95/third-party-notices`. It completes
+  the tracked provenance/notice record for `MMS-AUD-039`; nothing was uploaded
+  to Freight, deployed to Cargo, published, or changed in Figma, and
+  `gold-2026-07-21-responsive-70` remains untouched.
+- `THIRD_PARTY_NOTICES.md` is the consolidated record for exactly three
+  vendored browser runtimes: StPageFlip/page-flip 2.0.7 MIT, PDF.js 6.1.200
+  Apache-2.0, and Three.js 0.160.0/r160 MIT. It contains the complete upstream
+  package license text for each. Touchbaes has no third-party browser runtime
+  dependency and must not receive an invented notice entry.
+- `audit/contracts/third-party-runtime-notices.json` pins the exact four vendor
+  files and maps them to active V7, prepared V7 message-v1, active Montran v17,
+  and prepared Montran v18. The new validator is mandatory in
+  `validate-phase2.sh`; it rejects any uncovered `work/**/vendor/*` file,
+  metadata/license/banner/hash drift, incomplete artifact mapping, output
+  identity drift, or missing/duplicated vendor payload.
+- Preserve these exact outputs: V7 active 780,341 bytes / `ee09e9c…b609d0a`;
+  V7 prepared 781,074 bytes / `0e196aa…17cf256f`; Montran v17 1,936,356 bytes /
+  `825cf2c…126b49b`; Montran v18 1,938,550 bytes /
+  `ca9ee9c…690e512`. Do not add banners to the recovered vendor files, builders,
+  or generated HTML under this round because doing so changes immutable
+  artifact identities.
+- Focused notice/reproducibility/protocol/PDF gates and the complete Phase 2
+  suite pass, including 17 notice-negative fixtures, 122/122 frozen hashes,
+  both 240-state visual matrices, and protected native-river/WTW/Withered
+  behavior.
+- Accuracy boundary: this is a tracked repository notice, not proof that an
+  already-uploaded Freight HTML file now contains the StPageFlip MIT text.
+  A future versioned successor must ship or accompany the notice, receive a
+  new reviewed hash, and be promoted separately.

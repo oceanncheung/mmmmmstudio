@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "issue": "MMS-AUD-039",
+  "status": "tracked-repository-record",
+  "notice": {
+    "path": "THIRD_PARTY_NOTICES.md",
+    "sha256": "2f58f8e95b32a5945c117fc3fb52d40a8158fe830475211f878e020d05c514d6"
+  },
+  "components": [
+    {
+      "id": "stpageflip",
+      "name": "StPageFlip",
+      "package": "page-flip",
+      "version": "2.0.7",
+      "license": "MIT",
+      "copyright": "Copyright (c) 2020 Nodlik",
+      "upstream_repository": "https://github.com/Nodlik/StPageFlip",
+      "upstream_package": "https://registry.npmjs.org/page-flip/-/page-flip-2.0.7.tgz",
+      "notice_heading": "StPageFlip / page-flip 2.0.7",
+      "license_text_sha256": "88d7b609a3be5efa2abe8648ddc35d5489579db5e06299545760df45c2c32d66",
+      "notice_mode": "sidecar-only",
+      "vendor_files": [
+        {
+          "path": "work/montran-direct-pdf-v10-src/vendor/page-flip.browser.js",
+          "sha256": "bbaca0bbef57a22bb66a3fc69d67baf9a17fb9a9c89ec9ed35e2b91abe4bd1e7",
+          "retained_notice_markers": []
+        }
+      ]
+    },
+    {
+      "id": "pdfjs",
+      "name": "PDF.js",
+      "package": "pdfjs-dist",
+      "version": "6.1.200",
+      "license": "Apache-2.0",
+      "copyright": "Copyright 2024 Mozilla Foundation",
+      "upstream_repository": "https://github.com/mozilla/pdf.js",
+      "upstream_package": "https://registry.npmjs.org/pdfjs-dist/-/pdfjs-dist-6.1.200.tgz",
+      "notice_heading": "PDF.js / pdfjs-dist 6.1.200",
+      "license_text_sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+      "notice_mode": "embedded-and-sidecar",
+      "vendor_files": [
+        {
+          "path": "work/montran-direct-pdf-v10-src/vendor/pdf.min.mjs",
+          "sha256": "4ba2f15599b03fde8755ad91349920c21dadd3e8fd6b6460a7663d46d4cf21b5",
+          "retained_notice_markers": [
+            "@licstart The following is the entire license notice",
+            "Copyright 2024 Mozilla Foundation",
+            "Licensed under the Apache License, Version 2.0",
+            "pdfjsVersion = 6.1.200"
+          ]
+        },
+        {
+          "path": "work/montran-direct-pdf-v10-src/vendor/pdf.worker.min.mjs",
+          "sha256": "2ab9e09667296dab1a618868b3ce6e6c23d5b8f48120ae7c5b34e7e335ed01fa",
+          "retained_notice_markers": [
+            "@licstart The following is the entire license notice",
+            "Copyright 2024 Mozilla Foundation",
+            "Licensed under the Apache License, Version 2.0",
+            "pdfjsVersion = 6.1.200"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "three-js",
+      "name": "Three.js",
+      "package": "three",
+      "version": "0.160.0",
+      "license": "MIT",
+      "copyright": "Copyright © 2010-2023 three.js authors",
+      "upstream_repository": "https://github.com/mrdoob/three.js",
+      "upstream_package": "https://registry.npmjs.org/three/-/three-0.160.0.tgz",
+      "notice_heading": "Three.js 0.160.0 (r160)",
+      "license_text_sha256": "852e0e8699169bf9f6fdc6bda3e682d078dcbc738b5d33e74df594721bff271d",
+      "notice_mode": "embedded-and-sidecar",
+      "vendor_files": [
+        {
+          "path": "work/v7-cup-src/vendor/three.min.js",
+          "sha256": "170c6789f43217c96b3170f4b42fafe135de7f7cd48497a4218f9757ee1d49fa",
+          "retained_notice_markers": [
+            "@license",
+            "Copyright 2010-2023 Three.js Authors",
+            "SPDX-License-Identifier: MIT",
+            "const e=\"160\""
+          ]
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "v7-active",
+      "canonical_contract": "audit/contracts/active-embed-builds.json",
+      "selector": {
+        "collection": "entries",
+        "kind": "v7-cup"
+      },
+      "expected_bytes": 780341,
+      "expected_sha256": "ee09e9c282d928f8968b91e1301bc0ba2639102a27c1bf1cd40483ab1b609d0a",
+      "components": ["three-js"]
+    },
+    {
+      "id": "v7-message-v1",
+      "canonical_contract": "audit/contracts/embed-message-protocol-candidates.json",
+      "selector": {
+        "collection": "entries",
+        "kind": "v7-cup"
+      },
+      "expected_bytes": 781074,
+      "expected_sha256": "0e196aa0f2e1d35f0671ea1d746f5453037ee7e320a36ca189b1a5d817cf256f",
+      "components": ["three-js"]
+    },
+    {
+      "id": "montran-v17",
+      "canonical_contract": "audit/contracts/active-embed-builds.json",
+      "selector": {
+        "collection": "entries",
+        "kind": "montran-booklet"
+      },
+      "expected_bytes": 1936356,
+      "expected_sha256": "825cf2c3a1f130cb3445e62443985e845991204d19e0c2154cfd43a36126b49b",
+      "components": ["stpageflip", "pdfjs"]
+    },
+    {
+      "id": "montran-v18",
+      "canonical_contract": "audit/contracts/montran-pdf-allowlist-candidate.json",
+      "selector": {
+        "collection": "candidate"
+      },
+      "expected_bytes": 1938550,
+      "expected_sha256": "ca9ee9c69594af7c9e4a214f422413d00e43cbd5b493ec48f1f033295690e512",
+      "components": ["stpageflip", "pdfjs"]
+    }
+  ]
+}

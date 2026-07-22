@@ -159,9 +159,9 @@ The neutralized Cargo wrapper stack is `.page > .page-layout > .page-content > b
 | Cargo 3 | Cargo3 | hosted platform; license not represented in repository | custom HTML, global CSS, page bodycopy, Cargo custom elements |
 | Cargo frontend stylesheet | cbf2d0 capture path; package version unresolved | hosted platform; license not represented in repository | Cargo document shell, platform components, base responsive presentation |
 | Cargo Freight | platform-managed | hosted platform; asset rights are not captured by the CDN response | immutable media delivery, responsive image renditions, HTTP range requests for PDF |
-| PDF.js | 6.1.200 | Apache-2.0 notice present in tracked vendor file | PDF parsing, range transport, canvas page rendering |
-| StPageFlip | unresolved; vendored minified file has no version marker | unresolved; no license notice observed in vendored file | desktop fold, drag and tap page turning, page shadow |
-| Three.js | r160 | not captured in the frozen embed manifest; no license claim is inferred | WebGL rendering, GLTF loading, animation loop |
+| PDF.js | 6.1.200 | Apache-2.0; retained vendor notices and complete tracked package license | PDF parsing, range transport, canvas page rendering |
+| StPageFlip | 2.0.7 | MIT; complete upstream package license retained in tracked notice record | desktop fold, drag and tap page turning, page shadow |
+| Three.js | 0.160.0 (r160) | MIT; retained vendor banner and complete tracked package license | WebGL rendering, GLTF loading, animation loop |
 | Touchbaes game runtime | 10 | not captured in the frozen embed manifest | pointer and touch drag, responsive size reporting, visibility and mode messages |
 | Cargo-hosted fonts | platform-managed | provider attribution comments are captured; complete license texts are not | Cargo Diatype, Cargo Marist, Gaisyr Semi-Mono, TeX Gyre Heros Condensed, UnifrakturMaguntia |
 
@@ -189,9 +189,9 @@ Next evidence: authenticated read-only Cargo settings capture plus public endpoi
 
 ### Third-party provenance
 
-Missing: StPageFlip version and license notice, Cargo-hosted font versions and licenses, license/owner metadata for every portfolio asset.
+Missing: Cargo-hosted font versions and licenses, license/owner metadata for every portfolio asset.
 
-Next evidence: vendor lockfile or upstream source record and an asset provenance manifest.
+Next evidence: Cargo font-license evidence and an asset provenance manifest.
 
 ### Reproducible embeds
 

@@ -2477,3 +2477,21 @@ current source of truth for the built site.
   contract to make the candidate pass. Promotion is a later atomic Freight and
   Cargo round with reload evidence; Round 94 itself is not deployed or
   published.
+
+## Current state — Round 95 third-party runtime notice record
+- `MMS-AUD-039` now has a tracked repository provenance and notice record in
+  `THIRD_PARTY_NOTICES.md`. It covers exactly StPageFlip/page-flip 2.0.7 MIT,
+  PDF.js/pdfjs-dist 6.1.200 Apache-2.0, and Three.js 0.160.0/r160 MIT, including
+  complete upstream package license texts and exact vendored hashes.
+- Keep `audit/contracts/third-party-runtime-notices.json` and
+  `audit/scripts/validate-third-party-runtime-notices.py` in the full Phase 2
+  gate. Any new `work/**/vendor/*` input must receive an explicit reviewed
+  notice mapping; missing/truncated licenses, retained-banner drift, artifact
+  identity drift, and removed/duplicated vendor payloads fail closed.
+- Do not edit active or prepared embed bytes merely to insert a banner. Round
+  95 preserves V7 active/prepared and Montran v17/v18 exactly, and the complete
+  Phase 2 suite passes with protected visual and interaction contracts intact.
+- This round is repo-only and not deployed or published. The sidecar does not
+  retroactively accompany immutable Freight uploads; a future distributed
+  successor must ship or accompany it through a separately versioned,
+  reviewed promotion. `gold-2026-07-21-responsive-70` remains immutable.
