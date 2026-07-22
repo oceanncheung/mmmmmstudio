@@ -2305,3 +2305,21 @@ current source of truth for the built site.
   `gold-2026-07-21-responsive-70`; do not edit or regenerate it from the live
   runtime DOM. The next independent batch is iPad/Safari media readiness and
   coarse-pointer behavior.
+
+## Current state — Round 87 hover-only swatch ring
+- Round 87 is published and supersedes the Round 86 keyboard-ring decision.
+  Theme swatches have no artwork border or ring at rest, on pointer/touch
+  selection, or on keyboard focus. Only real fine-pointer hover draws the 1px
+  circular artwork ring; pointer exit removes it immediately.
+- Never restore a swatch `:focus-visible::before` ring or Cargo's dotted
+  rectangular target outline. Keep the target cells and their compact/expanded
+  geometry unchanged. Other controls retain their existing focus treatment.
+- The published complete CSS is 86,459 UTF-8 bytes, SHA-256
+  `2e7cd7798dcbea7ba222e967d6824507e8c4e7844903cf55e6fb69b170ea0bf9`,
+  with Cargo's head, all three managed font blocks, and one token/layout region.
+- Public verification passes: Home has 68/68 unique media IDs, 13 rivers, 12
+  desktop scrubbers, square WTW geometry, and zero horizontal overflow; Who
+  retains two videos; Write retains four rotating Withered Green body
+  paragraphs and a static heading. The complete Phase 2 gate passes.
+- The sole current gold is still `gold-2026-07-21-responsive-70`; it was not
+  edited. Keep the next iPad/Safari media-readiness remediation separate.

@@ -430,7 +430,7 @@ dialog.mms-panel:not([open]) { display: none; }
 .mms-dot::before {
   content: ""; position: absolute; top: 50%; left: 50%;
   width: calc(20 * var(--panel-control-u)); height: calc(20 * var(--panel-control-u));
-  transform: translate(-50%, -50%); border: 1px solid var(--color-border);
+  transform: translate(-50%, -50%); border: 0;
   border-radius: 50%; background: var(--dot-bg);
 }
 /* selected indicator = a small CENTER CIRCLE (radio-button semantics, per
@@ -541,22 +541,15 @@ dialog.mms-panel:not([open]) { display: none; }
   outline-offset: 3px;
 }
 
-/* Theme swatches use their visible circular artwork as the keyboard focus
-   surface. Never outline the transparent interaction box: that is the dotted
-   square Ocean rejected. Pointer/touch activation is blurred by panel.js;
-   keyboard focus keeps this solid, theme-aware circular ring. */
+/* Never outline the transparent swatch interaction box. Ocean wants this
+   control to show a ring only while a fine pointer is actually hovering it;
+   load, keyboard focus, touch, and pointer release all remain ring-free. */
 .mms .mms-dot:focus,
 .mms .mms-dot:focus-visible,
 dialog.mms-panel .mms-dot:focus,
 dialog.mms-panel .mms-dot:focus-visible {
   outline: none !important;
   outline-offset: 0 !important;
-}
-.mms .mms-dot:focus-visible::before,
-dialog.mms-panel .mms-dot:focus-visible::before {
-  box-shadow:
-    0 0 0 2px var(--color-bg-page),
-    0 0 0 3px var(--color-text-primary);
 }
 
 /* ---------- Round 15 (2026-07-11) ---------- */
@@ -960,7 +953,7 @@ html[data-render-preview] .mms-frame { transition: none !important; }
     content: ""; position: absolute; inset: auto;
     top: 50%; left: 50%; width: 24px; height: 24px;
     transform: translate(-50%, -50%);
-    border: 1px solid var(--color-border); border-radius: 50%;
+    border: 0; border-radius: 50%;
     background: var(--dot-bg);
   }
   /* Five visible 24px dots distribute across the complete palette span.

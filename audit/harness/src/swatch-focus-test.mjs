@@ -44,9 +44,18 @@ try {
 
     const white = page.locator('[data-theme-set="white"]');
     const girly = page.locator('[data-theme-set="girly"]');
+    await page.mouse.move(0, 0);
     const target = await white.evaluate((element) => {
       const rect = element.getBoundingClientRect();
-      return { width: rect.width, height: rect.height };
+      const art = getComputedStyle(element, "::before");
+      return {
+        width: rect.width,
+        height: rect.height,
+        borderWidth: art.borderTopWidth,
+        ring: art.boxShadow,
+        active: document.activeElement === element,
+        focusVisible: element.matches(":focus-visible"),
+      };
     });
     const compactTargetValid = viewport.width < 1024 &&
       target.width >= 32 && Math.abs(target.height - 44) <= 0.01;
@@ -57,21 +66,42 @@ try {
         `${viewport.name}: swatch target geometry drifted (${target.width}x${target.height})`,
       );
     }
+    if (target.borderWidth !== "0px" || (target.ring && target.ring !== "none")) {
+      throw new Error(`${viewport.name}: swatch has a ring before hover ${JSON.stringify(target)}`);
+    }
+
+    await white.hover();
+    const hoverRing = await white.evaluate((element) =>
+      getComputedStyle(element, "::before").boxShadow);
+    if (!hoverRing || hoverRing === "none") {
+      throw new Error(`${viewport.name}: fine-pointer hover ring is missing`);
+    }
+    await page.mouse.move(0, 0);
+    const settledRing = await white.evaluate((element) =>
+      getComputedStyle(element, "::before").boxShadow);
+    if (settledRing && settledRing !== "none") {
+      throw new Error(`${viewport.name}: hover ring remained after pointer exit`);
+    }
 
     await girly.click();
     await page.waitForTimeout(30);
     const pointerState = await girly.evaluate((element) => ({
-      active: document.activeElement === element,
-      focusVisible: element.matches(":focus-visible"),
-      outlineStyle: getComputedStyle(element).outlineStyle,
-      panelOpen: Boolean(document.querySelector("dialog.mms-panel")?.open),
-    }));
+        active: document.activeElement === element,
+        focusVisible: element.matches(":focus-visible"),
+        outlineStyle: getComputedStyle(element).outlineStyle,
+        ring: getComputedStyle(element, "::before").boxShadow,
+        panelOpen: Boolean(document.querySelector("dialog.mms-panel")?.open),
+      }));
     if (pointerState.active || pointerState.focusVisible || pointerState.outlineStyle === "dotted") {
       throw new Error(`${viewport.name}: pointer activation retained a focus frame`);
     }
     if (!pointerState.panelOpen) {
       throw new Error(`${viewport.name}: selecting a theme closed the control panel`);
     }
+    if (!pointerState.ring || pointerState.ring === "none") {
+      throw new Error(`${viewport.name}: hovered pointer selection lost its hover ring`);
+    }
+    await page.mouse.move(0, 0);
 
     for (const theme of THEMES) {
       await page.evaluate((nextTheme) => {
@@ -94,7 +124,7 @@ try {
         };
       });
       if (!keyboardState.active || !keyboardState.focusVisible) {
-        throw new Error(`${viewport.name}/${theme}: keyboard focus is not visible`);
+        throw new Error(`${viewport.name}/${theme}: keyboard focus state did not reach swatch`);
       }
       if (keyboardState.outlineStyle !== "none") {
         throw new Error(
@@ -102,8 +132,8 @@ try {
           JSON.stringify(keyboardState),
         );
       }
-      if (!keyboardState.ring || keyboardState.ring === "none") {
-        throw new Error(`${viewport.name}/${theme}: circular keyboard ring is missing`);
+      if (keyboardState.ring && keyboardState.ring !== "none") {
+        throw new Error(`${viewport.name}/${theme}: keyboard focus incorrectly drew a ring`);
       }
       if (Math.abs(keyboardState.width - target.width) > 0.01 ||
           Math.abs(keyboardState.height - target.height) > 0.01) {

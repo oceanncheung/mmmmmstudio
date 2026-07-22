@@ -4454,3 +4454,34 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   scrubbers, zero page-level overflow, and the protected four/static Withered
   Green contract. No media source, media geometry, layout, typography, Figma,
   Freight asset, or `gold-2026-07-21-responsive-70` file changed.
+
+## Round 87 (2026-07-22): hover-only swatch ring — PUBLISHED
+- Ocean corrected the Round 86 interaction contract: theme swatches must show
+  no border or ring on load, pointer/touch selection, or keyboard focus. A
+  single 1px circular ring appears only during true fine-pointer hover and is
+  removed immediately when the pointer exits.
+- Removed both the permanent artwork border and the swatch-specific
+  `:focus-visible` ring. The transparent button target still suppresses Cargo's
+  dotted rectangular outline, and target geometry is unchanged. Other control
+  focus treatments were not modified.
+- Updated `swatch-focus-test.mjs` to prove the hover-only contract at compact
+  and expanded widths across all themes. The complete Phase 2 gate passes:
+  122/122 frozen hashes, both 240-state gold matrices, media ownership, root
+  teardown, saved-source purity, native rivers, and all 30 negative deployment
+  fixtures.
+- Deployed the complete four-region stylesheet with Cargo's head and all three
+  managed font blocks preserved. Reloaded CSS is 86,459 UTF-8 bytes, SHA-256
+  `2e7cd7798dcbea7ba222e967d6824507e8c4e7844903cf55e6fb69b170ea0bf9`,
+  with one token marker, one layout marker, and one of each managed font class.
+- Who and Write bodycopies were normalized through the UTF-8-safe direct
+  `innerHTML` plus `InputEvent` workflow and reload-verified. Home bodycopy was
+  deliberately not rewritten because this correction is global CSS-only; its
+  complete 68/68 unique media payload was preserved and reload-verified before
+  publication.
+- Published at approximately 9:07am EDT. Independent public verification found
+  Home with 68/68 unique media items, 13 rivers, 12 expanded scrubbers, square
+  WTW asset geometry, and zero horizontal overflow. The swatch has no load ring,
+  shows the 1px ring on real hover, and returns to no ring on pointer exit.
+  Public Who retains two videos; Write retains four Withered Green body
+  rotations with a static heading. The protected
+  `gold-2026-07-21-responsive-70` snapshot was not changed.
