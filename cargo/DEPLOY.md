@@ -4570,3 +4570,45 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   reload-verified in the Cargo draft. This round was not published; the public
   site remains Round 87. Physical iPad Safari remains the final decoder and
   autoplay proof for Touchbaes asset 2.
+
+## Round 90 (2026-07-22): Primary interaction coverage — TEST-ONLY / NOT DEPLOYED
+- Closed audit gap `MMS-AUD-032` with dedicated browser contracts for the
+  primary interaction surfaces, without changing Cargo source behavior or any
+  visible UI. No Cargo, Figma, Freight, or public-site mutation occurred.
+- Added `panel-scrubber-transition-test.mjs`: compact panel open/close,
+  outside tap versus scroll behavior, pointer focus presentation, scrubber
+  track/drag/mouse-leave/keyboard behavior, real coarse-touch horizontal and
+  vertical river pass-through, 1023/1024 transition behavior, persisted state,
+  and storage-failure fallback. The test confirms native compact rivers retain
+  `pan-x pan-y` and zero page-level overflow.
+- Added `startup-state-interaction-test.mjs`: startup completes as four
+  375ms hard cuts plus exact saved/default landing, visitor interaction cancels
+  the sequence permanently, storage fallback works, and back-forward/cache
+  restoration keeps the selected theme/face/scale/shape.
+- Added `embed-montran-interaction-test.mjs`: V7/Touchbaes/Montran ready
+  messages are accepted only from the expected Freight frame/origin/kind,
+  stale/malformed/wrong-origin messages are rejected, Touchbaes compact height
+  locks after the first valid measurement, and Montran compact taps obey the
+  primary-pointer, moved/cancelled/non-primary/secondary-button, center
+  dead-zone, one-turn-lock, and compact/expanded breakpoint contracts.
+- Folded the new suite into `audit/scripts/validate-phase2.sh` through
+  `npm run interaction-test`. Stabilized `gold-parity-test.mjs` for the
+  current browser matrix by extending its watchdog to 300s, settling fonts and
+  eager images before parity snapshots, comparing screenshots by decoded
+  pixels rather than PNG byte streams, masking the live clock in masked
+  screenshots, and using DOM handler clicks for parity-only interaction
+  snapshots. The parity assertions still compare all 240 states per viewport,
+  masked screenshots, and native river readbacks against the protected gold.
+- Verification passed: `bash audit/scripts/verify-phase1-baseline.sh`;
+  `npm run gold-parity-test`; `npm run interaction-test`;
+  `npm run embed-montran-test`; and the complete
+  `bash audit/scripts/validate-phase2.sh`. The full gate includes 122/122
+  frozen hashes, system inventory, current asset manifest, syntax/config,
+  media ownership, both 240-state gold parity matrices, swatch focus,
+  Touchbaes iPad readiness, the new interaction suite, source purity,
+  shared-component parity, generated test mirrors, runtime root replacement,
+  and destructive deployment fixtures.
+- Known limitation left for a later embed-validation batch: production
+  `applyGameHeight()` still clamps zero or negative finite Touchbaes heights to
+  1px instead of rejecting them before clamping. This round intentionally
+  remained test-only and did not alter runtime behavior.

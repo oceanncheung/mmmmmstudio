@@ -191,6 +191,19 @@ the lineage of tracyma.com. Built/hosted on **cargo.site**; prototyped in
 
 ## Open items
 
+**[2026-07-22] Round 90 — PRIMARY INTERACTION COVERAGE, TEST-ONLY (not deployed).**
+Branch `round-90/primary-interaction-coverage` closes audit gap `MMS-AUD-032`
+with browser contracts for compact panel behavior, scrubbers, native rivers,
+startup state, embed readiness, Touchbaes sizing messages, and Montran compact
+turn filtering. No Cargo, Figma, Freight, public-site, or visible UI mutation
+was made. Full `bash audit/scripts/validate-phase2.sh` passed, including
+122/122 frozen hashes, both 240-state gold parity matrices, media ownership,
+swatch focus, Touchbaes iPad readiness, the new interaction suite, runtime root
+replacement, source purity, and destructive deployment fixtures. The protected
+gold `cargo/gold/2026-07-21-responsive-70` remains unchanged. Known deferred
+issue: production `applyGameHeight()` still clamps zero/negative finite
+Touchbaes heights to 1px; fix that in a later embed-validation batch.
+
 **[2026-07-12] Round 30 — MOBILE NAV/CAPTIONS/GAME ENVELOPE/PENCIL, DRAFT (not published).**
 Prepared `responsive-32`: mobile links now scroll away while the compact header
 row remains at z10 under z20 showcases; Montran/Kelly/Random Pics share matched

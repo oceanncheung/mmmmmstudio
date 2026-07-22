@@ -132,6 +132,17 @@ agent needs to continue this project without the prior chat history.
   The rework frame 83:251 carries the 12-col layout grid.
 
 ## Current state (2026-07-16, Round 69 GOLD STANDARD PUBLISHED)
+- Audit/remediation continuity update, 2026-07-22: Round 90 lives on branch
+  `round-90/primary-interaction-coverage` as a test-only batch. It was not
+  deployed to Cargo, Figma, Freight, or the public site. It adds primary
+  interaction coverage for the compact panel, scrubbers, native rivers,
+  startup state, embed readiness, Touchbaes sizing messages, and Montran
+  compact turn filtering. The complete `bash audit/scripts/validate-phase2.sh`
+  gate passed after stabilizing the gold parity harness for the current browser
+  matrix. Protected gold `cargo/gold/2026-07-21-responsive-70` was not edited.
+  Remaining known limitation: production `applyGameHeight()` still clamps zero
+  or negative finite Touchbaes heights to 1px; handle that in a later
+  embed-validation batch, not as part of Round 90's test-only scope.
 - Ocean explicitly accepted Round 69 as the MM.S standard gold version. It is
   the visual, interaction, and rollback baseline for all subsequent type-scale
   and spacing refinements. Preserve its exact artifact record in
