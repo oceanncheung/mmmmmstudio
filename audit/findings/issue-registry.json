@@ -1,6 +1,7 @@
 {
   "schema_version": "mms-audit/issue-registry/v1",
   "baseline": "Round 80 Phase 1 plus documented post-baseline deltas",
+  "preservation_baseline": "gold-2026-07-21-responsive-70",
   "status": "findings only; remediation and publication are not authorized",
   "counts": {"P0": 0, "P1": 16, "P2": 24, "P3": 4, "total": 44},
   "source_reports": [

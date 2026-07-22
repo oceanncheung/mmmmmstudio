@@ -1200,3 +1200,36 @@ agent needs to continue this project without the prior chat history.
 - Do not deploy or publish this batch yet. Physical iPhone Safari must confirm
   that visible/near muted inline video still autoplays. The next independent
   remediation is `MMS-AUD-029`, explicit root-runtime teardown.
+
+## Current handoff — Round 83 root-runtime teardown (2026-07-21)
+- The active branch is `round-83/root-runtime-teardown`, based on merged
+  `round-81/audit-baseline`. It remediates `MMS-AUD-029` and remains
+  local/GitHub-only; no Cargo or public deployment occurred.
+- `window.__mmsRuntimeLifecycle` is the single owner registry for the current
+  `.mms` root. The panel owner and Home tweezer owner dispose stale listeners,
+  timers, intervals, animation frames, observers, generated scrubbers, stale
+  rig content/state, panel portal state, measured root variables, and stale
+  media state when the replacement runtime initializes. Teardown is
+  idempotent.
+- `audit/scripts/validate-root-runtime-owner.py` is invoked by the normal Cargo
+  payload gate and the aggregate audit gate. Its destructive self-test rejects
+  permanent root guards, unmanaged element/global/media-query listeners, raw
+  timers or animation frames, and unwrapped resize/intersection observers.
+- `npm run runtime-root-test` covers compact 390x844 and expanded 1440x900.
+  Both modes pass an initial load, three full root replacements, and a
+  same-root dialog plus Touchbaes river/iframe rehydration with one active
+  panel/Home owner, exact current-element rebinding, zero stale element
+  listeners, stable resource counts, no errors, no overflow, and protected
+  geometry within 1px. Expanded mode retains 12 scrubbers, an open current-root
+  panel, and native EVIIVE river movement that settles unchanged.
+- Ocean's current preservation target is exclusively
+  `gold-2026-07-21-responsive-70`. Round 69 and Round 80 are immutable
+  historical references, not the default parity or rollback target. The
+  deployment validator now requires the exact current-gold identifier, and the
+  parity test checks both its gold fixture and candidate manifest before
+  opening a browser.
+- Canonical assembly and the full Phase 2 gate pass, including 122/122 frozen
+  hashes, latest-gold 240-state compact/expanded parity, media ownership,
+  manifest negative fixtures, and root replacement. Do not deploy this batch
+  until separately authorized and physically verify the earlier autoplay
+  ownership change on iPhone Safari before any eventual Cargo publication.

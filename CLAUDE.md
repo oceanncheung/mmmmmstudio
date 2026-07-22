@@ -2220,3 +2220,31 @@ current source of truth for the built site.
 - Before a Cargo deployment, verify muted inline visible/near autoplay on a
   physical iPhone Safari. Root-aware runtime teardown (`MMS-AUD-029`) is a
   separate next batch and must not be mixed into this one.
+
+## Current state — Round 83 root-runtime teardown
+- The active remediation branch is `round-83/root-runtime-teardown`, based on
+  merged `round-81/audit-baseline`. It addresses only `MMS-AUD-029` plus the
+  preservation-label correction explicitly requested by Ocean. It is not
+  deployed or published.
+- `cargo/panel.js` owns the shared root lifecycle through
+  `window.__mmsRuntimeLifecycle`. `cargo/home-extras.html` registers the Home
+  tweezer/game helper with the same owner registry. Never restore permanent
+  one-shot root guards or unmanaged root-scoped listeners, timers, intervals,
+  animation frames, observers, or media-query callbacks.
+- The static gate is `audit/scripts/validate-root-runtime-owner.py`; the browser
+  gate is `npm run runtime-root-test`. Compact and expanded each replace the
+  complete root three times, then replace the dialog and Touchbaes river/iframe
+  inside the same root. They require one current panel/Home owner, exact
+  current-element rebinding, zero stale listeners, stable resources, zero
+  errors/overflow, <=1px protected geometry drift, and intact
+  panel/native-river behavior. Expanded also requires 12 visible scrubbers.
+- The sole current preserve, parity, and default rollback baseline is
+  `gold-2026-07-21-responsive-70`. Round 69 and Round 80 remain immutable
+  historical checkpoints only. `cargo/validate-deployment-manifest.py` must
+  reject every other `approved_baseline`, and `gold-parity-test.mjs` must verify
+  the baseline identifier before comparison.
+- `bash cargo/assemble-test.sh canonical` and
+  `bash audit/scripts/validate-phase2.sh` pass in full. The latest-gold parity
+  matrix passes all 240 states at compact and expanded references. No CSS,
+  tokens, layout, media geometry/source, Figma, Cargo, Freight, or public-site
+  mutation is part of this batch.

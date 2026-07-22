@@ -31,7 +31,7 @@ the authoritative repositories.
   recorded separately because Cargo rewrites bodycopy and managed CSS.
 - `round-69-gold`: an archival root reconstructed from the immutable files in
   `cargo/gold/round-69/` and exposed on branch `archive/round-69`. This tag is
-  the older approved visual, interaction, and rollback baseline. Its tree
+  an older approved visual and interaction checkpoint. Its tree
   contains only the canonical Cargo files that were actually archived for
   Round 69; it does not claim to reconstruct unarchived project or platform
   state.
@@ -41,11 +41,12 @@ the authoritative repositories.
   Round 80's scrubber safeguard. It is not the current gold because it predates
   the approved WTW and Withered Green corrections.
 
-The two tags are intentionally separate Git roots. Round 69 is a verified but
+The two historical tags are intentionally separate Git roots. Round 69 is a verified but
 partial retrospective archive, so making it the literal parent of the complete
 Round 80 workspace would invent history that was never captured. Future work
-descends from `gold-2026-07-21-responsive-70`. The older tags remain available
-for comparison and rollback.
+descends from `gold-2026-07-21-responsive-70`, which is also the default
+rollback target. The older tags remain available for historical comparison and
+emergency recovery only.
 
 Stable tags are immutable. Do not move, replace, or force-update them. GitHub
 release immutability is enabled for the remote, and the published
@@ -95,16 +96,23 @@ A local commit never proves that Cargo saved or published the same artifact.
 
 ## Safe comparison and rollback
 
-Prefer a separate worktree instead of replacing the active working directory:
+Prefer a separate worktree instead of replacing the active working directory.
+For the current preservation target:
+
+```sh
+git worktree add ../mms-current-gold-reference gold-2026-07-21-responsive-70
+```
+
+Historical checkpoints remain inspectable when specifically needed:
 
 ```sh
 git worktree add ../mms-round-80-reference round-80-stable
 ```
 
-Inspect one historical file without changing the working tree:
+Inspect one current-gold file without changing the working tree:
 
 ```sh
-git show round-80-stable:cargo/site.css
+git show gold-2026-07-21-responsive-70:cargo/site.css
 ```
 
 Do not use destructive reset or checkout commands against uncommitted work.

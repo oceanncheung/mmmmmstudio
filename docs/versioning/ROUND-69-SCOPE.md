@@ -18,4 +18,6 @@ Round 69 archive did not capture:
 - generated `home.html`, `who.html`, and `write.html` bodycopies.
 
 For that reason, Round 69 is not represented as the literal Git parent of
-Round 80. It remains a separate immutable comparison and rollback reference.
+Round 80. It remains a separate immutable historical comparison and emergency
+recovery reference; the default preservation and rollback target is
+`gold-2026-07-21-responsive-70`.

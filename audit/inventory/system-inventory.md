@@ -177,7 +177,7 @@ The neutralized Cargo wrapper stack is `.page > .page-layout > .page-content > b
 
 Deployment remains manual and Cargo-specific: compose the complete CSS, preserve the Cargo head and three managed font blocks, replace the complete bodycopy with the UTF-8-safe innerHTML + bubbling InputEvent method, save, reload, and verify persistence. Publication is a separate action requiring explicit authorization.
 
-Rollback evidence is layered: immutable Round 69 gold, Round 80 stable, the hashed Phase 1 baseline, and the deployment ledger.
+The default preservation and rollback target is gold-2026-07-21-responsive-70. Historical recovery evidence remains layered through immutable Round 69 gold, Round 80 stable, the hashed Phase 1 baseline, and the deployment ledger.
 
 ## Evidence gaps
 

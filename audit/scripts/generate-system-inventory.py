@@ -971,6 +971,7 @@ def build_inventory(root: Path, baseline_root: Path) -> dict[str, Any]:
                 "publication is separate and requires explicit authorization",
             ],
             "backup_and_rollback": [
+                "current gold-2026-07-21-responsive-70 Git reference and cargo/gold/2026-07-21-responsive-70",
                 "protected round-69-gold Git reference and cargo/gold/round-69",
                 "round-80-stable Git reference and docs/versioning/ROUND-80-STABLE.md",
                 str(baseline_root.relative_to(root)),
@@ -1173,7 +1174,7 @@ def markdown(inventory: dict[str, Any]) -> str:
         "",
         "Deployment remains manual and Cargo-specific: compose the complete CSS, preserve the Cargo head and three managed font blocks, replace the complete bodycopy with the UTF-8-safe innerHTML + bubbling InputEvent method, save, reload, and verify persistence. Publication is a separate action requiring explicit authorization.",
         "",
-        "Rollback evidence is layered: immutable Round 69 gold, Round 80 stable, the hashed Phase 1 baseline, and the deployment ledger.",
+        "The default preservation and rollback target is gold-2026-07-21-responsive-70. Historical recovery evidence remains layered through immutable Round 69 gold, Round 80 stable, the hashed Phase 1 baseline, and the deployment ledger.",
         "",
         "## Evidence gaps",
         "",

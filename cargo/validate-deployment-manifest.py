@@ -16,6 +16,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parent
 DEFAULT_MANIFEST = ROOT / "deployment-manifest.json"
+APPROVED_BASELINE = "gold-2026-07-21-responsive-70"
 VOID_TAGS = {
     "area",
     "base",
@@ -157,8 +158,11 @@ def load_manifest(path: Path) -> dict:
         raise ManifestError("deployment manifest schema_version must be 1")
     if not manifest.get("site"):
         raise ManifestError("deployment manifest must name its site")
-    if not manifest.get("approved_baseline"):
-        raise ManifestError("deployment manifest must name its approved baseline")
+    if manifest.get("approved_baseline") != APPROVED_BASELINE:
+        raise ManifestError(
+            "deployment manifest approved_baseline must be "
+            f"{APPROVED_BASELINE!r}; found {manifest.get('approved_baseline')!r}"
+        )
     if not isinstance(manifest.get("pages"), dict) or not manifest["pages"]:
         raise ManifestError("deployment manifest must define pages")
     return manifest

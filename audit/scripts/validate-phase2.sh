@@ -47,6 +47,8 @@ echo "Phase 2 harness configuration: PASS"
 "$ROOT/cargo/validate-cargo-payload.sh" bodycopy "$ROOT/cargo/write.html"
 "$ROOT/cargo/validate-cargo-payload.sh" head "$ROOT/cargo/site-head.html"
 python3 "$ROOT/audit/scripts/validate-media-playback-owner.py"
+python3 "$ROOT/audit/scripts/validate-root-runtime-owner.py" --self-test
+python3 "$ROOT/audit/scripts/validate-root-runtime-owner.py"
 FROZEN_CARGO="$ROOT/docs/audits/2026-07-20T175853-0400-round-80/cargo-draft"
 python3 - "$ROOT" "$FROZEN_CARGO" <<'PY'
 import re
@@ -253,5 +255,9 @@ PY
 "$ROOT/cargo/compose-css-bundle.sh" >/dev/null
 python3 "$ROOT/cargo/validate-shared-components.py"
 python3 "$ROOT/cargo/validate-test-mirrors.py" home who write
+
+# Focused browser lifecycle gate: repeated Cargo root replacement must leave
+# one coherent current runtime generation without accumulating owned resources.
+npm --prefix "$ROOT/audit/harness" run runtime-root-test
 
 echo "MM.S Phase 2 audit foundation: PASS"
