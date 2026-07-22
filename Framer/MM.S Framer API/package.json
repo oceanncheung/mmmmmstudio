@@ -5,9 +5,14 @@
   "type": "module",
   "scripts": {
     "start": "node --env-file-if-exists=.env index.mjs",
-    "read:design": "node --env-file-if-exists=.env read-design-system.mjs"
+    "read:design": "node --env-file-if-exists=.env read-design-system.mjs",
+    "test": "node dependency-smoke-test.mjs",
+    "audit:dependencies": "npm audit --package-lock-only --omit=dev --audit-level=low"
   },
   "dependencies": {
-    "framer-api": "latest"
+    "framer-api": "0.1.7"
+  },
+  "overrides": {
+    "devalue": "5.8.2"
   }
 }

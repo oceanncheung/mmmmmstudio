@@ -2495,3 +2495,25 @@ current source of truth for the built site.
   retroactively accompany immutable Freight uploads; a future distributed
   successor must ship or accompany it through a separately versioned,
   reviewed promotion. `gold-2026-07-21-responsive-70` remains immutable.
+
+## Current state — Round 96 Framer helper dependency advisory
+- The private Framer helper is deterministic at exact `framer-api` 0.1.7 with
+  exact `devalue` 5.8.2. Do not restore `latest`, loosen either pin, or move the
+  serializer back into the `GHSA-77vg-94rm-hx3p` affected range (5.6.3–5.8.0).
+- Preserve `audit/contracts/framer-helper-dependencies.json`,
+  `audit/scripts/validate-framer-helper-dependencies.py`, and the full-gate
+  invocation with isolated install, dynamic helper smoke, dependency-tree
+  validation, and an online audit that requires zero findings at every
+  severity. The contract, validator, config, smoke, and read-only sources must
+  all remain Git-tracked.
+- The smoke test must keep executing the real `index.mjs` and
+  `read-design-system.mjs` against a throwing read-only Proxy and must prove
+  exact read calls, output shape, missing-env refusal, failure cleanup, and
+  disconnect. Static call scanning alone is not sufficient.
+- No authenticated Framer credentials exist in this repository. Before the
+  helper is used, complete its documented `npm ci --ignore-scripts`, smoke,
+  audit, and credentialed `read:design` checks; keep `.env`, `node_modules`,
+  and `design-system.json` untracked.
+- Round 96 is tooling-only and was not deployed or published. All protected
+  visual/runtime contracts and `gold-2026-07-21-responsive-70` remain
+  unchanged; the complete Phase 2 gate passes.

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "issue": "MMS-AUD-038",
+  "status": "tooling-only-pinned",
+  "helper_directory": "Framer/MM.S Framer API",
+  "node_engine_minimum": 22,
+  "packages": {
+    "framer-api": {
+      "version": "0.1.7",
+      "resolved": "https://registry.npmjs.org/framer-api/-/framer-api-0.1.7.tgz",
+      "integrity": "sha512-kMyARTKMt0hJX6Onn6KbuFMSQKWNh7Jw9L8IQm0OLbJjyeiVqy4Skt47xQYq7OV9XTShSDM3GGH9zRcZEcNKZw==",
+      "devalue_constraint": "^5.6.4"
+    },
+    "devalue": {
+      "version": "5.8.2",
+      "resolved": "https://registry.npmjs.org/devalue/-/devalue-5.8.2.tgz",
+      "integrity": "sha512-DObPPAfdtFbXjxLqK8s2Xk9ZuWz5+ZoFEhC7J76es4GU/rEiXwHTmbImoCdyoCOcBH1UF3+Cz6Z2sYD4hyl5TA==",
+      "advisory": "GHSA-77vg-94rm-hx3p",
+      "affected_range": ">=5.6.3 <=5.8.0"
+    }
+  },
+  "config_files": [
+    {
+      "path": "package.json",
+      "sha256": "300b075453c71998b9bfa0b372a382177405b6498eddf1490e9e4b5f40a40f9a"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "b27c6844fdf9075442678f4d98289953edaf40315782266ff9be0493a9f74e89"
+    },
+    {
+      "path": "dependency-smoke-test.mjs",
+      "sha256": "26e7e6527de6a8d705b87789314854fec596a39c67bd0d78289ec2ca79744c46"
+    }
+  ],
+  "read_only_sources": [
+    {
+      "path": "index.mjs",
+      "sha256": "8b85226bb5aa8ea3b7010b5b814e1bac437a25238d4e330b43e7cf49baa5ed6a",
+      "allowed_remote_calls": [
+        "getProjectInfo",
+        "disconnect"
+      ]
+    },
+    {
+      "path": "read-design-system.mjs",
+      "sha256": "b83a7cac34dda279e618d6e4e9aee3b85e2408e47ce9a86c515d03e823d8c230",
+      "allowed_remote_calls": [
+        "getColorStyles",
+        "getTextStyles",
+        "getProjectInfo",
+        "disconnect"
+      ]
+    }
+  ]
+}

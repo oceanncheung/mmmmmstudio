@@ -20,3 +20,15 @@ banners, artifact identity drift, or vendor payload removal/duplication.
 This is a tracked repository provenance and notice record. It does not claim
 that immutable Freight files uploaded before this record contain a new
 internal notice; that would require a separately versioned build and promotion.
+
+## Framer helper dependencies
+
+`framer-helper-dependencies.json` pins the private read-only Framer helper to
+reviewed package and lockfile identities outside `GHSA-77vg-94rm-hx3p`. The
+validator also hash-locks its config and smoke test, limits remote calls to the
+documented read methods plus `disconnect()`, and rejects floating versions,
+vulnerable serializer versions, or an unreviewed remote mutation. The online
+`npm run audit:dependencies` check remains required whenever this tool is used
+or its lockfile changes. Every contract input must also be Git-tracked so an
+untracked dirty-worktree substitute cannot pass and disappear from a fresh
+clone. The public MM.S site does not ship these packages.
