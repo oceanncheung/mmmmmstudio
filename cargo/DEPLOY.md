@@ -4360,3 +4360,29 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
 - No CSS, tokens, typography, layout geometry, media source, media dimensions,
   Figma content, Cargo draft, Freight asset, or public site was changed. This
   round was not deployed or published.
+
+## Round 84 (2026-07-21): clean-gold Home source recovery — PUBLISHED
+- Restored Home from the immutable `gold-2026-07-21-responsive-70` bodycopy
+  after Cargo had persisted runtime-mutated media state into the saved page:
+  eager-loading promotions, native video posters and live sources, iframe
+  sources, readiness markers, and hidden rivers.
+- Replaced the complete Home bodycopy through the required UTF-8-safe
+  `bodycopy.innerHTML` plus `InputEvent` workflow, saved with Cmd+S, reloaded
+  the editor, and verified persistence. Cargo Code View was not used.
+- The restored source is 125,651 bytes with SHA-256
+  `09555a6fe3ebaa54659057733d0f4bad4a5aaca7d9739f9853b7bfbfd3ff8c52`:
+  68/68 unique media IDs, 0 live video sources, 0 live iframe sources, 0
+  `data-mms-loaded`, 0 `data-motion-ready`, 0 native video poster attributes,
+  1 eager image, 37 lazy images, 0 hidden rivers, 30 `data-src` attributes,
+  and two `responsive-70` markers.
+- Cargo reported `Last Published today, 10:06pm`. A fresh public response
+  repeated the clean source contract: 68 media IDs, no live video or iframe
+  sources, no saved readiness markers or native video posters, 1 eager image,
+  37 lazy images, no hidden rivers, 30 `data-src` attributes, and two
+  `responsive-70` markers. The public server reserialized the bodycopy, so its
+  transport byte count is not used as the canonical hash.
+- Who, Write, global CSS, Custom HTML, Freight assets, Figma, and the protected
+  gold snapshot were unchanged. This recovery republishes the approved visual
+  gold only. Round 82 media ownership and Round 83 root-runtime teardown remain
+  merged GitHub remediation work and were not deployed by this restore. No
+  physical iPad claim is made until Ocean verifies the public site on-device.

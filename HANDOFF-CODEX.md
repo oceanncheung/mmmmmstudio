@@ -1233,3 +1233,27 @@ agent needs to continue this project without the prior chat history.
   manifest negative fixtures, and root replacement. Do not deploy this batch
   until separately authorized and physically verify the earlier autoplay
   ownership change on iPhone Safari before any eventual Cargo publication.
+
+## Current handoff — Round 84 clean-gold Home recovery (2026-07-21)
+- Round 83 is merged into `round-81/audit-baseline` through PR 6 (merge
+  `9814a97`; remediation commit `733877c`). The repository was clean and
+  tracking `origin/round-81/audit-baseline` before this documentation update.
+- Cargo Home was restored and published from the exact immutable
+  `cargo/gold/2026-07-21-responsive-70/home.html` bodycopy because
+  runtime-mutated media attributes had been saved into Cargo source. The
+  restore used UTF-8-safe `bodycopy.innerHTML` plus `InputEvent`, Cmd+S, editor
+  reload, and fresh persistence checks; never use Cargo Code View for complete
+  Home replacement.
+- Require 68 unique media IDs and two `responsive-70` markers in Home. In the
+  raw saved and published source require zero live video/iframe `src`, zero
+  `data-mms-loaded`/`data-motion-ready`, zero native video `poster`, zero
+  hidden rivers, 1 eager image, 37 lazy images, and 30 deferred `data-src`
+  attributes. Do not use the runtime-mutated live DOM for these source
+  assertions.
+- This is a source-purity recovery to the approved visual gold. It does not
+  deploy the Round 82 or Round 83 remediation deltas. Keep
+  `gold-2026-07-21-responsive-70` immutable; Round 69 and Round 80 remain
+  historical checkpoints only.
+- Next separate batches are a fail-closed source-purity preflight, the swatch
+  focus treatment, iPad Montran pointer-mode alignment, and durable Safari
+  poster readiness. Do not mix them with this recovery.
