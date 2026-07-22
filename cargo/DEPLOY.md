@@ -4485,3 +4485,40 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   Public Who retains two videos; Write retains four Withered Green body
   rotations with a static heading. The protected
   `gold-2026-07-21-responsive-70` snapshot was not changed.
+
+## Round 88 (2026-07-22): gold swatch border with Arrow-only focus frame — DRAFT ONLY
+- Ocean superseded Round 87's borderless-rest decision. Restored the protected
+  gold swatch artwork border exactly: every visible expanded and compact theme
+  dot again has a permanent 1px circular `var(--color-border)` stroke. The
+  existing fine-pointer hover halo remains unchanged.
+- Kept the dotted rectangular target outline separate from the artwork. It is
+  absent on initial/dialog focus, programmatic focus, Tab alone, pointer, and
+  touch. An unmodified Left/Right/Up/Down key while a theme swatch owns focus
+  enters Arrow-navigation mode, wraps focus within the five-dot palette, and
+  exposes the 1px dotted gold target outline with a 3px offset. The next
+  pointer or touch contact clears that transient mode.
+- Added the Arrow modality listener through the existing lifecycle owner, so
+  root replacement and teardown remove both listeners and the transient root
+  attribute. Target geometry, theme selection, panel persistence, layout,
+  typography, media, and saved preferences were not changed.
+- Reassembled Home, Who, and Write from the canonical shared runtime. Deployed
+  the complete four-region CSS while preserving Cargo's head and all three
+  managed font blocks. Reloaded CSS is exactly 86,758 UTF-8 bytes, SHA-256
+  `95c35fff5d9ec49bd3ea2f4c0878794918ad087b377c079bf3ac5de68075be4c`,
+  and passes the complete persisted-CSS residue contract.
+- Replaced all three bodycopies through UTF-8-safe direct `innerHTML` plus
+  `InputEvent`, saved with Cmd+S, and reload-verified. Home retains 68/68
+  unique media IDs and zero page overflow; Who retains two deferred videos;
+  Write retains exactly four Withered Green `eye-roll` body spans and no
+  rotating heading. Every page contains the shared Arrow runtime and computes
+  the 1px gold circle with no initial target outline.
+- The focused compact/expanded five-theme browser test now proves initial,
+  hover, pointer, quiet-focus, Arrow-wrap, and pointer-reset states. Canonical
+  assembly and the complete Phase 2 gate pass: 122/122 frozen hashes, both
+  240-state gold matrices, media ownership, root teardown, source purity,
+  native rivers, and all 30 destructive deployment fixtures.
+- Cargo's contenteditable editor reclaims inner focus after a simulated Arrow
+  press, so the Arrow frame is proven in the standalone browser contract and
+  must be rechecked on the non-editing site after a later authorized publish.
+  This round is saved in the Cargo draft only. It was not published, and
+  `gold-2026-07-21-responsive-70` was not edited.

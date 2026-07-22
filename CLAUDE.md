@@ -2323,3 +2323,26 @@ current source of truth for the built site.
   paragraphs and a static heading. The complete Phase 2 gate passes.
 - The sole current gold is still `gold-2026-07-21-responsive-70`; it was not
   edited. Keep the next iPad/Safari media-readiness remediation separate.
+
+## Current state — Round 88 gold swatch border with Arrow-only focus frame
+- Round 88 is deployed to the Cargo draft and reload-verified; it is not
+  published. The swatch artwork again has the protected gold's permanent 1px
+  circular border in expanded and compact modes, with the existing fine-pointer
+  hover halo unchanged.
+- Keep the dotted target outline suppressed for load/autofocus, Tab-only and
+  programmatic focus, pointer, and touch. Only an unmodified Arrow key on a
+  focused swatch may set `data-mms-swatch-nav="arrow"`, move focus to the
+  adjacent wrapping swatch, and expose the 1px dotted outline at 3px offset.
+  Pointer/touch clears that mode. Do not restore Round 86's solid circular
+  keyboard halo.
+- The Arrow listener and transient attribute belong to the shared panel
+  lifecycle. Any future panel-runtime edit must reassemble and deploy Home,
+  Who, and Write together.
+- Reloaded Cargo CSS is exactly 86,758 UTF-8 bytes, SHA-256
+  `95c35fff5d9ec49bd3ea2f4c0878794918ad087b377c079bf3ac5de68075be4c`,
+  with Cargo's head and all three managed font blocks preserved. Home, Who,
+  and Write are reload-verified with their protected media and Withered Green
+  contracts intact and zero page-level horizontal overflow.
+- The focused compact/expanded test, canonical assembly, and complete Phase 2
+  gate pass. The public site still serves Round 87 until Ocean explicitly
+  authorizes a publish. `gold-2026-07-21-responsive-70` remains immutable.

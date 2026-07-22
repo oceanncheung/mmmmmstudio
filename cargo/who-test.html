@@ -653,7 +653,7 @@ dialog.mms-panel:not([open]) { display: none; }
 .mms-dot::before {
   content: ""; position: absolute; top: 50%; left: 50%;
   width: calc(20 * var(--panel-control-u)); height: calc(20 * var(--panel-control-u));
-  transform: translate(-50%, -50%); border: 0;
+  transform: translate(-50%, -50%); border: 1px solid var(--color-border);
   border-radius: 50%; background: var(--dot-bg);
 }
 /* selected indicator = a small CENTER CIRCLE (radio-button semantics, per
@@ -764,15 +764,21 @@ dialog.mms-panel:not([open]) { display: none; }
   outline-offset: 3px;
 }
 
-/* Never outline the transparent swatch interaction box. Ocean wants this
-   control to show a ring only while a fine pointer is actually hovering it;
-   load, keyboard focus, touch, and pointer release all remain ring-free. */
+/* The gold swatch artwork keeps its permanent circular border. The separate
+   dotted target outline stays hidden until the visitor uses an Arrow key to
+   move between swatches; initial/dialog focus, Tab alone, pointer, and touch
+   must not expose it. */
 .mms .mms-dot:focus,
 .mms .mms-dot:focus-visible,
 dialog.mms-panel .mms-dot:focus,
 dialog.mms-panel .mms-dot:focus-visible {
   outline: none !important;
   outline-offset: 0 !important;
+}
+html[data-mms-swatch-nav="arrow"] .mms .mms-dot:focus,
+html[data-mms-swatch-nav="arrow"] dialog.mms-panel .mms-dot:focus {
+  outline: 1px dotted var(--color-border) !important;
+  outline-offset: 3px !important;
 }
 
 /* ---------- Round 15 (2026-07-11) ---------- */
@@ -1176,7 +1182,7 @@ html[data-render-preview] .mms-frame { transition: none !important; }
     content: ""; position: absolute; inset: auto;
     top: 50%; left: 50%; width: 24px; height: 24px;
     transform: translate(-50%, -50%);
-    border: 0; border-radius: 50%;
+    border: 1px solid var(--color-border); border-radius: 50%;
     background: var(--dot-bg);
   }
   /* Five visible 24px dots distribute across the complete palette span.
@@ -2605,6 +2611,40 @@ html[data-render-preview] .mms-frame { transition: none !important; }
     !/Chrome|Chromium|CriOS|Edg|EdgiOS|OPR|FxiOS|Firefox/.test(userAgent);
   var earlyPreview = window.__mmsRenderPreview || null;
   var renderPreviewStop = null;
+  var SWATCH_NAV_ATTRIBUTE = 'data-mms-swatch-nav';
+  root.removeAttribute(SWATCH_NAV_ATTRIBUTE);
+  runtime.cleanup(function () { root.removeAttribute(SWATCH_NAV_ATTRIBUTE); });
+
+  /* A swatch receives the dotted gold focus frame only after deliberate
+     Arrow-key navigation within the palette. Tab/programmatic focus alone is
+     quiet, and the next mouse, pen, or touch contact returns to pointer mode. */
+  runtime.on(document, 'keydown', function (event) {
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.isComposing) return;
+    var direction = {
+      ArrowLeft: -1,
+      ArrowUp: -1,
+      ArrowRight: 1,
+      ArrowDown: 1
+    }[event.key];
+    if (!direction) return;
+    var active = document.activeElement;
+    if (!active || !active.classList || !active.classList.contains('mms-dot')) return;
+    var row = active.closest('.row.dots');
+    if (!row) return;
+    var swatches = Array.prototype.slice.call(row.querySelectorAll('.mms-dot'));
+    var index = swatches.indexOf(active);
+    if (index < 0 || swatches.length < 2) return;
+    event.preventDefault();
+    root.setAttribute(SWATCH_NAV_ATTRIBUTE, 'arrow');
+    var next = swatches[(index + direction + swatches.length) % swatches.length];
+    try { next.focus({ preventScroll: true }); } catch (e) { next.focus(); }
+  }, true);
+  runtime.on(document, 'pointerdown', function () {
+    root.removeAttribute(SWATCH_NAV_ATTRIBUTE);
+  }, true);
+  runtime.on(document, 'touchstart', function () {
+    root.removeAttribute(SWATCH_NAV_ATTRIBUTE);
+  }, { capture: true, passive: true });
   function ensureFullBleedViewport() {
     var viewport = document.querySelector('meta[name="viewport"]');
     if (!viewport) {

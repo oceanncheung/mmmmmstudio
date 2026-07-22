@@ -745,6 +745,40 @@
     !/Chrome|Chromium|CriOS|Edg|EdgiOS|OPR|FxiOS|Firefox/.test(userAgent);
   var earlyPreview = window.__mmsRenderPreview || null;
   var renderPreviewStop = null;
+  var SWATCH_NAV_ATTRIBUTE = 'data-mms-swatch-nav';
+  root.removeAttribute(SWATCH_NAV_ATTRIBUTE);
+  runtime.cleanup(function () { root.removeAttribute(SWATCH_NAV_ATTRIBUTE); });
+
+  /* A swatch receives the dotted gold focus frame only after deliberate
+     Arrow-key navigation within the palette. Tab/programmatic focus alone is
+     quiet, and the next mouse, pen, or touch contact returns to pointer mode. */
+  runtime.on(document, 'keydown', function (event) {
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.isComposing) return;
+    var direction = {
+      ArrowLeft: -1,
+      ArrowUp: -1,
+      ArrowRight: 1,
+      ArrowDown: 1
+    }[event.key];
+    if (!direction) return;
+    var active = document.activeElement;
+    if (!active || !active.classList || !active.classList.contains('mms-dot')) return;
+    var row = active.closest('.row.dots');
+    if (!row) return;
+    var swatches = Array.prototype.slice.call(row.querySelectorAll('.mms-dot'));
+    var index = swatches.indexOf(active);
+    if (index < 0 || swatches.length < 2) return;
+    event.preventDefault();
+    root.setAttribute(SWATCH_NAV_ATTRIBUTE, 'arrow');
+    var next = swatches[(index + direction + swatches.length) % swatches.length];
+    try { next.focus({ preventScroll: true }); } catch (e) { next.focus(); }
+  }, true);
+  runtime.on(document, 'pointerdown', function () {
+    root.removeAttribute(SWATCH_NAV_ATTRIBUTE);
+  }, true);
+  runtime.on(document, 'touchstart', function () {
+    root.removeAttribute(SWATCH_NAV_ATTRIBUTE);
+  }, { capture: true, passive: true });
   function ensureFullBleedViewport() {
     var viewport = document.querySelector('meta[name="viewport"]');
     if (!viewport) {

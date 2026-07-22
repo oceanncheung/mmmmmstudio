@@ -1325,3 +1325,30 @@ agent needs to continue this project without the prior chat history.
 - The full Phase 2 gate passes. The sole current gold remains
   `gold-2026-07-21-responsive-70` and was not edited. The next separate
   remediation remains the iPad/Safari media-readiness batch.
+
+## Current handoff — Round 88 gold swatch border with Arrow-only focus frame (2026-07-22)
+- Round 88 is saved and reload-verified in the Cargo draft but is not
+  published. It supersedes Round 87's borderless-rest decision: expanded and
+  compact theme dots again use the protected gold's permanent 1px circular
+  artwork border. Fine-pointer hover still adds the existing outer halo.
+- The dotted rectangular target frame is quiet on load, dialog autofocus,
+  programmatic focus, Tab alone, pointer, and touch. It appears only after an
+  unmodified Arrow key moves focus within the five swatches, wraps at the row
+  ends, and is cleared by the next pointer/touch contact. Do not restore Round
+  86's solid two-layer circular keyboard halo.
+- The transient `data-mms-swatch-nav="arrow"` state and document listeners are
+  owned by the shared panel lifecycle and are removed during teardown. Home,
+  Who, and Write were rebuilt from that one shared runtime and deployed through
+  the UTF-8-safe direct bodycopy/InputEvent workflow.
+- Reloaded Cargo CSS is 86,758 UTF-8 bytes, SHA-256
+  `95c35fff5d9ec49bd3ea2f4c0878794918ad087b377c079bf3ac5de68075be4c`,
+  with the Cargo head, all three managed font regions, one token region, and
+  one layout region preserved. Home has 68/68 unique media IDs and zero
+  overflow; Who retains two videos; Write retains four rotating Withered
+  Green body spans and a static heading.
+- The focused browser test, canonical assembly, and complete Phase 2 gate pass.
+  The editor's contenteditable shell cannot retain inner swatch focus after a
+  simulated Arrow press, so repeat that one visual interaction on the public
+  non-editing page only after Ocean explicitly authorizes publication.
+- The sole current gold remains `gold-2026-07-21-responsive-70` and is
+  unchanged. Keep the separate iPad/Safari media-readiness remediation next.
