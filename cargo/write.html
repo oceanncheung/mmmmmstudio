@@ -862,8 +862,13 @@
   // radio groups
   ['theme', 'face', 'shape'].forEach(function (axis) {
     document.querySelectorAll('[data-' + axis + '-set]').forEach(function (b) {
-      runtime.on(b, 'click', function () {
+      runtime.on(b, 'click', function (event) {
         apply(axis, b.getAttribute('data-' + axis + '-set'), true);
+        if (axis === 'theme' && event.detail > 0) {
+          runtime.timeout(function () {
+            if (document.activeElement === b) b.blur();
+          }, 0);
+        }
       });
     });
   });

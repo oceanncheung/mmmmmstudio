@@ -1276,3 +1276,31 @@ agent needs to continue this project without the prior chat history.
 - Canonical assembly and the complete Phase 2 gate pass. This batch is
   validation-only and is not a Cargo deployment. The next independent visual
   batch is the color-swatch focus treatment.
+
+## Current handoff — Round 86 circular swatch focus treatment (2026-07-21)
+- Round 86 is published on Home, Who, and Write. Theme swatches never use the
+  dotted rectangular browser/Cargo focus box. Pointer and touch selection blur
+  after applying the theme and leave the non-modal panel open; keyboard
+  activation retains focus with a solid circular ring made from page color and
+  theme ink.
+- Keep the swatch interaction box geometry unchanged. Compact still uses the
+  transparent distributed target cell and expanded fine-pointer mode still
+  uses the optical dot size. The focus ring belongs to `.mms-dot::before`, not
+  the transparent button box.
+- The complete persisted CSS is 86,761 UTF-8 bytes with SHA-256
+  `77583f41c978f9dcae0549502b38e441e6b1243becb21f478437f3d0db620fa6`.
+  It retains the Cargo head, all three managed font blocks, one token region,
+  one layout region, and balanced 505/505 braces.
+- Home, Who, and Write were replaced through the direct UTF-8-safe bodycopy plus
+  descendant InputEvent workflow and reload-verified. Never use Cargo Code View
+  `Update` for complete page replacement; opening the view reads an activated
+  runtime DOM and is not valid saved-source purity evidence.
+- The focused swatch contract, canonical assembly, and complete Phase 2 gate
+  pass. Public verification found zero page overflow, 13 Home rivers, 12
+  scrubbers, pointer focus released with the panel open, and a keyboard-only
+  circular ring. Write still has four rotating Withered Green paragraphs and a
+  static heading. The sole current gold remains
+  `gold-2026-07-21-responsive-70` and was not changed.
+- The next separate remediation is the iPad/Safari media batch: Touchbaes second
+  asset readiness, Montran coarse-pointer interaction, and durable poster/load
+  behavior. Do not mix it into the completed swatch round.

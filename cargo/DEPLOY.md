@@ -4411,3 +4411,46 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   replacement, shared components, and native river movement. No Cargo editor,
   Freight asset, Figma node, public source, visual geometry, or interaction was
   changed or published in this round.
+
+## Round 86 (2026-07-21): circular swatch focus treatment — PUBLISHED
+- Removed the browser/Cargo dotted rectangular focus frame from every theme
+  swatch, including the compact panel after its dialog is portaled to the
+  document body. Pointer and touch selection now release focus after applying
+  the theme, while keyboard activation retains focus and exposes a solid,
+  theme-aware circular ring around the swatch artwork.
+- Added a dedicated compact/expanded browser contract covering all five themes.
+  It proves that pointer activation leaves the control panel open, keyboard
+  focus has no rectangular outline, the circular ring remains visible in every
+  palette, control geometry does not move, and page overflow stays zero. The
+  focused test runs inside the complete Phase 2 gate; incidental focus is
+  cleared only before the separate latest-gold screenshot comparison.
+- Reassembled the complete Home, Who, and Write bodycopy from canonical shared
+  sources. Deployed the complete four-region CSS document while preserving the
+  Cargo head and all three Cargo-managed font blocks. Reloaded CSS readback is
+  86,761 UTF-8 bytes, SHA-256
+  `77583f41c978f9dcae0549502b38e441e6b1243becb21f478437f3d0db620fa6`,
+  with one token marker, one layout marker, one of each managed font class, and
+  balanced 505/505 braces.
+- Replaced Home, Who, and Write through direct UTF-8-safe bodycopy assignment
+  plus descendant `beforeinput`/`input`/`change` events, saved with Cmd+S, and
+  reloaded each editor. Home retains the complete current payload; Who retains
+  its two videos; Write retains zero media, exactly four Withered Green body
+  rotations, and a static heading. Each page contains two `responsive-70`
+  markers and the new pointer-focus runtime.
+- Cargo compact proof at 628px found a 44px-high transparent swatch target,
+  pointer focus released, the non-modal panel still open, and zero page
+  overflow. Expanded proof found 12 scrubbers and zero overflow. Direct
+  keyboard focus on the deployed CSS computed `outline-style:none` and the
+  intended 2px page-color plus 3px ink circular ring.
+- `npm --prefix audit/harness run swatch-focus-test`,
+  `bash cargo/assemble-test.sh canonical`, and the complete
+  `bash audit/scripts/validate-phase2.sh` gate pass, including 122/122 frozen
+  hashes, both 240-state latest-gold matrices, media ownership, root teardown,
+  source purity, native river movement, and all 30 negative deployment
+  fixtures.
+- Published at 12:52am EDT. Independent public Home, Who, and Write checks find
+  the new runtime twice, the pointer swatch unfocused with the panel still open,
+  the solid circular keyboard ring, 13 native Home rivers, 12 desktop
+  scrubbers, zero page-level overflow, and the protected four/static Withered
+  Green contract. No media source, media geometry, layout, typography, Figma,
+  Freight asset, or `gold-2026-07-21-responsive-70` file changed.
