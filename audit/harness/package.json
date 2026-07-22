@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Read-only browser audit harness for the MM.S Round 80 baseline",
+  "description": "Read-only MM.S audit harness using frozen Round 80 evidence and the latest responsive-70 gold parity target",
   "scripts": {
     "audit": "node src/cli.mjs",
     "gold-parity-test": "node src/gold-parity-test.mjs",
@@ -11,7 +11,8 @@
     "media-owner-test": "node src/media-playback-owner-test.mjs",
     "validate": "node src/cli.mjs --validate-config",
     "schema-test": "node src/schema-self-test.mjs",
-    "self-test": "npm run schema-test && node src/self-test.mjs"
+    "self-test": "npm run schema-test && node src/self-test.mjs",
+    "runtime-root-test": "node src/runtime-root-replacement-test.mjs"
   },
   "engines": {
     "node": ">=22"

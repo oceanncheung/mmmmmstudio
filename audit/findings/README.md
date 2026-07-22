@@ -25,7 +25,9 @@ Machine-readable supporting records are stored in `evidence/`. Ignored browser r
 
 ## Protected behavior
 
-- Round 69 gold remains the rollback reference and is never modified.
+- `gold-2026-07-21-responsive-70` is the current preservation and parity
+  reference. Round 69 and Round 80 remain immutable historical references and
+  are never rewritten.
 - WTW `wtw-02` remains square at the current approved 504×504 desktop endpoint.
 - Withered Green keeps exactly four Cargo-native `eye-roll` hooks, one around each direct body paragraph; its heading remains static.
 - Native horizontal rivers remain free of wheel interception, forced stepping, snapping, or animated correction.

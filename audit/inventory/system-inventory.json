@@ -1439,6 +1439,7 @@
   ],
   "operations": {
     "backup_and_rollback": [
+      "current gold-2026-07-21-responsive-70 Git reference and cargo/gold/2026-07-21-responsive-70",
       "protected round-69-gold Git reference and cargo/gold/round-69",
       "round-80-stable Git reference and docs/versioning/ROUND-80-STABLE.md",
       "docs/audits/2026-07-20T175853-0400-round-80",

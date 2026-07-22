@@ -1,4 +1,4 @@
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -11,6 +11,7 @@ const CANDIDATE_ROOT = path.join(REPO_ROOT, "cargo");
 const GOLD_ROOT = process.env.MMS_GOLD_ROOT
   ? path.resolve(process.env.MMS_GOLD_ROOT)
   : path.join(CANDIDATE_ROOT, "gold/2026-07-21-responsive-70");
+const APPROVED_GOLD_ID = "gold-2026-07-21-responsive-70";
 const VIEWPORTS = [
   { width: 390, height: 844, name: "compact" },
   { width: 1440, height: 900, name: "expanded" },
@@ -36,6 +37,19 @@ const STYLE_PROPERTIES = [
 
 function stable(value) {
   return JSON.stringify(value);
+}
+
+function assertCurrentGold(root, label) {
+  const manifestPath = path.join(root, "deployment-manifest.json");
+  if (!existsSync(manifestPath)) {
+    throw new Error(`${label} must contain deployment-manifest.json`);
+  }
+  const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+  if (manifest.approved_baseline !== APPROVED_GOLD_ID) {
+    throw new Error(
+      `${label} must identify ${APPROVED_GOLD_ID}; found ${manifest.approved_baseline}`,
+    );
+  }
 }
 
 async function settle(page) {
@@ -147,6 +161,8 @@ async function interactionSnapshot(page, compact) {
   return { panel, river };
 }
 
+assertCurrentGold(GOLD_ROOT, "gold fixture");
+assertCurrentGold(CANDIDATE_ROOT, "candidate Cargo source");
 const goldServer = await startStaticServer(GOLD_ROOT);
 const candidateServer = await startStaticServer(CANDIDATE_ROOT);
 const macChrome = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";

@@ -38,13 +38,16 @@ for source_name, source in sources:
             )
 
 required = {
-    "deferred-media initializer": "function startDeferredMedia()",
-    "observer-owned activation": "function setMediaActive(element, active)",
-    "near-media observer": "var mediaObserver = new IntersectionObserver",
-    "bounded resume selector": '.mms video[data-mms-loaded="1"]',
+    "deferred-media initializer": r"function\s+startDeferredMedia\s*\(\s*\)",
+    "observer-owned activation": r"function\s+setMediaActive\s*\(\s*element\s*,\s*active\s*\)",
+    "near-media observer": (
+        r"var\s+mediaObserver\s*=\s*runtime\.observe\s*\(\s*"
+        r"new\s+IntersectionObserver\s*\(\s*runtime\.guard\s*\("
+    ),
+    "bounded resume selector": r"\.mms video\[data-mms-loaded=[\"']1[\"']\]",
 }
-for label, signature in required.items():
-    if signature not in PANEL:
+for label, pattern in required.items():
+    if not re.search(pattern, PANEL):
         raise SystemExit(f"media playback ownership: FAIL ({label} missing)")
 
 print("Media playback ownership: PASS (observer is the sole Home video owner)")

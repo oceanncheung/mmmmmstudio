@@ -1,28 +1,58 @@
 <style>#mms-tw-rig{position:absolute;left:0;top:0;width:285px;z-index:20;pointer-events:none;display:none;}#mms-tw-rig .tweezer-back,#mms-tw-rig .tweezer-front{position:absolute;left:0;top:0;width:100%;pointer-events:none;transform:translate(-4%,-4%) scale(.98);transform-origin:5% 5%;}#mms-tw-rig .tweezer-back{z-index:1;}#mms-tw-rig .drag-sticker{position:absolute;left:0;top:0;z-index:3;pointer-events:none;opacity:.99;transform:translate(var(--drag-offset-x,calc(-100% + 18px)),var(--drag-offset-y,calc(-100% + 15px))) rotate(var(--drag-r,0deg)) scale(1.06);transform-origin:var(--drag-origin-x,calc(100% - 18px)) var(--drag-origin-y,calc(100% - 15px));}#mms-tw-rig .tweezer-front{z-index:6;}#mms-tw-rig img[hidden]{display:none;}</style><div id="mms-tw-rig"></div><script>/* mms-tweezer-overlay v3 — desktop escaped rig + compact iframe sizing */
 (function () {
-  if (window.__mmsTwOverlayV3) return;
+  var registry = window.__mmsRuntimeLifecycle;
+  var currentMms = document.querySelector('.mms');
+  var OWNER_VERSION = 'tweezer-v3/root-lifecycle-1';
+  if (!registry || registry.apiVersion !== 1 || !currentMms) return;
+  registry.teardownStale(currentMms);
+  var previousOwner = registry.owners.home;
+  var currentRig = currentMms.querySelector('#mms-tw-rig');
+  var currentFrame = currentMms.querySelector('iframe.mms-game');
+  var currentRiver = currentFrame && currentFrame.closest('.mms-river');
+  if (previousOwner && previousOwner.root === currentMms &&
+      previousOwner.version === OWNER_VERSION && previousOwner.active() &&
+      previousOwner.rig === currentRig && previousOwner.frame === currentFrame &&
+      previousOwner.river === currentRiver && currentRig && currentRig.isConnected &&
+      currentFrame && currentFrame.isConnected && currentRiver && currentRiver.isConnected) {
+    if (currentRig) {
+      document.querySelectorAll('#mms-tw-rig').forEach(function (candidate) {
+        if (candidate !== currentRig) candidate.remove();
+      });
+    }
+    window.__mmsTwOverlayV3 = 1;
+    return;
+  }
+  if (previousOwner && typeof previousOwner.teardown === 'function') previousOwner.teardown();
+  var runtime = registry.create('home', currentMms, OWNER_VERSION);
+  registry.replace('home', runtime);
   window.__mmsTwOverlayV3 = 1;
+  var ownedRig = currentRig;
+  var frame = currentFrame;
+  var river = currentRiver;
+  runtime.rig = ownedRig;
+  runtime.frame = frame;
+  runtime.river = river;
 
-  function rig() { return document.getElementById('mms-tw-rig'); }
+  function rig() {
+    return ownedRig;
+  }
   function mountRig() {
     var node = rig();
-    var shell = document.querySelector('.mms');
-    if (node && shell && node.parentNode !== shell) shell.appendChild(node);
+    if (node && node.parentNode !== currentMms) currentMms.appendChild(node);
     return node;
   }
-  function gameFrame() { return document.querySelector('iframe.mms-game'); }
+  function gameFrame() { return frame; }
   function compact() { return window.matchMedia('(max-width: 1023px)').matches; }
   function hideRig() {
     var node = rig();
     if (node) node.style.display = 'none';
   }
   mountRig();
-  var frame = gameFrame();
-  var river = frame && frame.closest('.mms-river');
-  var riverScrollBound = false;
+  var removeRiverScroll = null;
   var desktopHeight = frame ? frame.style.height : '';
   var restMsg = null;
   var scheduled = false;
+  var scheduledFrame = 0;
   var lastCompactMode = null;
   var lastGameHeight = 0;
   var lastGameWidth = 0;
@@ -30,8 +60,7 @@
   var EASE = 'left .45s cubic-bezier(.22,.61,.36,1), top .45s cubic-bezier(.22,.61,.36,1)';
 
   function syncCompactGeometry(force) {
-    var shell = document.querySelector('.mms');
-    if (!shell || !compact()) return;
+    if (!compact()) return;
     var viewportWidth = Math.round(window.innerWidth);
     var width = Math.round(Math.min(viewportWidth, (viewportWidth * 0.98) + 5));
     if (!force && width === lastGameWidth) return;
@@ -44,8 +73,8 @@
     /* Match the child's integer-pixel envelope. Ceil made the placeholder
        frame one pixel taller than the live game at common phone widths. */
     var fallbackHeight = Math.round(24 + ((width - left - right) * 1752 / 1586) + bottom);
-    shell.style.setProperty('--mobile-game-px-width', width + 'px');
-    shell.style.setProperty('--mobile-game-px-height', fallbackHeight + 'px');
+    currentMms.style.setProperty('--mobile-game-px-width', width + 'px');
+    currentMms.style.setProperty('--mobile-game-px-height', fallbackHeight + 'px');
   }
 
   function place(data, animate) {
@@ -94,8 +123,7 @@
     lastGameHeight = stableHeight;
     gameHeightLocked = true;
     iframe.dataset.gameMeasured = 'true';
-    var shell = document.querySelector('.mms');
-    if (shell) shell.style.setProperty('--mobile-game-px-height', stableHeight + 'px');
+    currentMms.style.setProperty('--mobile-game-px-height', stableHeight + 'px');
     iframe.style.setProperty('height', stableHeight + 'px', 'important');
   }
 
@@ -120,7 +148,7 @@
     }
   }
 
-  window.addEventListener('message', function (event) {
+  runtime.on(window, 'message', function (event) {
     var iframe = gameFrame();
     if (!iframe || event.source !== iframe.contentWindow) return;
     var expectedOrigin = '';
@@ -149,28 +177,57 @@
 
   function reposition() {
     scheduled = false;
+    scheduledFrame = 0;
     if (!compact() && restMsg) place(restMsg, false);
   }
   function schedule() {
     if (compact()) return;
     if (scheduled) return;
     scheduled = true;
-    window.requestAnimationFrame(reposition);
+    scheduledFrame = runtime.raf(reposition);
   }
   function syncRiverListener() {
     if (!river) return;
     var shouldBind = !compact();
-    if (shouldBind === riverScrollBound) return;
-    riverScrollBound = shouldBind;
-    if (shouldBind) river.addEventListener('scroll', schedule, { passive: true });
-    else river.removeEventListener('scroll', schedule);
+    if (shouldBind && !removeRiverScroll) {
+      removeRiverScroll = runtime.on(river, 'scroll', schedule, { passive: true });
+    } else if (!shouldBind && removeRiverScroll) {
+      removeRiverScroll();
+      removeRiverScroll = null;
+    }
   }
-  if (frame) frame.addEventListener('load', function () { syncMode(true); });
-  window.addEventListener('resize', function () {
+  if (frame) runtime.on(frame, 'load', function () { syncMode(true); });
+  runtime.on(window, 'resize', function () {
     syncCompactGeometry(false);
     syncMode(false);
     syncRiverListener();
     schedule();
+  });
+  runtime.cleanup(function () {
+    if (removeRiverScroll) {
+      removeRiverScroll();
+      removeRiverScroll = null;
+    }
+    if (scheduledFrame) runtime.cancelRaf(scheduledFrame);
+    scheduledFrame = 0;
+    scheduled = false;
+    restMsg = null;
+    currentMms.style.removeProperty('--mobile-game-px-width');
+    currentMms.style.removeProperty('--mobile-game-px-height');
+    if (frame) {
+      delete frame.dataset.gameMeasured;
+      frame.style.removeProperty('height');
+      if (desktopHeight) frame.style.setProperty('height', desktopHeight);
+    }
+    var node = rig();
+    if (node) {
+      node.style.display = 'none';
+      node.style.transition = 'none';
+      node.innerHTML = '';
+    }
+    if (registry.owners.home === runtime && window.__mmsTwOverlayV3 === 1) {
+      delete window.__mmsTwOverlayV3;
+    }
   });
   syncRiverListener();
   syncMode(true);

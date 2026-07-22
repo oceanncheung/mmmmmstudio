@@ -4326,3 +4326,37 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   this delta is deployed to Cargo.
 - No Cargo editor, Freight asset, Figma node, or public site was changed or
   published. `MMS-AUD-029` root teardown remains the next separate batch.
+
+## Round 83 (2026-07-21): root-runtime teardown and latest-gold enforcement — LOCAL/GITHUB ONLY
+- Remediated `MMS-AUD-029` without changing the approved visible site. The
+  shared panel runtime and Home tweezer runtime now register every root-scoped
+  listener, timer, interval, animation frame, media-query listener, and
+  observer with an explicit lifecycle owner. Replacing `.mms` tears down the
+  stale owner idempotently before the new root is initialized.
+- Teardown also removes generated scrubbers, hides and empties the rig owned by
+  the stale root, restores the portaled control panel safely, releases pointer
+  capture, pauses stale-root
+  media, clears root-only measured variables, and leaves saved visitor theme,
+  typeface, scale, and shape preferences unchanged.
+- Added a fail-closed static validator and a browser replacement probe. Compact
+  and expanded tests each perform the initial load, three complete root
+  replacements, and one same-root child rehydration that replaces the dialog
+  and Touchbaes river/iframe. They prove exactly one active panel owner, one
+  active Home owner, exact rebinding to current elements, zero stale element
+  listeners, stable resources, zero JavaScript errors, no layout drift above
+  1px, and zero page-level horizontal overflow. Expanded mode also retains 12
+  scrubbers and native river movement from 0 to 360px with no correction after
+  settling.
+- Ocean clarified that `gold-2026-07-21-responsive-70` is the sole current
+  preservation, parity, and rollback target. Round 69 and Round 80 remain
+  immutable historical evidence only. Active documentation now says so, the
+  browser parity test pins that baseline identifier, and the deployment
+  validator rejects a manifest that attempts to name Round 80 as current gold.
+- `cargo/assemble-test.sh canonical` and the complete
+  `audit/scripts/validate-phase2.sh` gate pass. Latest-gold compact and expanded
+  parity each pass 240 theme/face/scale/shape states, exact masked screenshots,
+  control interactions, and native rivers. The frozen Phase 1 inventory remains
+  122/122 hash-valid.
+- No CSS, tokens, typography, layout geometry, media source, media dimensions,
+  Figma content, Cargo draft, Freight asset, or public site was changed. This
+  round was not deployed or published.

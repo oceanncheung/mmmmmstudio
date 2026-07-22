@@ -522,8 +522,225 @@
 <script>/* mm.s control panel — sets data-* axes on <html>; persists; live clock;
    mobile control sheet toggle. 2026-07-06 r2 */
 (function () {
+  var PANEL_MARKER = 'responsive-70';
+  var PANEL_OWNER_VERSION = 'responsive-70/root-lifecycle-1';
+
+  function ensureRuntimeLifecycle() {
+    var existing = window.__mmsRuntimeLifecycle;
+    if (existing && existing.apiVersion === 1 && existing.owners &&
+        typeof existing.create === 'function' &&
+        typeof existing.replace === 'function' &&
+        typeof existing.teardownStale === 'function') {
+      return existing;
+    }
+    if (existing && existing.owners) {
+      Object.keys(existing.owners).forEach(function (name) {
+        var owner = existing.owners[name];
+        if (owner && typeof owner.teardown === 'function') {
+          try { owner.teardown(); } catch (e) {}
+        }
+      });
+    }
+
+    var registry = {
+      apiVersion: 1,
+      owners: Object.create(null)
+    };
+
+    registry.create = function (name, ownerRoot, version) {
+      var disposed = false;
+      var removers = [];
+      var cleanups = [];
+      var timers = new Set();
+      var intervals = new Set();
+      var frames = new Set();
+      var observers = new Set();
+      var owner = {
+        name: name,
+        root: ownerRoot,
+        version: version
+      };
+
+      owner.active = function () {
+        return !disposed && document.querySelector('.mms') === ownerRoot;
+      };
+      owner.guard = function (callback) {
+        return function () {
+          if (!owner.active()) return;
+          return callback.apply(this, arguments);
+        };
+      };
+      owner.on = function (target, type, callback, options) {
+        if (!target || typeof target.addEventListener !== 'function') return function () {};
+        var guarded = owner.guard(callback);
+        var capture = typeof options === 'boolean' ? options : Boolean(options && options.capture);
+        var removed = false;
+        target.addEventListener(type, guarded, options);
+        var off = function () {
+          if (removed) return;
+          removed = true;
+          target.removeEventListener(type, guarded, capture);
+        };
+        removers.push(off);
+        return off;
+      };
+      owner.onMql = function (query, callback) {
+        if (!query) return function () {};
+        var guarded = owner.guard(callback);
+        var removed = false;
+        if (typeof query.addEventListener === 'function') query.addEventListener('change', guarded);
+        else if (typeof query.addListener === 'function') query.addListener(guarded);
+        else return function () {};
+        var off = function () {
+          if (removed) return;
+          removed = true;
+          if (typeof query.removeEventListener === 'function') query.removeEventListener('change', guarded);
+          else if (typeof query.removeListener === 'function') query.removeListener(guarded);
+        };
+        removers.push(off);
+        return off;
+      };
+      owner.timeout = function (callback, delay) {
+        var id = window.setTimeout(function () {
+          timers.delete(id);
+          if (owner.active()) callback();
+        }, delay);
+        timers.add(id);
+        return id;
+      };
+      owner.clearTimeout = function (id) {
+        if (!id) return;
+        window.clearTimeout(id);
+        timers.delete(id);
+      };
+      owner.interval = function (callback, delay) {
+        var guarded = owner.guard(callback);
+        var id = window.setInterval(guarded, delay);
+        intervals.add(id);
+        return id;
+      };
+      owner.raf = function (callback) {
+        var id = window.requestAnimationFrame(function (time) {
+          frames.delete(id);
+          if (owner.active()) callback(time);
+        });
+        frames.add(id);
+        return id;
+      };
+      owner.cancelRaf = function (id) {
+        if (!id) return;
+        window.cancelAnimationFrame(id);
+        frames.delete(id);
+      };
+      owner.observe = function (observer) {
+        if (observer && typeof observer.disconnect === 'function') observers.add(observer);
+        return observer;
+      };
+      owner.cleanup = function (callback) {
+        if (typeof callback === 'function') cleanups.push(callback);
+        return callback;
+      };
+      owner.teardown = function () {
+        if (disposed) return;
+        disposed = true;
+        removers.splice(0).reverse().forEach(function (remove) {
+          try { remove(); } catch (e) {}
+        });
+        timers.forEach(function (id) { window.clearTimeout(id); });
+        timers.clear();
+        intervals.forEach(function (id) { window.clearInterval(id); });
+        intervals.clear();
+        frames.forEach(function (id) { window.cancelAnimationFrame(id); });
+        frames.clear();
+        observers.forEach(function (observer) {
+          try { observer.disconnect(); } catch (e) {}
+        });
+        observers.clear();
+        cleanups.splice(0).reverse().forEach(function (cleanup) {
+          try { cleanup(); } catch (e) {}
+        });
+        if (registry.owners[name] === owner) delete registry.owners[name];
+      };
+      return owner;
+    };
+    registry.replace = function (name, owner) {
+      var previous = registry.owners[name];
+      if (previous && previous !== owner && typeof previous.teardown === 'function') {
+        previous.teardown();
+      }
+      registry.owners[name] = owner;
+      return owner;
+    };
+    registry.teardownStale = function (nextRoot) {
+      Object.keys(registry.owners).forEach(function (name) {
+        var owner = registry.owners[name];
+        if (owner && owner.root !== nextRoot && typeof owner.teardown === 'function') {
+          owner.teardown();
+        }
+      });
+    };
+    window.__mmsRuntimeLifecycle = registry;
+    return registry;
+  }
+
+  function scheduleInit() {
+    if (window.__mmsPanelBootstrapTimer) return;
+    window.__mmsPanelBootstrapTimer = window.setTimeout(function () {
+      window.__mmsPanelBootstrapTimer = 0;
+      init();
+    }, 50);
+  }
+
+  function capturePanelDomSignature(rootNode) {
+    if (!rootNode) return [];
+    return Array.prototype.slice.call(rootNode.querySelectorAll(
+      '.mms-mbar, .mms-intro-wrap, [data-media-id]'
+    ));
+  }
+
+  function sameDomSignature(previous, next) {
+    if (!Array.isArray(previous) || previous.length !== next.length) return false;
+    return previous.every(function (node, index) { return node === next[index]; });
+  }
+
+  function panelOwnerMatchesDom(owner, rootNode) {
+    if (!owner || !rootNode || owner.root !== rootNode ||
+        owner.version !== PANEL_OWNER_VERSION || !owner.active()) return false;
+    var localPanel = rootNode.querySelector('dialog.mms-panel');
+    var ownedPanel = owner.panel;
+    var panelMatches = localPanel
+      ? localPanel === ownedPanel
+      : Boolean(ownedPanel && ownedPanel.isConnected && owner.panelSlot &&
+          owner.panelSlot.parentNode && rootNode.contains(owner.panelSlot));
+    return panelMatches && sameDomSignature(
+      owner.domSignature,
+      capturePanelDomSignature(rootNode)
+    );
+  }
+
   function init() {
+  var lifecycleRegistry = ensureRuntimeLifecycle();
   var currentMms = document.querySelector('.mms');
+  lifecycleRegistry.teardownStale(currentMms);
+  var currentOwner = lifecycleRegistry.owners.panel;
+  if (panelOwnerMatchesDom(currentOwner, currentMms)) return;
+  var availablePanel = currentMms && currentMms.querySelector('dialog.mms-panel');
+  if (!availablePanel && currentOwner && currentOwner.root === currentMms &&
+      currentOwner.panel && currentOwner.panel.isConnected && currentOwner.panelSlot &&
+      currentMms.contains(currentOwner.panelSlot)) {
+    availablePanel = currentOwner.panel;
+  }
+  if (!currentMms || !availablePanel || !availablePanel.querySelector('[data-theme-set]')) {
+    scheduleInit();
+    return;
+  }
+  if (window.__mmsPanelBootstrapTimer) {
+    window.clearTimeout(window.__mmsPanelBootstrapTimer);
+    window.__mmsPanelBootstrapTimer = 0;
+  }
+  if (currentOwner && typeof currentOwner.teardown === 'function') currentOwner.teardown();
+  var runtime = lifecycleRegistry.create('panel', currentMms, PANEL_OWNER_VERSION);
+  lifecycleRegistry.replace('panel', runtime);
   if (currentMms) {
     var currentPanel = currentMms.querySelector('dialog.mms-panel');
     document.querySelectorAll('dialog.mms-panel').forEach(function (candidate) {
@@ -533,12 +750,7 @@
       }
     });
   }
-  if (window.__mmsPanelVersion === 'responsive-70' && window.__mmsPanelRoot === currentMms) return;
-  if (!document.querySelector('.mms') || !document.querySelector('.mms-panel [data-theme-set]')) {
-    window.setTimeout(init, 50);
-    return;
-  }
-  window.__mmsPanelVersion = 'responsive-70';
+  window.__mmsPanelVersion = PANEL_MARKER;
   window.__mmsPanelRoot = currentMms;
   var root = document.documentElement;
   var SCALES = ['s', 'm', 'l', 'xl'];
@@ -589,7 +801,7 @@
       var slider = document.getElementById('mms-scale');
       if (slider) slider.value = String(SCALES.indexOf(value));
     }
-    setTimeout(setBarH, 0);
+    runtime.timeout(setBarH, 0);
     scheduleMontranMapFit();
   }
 
@@ -612,7 +824,7 @@
     if (axis === 'scale' && !saved) initial = fallback;
     if (!previewInProgress) apply(axis, initial, false);
   });
-  window.addEventListener('pageshow', function () {
+  runtime.on(window, 'pageshow', function () {
     document.querySelectorAll('meta[name="theme-color"]').forEach(function (meta) { meta.remove(); });
   });
 
@@ -631,24 +843,26 @@
   if (earlyPreview && (earlyPreview.active || earlyPreview.status === 'settling')) {
     renderPreviewStop = function () { earlyPreview.cancel(); };
     var syncEarlyPreviewCut = function () { syncControlState(); };
+    var stopEarlyPreviewCut = null;
+    var stopEarlyPreviewDone = null;
     var finishEarlyPreview = function () {
       renderPreviewStop = null;
       syncControlState();
-      document.removeEventListener('mms-render-preview-cut', syncEarlyPreviewCut);
-      document.removeEventListener('mms-render-preview-done', finishEarlyPreview);
-      window.setTimeout(setBarH, 0);
+      if (stopEarlyPreviewCut) stopEarlyPreviewCut();
+      if (stopEarlyPreviewDone) stopEarlyPreviewDone();
+      runtime.timeout(setBarH, 0);
       scheduleMontranMapFit();
     };
-    document.addEventListener('mms-render-preview-cut', syncEarlyPreviewCut);
-    document.addEventListener('mms-render-preview-done', finishEarlyPreview);
+    stopEarlyPreviewCut = runtime.on(document, 'mms-render-preview-cut', syncEarlyPreviewCut);
+    stopEarlyPreviewDone = runtime.on(document, 'mms-render-preview-done', finishEarlyPreview);
   }
-  window.setTimeout(syncControlState, 100);
-  window.setTimeout(syncControlState, 500);
-  window.setTimeout(syncControlState, 1500);
+  runtime.timeout(syncControlState, 100);
+  runtime.timeout(syncControlState, 500);
+  runtime.timeout(syncControlState, 1500);
   // radio groups
   ['theme', 'face', 'shape'].forEach(function (axis) {
     document.querySelectorAll('[data-' + axis + '-set]').forEach(function (b) {
-      b.addEventListener('click', function () {
+      runtime.on(b, 'click', function () {
         apply(axis, b.getAttribute('data-' + axis + '-set'), true);
       });
     });
@@ -656,7 +870,7 @@
 
   // slider: 4 steps -> scale modes
   var slider = document.getElementById('mms-scale');
-  if (slider) slider.addEventListener('input', function () { apply('scale', SCALES[+slider.value] || 'm', true); });
+  if (slider) runtime.on(slider, 'input', function () { apply('scale', SCALES[+slider.value] || 'm', true); });
 
   // live clock: every .js-clock element (desktop corner + mobile bar)
   var clocks = document.querySelectorAll('.js-clock');
@@ -666,7 +880,7 @@
       .map(function (n) { return String(n).padStart(2, '0'); }).join(':');
     clocks.forEach(function (c) { c.textContent = t; });
   }
-  if (clocks.length) { tick(); setInterval(tick, 1000); }
+  if (clocks.length) { tick(); runtime.interval(tick, 1000); }
 
   // One native dialog serves two contexts: sticky in the expanded rail and a
   // persistent non-modal viewport tray in compact mode. Compact mode portals
@@ -681,6 +895,8 @@
     panelSlot = document.createComment('mms-panel-slot');
     panel.parentNode.insertBefore(panelSlot, panel);
   }
+  runtime.panel = panel;
+  runtime.panelSlot = panelSlot;
 
   function portalCompactPanel() {
     if (panel && panel.parentNode !== document.body) document.body.appendChild(panel);
@@ -692,6 +908,7 @@
     if ((!panelSlot || !panelSlot.parentNode) && shell) {
       panelSlot = document.createComment('mms-panel-slot');
       shell.appendChild(panelSlot);
+      runtime.panelSlot = panelSlot;
     }
     if (panelSlot && panelSlot.parentNode && panel.previousSibling !== panelSlot) {
       panelSlot.parentNode.insertBefore(panel, panelSlot.nextSibling);
@@ -729,7 +946,7 @@
     setPanelButtons(true);
     if (!panel.open) panel.show();
     if (keyboardOpen) {
-      setTimeout(function () {
+      runtime.timeout(function () {
         var firstControl = panel.querySelector('#mms-scale') || panel.querySelector('button, input');
         if (firstControl) firstControl.focus();
       }, 0);
@@ -837,7 +1054,7 @@
     var bookletPointer = null;
     var bookletSuppressClickUntil = 0;
     var bookletTurnLockedUntil = 0;
-    bookletGesture.addEventListener('pointerdown', function (event) {
+    runtime.on(bookletGesture, 'pointerdown', function (event) {
       if (!compactPanel.matches || event.isPrimary === false ||
           (event.button !== undefined && event.button !== 0)) return;
       var targetButton = event.target && event.target.closest
@@ -854,7 +1071,7 @@
         moved: false
       };
     }, { passive: true });
-    bookletGesture.addEventListener('pointermove', function (event) {
+    runtime.on(bookletGesture, 'pointermove', function (event) {
       if (!bookletPointer || bookletPointer.id !== event.pointerId) return;
       if (Math.hypot(event.clientX - bookletPointer.x, event.clientY - bookletPointer.y) > 8) {
         bookletPointer.moved = true;
@@ -881,10 +1098,10 @@
       if (event.type !== 'pointerup' || moved || elapsed > 500 || !direction) return;
       requestCompactBookletTurn(direction);
     }
-    bookletGesture.addEventListener('pointerup', finishBookletPointer, { passive: true });
-    bookletGesture.addEventListener('pointercancel', finishBookletPointer, { passive: true });
+    runtime.on(bookletGesture, 'pointerup', finishBookletPointer, { passive: true });
+    runtime.on(bookletGesture, 'pointercancel', finishBookletPointer, { passive: true });
     bookletGesture.querySelectorAll('[data-booklet-turn]').forEach(function (button) {
-      button.addEventListener('click', function (event) {
+      runtime.on(button, 'click', function (event) {
         /* Pointer taps are handled above. Retain a keyboard/programmatic
            fallback without allowing Safari's delayed click to double-turn. */
         if (event.detail !== 0) return;
@@ -904,8 +1121,8 @@
       }, bookletTargetOrigin);
     } catch (e) {}
   }
-  if (bookletFrame) bookletFrame.addEventListener('load', postBookletMode);
-  window.addEventListener('message', function (event) {
+  if (bookletFrame) runtime.on(bookletFrame, 'load', postBookletMode);
+  runtime.on(window, 'message', function (event) {
     if (!bookletFrame || event.source !== bookletFrame.contentWindow ||
         event.origin !== bookletTargetOrigin) return;
     var data = event.data || {};
@@ -915,7 +1132,7 @@
   });
 
   document.querySelectorAll('[data-panel-toggle]').forEach(function (b) {
-    b.addEventListener('click', function (event) {
+    runtime.on(b, 'click', function (event) {
       if (!compactPanel.matches) return;
       var keyboard = event.detail === 0;
       if (root.getAttribute('data-panel') === 'open') closeCompactPanel(keyboard);
@@ -960,7 +1177,7 @@
     return true;
   }
 
-  document.addEventListener('click', function (event) {
+  runtime.on(document, 'click', function (event) {
     if (!event.isTrusted || !compactPanel.matches || root.getAttribute('data-panel') === 'open') return;
     var target = event.target && event.target.nodeType === 1 ? event.target : null;
     var river = target && target.closest ? target.closest('.mms-river') : null;
@@ -985,36 +1202,35 @@
 
     event.preventDefault();
     event.stopImmediatePropagation();
-    window.setTimeout(function () { toggle.click(); }, 0);
+    runtime.timeout(function () { toggle.click(); }, 0);
   }, true);
   document.querySelectorAll('[data-panel-close]').forEach(function (b) {
-    b.addEventListener('click', function () { closeCompactPanel(true); });
+    runtime.on(b, 'click', function () { closeCompactPanel(true); });
   });
-  document.addEventListener('click', function (event) {
+  runtime.on(document, 'click', function (event) {
     if (!compactPanel.matches || root.getAttribute('data-panel') !== 'open' || !panel) return;
     var path = typeof event.composedPath === 'function' ? event.composedPath() : [];
     var insidePanel = path.indexOf(panel) >= 0 || panel.contains(event.target);
     var toggle = event.target && event.target.closest ? event.target.closest('[data-panel-toggle]') : null;
     if (!insidePanel && !toggle) closeCompactPanel(false);
   });
-  document.addEventListener('keydown', function (event) {
+  runtime.on(document, 'keydown', function (event) {
     if (event.key === 'Escape' && compactPanel.matches && root.getAttribute('data-panel') === 'open') {
       event.preventDefault();
       closeCompactPanel(true);
     }
   });
   if (panel) {
-    panel.addEventListener('close', function () {
+    runtime.on(panel, 'close', function () {
       if (compactPanel.matches && root.getAttribute('data-panel') === 'open') {
         root.removeAttribute('data-panel');
         setPanelButtons(false);
       }
     });
   }
-  if (compactPanel.addEventListener) compactPanel.addEventListener('change', syncPanelMode);
-  else if (compactPanel.addListener) compactPanel.addListener(syncPanelMode);
-  window.addEventListener('resize', syncPanelMode);
-  window.addEventListener('load', syncPanelMode);
+  runtime.onMql(compactPanel, syncPanelMode);
+  runtime.on(window, 'resize', syncPanelMode);
+  runtime.on(window, 'load', syncPanelMode);
   syncPanelMode();
 
   // iOS/Safari video fallback (2026-07-10): the two ALPHA videos (8bit-girls,
@@ -1060,12 +1276,12 @@
     element.setAttribute('src', source);
     if (element.tagName === 'VIDEO') {
       try { element.load(); } catch (e) {}
-      element.addEventListener('loadedmetadata', function () { requestVideoPlay(element); }, { once: true });
-      element.addEventListener('canplay', function () { requestVideoPlay(element); }, { once: true });
-      element.addEventListener('playing', function () {
+      runtime.on(element, 'loadedmetadata', function () { requestVideoPlay(element); }, { once: true });
+      runtime.on(element, 'canplay', function () { requestVideoPlay(element); }, { once: true });
+      runtime.on(element, 'playing', function () {
         element.dataset.motionReady = '1';
       }, { once: true });
-      element.addEventListener('error', function () {
+      runtime.on(element, 'error', function () {
         element.dataset.motionError = '1';
       });
     } else if (element.tagName === 'IFRAME' && poster) {
@@ -1133,11 +1349,7 @@
       document.querySelectorAll('.mms-band').forEach(prewarmRiverMedia);
     }
     prewarmAllRiverMedia();
-    if (typeof scrubberDesktopMedia.addEventListener === 'function') {
-      scrubberDesktopMedia.addEventListener('change', prewarmAllRiverMedia);
-    } else if (typeof scrubberDesktopMedia.addListener === 'function') {
-      scrubberDesktopMedia.addListener(prewarmAllRiverMedia);
-    }
+    runtime.onMql(scrubberDesktopMedia, prewarmAllRiverMedia);
     deferredMedia.forEach(function (element) {
       if (element.tagName === 'VIDEO') element.setAttribute('preload', 'none');
     });
@@ -1148,20 +1360,20 @@
       setMediaActive(element, true);
     });
     if ('IntersectionObserver' in window) {
-      var riverPrewarmObserver = new IntersectionObserver(function (entries) {
+      var riverPrewarmObserver = runtime.observe(new IntersectionObserver(runtime.guard(function (entries) {
         entries.forEach(function (entry) {
           if (!entry.isIntersecting) return;
           prewarmRiverMedia(entry.target);
           riverPrewarmObserver.unobserve(entry.target);
         });
-      }, { rootMargin: '100% 0px', threshold: 0 });
+      }), { rootMargin: '100% 0px', threshold: 0 }));
       document.querySelectorAll('.mms-band').forEach(function (band) {
         riverPrewarmObserver.observe(band);
       });
 
-      var mediaObserver = new IntersectionObserver(function (entries) {
+      var mediaObserver = runtime.observe(new IntersectionObserver(runtime.guard(function (entries) {
         entries.forEach(function (entry) { setMediaActive(entry.target, entry.isIntersecting); });
-      }, { rootMargin: '100% 100%', threshold: 0 });
+      }), { rootMargin: '100% 100%', threshold: 0 }));
       deferredMedia.forEach(function (element) { mediaObserver.observe(element); });
 
       /* The Touchbaes game sits several items into its horizontal river. Load
@@ -1172,12 +1384,12 @@
       var touchbaesFrame = document.querySelector('.mms iframe[data-embed-kind="touchbaes"]');
       var touchbaesBand = touchbaesFrame && touchbaesFrame.closest('.mms-band');
       if (touchbaesFrame && touchbaesBand && touchbaesFrame.dataset.mmsLoaded !== '1') {
-        var touchbaesBandObserver = new IntersectionObserver(function (entries) {
+        var touchbaesBandObserver = runtime.observe(new IntersectionObserver(runtime.guard(function (entries) {
           if (!entries.some(function (entry) { return entry.isIntersecting; })) return;
           touchbaesFrame.setAttribute('loading', 'eager');
           setMediaActive(touchbaesFrame, true);
           touchbaesBandObserver.disconnect();
-        }, { rootMargin: '100% 0px', threshold: 0 });
+        }), { rootMargin: '100% 0px', threshold: 0 }));
         touchbaesBandObserver.observe(touchbaesBand);
       }
     } else {
@@ -1185,7 +1397,7 @@
       deferredMedia.forEach(function (element) { setMediaActive(element, true); });
     }
   }
-  window.addEventListener('message', function (event) {
+  runtime.on(window, 'message', function (event) {
     if (!event.data || event.data.__mmsEmbedReady !== 1) return;
     var frames = document.querySelectorAll('.mms iframe[data-embed-kind]');
     frames.forEach(function (frame) {
@@ -1205,12 +1417,12 @@
       if (rect.bottom >= -window.innerHeight && rect.top <= window.innerHeight * 2) requestVideoPlay(video);
     });
   }
-  window.addEventListener('pageshow', resumeVisibleVideos);
-  document.addEventListener('visibilitychange', function () {
+  runtime.on(window, 'pageshow', resumeVisibleVideos);
+  runtime.on(document, 'visibilitychange', function () {
     if (!document.hidden) resumeVisibleVideos();
   });
   ['touchstart', 'pointerdown'].forEach(function (type) {
-    document.addEventListener(type, resumeVisibleVideos, { passive: true, once: true });
+    runtime.on(document, type, resumeVisibleVideos, { passive: true, once: true });
   });
 
   /* Desktop river scrubbers provide a visible mouse and keyboard route while
@@ -1328,7 +1540,7 @@
       }
 
       function schedule() {
-        if (!frame) frame = window.requestAnimationFrame(sync);
+        if (!frame) frame = runtime.raf(sync);
       }
 
       function scrollFromTrack(clientX) {
@@ -1343,7 +1555,7 @@
         schedule();
       }
 
-      control.addEventListener('pointerdown', function (event) {
+      runtime.on(control, 'pointerdown', function (event) {
         if (event.button !== 0 || event.target === thumb || thumb.contains(event.target)) return;
         prewarmRiverMedia(river);
         event.preventDefault();
@@ -1354,7 +1566,7 @@
         scrollFromTrack(event.clientX);
       });
 
-      thumb.addEventListener('pointerdown', function (event) {
+      runtime.on(thumb, 'pointerdown', function (event) {
         if (event.button !== 0) return;
         prewarmRiverMedia(river);
         event.preventDefault();
@@ -1376,7 +1588,7 @@
         control.blur();
       });
 
-      thumb.addEventListener('pointermove', function (event) {
+      runtime.on(thumb, 'pointermove', function (event) {
         if (!drag || drag.pointerId !== event.pointerId) return;
         event.preventDefault();
         river.scrollLeft = drag.startScroll +
@@ -1391,11 +1603,11 @@
         control.classList.remove('is-dragging');
         schedule();
       }
-      thumb.addEventListener('pointerup', endDrag);
-      thumb.addEventListener('pointercancel', endDrag);
-      thumb.addEventListener('lostpointercapture', endDrag);
+      runtime.on(thumb, 'pointerup', endDrag);
+      runtime.on(thumb, 'pointercancel', endDrag);
+      runtime.on(thumb, 'lostpointercapture', endDrag);
 
-      control.addEventListener('keydown', function (event) {
+      runtime.on(control, 'keydown', function (event) {
         var scrollMax = Math.max(0, river.scrollWidth - river.clientWidth);
         if (!scrollMax) return;
         var step = Math.max(40, river.clientWidth * 0.1);
@@ -1414,11 +1626,11 @@
         schedule();
       });
 
-      river.addEventListener('scroll', schedule, { passive: true });
-      river.addEventListener('load', schedule, true);
-      river.addEventListener('loadedmetadata', schedule, true);
+      runtime.on(river, 'scroll', schedule, { passive: true });
+      runtime.on(river, 'load', schedule, true);
+      runtime.on(river, 'loadedmetadata', schedule, true);
       if ('ResizeObserver' in window) {
-        var observer = new ResizeObserver(schedule);
+        var observer = runtime.observe(new ResizeObserver(runtime.guard(schedule)));
         observer.observe(river);
         observer.observe(description);
         Array.prototype.forEach.call(river.children, function (child) {
@@ -1426,28 +1638,49 @@
         });
       }
       controllers.push({ schedule: schedule });
-      control.addEventListener('pointerenter', function () { prewarmRiverMedia(river); }, { passive: true });
-      control.addEventListener('focus', function () { prewarmRiverMedia(river); });
+      runtime.cleanup(function () {
+        if (drag && thumb.hasPointerCapture && thumb.hasPointerCapture(drag.pointerId)) {
+          try { thumb.releasePointerCapture(drag.pointerId); } catch (e) {}
+        }
+        drag = null;
+        control.classList.remove('is-dragging');
+        if (frame) runtime.cancelRaf(frame);
+        frame = 0;
+        control.remove();
+      });
+      runtime.on(control, 'pointerenter', function () { prewarmRiverMedia(river); }, { passive: true });
+      runtime.on(control, 'focus', function () { prewarmRiverMedia(river); });
       [0, 100, 500, 1500].forEach(function (delay) {
-        window.setTimeout(schedule, delay);
+        runtime.timeout(schedule, delay);
       });
     });
 
     function scheduleAll() {
       controllers.forEach(function (controller) { controller.schedule(); });
     }
-    window.addEventListener('resize', scheduleAll);
-    window.addEventListener('orientationchange', scheduleAll);
-    window.addEventListener('load', scheduleAll);
-    if (typeof fineDesktop.addEventListener === 'function') {
-      fineDesktop.addEventListener('change', scheduleAll);
-    } else if (typeof fineDesktop.addListener === 'function') {
-      fineDesktop.addListener(scheduleAll);
-    }
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleAll);
+    runtime.on(window, 'resize', scheduleAll);
+    runtime.on(window, 'orientationchange', scheduleAll);
+    runtime.on(window, 'load', scheduleAll);
+    runtime.onMql(fineDesktop, scheduleAll);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(runtime.guard(scheduleAll));
   }
+  currentMms.querySelectorAll('.mms-river-scrubber').forEach(function (control) {
+    control.remove();
+  });
   window.__mmsEnsureRiverScrubbers = initRiverScrubbers;
+  runtime.cleanup(function () {
+    if (window.__mmsEnsureRiverScrubbers === initRiverScrubbers) {
+      delete window.__mmsEnsureRiverScrubbers;
+    }
+  });
   initRiverScrubbers();
+  [0, 100, 500, 1500].forEach(function (delay) {
+    runtime.timeout(function () {
+      if (window.__mmsEnsureRiverScrubbers === initRiverScrubbers) {
+        initRiverScrubbers();
+      }
+    }, delay);
+  });
 
   // Montran's map tile has a fixed showcase-height budget. Keep the caption
   // fully visible with its intended 12-unit gap, and shrink only the map when
@@ -1481,25 +1714,25 @@
     tile.style.setProperty('--map-image-h', imageH.toFixed(3) + 'px');
   }
   function scheduleMontranMapFit() {
-    clearTimeout(mapFitTimer);
-    mapFitTimer = window.setTimeout(fitMontranMap, 0);
+    runtime.clearTimeout(mapFitTimer);
+    mapFitTimer = runtime.timeout(fitMontranMap, 0);
   }
   var mapCaption = document.querySelector('[data-slot="montran-map-caption"]');
   var mapTile = mapCaption && mapCaption.parentElement;
   var mapImage = mapTile && mapTile.querySelector('img');
   if (mapTile) {
     mapTile.classList.add('mms-map-tile');
-    if (mapImage && !mapImage.complete) mapImage.addEventListener('load', scheduleMontranMapFit, { once: true });
+    if (mapImage && !mapImage.complete) runtime.on(mapImage, 'load', scheduleMontranMapFit, { once: true });
     if ('ResizeObserver' in window) {
-      var mapObserver = new ResizeObserver(scheduleMontranMapFit);
+      var mapObserver = runtime.observe(new ResizeObserver(runtime.guard(scheduleMontranMapFit)));
       mapObserver.observe(mapTile);
       mapObserver.observe(mapCaption);
     }
     [0, 100, 500, 1500].forEach(function (delay) {
-      window.setTimeout(scheduleMontranMapFit, delay);
+      runtime.timeout(scheduleMontranMapFit, delay);
     });
-    window.addEventListener('resize', scheduleMontranMapFit);
-    window.addEventListener('load', scheduleMontranMapFit);
+    runtime.on(window, 'resize', scheduleMontranMapFit);
+    runtime.on(window, 'load', scheduleMontranMapFit);
   }
 
   // The compact navigation and introduction share the EVIIVE containing
@@ -1516,25 +1749,52 @@
     if (panel) syncPanelMode();
   }
   setBarH();
-  window.setTimeout(syncPanelMode, 100);
-  window.setTimeout(syncPanelMode, 500);
-  window.setTimeout(syncPanelMode, 1500);
-  window.addEventListener('resize', setBarH);
-  window.addEventListener('load', setBarH);
+  runtime.timeout(syncPanelMode, 100);
+  runtime.timeout(syncPanelMode, 500);
+  runtime.timeout(syncPanelMode, 1500);
+  runtime.on(window, 'resize', setBarH);
+  runtime.on(window, 'load', setBarH);
   if ('ResizeObserver' in window) {
-    var ro = new ResizeObserver(setBarH);
+    var ro = runtime.observe(new ResizeObserver(runtime.guard(setBarH)));
     var row = document.querySelector('.mms-mbar .mbar-row');
     var links = document.querySelector('.mms-intro-wrap > .mms-mlinks');
     if (row) ro.observe(row);
     if (links) ro.observe(links);
   }
+  runtime.cleanup(function () {
+    if (root.getAttribute('data-panel') === 'open') root.removeAttribute('data-panel');
+    setPanelButtons(false);
+    if (panel) {
+      panel.setAttribute('aria-modal', 'false');
+      if (panel.open) panel.close();
+      var replacementPanel = currentMms.isConnected &&
+        currentMms.querySelector('dialog.mms-panel');
+      if (replacementPanel && replacementPanel !== panel) {
+        panel.remove();
+      } else if (currentMms.isConnected && panelSlot && panelSlot.parentNode && currentMms.contains(panelSlot)) {
+        panelSlot.parentNode.insertBefore(panel, panelSlot.nextSibling);
+      } else if (!currentMms.contains(panel)) {
+        panel.remove();
+      }
+    }
+    if (panelSlot && panelSlot.parentNode) panelSlot.parentNode.removeChild(panelSlot);
+    root.style.removeProperty('--mbar-row-h');
+    root.style.removeProperty('--mlinks-h');
+    root.style.removeProperty('--bar-h');
+    currentMms.querySelectorAll('video[data-mms-loaded="1"]').forEach(function (video) {
+      try { video.pause(); } catch (e) {}
+    });
+    currentMms.querySelectorAll('iframe[data-embed-kind][data-mms-loaded="1"]').forEach(function (frame) {
+      try {
+        frame.contentWindow.postMessage({ __mmsEmbedVisibility: 1, visible: false }, '*');
+      } catch (e) {}
+    });
+    if (window.__mmsPanelRoot === currentMms) {
+      window.__mmsPanelRoot = null;
+      window.__mmsPanelVersion = null;
+    }
+  });
+  runtime.domSignature = capturePanelDomSignature(currentMms);
   }
   init();
-  [0, 100, 500, 1500].forEach(function (delay) {
-    window.setTimeout(function () {
-      if (typeof window.__mmsEnsureRiverScrubbers === 'function') {
-        window.__mmsEnsureRiverScrubbers();
-      }
-    }, delay);
-  });
 })();</script>
