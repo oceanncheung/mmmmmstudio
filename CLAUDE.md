@@ -2248,3 +2248,21 @@ current source of truth for the built site.
   matrix passes all 240 states at compact and expanded references. No CSS,
   tokens, layout, media geometry/source, Figma, Cargo, Freight, or public-site
   mutation is part of this batch.
+
+## Current state — Round 84 clean-gold Home source recovery
+- The protected current gold remains `gold-2026-07-21-responsive-70`. Cargo
+  Home was restored and published from its exact 125,651-byte bodycopy
+  (SHA-256 `09555a6fe3ebaa54659057733d0f4bad4a5aaca7d9739f9853b7bfbfd3ff8c52`)
+  after runtime-mutated media state was found in saved Cargo source.
+- Complete Home replacements must use UTF-8-safe `bodycopy.innerHTML` plus
+  `InputEvent`, Cmd+S, reload, and source-level verification. Never use Cargo
+  Code View for the complete Home payload and never judge saved-source purity
+  from the runtime-mutated preview DOM.
+- The clean raw-source contract is 68/68 unique media IDs, two
+  `responsive-70` markers, 0 live video/iframe sources, 0 readiness markers,
+  0 native video posters, 0 hidden rivers, 1 eager image, 37 lazy images, and
+  30 deferred `data-src` attributes.
+- Round 83 is merged into `round-81/audit-baseline` at `9814a97`. Round 82/83
+  remain GitHub remediation work and were not deployed by the Round 84 gold
+  restore. Keep their later deployment and physical iPad verification
+  separate.
