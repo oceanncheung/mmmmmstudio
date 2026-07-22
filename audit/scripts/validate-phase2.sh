@@ -9,6 +9,7 @@ python3 "$ROOT/audit/scripts/generate-system-inventory.py" --check
 python3 "$ROOT/audit/scripts/generate-asset-manifest.py" --check
 python3 "$ROOT/audit/scripts/validate-embed-reproducibility.py" --self-test
 python3 "$ROOT/audit/scripts/validate-embed-message-protocol.py" --self-test
+python3 "$ROOT/audit/scripts/validate-montran-pdf-allowlist.py" --self-test
 
 python3 - "$ROOT" <<'PY'
 import json
@@ -46,6 +47,7 @@ echo "Phase 2 harness configuration: PASS"
 (cd "$ROOT/audit/harness" && npm run swatch-focus-test)
 (cd "$ROOT/audit/harness" && npm run touchbaes-readiness-test)
 (cd "$ROOT/audit/harness" && npm run interaction-test)
+(cd "$ROOT/audit/harness" && npm run montran-pdf-allowlist-test)
 
 "$ROOT/cargo/validate-cargo-payload.sh" bodycopy "$ROOT/cargo/home.html"
 "$ROOT/cargo/validate-cargo-payload.sh" bodycopy "$ROOT/cargo/who.html"

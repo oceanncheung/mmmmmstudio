@@ -12,6 +12,7 @@
     "interaction-test": "npm run panel-scrubber-test && npm run startup-state-test && npm run embed-montran-test && npm run embed-message-protocol-test",
     "list": "node src/cli.mjs --list",
     "media-owner-test": "node src/media-playback-owner-test.mjs",
+    "montran-pdf-allowlist-test": "node src/montran-pdf-allowlist-test.mjs",
     "panel-scrubber-test": "node src/panel-scrubber-transition-test.mjs",
     "validate": "node src/cli.mjs --validate-config",
     "schema-test": "node src/schema-self-test.mjs",

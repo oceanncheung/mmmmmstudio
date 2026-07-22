@@ -2456,3 +2456,24 @@ current source of truth for the built site.
   both successors, update both immutable URLs and protocol attributes, update
   the deployment manifest, assemble, deploy, reload-verify, and only then
   promote the new active artifact contract. Do not deploy Round 93 piecemeal.
+
+## Current state — Round 94 Montran PDF allowlist candidate
+- `MMS-AUD-036` now has a separate tracked, deterministic v18 candidate in
+  `work/montran-pdf-allowlist-v18-src/`; it is `prepared-not-active`. The live
+  v17 source/artifact, Cargo Home URL, deployment manifest, gold tree, native
+  rivers, and all visual geometry are unchanged.
+- The candidate output is exactly 1,938,550 bytes with SHA-256
+  `ca9ee9c69594af7c9e4a214f422413d00e43cbd5b493ec48f1f033295690e512`.
+  It accepts only the exact approved Montran report URL or the same inlined
+  no-parameter fallback, rejects duplicates and aliases before preload/network,
+  rejects redirects, and sends no PDF Cookie or Referer.
+- The frozen approved report identity is 13,634,937 bytes, SHA-256
+  `664dab49810d21acaa0ffbb7d6749268215c1b655ccec11f461d67c147f02629`.
+  Keep 256 KiB range loading and the existing full-fetch fallback. Artifact
+  version 18 deliberately retains ready-message version 17.
+- Run the dedicated candidate validator/self-test and actual-viewer browser
+  test plus the full Phase 2 gate; all pass for Round 94. Never alter the
+  recovered v17 tree or active
+  contract to make the candidate pass. Promotion is a later atomic Freight and
+  Cargo round with reload evidence; Round 94 itself is not deployed or
+  published.
