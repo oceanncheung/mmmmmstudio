@@ -2282,3 +2282,26 @@ current source of truth for the built site.
   pass, including 30 deployment negative fixtures and the complete browser
   parity/lifecycle suite. This round changes no Cargo page or visual output and
   must remain separate from the following swatch and iPad/Safari fixes.
+
+## Current state — Round 86 circular swatch focus treatment
+- Round 86 is published. Theme swatches suppress the rectangular dotted focus
+  frame in both the expanded panel and compact portaled dialog. Pointer/touch
+  activation applies the theme, releases focus, and keeps the panel open;
+  keyboard focus remains visible as a solid circular page-color/ink ring on the
+  swatch artwork.
+- Do not reintroduce focus on the transparent button box or change target
+  geometry to solve this treatment. `.mms-dot::before` owns the keyboard ring;
+  the target cell remains structurally transparent.
+- The Cargo CSS readback is exactly 86,761 UTF-8 bytes, SHA-256
+  `77583f41c978f9dcae0549502b38e441e6b1243becb21f478437f3d0db620fa6`,
+  with the Cargo head, all three managed font blocks, one token region, one
+  layout region, and balanced 505/505 braces.
+- Home, Who, and Write carry the new shared runtime and were persisted through
+  the direct UTF-8-safe bodycopy/InputEvent workflow. Public checks pass with
+  zero page overflow, 13 native Home rivers, 12 expanded scrubbers, and the
+  protected Withered Green four-body/static-heading contract.
+- The focused compact/expanded five-theme test, canonical assembly, and full
+  Phase 2 gate pass. The sole current gold remains
+  `gold-2026-07-21-responsive-70`; do not edit or regenerate it from the live
+  runtime DOM. The next independent batch is iPad/Safari media readiness and
+  coarse-pointer behavior.

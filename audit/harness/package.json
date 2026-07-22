@@ -12,7 +12,8 @@
     "validate": "node src/cli.mjs --validate-config",
     "schema-test": "node src/schema-self-test.mjs",
     "self-test": "npm run schema-test && node src/self-test.mjs",
-    "runtime-root-test": "node src/runtime-root-replacement-test.mjs"
+    "runtime-root-test": "node src/runtime-root-replacement-test.mjs",
+    "swatch-focus-test": "node src/swatch-focus-test.mjs"
   },
   "engines": {
     "node": ">=22"

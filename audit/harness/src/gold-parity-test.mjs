@@ -227,6 +227,13 @@ try {
       applyState(gold, { theme: "white", face: "serif", scale: "m", shape: "straight" }),
       applyState(candidate, { theme: "white", face: "serif", scale: "m", shape: "straight" }),
     ]);
+    // Layout parity must not preserve an incidental browser focus artifact.
+    // Swatch focus treatment has its own compact/expanded five-theme probe.
+    await Promise.all([
+      gold.evaluate(() => document.activeElement?.blur()),
+      candidate.evaluate(() => document.activeElement?.blur()),
+    ]);
+    await Promise.all([settle(gold), settle(candidate)]);
     const [goldPng, candidatePng] = await Promise.all([
       gold.screenshot({ animations: "disabled" }),
       candidate.screenshot({ animations: "disabled" }),
