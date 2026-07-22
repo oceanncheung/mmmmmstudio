@@ -11,6 +11,10 @@ const COMPACT_VIEWPORT = { width: 390, height: 844 };
 const EXPANDED_VIEWPORT = { width: 1024, height: 844 };
 const FREIGHT_ORIGIN = "https://freight.cargo.site";
 const WRONG_ORIGIN = "https://wrong.invalid";
+const TWEEZER_OPEN_SRC = `${FREIGHT_ORIGIN}/t/original/i/T3022869107490037873358127281977/tweezer-open.png`;
+const TWEEZER_CLOSED_SRC = `${FREIGHT_ORIGIN}/t/original/i/N3022869107453144385210708178745/tweezer-close.png`;
+const TWEEZER_FRONT_SRC = `${FREIGHT_ORIGIN}/t/original/i/V3022869107471591129284417730361/tweezer-front-arm.png`;
+const APPROVED_STICKER_SRC = `${FREIGHT_ORIGIN}/t/original/i/F3022869107379357408915869972281/sticker-cat.png`;
 
 const SELECTORS = Object.freeze({
   v7: 'iframe[data-embed-kind="v7-cup"]',
@@ -149,6 +153,33 @@ async function gameHeightState(page) {
   }));
 }
 
+async function rigState(page) {
+  return page.evaluate(() => {
+    const rig = document.getElementById("mms-tw-rig");
+    if (!rig) return null;
+    const images = Array.from(rig.querySelectorAll("img"), (image) => ({
+      className: image.className,
+      src: image.src,
+      hidden: image.hidden,
+      width: image.style.width,
+      dragR: image.style.getPropertyValue("--drag-r"),
+      dragOffsetX: image.style.getPropertyValue("--drag-offset-x"),
+      dragOffsetY: image.style.getPropertyValue("--drag-offset-y"),
+      dragOriginX: image.style.getPropertyValue("--drag-origin-x"),
+      dragOriginY: image.style.getPropertyValue("--drag-origin-y"),
+      onerror: image.getAttribute("onerror"),
+      onload: image.getAttribute("onload"),
+    }));
+    return {
+      display: getComputedStyle(rig).display,
+      width: rig.style.width,
+      scriptCount: rig.querySelectorAll("script").length,
+      imageCount: images.length,
+      images,
+    };
+  });
+}
+
 function assertGameStateEqual(actual, expected, label) {
   assert.equal(actual.measured, expected.measured, `${label}: measured marker changed`);
   assert.equal(actual.inlineHeight, expected.inlineHeight, `${label}: inline height changed`);
@@ -253,6 +284,8 @@ async function exerciseTouchbaesSize({ page, touchbaesFrame, staleFrame, parentO
     ["compact mismatch", { ...validSize, compact: false }],
     ["NaN height", { ...validSize, height: Number.NaN }],
     ["infinite height", { ...validSize, height: Number.POSITIVE_INFINITY }],
+    ["zero height", { ...validSize, height: 0 }],
+    ["negative height", { ...validSize, height: -1 }],
     ["missing reserves", { ...validSize, edgeReserve: undefined }],
     ["negative reserve", { ...validSize, edgeReserve: { left: -1, right: 24, bottom: 24 } }],
     ["oversized reserve", { ...validSize, edgeReserve: { left: 24, right: 321, bottom: 24 } }],
@@ -281,7 +314,81 @@ async function exerciseTouchbaesSize({ page, touchbaesFrame, staleFrame, parentO
   return touchbaesFrame;
 }
 
+async function exerciseTouchbaesTrustedRig({ page, touchbaesFrame, parentOrigin }) {
+  await page.setViewportSize(EXPANDED_VIEWPORT);
+  await page.waitForFunction(() => !window.matchMedia("(max-width: 1023px)").matches);
+
+  const validHtml = [
+    `<img class="tweezer-back" src="${TWEEZER_CLOSED_SRC}" alt="">`,
+    `<img class="drag-sticker" src="${APPROVED_STICKER_SRC}" alt="" style="width: 96px; --drag-r: -8deg; --drag-offset-x: -72px; --drag-offset-y: -64px; --drag-origin-x: 72px; --drag-origin-y: 64px;">`,
+    `<img class="tweezer-front" src="${TWEEZER_FRONT_SRC}" alt="">`,
+  ].join("");
+
+  await sendFromFixture(touchbaesFrame, {
+    __tw: 1,
+    t: "move",
+    tx: 12,
+    ty: 34,
+    w: 285,
+    html: validHtml,
+  }, parentOrigin);
+  await page.waitForFunction(() => getComputedStyle(document.getElementById("mms-tw-rig")).display === "block");
+  let state = await rigState(page);
+  assert.equal(state.imageCount, 3, "trusted Touchbaes rig did not build exactly three images");
+  assert.equal(state.scriptCount, 0, "trusted Touchbaes rig created script nodes");
+  assert.equal(state.images[0].src, TWEEZER_CLOSED_SRC, "trusted rig used the wrong back tweezer");
+  assert.equal(state.images[1].src, APPROVED_STICKER_SRC, "trusted rig used the wrong sticker");
+  assert.equal(state.images[1].hidden, false, "trusted sticker was hidden");
+  assert.equal(state.images[1].width, "96px", "trusted sticker width was not preserved");
+  assert.equal(state.images[1].dragR, "-8deg", "trusted sticker rotation was not preserved");
+  assert.equal(state.images[1].dragOffsetX, "-72px", "trusted sticker x offset was not preserved");
+  assert.equal(state.images[1].dragOffsetY, "-64px", "trusted sticker y offset was not preserved");
+  assert.equal(state.images[1].dragOriginX, "72px", "trusted sticker x origin was not preserved");
+  assert.equal(state.images[1].dragOriginY, "64px", "trusted sticker y origin was not preserved");
+  assert.equal(state.images[2].src, TWEEZER_FRONT_SRC, "trusted rig used the wrong front arm");
+
+  const maliciousHtml = [
+    `<img class="tweezer-back" src="${TWEEZER_OPEN_SRC}" onerror="window.__bad=1" alt="">`,
+    `<script>window.__bad=1</script>`,
+    `<img class="drag-sticker" src="https://evil.invalid/sticker.png" onload="window.__bad=1" style="width: 111px; --drag-r: 22deg; background: url(javascript:alert(1));">`,
+    `<img class="tweezer-front" src="${TWEEZER_FRONT_SRC}" alt="">`,
+  ].join("");
+  await sendFromFixture(touchbaesFrame, {
+    __tw: 1,
+    t: "move",
+    tx: 13,
+    ty: 35,
+    w: 285,
+    html: maliciousHtml,
+  }, parentOrigin);
+  await page.waitForTimeout(50);
+  state = await rigState(page);
+  assert.equal(state.scriptCount, 0, "message-derived script reached the parent rig");
+  assert.equal(state.images.some((image) => image.src.startsWith("https://evil.invalid/")), false,
+    "unapproved Touchbaes sticker URL reached the parent rig");
+  assert.equal(state.images.some((image) => image.onerror || image.onload), false,
+    "message-derived event handler reached the parent rig");
+  assert.equal(await page.evaluate(() => window.__bad), undefined,
+    "message-derived executable markup ran in the parent");
+
+  await sendFromFixture(touchbaesFrame, {
+    __tw: 1,
+    t: "move",
+    tx: Number.POSITIVE_INFINITY,
+    ty: 0,
+    w: 285,
+    html: validHtml,
+  }, parentOrigin);
+  await page.waitForTimeout(50);
+  assert.equal((await rigState(page)).display, "none", "invalid Touchbaes rig coordinates remained visible");
+  process.stdout.write("Touchbaes trusted parent rig validation: PASS\n");
+  return touchbaesFrame;
+}
+
 async function exerciseMontranReadiness({ page, montranFrame, staleFrame, parentOrigin }) {
+  await page.setViewportSize(COMPACT_VIEWPORT);
+  await page.waitForFunction(() => window.matchMedia("(max-width: 1023px)").matches);
+  await page.waitForTimeout(100);
   await clearFixture(montranFrame);
   await clearFixture(staleFrame);
 
@@ -471,6 +578,7 @@ async function exerciseMontranTurns({ page, montranFrame, parentOrigin }) {
   await clearFixture(montranFrame);
   await page.setViewportSize(EXPANDED_VIEWPORT);
   await page.waitForFunction(() => !window.matchMedia("(max-width: 1023px)").matches);
+  await page.evaluate(() => window.dispatchEvent(new Event("resize")));
   await waitForMessage(montranFrame, "__mmsBookletMode", false);
   let modeMessages = messagesWith(await fixtureRecords(montranFrame), "__mmsBookletMode");
   assert.ok(modeMessages.length >= 1, "expanded transition did not notify Montran");
@@ -490,6 +598,7 @@ async function exerciseMontranTurns({ page, montranFrame, parentOrigin }) {
   await clearFixture(montranFrame);
   await page.setViewportSize(COMPACT_VIEWPORT);
   await page.waitForFunction(() => window.matchMedia("(max-width: 1023px)").matches);
+  await page.evaluate(() => window.dispatchEvent(new Event("resize")));
   await waitForMessage(montranFrame, "__mmsBookletMode", true);
   modeMessages = messagesWith(await fixtureRecords(montranFrame), "__mmsBookletMode");
   assert.ok(modeMessages.length >= 1, "compact transition did not notify Montran");
@@ -575,6 +684,11 @@ async function run() {
       page,
       touchbaesFrame,
       staleFrame,
+      parentOrigin: server.origin,
+    });
+    touchbaesFrame = await exerciseTouchbaesTrustedRig({
+      page,
+      touchbaesFrame,
       parentOrigin: server.origin,
     });
     montranFrame = await exerciseMontranReadiness({

@@ -4612,3 +4612,39 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   `applyGameHeight()` still clamps zero or negative finite Touchbaes heights to
   1px instead of rejecting them before clamping. This round intentionally
   remained test-only and did not alter runtime behavior.
+
+## Round 91 (2026-07-22): Touchbaes parent message hardening — TEST-ONLY / NOT DEPLOYED
+- Closed audit gap `MMS-AUD-033` for the parent-side Touchbaes escaped tweezer
+  rig. The parent no longer assigns child-supplied `data.html` into
+  `innerHTML`; it parses only the legacy declarative values it needs, validates
+  approved Freight asset URLs and bounded numeric placement/style values, and
+  rebuilds the rig from trusted local DOM nodes with `replaceChildren()`.
+- Preserved the existing Touchbaes visual behavior and interaction contract:
+  the desktop escaped tweezer still accepts the approved open/closed tweezer,
+  front arm, and four approved sticker assets; compact mode continues hiding
+  the escaped rig. The existing Cargo child iframe v10 can keep sending its
+  legacy `html` field because no message-derived string reaches executable
+  parent markup.
+- Fixed the local Round 90 height-validation limitation by rejecting zero and
+  negative finite Touchbaes size messages before clamping. Added zero and
+  negative cases to the focused embed harness.
+- Fixed a source-only mounting bug exposed by the hardening test: the generated
+  rig element is assembled outside `.mms`, so the overlay now falls back from
+  `.mms #mms-tw-rig` to `document.getElementById('mms-tw-rig')` before moving
+  that existing node into the current root. This does not alter layout.
+- Extended `embed-montran-interaction-test.mjs` to prove the trusted rig path:
+  valid approved markup renders exactly three trusted images and preserves
+  bounded numeric sticker offsets; scripts, event attributes, unapproved image
+  URLs, and invalid coordinates do not reach the live parent rig. The Montran
+  section now resets to compact mode after the new desktop Touchbaes coverage
+  so its existing compact-mode assertions remain deterministic.
+- Verification passed: syntax checks for the edited harness and extracted
+  `home-extras` script; `bash cargo/assemble-test.sh`; no `innerHTML`
+  occurrences remain in `cargo/home-extras.html`, `cargo/home.html`, or
+  `cargo/test.html`; focused `npm run embed-montran-test`; and the complete
+  `bash audit/scripts/validate-phase2.sh`. The full gate includes 122/122
+  frozen hashes, both 240-state gold parity matrices, swatch focus, iPad
+  readiness, the full interaction suite, source purity, generated test mirrors,
+  runtime root replacement, and destructive deployment fixtures.
+- This round is local repository work only. It was not deployed to Cargo, not
+  published, and `gold-2026-07-21-responsive-70` was not edited.

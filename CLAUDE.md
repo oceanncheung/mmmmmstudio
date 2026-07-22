@@ -2380,3 +2380,27 @@ current source of truth for the built site.
   poster, `preload="none"`, the original approved poster identity, zero page
   overflow, and protected 504x504 WTW geometry at 1440px. Physical iPad Safari
   remains the final Touchbaes decoder/autoplay proof.
+
+## Current state — Round 91 Touchbaes parent message hardening
+- Round 91 is a local/test-only repository batch on branch
+  `round-91/touchbaes-message-hardening`; it has not been deployed to Cargo or
+  published.
+- The Touchbaes parent escaped rig is hardened for `MMS-AUD-033`: never assign
+  child-supplied `data.html` to `innerHTML`. Keep using trusted local DOM
+  construction from approved Freight tweezer/sticker URLs and bounded numeric
+  placement/style values, then mount through `replaceChildren()`.
+- Keep the existing child iframe v10 source unless a future batch explicitly
+  creates and uploads a structured-message child. The parent can safely accept
+  v10's legacy `html` field only because it is parsed as declarative data and
+  not injected.
+- Preserve the fallback lookup for `#mms-tw-rig`: the assembled marker is
+  outside `.mms` before runtime mounting, so querying only inside `.mms` breaks
+  desktop tweezer rendering.
+- Zero and negative finite Touchbaes compact height messages are rejected
+  before clamping. The focused embed harness covers valid rig construction,
+  script/event/URL rejection, invalid coordinate hiding, height-message
+  rejection, Montran readiness, and Montran turn locks.
+- Verification passed: syntax checks, canonical assembly, focused
+  `npm run embed-montran-test`, and the complete
+  `bash audit/scripts/validate-phase2.sh`. The protected gold baseline remains
+  `gold-2026-07-21-responsive-70` and was not edited.

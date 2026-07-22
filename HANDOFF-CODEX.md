@@ -1390,3 +1390,27 @@ agent needs to continue this project without the prior chat history.
   four/static Withered Green contracts.
 - The remaining acceptance gate is physical iPad Safari playback of the second
   Touchbaes asset. Do not publish without Ocean's explicit authorization.
+
+## Current handoff — Round 91 Touchbaes parent message hardening (2026-07-22)
+- Round 91 is local repository work on branch
+  `round-91/touchbaes-message-hardening`; it is not deployed to Cargo and is
+  not published.
+- It closes `MMS-AUD-033`: the parent Touchbaes escaped tweezer rig no longer
+  writes child-supplied `data.html` to `innerHTML`. The parent accepts only
+  approved Freight tweezer/sticker URLs and bounded numeric placement/style
+  fields parsed from the legacy message, then builds trusted DOM nodes with
+  `replaceChildren()`.
+- The existing Touchbaes child iframe v10 is intentionally unchanged for this
+  round. Its legacy `html` message is treated only as a declarative carrier;
+  no message-derived string reaches live parent markup. Compact mode still
+  suppresses the escaped rig; desktop visual behavior is preserved.
+- The source overlay now locates the generated `#mms-tw-rig` even though the
+  assembled marker starts outside `.mms`, then mounts that same node into the
+  current root. Do not revert this to a `.mms`-only query.
+- The Round 90 height limitation is also closed: zero and negative finite
+  Touchbaes height messages are rejected before clamping.
+- Verification passed: extracted `home-extras` script syntax, harness syntax,
+  `bash cargo/assemble-test.sh`, no `innerHTML` occurrences in the Touchbaes
+  home extras/generated mirrors, focused `npm run embed-montran-test`, and the
+  complete `bash audit/scripts/validate-phase2.sh`.
+- `gold-2026-07-21-responsive-70` remains immutable and unchanged.
