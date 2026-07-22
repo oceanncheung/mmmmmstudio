@@ -17,8 +17,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 PAGES = ("home", "who", "write")
-PANEL_VERSION = "responsive-70/root-lifecycle-1"
-HOME_VERSION = "tweezer-v3/root-lifecycle-1"
+PANEL_VERSION = "responsive-70/root-lifecycle-2/embed-message-v1"
+HOME_VERSION = "tweezer-v3/root-lifecycle-2/embed-message-v1"
 
 
 class ContractError(RuntimeError):
@@ -624,7 +624,7 @@ def self_test() -> None:
   var currentMms = document.querySelector('.mms');
   var lifecycle = ensureLifecycle();
   lifecycle.teardownStale(currentMms);
-  var owner = lifecycle.create('panel', currentMms, 'responsive-70/root-lifecycle-1');
+  var owner = lifecycle.create('panel', currentMms, 'responsive-70/root-lifecycle-2/embed-message-v1');
   lifecycle.replace('panel', owner);
   window.__mmsPanelVersion = 'responsive-70'; window.__mmsPanelRoot = currentMms;
   owner.on(window, 'resize', function () {}); owner.on(document, 'click', function () {});
@@ -637,7 +637,7 @@ def self_test() -> None:
 (function () {
   var lifecycle = window.__mmsRuntimeLifecycle;
   var shell = document.querySelector('.mms');
-  var owner = lifecycle.create('home', shell, 'tweezer-v3/root-lifecycle-1');
+  var owner = lifecycle.create('home', shell, 'tweezer-v3/root-lifecycle-2/embed-message-v1');
   lifecycle.replace('home', owner); window.__mmsTwOverlayV3 = 1;
   owner.on(window, 'message', function () {}); owner.raf(function () {}); owner.cleanup(function () {});
 })();

@@ -12,6 +12,16 @@ const WATCHDOG_MS = 90_000;
 const REPLACEMENT_COUNT = 3;
 const TOTAL_GENERATIONS = REPLACEMENT_COUNT + 2;
 const SETTLE_MS = 1_650;
+const OWNER_UPGRADE_VERSIONS = {
+  panel: {
+    old: "responsive-70/root-lifecycle-1",
+    current: "responsive-70/root-lifecycle-2/embed-message-v1",
+  },
+  home: {
+    old: "tweezer-v3/root-lifecycle-1",
+    current: "tweezer-v3/root-lifecycle-2/embed-message-v1",
+  },
+};
 
 function lifecycleProbeInit() {
   const native = {
@@ -468,6 +478,150 @@ async function rehydrateSameRoot(page, { bodycopy, runtime, extras, expanded }) 
   });
 }
 
+async function exerciseSameRootOwnerVersionUpgrade({ browser, server, runtime, extras }) {
+  const context = await browser.newContext({
+    viewport: { width: 390, height: 844 },
+    deviceScaleFactor: 2,
+    reducedMotion: "reduce",
+  });
+  await context.route("https://freight.cargo.site/**", (route) => route.abort("blockedbyclient"));
+
+  const pageErrors = [];
+  const consoleErrors = [];
+  const page = await context.newPage();
+  page.on("pageerror", (error) => pageErrors.push(error.stack || error.message));
+  page.on("console", (message) => {
+    if (message.type() !== "error") return;
+    const text = message.text();
+    if (!/Failed to load resource: net::ERR_BLOCKED_BY_CLIENT/.test(text)) consoleErrors.push(text);
+  });
+  page.setDefaultTimeout(7_500);
+
+  try {
+    await page.goto(`${server.origin}/test.html`, { waitUntil: "domcontentloaded" });
+    await page.waitForFunction((versions) => {
+      const lifecycle = window.__mmsRuntimeLifecycle;
+      const currentRoot = document.querySelector(".mms");
+      return lifecycle?.apiVersion === 1 &&
+        lifecycle.owners?.panel?.root === currentRoot &&
+        lifecycle.owners?.home?.root === currentRoot &&
+        lifecycle.owners.panel.version === versions.panel.current &&
+        lifecycle.owners.home.version === versions.home.current &&
+        lifecycle.owners.panel.active() === true &&
+        lifecycle.owners.home.active() === true;
+    }, OWNER_UPGRADE_VERSIONS);
+    await page.waitForTimeout(SETTLE_MS);
+
+    const before = await page.evaluate((versions) => {
+      const lifecycle = window.__mmsRuntimeLifecycle;
+      const root = document.querySelector(".mms");
+      const panel = lifecycle.owners.panel;
+      const home = lifecycle.owners.home;
+      const dialog = document.querySelector("dialog.mms-panel");
+      const rig = document.getElementById("mms-tw-rig");
+      if (!root || !panel || !home || !dialog || !rig) {
+        throw new Error("same-root owner-version upgrade fixture is incomplete");
+      }
+      panel.version = versions.panel.old;
+      home.version = versions.home.old;
+      window.__mmsOwnerVersionUpgrade = { root, panel, home, dialog, rig };
+      return {
+        rootConnected: root.isConnected,
+        panelVersion: panel.version,
+        homeVersion: home.version,
+        panelActive: panel.active(),
+        homeActive: home.active(),
+        roots: document.querySelectorAll(".mms").length,
+        dialogs: document.querySelectorAll("dialog.mms-panel").length,
+        rigs: document.querySelectorAll("#mms-tw-rig").length,
+      };
+    }, OWNER_UPGRADE_VERSIONS);
+    assert.equal(before.rootConnected, true, "old-version owners must begin on a connected root");
+    assert.equal(before.panelVersion, OWNER_UPGRADE_VERSIONS.panel.old, "panel owner must be downgraded in place");
+    assert.equal(before.homeVersion, OWNER_UPGRADE_VERSIONS.home.old, "Home owner must be downgraded in place");
+    assert.equal(before.panelActive, true, "downgraded panel owner must still be active before upgrade");
+    assert.equal(before.homeActive, true, "downgraded Home owner must still be active before upgrade");
+    assert.equal(before.roots, 1, "owner-version fixture must begin with one root");
+    assert.equal(before.dialogs, 1, "owner-version fixture must begin with one dialog");
+    assert.equal(before.rigs, 1, "owner-version fixture must begin with one tweezer rig");
+
+    await page.evaluate(({ runtimeSource, extrasSource }) => {
+      const execute = (source) => {
+        const script = document.createElement("script");
+        script.textContent = source;
+        document.body.appendChild(script);
+        script.remove();
+      };
+      execute(runtimeSource);
+      const extrasTemplate = document.createElement("template");
+      extrasTemplate.innerHTML = extrasSource;
+      extrasTemplate.content.querySelectorAll("script").forEach((script) => {
+        execute(script.textContent || "");
+      });
+    }, { runtimeSource: runtime, extrasSource: extras });
+
+    await page.waitForFunction((versions) => {
+      const state = window.__mmsOwnerVersionUpgrade;
+      const lifecycle = window.__mmsRuntimeLifecycle;
+      const currentRoot = document.querySelector(".mms");
+      const panel = lifecycle?.owners?.panel;
+      const home = lifecycle?.owners?.home;
+      return state && currentRoot === state.root &&
+        panel && panel !== state.panel && panel.root === state.root &&
+        home && home !== state.home && home.root === state.root &&
+        panel.version === versions.panel.current &&
+        home.version === versions.home.current &&
+        panel.active() === true && home.active() === true &&
+        state.panel.active() === false && state.home.active() === false;
+    }, OWNER_UPGRADE_VERSIONS);
+    await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+
+    const after = await page.evaluate(() => {
+      const state = window.__mmsOwnerVersionUpgrade;
+      const lifecycle = window.__mmsRuntimeLifecycle;
+      const panel = lifecycle.owners.panel;
+      const home = lifecycle.owners.home;
+      return {
+        rootRetained: document.querySelector(".mms") === state.root,
+        panelReplaced: panel !== state.panel,
+        homeReplaced: home !== state.home,
+        oldPanelInactive: state.panel.active() === false,
+        oldHomeInactive: state.home.active() === false,
+        panelVersion: panel.version,
+        homeVersion: home.version,
+        panelActive: panel.active(),
+        homeActive: home.active(),
+        dialogRetained: document.querySelector("dialog.mms-panel") === state.dialog,
+        rigRetained: document.getElementById("mms-tw-rig") === state.rig,
+        roots: document.querySelectorAll(".mms").length,
+        dialogs: document.querySelectorAll("dialog.mms-panel").length,
+        rigs: document.querySelectorAll("#mms-tw-rig").length,
+      };
+    });
+
+    assert.equal(after.rootRetained, true, "owner-version upgrade must retain the same .mms root");
+    assert.equal(after.panelReplaced, true, "current panel runtime must replace the old-version owner");
+    assert.equal(after.homeReplaced, true, "current Home runtime must replace the old-version owner");
+    assert.equal(after.oldPanelInactive, true, "old-version panel owner must deactivate");
+    assert.equal(after.oldHomeInactive, true, "old-version Home owner must deactivate");
+    assert.equal(after.panelVersion, OWNER_UPGRADE_VERSIONS.panel.current, "panel owner must advance to the current version");
+    assert.equal(after.homeVersion, OWNER_UPGRADE_VERSIONS.home.current, "Home owner must advance to the current version");
+    assert.equal(after.panelActive, true, "current-version panel owner must remain active");
+    assert.equal(after.homeActive, true, "current-version Home owner must remain active");
+    assert.equal(after.dialogRetained, true, "same-root owner upgrade must retain the current dialog");
+    assert.equal(after.rigRetained, true, "same-root owner upgrade must retain the current tweezer rig");
+    assert.equal(after.roots, 1, "same-root owner upgrade must leave one root");
+    assert.equal(after.dialogs, 1, "same-root owner upgrade must leave one dialog");
+    assert.equal(after.rigs, 1, "same-root owner upgrade must leave one tweezer rig");
+    assert.deepEqual(pageErrors, [], "owner-version upgrade page must not report JavaScript errors");
+    assert.deepEqual(consoleErrors, [], "owner-version upgrade console must remain free of application errors");
+
+    return { valid: true, before, after };
+  } finally {
+    await context.close();
+  }
+}
+
 async function run() {
   let server = null;
   let browser = null;
@@ -716,6 +870,13 @@ async function run() {
       overflowX: final.layout.overflowX,
     };
     await context.close();
+
+    const ownerVersionUpgradeReport = await exerciseSameRootOwnerVersionUpgrade({
+      browser,
+      server,
+      runtime: panelSource,
+      extras: extrasSource,
+    });
 
     const expandedContext = await browser.newContext({
       viewport: { width: 1440, height: 900 },
@@ -1003,6 +1164,7 @@ async function run() {
       valid: true,
       compact: compactReport,
       expanded: expandedReport,
+      sameRootOwnerVersionUpgrade: ownerVersionUpgradeReport,
     }, null, 2)}\n`);
     await expandedContext.close();
   } finally {

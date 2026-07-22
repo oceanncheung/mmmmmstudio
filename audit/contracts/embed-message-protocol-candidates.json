@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "issue": "MMS-AUD-030",
+  "protocol_version": 1,
+  "activation": "prepared-not-active",
+  "entries": [
+    {
+      "kind": "v7-cup",
+      "version": "three-r160/message-v1",
+      "builder": "work/v7-cup-message-v1-src/build-bundle.py",
+      "protocol_source": "work/v7-cup-message-v1-src/main.js",
+      "output_name": "coffee-cup-bundle-message-v1.html",
+      "expected_bytes": 781074,
+      "expected_sha256": "0e196aa0f2e1d35f0671ea1d746f5453037ee7e320a36ca189b1a5d817cf256f",
+      "supersedes": {
+        "version": "three-r160",
+        "bytes": 780341,
+        "sha256": "ee09e9c282d928f8968b91e1301bc0ba2639102a27c1bf1cd40483ab1b609d0a",
+        "data_src": "https://freight.cargo.site/m/Z3031274916472238420423367767865/coffee-cup-bundle.html"
+      },
+      "inputs": [
+        {
+          "path": "work/v7-cup-src/index.html",
+          "sha256": "5a0d6a381583a16bc804255b1902c8cb2a05365a6119f6d61c468cdac7d606e5"
+        },
+        {
+          "path": "work/v7-cup-src/styles.css",
+          "sha256": "e63d8bc5418c8c236a83fd734e8e1ff22d9ab47ca774562687a93eec0d4a5db3"
+        },
+        {
+          "path": "work/v7-cup-src/assets/cup-wrap.png",
+          "sha256": "1c584551776b366770de2a51c2beaa7a79fcd5c015e40a913ce2cafc23826ecf"
+        },
+        {
+          "path": "work/v7-cup-src/vendor/three.min.js",
+          "sha256": "170c6789f43217c96b3170f4b42fafe135de7f7cd48497a4218f9757ee1d49fa"
+        },
+        {
+          "path": "work/v7-cup-message-v1-src/main.js",
+          "sha256": "3900d2019080f2bccb69a3c7cc4036df77a22b25cf89418efa8d757334a4380c"
+        },
+        {
+          "path": "work/v7-cup-message-v1-src/build-bundle.py",
+          "sha256": "1ea3b560d54b4095aab027ced91ba975ccc58d896f6e326932c6764eb431e720"
+        }
+      ],
+      "required_contracts": [
+        "const EMBED_PROTOCOL_VERSION = 1",
+        "event.source !== window.parent",
+        "event.origin !== expectedParentOrigin",
+        "typeof data.visible !== 'boolean'",
+        "}, expectedParentOrigin);"
+      ]
+    },
+    {
+      "kind": "touchbaes",
+      "version": 11,
+      "builder": "work/touchbaes-message-v1-src/build-bundle.py",
+      "protocol_source": "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/touchbaes-sticker-game-v11.html",
+      "output_name": "touchbaes-sticker-game-v11.html",
+      "expected_bytes": 50030,
+      "expected_sha256": "6c4947e22ac8f8b5ec06d1c4f9d238367c561819a5eac6d8a699403e6f75fee0",
+      "supersedes": {
+        "version": 10,
+        "bytes": 49140,
+        "sha256": "2c4f2c12a8d049ab0805fb8f72f246a95e715154671d5fd8cc808407995afcb5",
+        "data_src": "https://freight.cargo.site/m/E3031754669080377521238157342521/touchbaes-sticker-game-v10.html"
+      },
+      "inputs": [
+        {
+          "path": "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/touchbaes-sticker-game-v11.html",
+          "sha256": "6c4947e22ac8f8b5ec06d1c4f9d238367c561819a5eac6d8a699403e6f75fee0"
+        },
+        {
+          "path": "work/touchbaes-message-v1-src/build-bundle.py",
+          "sha256": "7a31f3ba9ba844e3e47c6ffa8fe2046b520cb722aae933053f85446fae439d71"
+        }
+      ],
+      "required_contracts": [
+        "const EMBED_PROTOCOL_VERSION = 1",
+        "event.source !== window.parent",
+        "event.origin !== expectedParentOrigin",
+        "typeof data.compact !== \"boolean\"",
+        "}, payload), expectedParentOrigin);"
+      ]
+    }
+  ]
+}

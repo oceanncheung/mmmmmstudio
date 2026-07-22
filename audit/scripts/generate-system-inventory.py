@@ -697,7 +697,7 @@ def browser_capability_map(home_source: str, global_css: str, head_source: str, 
         record("ResizeObserver", [("'ResizeObserver' in window", home_source), ("window.addEventListener('resize'", home_source)], "updates scrubbers, Montran map fit, and compact header measurements", "load/resize/orientation listeners and scheduled measurements are retained; no ResizeObserver polyfill captured", [body_evidence]),
         record("muted inline autoplay and posters", [("playsinline", home_source), ("data-poster", home_source), ("video.play()", home_source)], "plays motion inline on iOS while preserving a static first frame until readiness", "play rejection is caught and the poster/background remains visible", [body_evidence]),
         record("visibility lifecycle", [("visibilitychange", home_source), ("__mmsEmbedVisibility", home_source)], "pauses/resumes video and notifies iframe motion when the page or media is not visible", "if messaging is unavailable, posters and document content remain; iframe internal motion control is not guaranteed", [body_evidence]),
-        record("validated iframe postMessage", [("event.source !== frame.contentWindow", home_source), ("event.origin !== expectedOrigin", home_source)], "accepts ready messages from the expected V7, Touchbaes, and Montran frame", "iframe posters remain until a valid ready message; outbound visibility/mode messages use captured wildcard targets", [body_evidence, embed_evidence]),
+        record("validated iframe postMessage", [("event.source !== frame.contentWindow", home_source), ("event.origin !== expectedOrigin", home_source)], "accepts ready messages from the expected V7, Touchbaes, and Montran frame", "iframe posters remain until a valid ready message; frozen Round 80 V7 and Touchbaes child/outbound paths still include wildcard targets", [body_evidence, embed_evidence]),
         record("WebGL embed", [("v7-cup", json.dumps(embeds, sort_keys=True))], "renders the V7 Three.js cup inside a cross-origin Freight iframe", "static iframe poster remains until the validated ready signal; no alternate live renderer captured", [embed_evidence]),
         record("PDF canvas and HTTP range transport", [("FreightRangeTransport", json.dumps(embeds, sort_keys=True)), ("render_width_limit", json.dumps(embeds, sort_keys=True))], "renders the Montran booklet selectively inside a Freight iframe", "the frozen manifest records range transport and a 1600 px ceiling but does not prove the active full-download fallback; the poster/loader is the captured parent fallback", [embed_evidence, "work/montran-direct-pdf-v10-src/vendor/pdf.min.mjs"]),
         record("viewport-fit and safe-area environment variables", [("viewport-fit=cover", head_source), ("env(safe-area-inset-top)", global_css), ("env(safe-area-inset-bottom)", global_css)], "allows content bleed while protecting compact header and panel controls on iOS", "regular viewport padding and a 1 px sampler minimum apply when safe-area values resolve to zero", [head_evidence, css_evidence]),
@@ -876,8 +876,10 @@ def build_inventory(root: Path, baseline_root: Path) -> dict[str, Any]:
             "embeds": embeds["entries"],
             "iframe_messaging": {
                 "ready_contracts": [entry["ready_message"] for entry in embeds["entries"]],
-                "parent_validation": "panel.js matches event.source and expected embed kind; Montran also validates origin",
-                "wildcard_messages_observed": ["V7 ready", "Touchbaes ready/size/mode", "generic embed visibility"],
+                "frozen_parent_validation": "Round 80 validates expected frame windows and applicable origins/kinds, but predates protocol-v1 opt-in",
+                "frozen_wildcard_messages_observed": ["generic V7/Touchbaes visibility", "Touchbaes mode", "V7 ready", "Touchbaes ready/size/tweezer"],
+                "prepared_local_parent": "Round 93 targets exact derived child origins and carries kind/protocolVersion; present malformed protocol attributes fail closed; this code is not deployed",
+                "prepared_successors": "audit/contracts/embed-message-protocol-candidates.json",
             },
             "freight_baseline": {
                 "underlying_objects": len(freight_rows),
@@ -1113,7 +1115,7 @@ def markdown(inventory: dict[str, Any]) -> str:
         )
     lines.extend([
         "",
-        "Video delivery uses deferred sources, posters, muted inline autoplay, proximity preloading, and visibility pausing. The parent validates iframe source windows and message kinds; wildcard-origin messages remain in the V7/Touchbaes/generic visibility contracts and are recorded for later security audit.",
+        "Video delivery uses deferred sources, posters, muted inline autoplay, proximity preloading, and visibility pausing. The frozen Round 80 V7/Touchbaes bridge still includes wildcard child and outbound paths. Round 93 prepares exact-target parent messaging plus hash-locked protocol-v1 child successors, but none is promoted until both Freight URLs and the Cargo parent can switch atomically.",
         "",
         "## Cargo platform and metadata",
         "",

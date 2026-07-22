@@ -2768,7 +2768,7 @@ html[data-render-preview] .mms-frame { transition: none !important; }
    mobile control sheet toggle. 2026-07-06 r2 */
 (function () {
   var PANEL_MARKER = 'responsive-70';
-  var PANEL_OWNER_VERSION = 'responsive-70/root-lifecycle-1';
+  var PANEL_OWNER_VERSION = 'responsive-70/root-lifecycle-2/embed-message-v1';
 
   function ensureRuntimeLifecycle() {
     var existing = window.__mmsRuntimeLifecycle;
@@ -3538,6 +3538,42 @@ html[data-render-preview] .mms-frame { transition: none !important; }
     }
     return element.getAttribute('data-src');
   }
+  var EMBED_PROTOCOL_VERSION = 1;
+  function embedOrigin(frame) {
+    if (!frame) return '';
+    var source = frame.dataset.mmsSource || deferredSource(frame) || frame.getAttribute('src');
+    if (!source) return '';
+    try {
+      var origin = new URL(source, window.location.href).origin;
+      return origin && origin !== 'null' ? origin : '';
+    } catch (e) {
+      return '';
+    }
+  }
+  function embedKind(frame) {
+    return frame && frame.getAttribute('data-embed-kind') || '';
+  }
+  function embedProtocol(frame) {
+    if (!frame || !frame.hasAttribute('data-embed-protocol')) return 0;
+    return frame.getAttribute('data-embed-protocol') === String(EMBED_PROTOCOL_VERSION) ?
+      EMBED_PROTOCOL_VERSION : -1;
+  }
+  function postEmbedVisibility(frame, visible) {
+    var origin = embedOrigin(frame);
+    var kind = embedKind(frame);
+    if (!origin || !kind || !frame.contentWindow) return false;
+    try {
+      frame.contentWindow.postMessage({
+        __mmsEmbedVisibility: 1,
+        protocolVersion: EMBED_PROTOCOL_VERSION,
+        kind: kind,
+        visible: Boolean(visible)
+      }, origin);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
   function isTouchbaesAlphaVideo(element) {
     var frame = element && element.closest ? element.closest('[data-media-id="touchbaes-02"]') : null;
     return Boolean(frame && element.tagName === 'VIDEO');
@@ -3607,7 +3643,7 @@ html[data-render-preview] .mms-frame { transition: none !important; }
       if (!active) { try { element.pause(); } catch (e) {} return; }
       requestVideoPlay(element);
     } else if (element.tagName === 'IFRAME' && element.contentWindow && element.dataset.mmsLoaded === '1') {
-      try { element.contentWindow.postMessage({ __mmsEmbedVisibility: 1, visible: active }, '*'); } catch (e) {}
+      postEmbedVisibility(element, active);
     }
   }
 
@@ -3698,14 +3734,16 @@ html[data-render-preview] .mms-frame { transition: none !important; }
     }
   }
   runtime.on(window, 'message', function (event) {
-    if (!event.data || event.data.__mmsEmbedReady !== 1) return;
-    var frames = document.querySelectorAll('.mms iframe[data-embed-kind]');
+    if (!event.data || typeof event.data !== 'object' || event.data.__mmsEmbedReady !== 1) return;
+    var frames = currentMms.querySelectorAll('iframe[data-embed-kind]');
     frames.forEach(function (frame) {
       if (event.source !== frame.contentWindow) return;
-      if (event.data.kind !== frame.getAttribute('data-embed-kind')) return;
-      var expectedOrigin = '';
-      try { expectedOrigin = new URL(deferredSource(frame), window.location.href).origin; } catch (e) {}
-      if (expectedOrigin && event.origin !== expectedOrigin) return;
+      if (event.data.kind !== embedKind(frame)) return;
+      var expectedOrigin = embedOrigin(frame);
+      if (!expectedOrigin || event.origin !== expectedOrigin) return;
+      var requiredProtocol = embedProtocol(frame);
+      if (requiredProtocol < 0) return;
+      if (requiredProtocol && event.data.protocolVersion !== requiredProtocol) return;
       frame.dataset.motionReady = '1';
       frame.style.backgroundImage = 'none';
     });
@@ -4085,9 +4123,7 @@ html[data-render-preview] .mms-frame { transition: none !important; }
       try { video.pause(); } catch (e) {}
     });
     currentMms.querySelectorAll('iframe[data-embed-kind][data-mms-loaded="1"]').forEach(function (frame) {
-      try {
-        frame.contentWindow.postMessage({ __mmsEmbedVisibility: 1, visible: false }, '*');
-      } catch (e) {}
+      postEmbedVisibility(frame, false);
     });
     if (window.__mmsPanelRoot === currentMms) {
       window.__mmsPanelRoot = null;
@@ -4102,7 +4138,7 @@ html[data-render-preview] .mms-frame { transition: none !important; }
 (function () {
   var registry = window.__mmsRuntimeLifecycle;
   var currentMms = document.querySelector('.mms');
-  var OWNER_VERSION = 'tweezer-v3/root-lifecycle-1';
+  var OWNER_VERSION = 'tweezer-v3/root-lifecycle-2/embed-message-v1';
   if (!registry || registry.apiVersion !== 1 || !currentMms) return;
   registry.teardownStale(currentMms);
   var previousOwner = registry.owners.home;
@@ -4142,6 +4178,40 @@ html[data-render-preview] .mms-frame { transition: none !important; }
     return node;
   }
   function gameFrame() { return frame; }
+  var EMBED_PROTOCOL_VERSION = 1;
+  var EMBED_KIND = 'touchbaes';
+  function gameOrigin() {
+    var iframe = gameFrame();
+    if (!iframe) return '';
+    var source = iframe.dataset.mmsSource || iframe.getAttribute('data-src') || iframe.getAttribute('src');
+    if (!source) return '';
+    try {
+      var origin = new URL(source, window.location.href).origin;
+      return origin && origin !== 'null' ? origin : '';
+    } catch (e) {
+      return '';
+    }
+  }
+  function strictProtocol() {
+    if (!frame || !frame.hasAttribute('data-embed-protocol')) return 0;
+    return frame.getAttribute('data-embed-protocol') === String(EMBED_PROTOCOL_VERSION) ?
+      EMBED_PROTOCOL_VERSION : -1;
+  }
+  function postGameMode(iframe, isCompact) {
+    var origin = gameOrigin();
+    if (!origin || !iframe || !iframe.contentWindow) return false;
+    try {
+      iframe.contentWindow.postMessage({
+        __mmsGameMode: 1,
+        protocolVersion: EMBED_PROTOCOL_VERSION,
+        kind: EMBED_KIND,
+        compact: Boolean(isCompact)
+      }, origin);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
   function compact() { return window.matchMedia('(max-width: 1023px)').matches; }
   function hideRig() {
     var node = rig();
@@ -4316,9 +4386,7 @@ html[data-render-preview] .mms-frame { transition: none !important; }
     var isCompact = compact();
     if (force || isCompact !== lastCompactMode) {
       lastCompactMode = isCompact;
-      try {
-        iframe.contentWindow.postMessage({ __mmsGameMode: 1, compact: isCompact }, '*');
-      } catch (e) {}
+      postGameMode(iframe, isCompact);
     }
     if (isCompact) {
       syncCompactGeometry(force);
@@ -4334,20 +4402,22 @@ html[data-render-preview] .mms-frame { transition: none !important; }
   runtime.on(window, 'message', function (event) {
     var iframe = gameFrame();
     if (!iframe || event.source !== iframe.contentWindow) return;
-    var expectedOrigin = '';
-    try {
-      expectedOrigin = new URL(iframe.dataset.mmsSource || iframe.getAttribute('data-src') || iframe.src, window.location.href).origin;
-    } catch (e) {}
+    var expectedOrigin = gameOrigin();
     if (!expectedOrigin || event.origin !== expectedOrigin) return;
     var data = event.data;
-    if (!data) return;
-    if (data.__mmsGameSize) {
+    if (!data || typeof data !== 'object' || Array.isArray(data)) return;
+    var requiredProtocol = strictProtocol();
+    if (requiredProtocol < 0) return;
+    if (requiredProtocol && (
+      data.kind !== EMBED_KIND || data.protocolVersion !== requiredProtocol
+    )) return;
+    if (data.__mmsGameSize === 1) {
       if (Number(data.geometryVersion) !== 10) return;
-      if (Boolean(data.compact) !== compact()) return;
+      if (typeof data.compact !== 'boolean' || data.compact !== compact()) return;
       applyGameHeight(Number(data.height), data.edgeReserve);
       return;
     }
-    if (!data.__tw) return;
+    if (data.__tw !== 1) return;
     if (compact() || data.t === 'hide') {
       hideRig();
       return;
