@@ -11,6 +11,10 @@
 **/__pycache__/
 *.py[cod]
 /output/
+/audit/output/
+/audit/harness/output/
+/audit/harness/test-results/
+/audit/harness/playwright-report/
 /Working Files/
 
 # Secrets and installed dependencies

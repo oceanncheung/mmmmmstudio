@@ -1,0 +1,146 @@
+[
+  {
+    "id": "VariableID:112:341",
+    "name": "typeface/serif-state",
+    "resolvedType": "STRING",
+    "collectionId": "VariableCollectionId:112:340",
+    "scopes": [],
+    "description": "",
+    "valuesByMode": {
+      "112:0": "Selected"
+    }
+  },
+  {
+    "id": "VariableID:112:342",
+    "name": "typeface/sans-state",
+    "resolvedType": "STRING",
+    "collectionId": "VariableCollectionId:112:340",
+    "scopes": [],
+    "description": "",
+    "valuesByMode": {
+      "112:0": "Default"
+    }
+  },
+  {
+    "id": "VariableID:112:343",
+    "name": "typeface/mono-state",
+    "resolvedType": "STRING",
+    "collectionId": "VariableCollectionId:112:340",
+    "scopes": [],
+    "description": "",
+    "valuesByMode": {
+      "112:0": "Default"
+    }
+  },
+  {
+    "id": "VariableID:112:344",
+    "name": "typeface/gothic-state",
+    "resolvedType": "STRING",
+    "collectionId": "VariableCollectionId:112:340",
+    "scopes": [],
+    "description": "",
+    "valuesByMode": {
+      "112:0": "Default"
+    }
+  },
+  {
+    "id": "VariableID:140:266",
+    "name": "image/shape",
+    "resolvedType": "STRING",
+    "collectionId": "VariableCollectionId:112:340",
+    "scopes": [],
+    "description": "",
+    "valuesByMode": {
+      "112:0": "Straight"
+    }
+  },
+  {
+    "id": "VariableID:140:267",
+    "name": "image-shape/straight-state",
+    "resolvedType": "STRING",
+    "collectionId": "VariableCollectionId:112:340",
+    "scopes": [],
+    "description": "",
+    "valuesByMode": {
+      "112:0": "Selected"
+    }
+  },
+  {
+    "id": "VariableID:140:268",
+    "name": "image-shape/rounded-state",
+    "resolvedType": "STRING",
+    "collectionId": "VariableCollectionId:112:340",
+    "scopes": [],
+    "description": "",
+    "valuesByMode": {
+      "112:0": "Default"
+    }
+  },
+  {
+    "id": "VariableID:140:269",
+    "name": "image-shape/oval-state",
+    "resolvedType": "STRING",
+    "collectionId": "VariableCollectionId:112:340",
+    "scopes": [],
+    "description": "",
+    "valuesByMode": {
+      "112:0": "Default"
+    }
+  },
+  {
+    "id": "VariableID:150:301",
+    "name": "color-theme/white-state",
+    "resolvedType": "STRING",
+    "collectionId": "VariableCollectionId:112:340",
+    "scopes": [],
+    "description": "",
+    "valuesByMode": {
+      "112:0": "Selected"
+    }
+  },
+  {
+    "id": "VariableID:150:302",
+    "name": "color-theme/black-state",
+    "resolvedType": "STRING",
+    "collectionId": "VariableCollectionId:112:340",
+    "scopes": [],
+    "description": "",
+    "valuesByMode": {
+      "112:0": "Default"
+    }
+  },
+  {
+    "id": "VariableID:150:303",
+    "name": "color-theme/girly-state",
+    "resolvedType": "STRING",
+    "collectionId": "VariableCollectionId:112:340",
+    "scopes": [],
+    "description": "",
+    "valuesByMode": {
+      "112:0": "Default"
+    }
+  },
+  {
+    "id": "VariableID:150:304",
+    "name": "color-theme/quirky-state",
+    "resolvedType": "STRING",
+    "collectionId": "VariableCollectionId:112:340",
+    "scopes": [],
+    "description": "",
+    "valuesByMode": {
+      "112:0": "Default"
+    }
+  },
+  {
+    "id": "VariableID:150:305",
+    "name": "color-theme/contrast-state",
+    "resolvedType": "STRING",
+    "collectionId": "VariableCollectionId:112:340",
+    "scopes": [],
+    "description": "",
+    "valuesByMode": {
+      "112:0": "Default"
+    }
+  }
+]
+

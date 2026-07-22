@@ -1,0 +1,613 @@
+{
+  "schema_version": "mms-audit/figma-summary/v1",
+  "captured_at": "2026-07-21T03:49:26Z",
+  "file_key": "aaJEv2Z8j6HaegMHou4N09",
+  "audit_mode": "read-only",
+  "target_revision": "post-Round-80 working tree",
+  "reference_snapshot": "docs/audits/2026-07-20T175853-0400-round-80/figma",
+  "figma_writes": 0,
+  "cargo_writes": 0,
+  "screenshots": {
+    "control_panel_desktop": {
+      "node_id": "1:1039",
+      "rendered_width_px": 200,
+      "rendered_height_px": 248,
+      "sha256": "2cddbf07f02fd0d6e97fea13cfe82e3ac89d9d088fa6e7b245509b2f2e230f14",
+      "frozen_path": "docs/audits/2026-07-20T175853-0400-round-80/figma/screenshots/control-panel-desktop-1-1039.png",
+      "live_matches_frozen": true
+    },
+    "control_panel_mobile": {
+      "node_id": "1:2899",
+      "rendered_width_px": 390,
+      "rendered_height_px": 179,
+      "figma_node_height_px": 178,
+      "note": "The 1px difference is the rasterized outer stroke.",
+      "sha256": "6c9955762e86db80909a43e016c2fdd1047900a277197144aad967c41497afbf",
+      "frozen_path": "docs/audits/2026-07-20T175853-0400-round-80/figma/screenshots/control-panel-mobile-1-2899.png",
+      "live_matches_frozen": true
+    },
+    "write_desktop": {
+      "node_id": "532:1208",
+      "rendered_width_px": 1440,
+      "rendered_height_px": 1421,
+      "figma_node_height_px": 942,
+      "sha256": "fc5c702fe344eff76336243a0c3860bd608067f280ec38ff413ada27c36f7fb5",
+      "frozen_path": "docs/audits/2026-07-20T175853-0400-round-80/figma/screenshots/write-desktop-532-1208.png",
+      "live_matches_frozen": true
+    },
+    "write_mobile": {
+      "node_id": "640:448",
+      "original_width_px": 390,
+      "original_height_px": 1938,
+      "comparison_width_px": 322,
+      "comparison_height_px": 1600,
+      "sha256": "c9aeaddddb0dbe0b64e6b175e79a64897918ac82ff4813d2f898fed9949eee15",
+      "full_resolution_live_sha256": "c05aafb0d3b026d071765b02c4e5726506a429317d3702904553c26cd4d12efa",
+      "frozen_path": "docs/audits/2026-07-20T175853-0400-round-80/figma/screenshots/write-mobile-640-448.png",
+      "live_matches_frozen_at_same_render_size": true
+    }
+  },
+  "nodes": {
+    "control_panel_desktop": {
+      "id": "1:1039",
+      "name": "Control Panel",
+      "type": "COMPONENT",
+      "width_px": 200,
+      "height_px": 248,
+      "layout_mode": "VERTICAL",
+      "primary_axis_sizing_mode": "AUTO",
+      "counter_axis_sizing_mode": "FIXED",
+      "clips_content": true,
+      "padding_px": {
+        "top": 24,
+        "right": 16,
+        "bottom": 24,
+        "left": 16
+      },
+      "item_spacing_px": 16,
+      "explicit_modes": {
+        "Type Scale": "Medium"
+      },
+      "width_binding": {
+        "variable_id": "VariableID:82:251",
+        "variable_name": "col/2"
+      },
+      "children": [
+        {
+          "id": "1:887",
+          "name": "colors",
+          "width_px": 168,
+          "height_px": 20,
+          "layout_mode": "HORIZONTAL",
+          "layout_align": "STRETCH"
+        },
+        {
+          "id": "1:3423",
+          "name": "Slider",
+          "width_px": 168,
+          "height_px": 24,
+          "layout_mode": "HORIZONTAL",
+          "layout_align": "STRETCH",
+          "padding_px": 4,
+          "item_spacing_px": 4
+        },
+        {
+          "id": "1:898",
+          "name": "actions-1",
+          "width_px": 168,
+          "height_px": 72,
+          "layout_mode": "GRID",
+          "layout_align": "STRETCH",
+          "padding_inline_px": 2,
+          "item_spacing_px": 8
+        },
+        {
+          "id": "1:944",
+          "name": "Image Shape",
+          "width_px": 168,
+          "height_px": 36,
+          "layout_mode": "HORIZONTAL",
+          "layout_align": "STRETCH",
+          "item_spacing_px": 8
+        }
+      ],
+      "height_arithmetic_px": {
+        "outer_padding": 48,
+        "rows": 152,
+        "three_gaps": 48,
+        "total": 248
+      },
+      "component_description_claims": {
+        "desktop_1440_height_px": 232,
+        "desktop_1024_approx_height_px": 209,
+        "desktop_1800_plus_approx_height_px": 290
+      }
+    },
+    "control_panel_mobile": {
+      "id": "1:2899",
+      "name": "Control Panel / Sheet",
+      "type": "COMPONENT",
+      "width_px": 390,
+      "height_px": 178,
+      "layout_mode": "VERTICAL",
+      "primary_axis_sizing_mode": "AUTO",
+      "counter_axis_sizing_mode": "FIXED",
+      "clips_content": true,
+      "padding_px": {
+        "top": 16,
+        "right": 20,
+        "bottom": 16,
+        "left": 20
+      },
+      "explicit_modes": {
+        "Space": "Mobile"
+      },
+      "inner_frame": {
+        "id": "1:2858",
+        "width_px": 350,
+        "height_px": 146,
+        "layout_mode": "VERTICAL",
+        "primary_axis_sizing_mode": "AUTO",
+        "counter_axis_sizing_mode": "FIXED",
+        "layout_align": "STRETCH",
+        "padding_block_px": 6,
+        "item_spacing_px": 16
+      },
+      "rows": [
+        {
+          "id": "524:534",
+          "name": "Frame 2",
+          "width_px": 350,
+          "height_px": 24,
+          "layout_mode": "HORIZONTAL",
+          "padding_inline_px": 2,
+          "item_spacing_px": 8,
+          "children": [
+            {
+              "id": "1:2866",
+              "name": "Slider",
+              "width_px": 169,
+              "height_px": 24
+            },
+            {
+              "id": "1:2859",
+              "name": "colors",
+              "width_px": 169,
+              "height_px": 24
+            }
+          ]
+        },
+        {
+          "id": "1:2867",
+          "name": "actions-1",
+          "width_px": 350,
+          "height_px": 36,
+          "layout_mode": "HORIZONTAL",
+          "padding_inline_px": 2,
+          "item_spacing_px": 8,
+          "button_width_px": 80.5,
+          "button_height_px": 36
+        },
+        {
+          "id": "542:364",
+          "name": "shape-row-44",
+          "width_px": 350,
+          "height_px": 42,
+          "layout_mode": "HORIZONTAL"
+        }
+      ],
+      "bounded_border_children": [
+        {
+          "id": "561:351",
+          "name": "bounded-left-border",
+          "width_px": 1,
+          "height_px": 220
+        },
+        {
+          "id": "561:352",
+          "name": "bounded-right-border",
+          "width_px": 1,
+          "height_px": 220
+        }
+      ],
+      "bounded_border_note": "The two 220px border rectangles are clipped by the 178px root."
+    },
+    "write_desktop": {
+      "id": "532:1208",
+      "name": "write / desktop",
+      "width_px": 1440,
+      "height_px": 942,
+      "layout_mode": "NONE",
+      "clips_content": false,
+      "explicit_modes": {
+        "Space": "Desktop",
+        "Type Scale": "Medium"
+      },
+      "content": {
+        "id": "532:1210",
+        "name": "Frame 1",
+        "x_px": 272,
+        "y_px": 40,
+        "width_px": 1128,
+        "height_px": 862,
+        "width_binding": "col/10",
+        "layout_mode": "VERTICAL",
+        "primary_axis_sizing_mode": "FIXED",
+        "counter_axis_sizing_mode": "FIXED",
+        "clips_content": false,
+        "item_spacing_px": 64,
+        "children": [
+          {
+            "id": "532:1213",
+            "name": "Frame 2",
+            "y_px": 40,
+            "height_px": 291
+          },
+          {
+            "id": "532:1310",
+            "name": "Frame 3",
+            "y_px": 395,
+            "height_px": 466
+          },
+          {
+            "id": "756:734",
+            "name": "Frame 6",
+            "y_px": 925,
+            "height_px": 241
+          },
+          {
+            "id": "756:750",
+            "name": "Frame 7",
+            "y_px": 1230,
+            "height_px": 191
+          }
+        ]
+      },
+      "overflow": {
+        "content_frame_bottom_px": 902,
+        "last_child_bottom_px": 1421,
+        "content_overflow_px": 519,
+        "root_frame_bottom_px": 942,
+        "root_overflow_px": 479
+      },
+      "resolved_body_type": {
+        "font_size_px": 22,
+        "line_height_px": 25
+      }
+    },
+    "write_mobile": {
+      "id": "640:448",
+      "name": "write / mobile",
+      "width_px": 390,
+      "height_px": 1938,
+      "layout_mode": "VERTICAL",
+      "primary_axis_sizing_mode": "AUTO",
+      "counter_axis_sizing_mode": "FIXED",
+      "clips_content": false,
+      "padding_px": {
+        "top": 20,
+        "right": 20,
+        "bottom": 64,
+        "left": 20
+      },
+      "item_spacing_px": 32,
+      "explicit_modes": {
+        "Space": "Mobile",
+        "Type Scale": "Medium"
+      },
+      "writing_sequence": {
+        "id": "640:465",
+        "width_px": 350,
+        "height_px": 1636,
+        "width_binding": "col/6",
+        "layout_mode": "VERTICAL",
+        "primary_axis_sizing_mode": "AUTO",
+        "item_spacing_px": 32,
+        "clips_content": true,
+        "passage_instance_count": 6
+      },
+      "resolved_body_type": {
+        "font_size_px": 20,
+        "line_height_px": 23
+      },
+      "duplicate_clout": [
+        {
+          "text_node_id": "I736:605;736:590",
+          "instance_id": "736:605",
+          "outer_row_id": "640:471",
+          "clipped_wrapper_id": "736:604",
+          "y_px": 516,
+          "instance_width_px": 350,
+          "wrapper_width_px": 228,
+          "height_px": 200,
+          "wrapper_clips_content": true
+        },
+        {
+          "text_node_id": "I736:630;736:590",
+          "instance_id": "736:630",
+          "outer_row_id": "736:627",
+          "clipped_wrapper_id": "736:629",
+          "y_px": 1465,
+          "instance_width_px": 350,
+          "wrapper_width_px": 228,
+          "height_px": 200,
+          "wrapper_clips_content": true
+        }
+      ]
+    },
+    "write_passage": {
+      "component_id": "736:595",
+      "component_description": "Showcase description block. Props: title/tagline/blurb/url...",
+      "component_layout_mode": "VERTICAL",
+      "component_primary_axis_sizing_mode": "AUTO",
+      "component_item_spacing_px": 16,
+      "desktop_withered_instance": {
+        "id": "756:729",
+        "width_px": 432,
+        "height_px": 466,
+        "item_spacing_px": 16
+      },
+      "mobile_withered_instance": {
+        "id": "736:611",
+        "width_px": 350,
+        "height_px": 430,
+        "item_spacing_px": 16
+      }
+    }
+  },
+  "variables": {
+    "total_local_variables": 119,
+    "collections": {
+      "Primitives": {
+        "modes": [
+          "Value"
+        ],
+        "count": 11,
+        "empty_scopes": 11,
+        "empty_descriptions": 11
+      },
+      "Color": {
+        "modes": [
+          "White",
+          "Black",
+          "Girly",
+          "Quirky",
+          "Contrast"
+        ],
+        "count": 6,
+        "empty_scopes": 0,
+        "empty_descriptions": 6
+      },
+      "Space": {
+        "modes": [
+          "Desktop",
+          "Mobile",
+          "Desktop 1800",
+          "Desktop 2560"
+        ],
+        "count": 48,
+        "empty_scopes": 2,
+        "empty_descriptions": 32,
+        "semantic_type_aliases_in_collection": 16,
+        "unscoped_variables": [
+          "unit/content",
+          "unit/chrome"
+        ]
+      },
+      "Type Scale": {
+        "modes": [
+          "Medium",
+          "Small",
+          "Large",
+          "XL"
+        ],
+        "count": 32,
+        "empty_scopes": 32,
+        "empty_descriptions": 0
+      },
+      "Typeface": {
+        "modes": [
+          "Serif",
+          "Sans",
+          "Mono",
+          "Gothic"
+        ],
+        "count": 9,
+        "empty_scopes": 0,
+        "empty_descriptions": 0
+      },
+      "UI State": {
+        "modes": [
+          "State"
+        ],
+        "count": 13,
+        "empty_scopes": 13,
+        "empty_descriptions": 13
+      }
+    },
+    "empty_scopes_total": 58,
+    "empty_descriptions_total": 62,
+    "primitive_color_scopes": {
+      "white": [],
+      "black": [],
+      "gray/60": [],
+      "blue/link": [],
+      "purple/visited": [],
+      "green": [],
+      "brown": [],
+      "sky": [],
+      "yellow": [],
+      "magenta": [],
+      "pink": []
+    },
+    "panel_width_tokens": {
+      "col/2": {
+        "Desktop": 200,
+        "Mobile": 106,
+        "Desktop 1800": 250,
+        "Desktop 2560": 355.55560302734375
+      },
+      "panel/width": {
+        "Desktop": 200,
+        "Mobile": 350,
+        "Desktop 1800": 250,
+        "Desktop 2560": 250
+      }
+    },
+    "grid_endpoint_pass": {
+      "col/1": {
+        "Desktop": 84,
+        "Mobile": 45,
+        "Desktop 1800": 105,
+        "Desktop 2560": 149.33335876464844
+      },
+      "cargo_mapping_matches": true
+    }
+  },
+  "type_parity": {
+    "figma_type_variables": 32,
+    "modes_per_variable": 4,
+    "figma_to_cargo_numeric_comparisons": 128,
+    "mismatches": 0,
+    "desktop_medium_body": {
+      "figma_font_size_px": 22,
+      "figma_line_height_px": 25,
+      "cargo_font_size_px": 22,
+      "cargo_line_height_px": 25
+    },
+    "mobile_medium_body": {
+      "figma_font_size_px": 20,
+      "figma_line_height_px": 23,
+      "cargo_font_size_px": 20,
+      "cargo_line_height_px": 23
+    }
+  },
+  "control_panel_type_drift": {
+    "figma_compact_button_modes": {
+      "1:2868": {
+        "Type Scale": "Small",
+        "Typeface": "Serif"
+      },
+      "1:2869": {
+        "Type Scale": "Small",
+        "Typeface": "Sans"
+      },
+      "1:2870": {
+        "Type Scale": "Small",
+        "Typeface": "Mono"
+      },
+      "1:2871": {
+        "Type Scale": "Small",
+        "Typeface": "Gothic"
+      }
+    },
+    "figma_compact_labels": {
+      "Serif": {
+        "font_size_px": 17,
+        "line_height_px": 20
+      },
+      "Sans": {
+        "font_size_px": 16.399999618530273,
+        "line_height_px": 20
+      },
+      "Mono": {
+        "font_size_px": 15.300000190734863,
+        "line_height_px": 20
+      },
+      "Gothic": {
+        "font_size_px": 15.800000190734863,
+        "line_height_px": 21,
+        "canonical_mobile_small_gothic_base_size_px": 15.600000381469727,
+        "canonical_mobile_small_base_line_height_px": 20,
+        "font_family_bound": false,
+        "font_size_bound": false,
+        "font_style_bound": false
+      }
+    },
+    "cargo_compact_labels": {
+      "Serif": {
+        "font_size_px": 20,
+        "line_height_px": 23
+      },
+      "Sans": {
+        "font_size_px": 19.3,
+        "line_height_px": 23
+      },
+      "Mono": {
+        "font_size_px": 18,
+        "line_height_px": 23
+      },
+      "Gothic": {
+        "font_size_px": 18.4,
+        "line_height_px": 23
+      },
+      "source": "cargo/site.css:984-990"
+    },
+    "slider_font_binding": {
+      "figma_variable_id": "VariableID:5:25",
+      "figma_variable_collection": "external Type Scale",
+      "figma_variable_name": "font/family",
+      "figma_values_all_modes": "Tinos",
+      "local_typeface_variable": "Typeface/font/family",
+      "cargo_binding": "--font-family-base",
+      "cargo_source": "cargo/site.css:501-509"
+    }
+  },
+  "cargo_panel_geometry": {
+    "source_run_id": "2026-07-21T03-09-20-305Z__local-deterministic__visual",
+    "observations": [
+      {
+        "viewport_width_px": 1024,
+        "rect_width_px": 142.21875,
+        "rect_height_px": 220.25,
+        "capture": "audit/harness/output/2026-07-21T03-09-20-305Z__local-deterministic__visual/captures/visual__0169__home__expanded-edge-1024__white-mono-xl-straight.json"
+      },
+      {
+        "viewport_width_px": 1440,
+        "rect_width_px": 200,
+        "rect_height_px": 248,
+        "capture": "audit/harness/output/2026-07-21T03-09-20-305Z__local-deterministic__visual/captures/visual__0188__home__desktop-1440__contrast-sans-xl-oval.json"
+      },
+      {
+        "viewport_width_px": 1920,
+        "rect_width_px": 250,
+        "rect_height_px": 310,
+        "capture": "audit/harness/output/2026-07-21T03-09-20-305Z__local-deterministic__visual/captures/visual__0207__home__desktop-1920__contrast-gothic-xl-straight.json"
+      }
+    ]
+  },
+  "write_spacing": {
+    "figma_title_to_body_gap_px": 16,
+    "cargo_desktop_title_to_body_gap_px": 8,
+    "cargo_desktop_source": "cargo/site.css:1440-1444",
+    "cargo_mobile_title_to_body_gap_px": 16,
+    "cargo_mobile_source": "cargo/site.css:1590-1594",
+    "figma_desktop_top_row_height_px": 291,
+    "cargo_desktop_top_row_min_height_px": 304,
+    "cargo_desktop_top_row_source": "cargo/site.css:1421-1429",
+    "desktop_outer_gap_px": {
+      "figma": 64,
+      "cargo": 64
+    },
+    "mobile_outer_gap_px": {
+      "figma": 32,
+      "cargo": 32
+    }
+  },
+  "protected_contracts": {
+    "write_withered_green_eye_roll": {
+      "status": "required",
+      "figma_static_reference_nodes": [
+        "756:729",
+        "736:611"
+      ],
+      "figma_static_endpoint_rotation_degrees": 0,
+      "cargo_selector": ".mms-writing-withered .mms-writing-plate > p > span[uses=\"eye-roll\"]",
+      "expected_count": 4,
+      "heading_forbidden": true,
+      "cargo_source": "cargo/write.template.html:34-37",
+      "contract_source": "audit/contracts/intentional-design-contracts.json:5-32",
+      "audit_treatment": "Preserve and test. The Figma resting state does not authorize removal of Cargo native rotation."
+    }
+  }
+}

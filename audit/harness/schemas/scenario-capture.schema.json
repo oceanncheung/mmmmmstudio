@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mmmmm.studio/audit/schemas/scenario-capture.schema.json",
+  "title": "MM.S browser scenario capture",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "kind",
+    "capturedAt",
+    "completedAt",
+    "target",
+    "browser",
+    "scenario",
+    "fatalError",
+    "mainResponse",
+    "dom",
+    "computedStyles",
+    "geometry",
+    "accessibility",
+    "axe",
+    "diagnostics",
+    "network",
+    "performance",
+    "screenshot"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "mms-audit/v1" },
+    "kind": { "const": "scenario-capture" },
+    "capturedAt": { "type": "string", "format": "date-time" },
+    "completedAt": { "type": "string", "format": "date-time" },
+    "target": { "type": "string" },
+    "browser": { "type": "string" },
+    "scenario": {
+      "type": "object",
+      "required": ["id", "suite", "page", "viewport", "state", "captureProfile", "url"],
+      "properties": {
+        "id": { "type": "string" },
+        "suite": { "enum": ["smoke", "routes", "states", "visual"] },
+        "page": { "enum": ["home", "write", "who"] },
+        "viewport": {
+          "type": "object",
+          "required": ["name", "width", "height", "dpr"],
+          "properties": {
+            "name": { "type": "string" },
+            "width": { "type": "integer", "minimum": 1 },
+            "height": { "type": "integer", "minimum": 1 },
+            "dpr": { "type": "number", "minimum": 1 }
+          }
+        },
+        "state": {
+          "type": "object",
+          "required": ["theme", "face", "scale", "shape"],
+          "properties": {
+            "theme": { "enum": ["white", "girly", "quirky", "contrast", "black"] },
+            "face": { "enum": ["serif", "sans", "mono", "gothic"] },
+            "scale": { "enum": ["s", "m", "l", "xl"] },
+            "shape": { "enum": ["straight", "rounded", "oval"] }
+          }
+        },
+        "captureProfile": { "type": "object" },
+        "url": { "type": "string" },
+        "batchReuse": { "type": "boolean" }
+      }
+    },
+    "fatalError": { "type": ["object", "null"] },
+    "mainResponse": { "type": ["object", "null"] },
+    "dom": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "required": ["intentionalDesignContracts"],
+          "properties": {
+            "intentionalDesignContracts": {
+              "type": "object",
+              "required": ["writeWitheredGreenEyeRoll"],
+              "properties": {
+                "writeWitheredGreenEyeRoll": {
+                  "$ref": "#/$defs/writeWitheredGreenEyeRollContract"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "computedStyles": { "type": ["object", "null"] },
+    "geometry": { "type": ["object", "null"] },
+    "accessibility": { "type": ["object", "null"] },
+    "axe": { "type": ["object", "null"] },
+    "diagnostics": {
+      "type": "object",
+      "required": [
+        "console",
+        "pageErrors",
+        "unhandledRejections",
+        "windowErrors",
+        "requestFailures",
+        "messagesReceived",
+        "messagesSent",
+        "messageCollection"
+      ],
+      "properties": {
+        "console": { "type": "array", "items": { "type": "object" } },
+        "pageErrors": { "type": "array", "items": { "type": "object" } },
+        "unhandledRejections": { "type": "array" },
+        "windowErrors": { "type": "array" },
+        "requestFailures": { "type": "array", "items": { "type": "object" } },
+        "messagesReceived": { "type": "array", "items": { "$ref": "#/$defs/messageRecord" } },
+        "messagesSent": { "type": "array", "items": { "$ref": "#/$defs/messageRecord" } },
+        "messageCollection": {
+          "type": "object",
+          "required": ["scope", "sent", "received", "limitations"],
+          "properties": {
+            "scope": { "type": "string" },
+            "sent": { "type": "string" },
+            "received": { "type": "string" },
+            "limitations": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "network": {
+      "type": "object",
+      "properties": {
+        "summary": {
+          "type": "object",
+          "properties": {
+            "byPhase": {
+              "type": "object",
+              "required": ["startup", "scroll-measurement", "checkpoint-traversal", "post-checkpoint"],
+              "properties": {
+                "startup": { "type": "object" },
+                "scroll-measurement": { "type": "object" },
+                "checkpoint-traversal": { "type": "object" },
+                "post-checkpoint": { "type": "object" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "performance": { "type": ["object", "null"] },
+    "screenshot": {
+      "type": ["object", "null"],
+      "properties": {
+        "top": { "type": "string" },
+        "checkpoints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "selector", "path"],
+            "properties": {
+              "label": { "type": "string" },
+              "selector": { "type": "string" },
+              "path": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "writeWitheredGreenEyeRollContract": {
+      "type": "object",
+      "required": [
+        "applicable",
+        "pageName",
+        "rootCount",
+        "directParagraphCount",
+        "paragraphCoverage",
+        "directParagraphHookCount",
+        "allHookCount",
+        "headingHookCount",
+        "expectedCount",
+        "valid"
+      ],
+      "properties": {
+        "applicable": { "type": "boolean" },
+        "pageName": { "enum": ["home", "write", "who"] },
+        "rootCount": { "type": "integer", "minimum": 0 },
+        "directParagraphCount": { "type": "integer", "minimum": 0 },
+        "paragraphCoverage": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["directHookCount", "outsideText", "completeTextCovered"],
+            "properties": {
+              "directHookCount": { "type": "integer", "minimum": 0 },
+              "outsideText": { "type": "boolean" },
+              "completeTextCovered": { "type": "boolean" }
+            }
+          }
+        },
+        "directParagraphHookCount": { "type": "integer", "minimum": 0 },
+        "allHookCount": { "type": "integer", "minimum": 0 },
+        "headingHookCount": { "type": "integer", "minimum": 0 },
+        "expectedCount": { "const": 4 },
+        "valid": { "type": "boolean" }
+      }
+    },
+    "messageRecord": {
+      "type": "object",
+      "required": ["direction", "data", "time", "wallTime", "observerFrameUrl", "observerFrameDepth", "pageUrl"],
+      "properties": {
+        "direction": { "enum": ["sent", "received"] },
+        "data": {},
+        "time": { "type": "number" },
+        "wallTime": { "type": "number" },
+        "observerFrameUrl": { "type": "string" },
+        "observerFrameName": { "type": "string" },
+        "observerFrameDepth": { "type": ["integer", "null"], "minimum": 0 },
+        "pageUrl": { "type": "string" },
+        "origin": { "type": "string" },
+        "sourceRelationship": { "type": "string" },
+        "targetOrigin": { "type": "string" },
+        "targetRelationship": { "type": "string" },
+        "transferCount": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

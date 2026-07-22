@@ -1,0 +1,7 @@
+ref	object	upstream	track	creator_date	subject
+refs/heads/archive/round-69	18093409423fb5d268d64e049c31a91bbb78d51a	origin/archive/round-69		2026-07-20T17:01:29-04:00	archive: reconstruct Round 69 gold baseline
+refs/heads/main	dcdbd6fec9c6220486c8572d5f146248b5c3593f	origin/main		2026-07-20T17:38:17-04:00	docs: record public GitHub protections
+refs/heads/round-81/audit-baseline	dcdbd6fec9c6220486c8572d5f146248b5c3593f			2026-07-20T17:38:17-04:00	docs: record public GitHub protections
+refs/remotes/origin/HEAD	dcdbd6fec9c6220486c8572d5f146248b5c3593f			2026-07-20T17:38:17-04:00	docs: record public GitHub protections
+refs/remotes/origin/archive/round-69	18093409423fb5d268d64e049c31a91bbb78d51a			2026-07-20T17:01:29-04:00	archive: reconstruct Round 69 gold baseline
+refs/remotes/origin/main	dcdbd6fec9c6220486c8572d5f146248b5c3593f			2026-07-20T17:38:17-04:00	docs: record public GitHub protections

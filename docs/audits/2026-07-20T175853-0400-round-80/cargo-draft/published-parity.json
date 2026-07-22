@@ -1,0 +1,33 @@
+{
+  "compared_at": "2026-07-20T22:34:00Z",
+  "comparison": "saved Cargo draft readback versus published Cargo response state",
+  "all_primary_artifacts_match": true,
+  "artifacts": {
+    "global_css": {
+      "match": true,
+      "sha256": "756d73e5e63bfd4551326e06888ba93574601837a9fbf552ffb3fac4d7710bb3",
+      "bytes": 86129
+    },
+    "site_head": {
+      "match": true,
+      "sha256": "3e3b287a4a7800e2caf7ec1a5b3d16a0eb296d82ae6da969b60ac233632cad2a",
+      "bytes": 1879
+    },
+    "home_bodycopy": {
+      "match": true,
+      "sha256": "03a7f20f1f5d7359d260c065ab239c8d6552f24e581118ccffeec934f9b96cd4",
+      "bytes": 130742
+    },
+    "who_bodycopy": {
+      "match": true,
+      "sha256": "36ed459ef60f030b82e1941adac41b6b549c66c1738b6c51c96168d46e5df365",
+      "bytes": 68236
+    },
+    "write_bodycopy": {
+      "match": true,
+      "sha256": "acd08c42532bf7138b6058a3f08302f76a7ed1fa38307704bd6f77f2b26cc2e9",
+      "bytes": 67787
+    }
+  },
+  "interpretation": "At capture time the saved Cargo draft and published site contained the same primary code artifacts. This does not imply that unsaved editor input was absent; read-only APIs expose only server-saved state."
+}

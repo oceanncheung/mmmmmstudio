@@ -1,0 +1,971 @@
+[
+  {
+    "id": "VariableID:5:16",
+    "name": "space/4",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 4,
+      "4:3": 4,
+      "93:0": 5,
+      "505:0": 7.111112117767334
+    }
+  },
+  {
+    "id": "VariableID:5:17",
+    "name": "space/8",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 8,
+      "4:3": 8,
+      "93:0": 10,
+      "505:0": 14.222224235534668
+    }
+  },
+  {
+    "id": "VariableID:5:18",
+    "name": "space/16",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 16,
+      "4:3": 16,
+      "93:0": 20,
+      "505:0": 28.444448471069336
+    }
+  },
+  {
+    "id": "VariableID:5:19",
+    "name": "space/24",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 24,
+      "4:3": 24,
+      "93:0": 30,
+      "505:0": 42.66667175292969
+    }
+  },
+  {
+    "id": "VariableID:5:20",
+    "name": "space/32",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 32,
+      "4:3": 32,
+      "93:0": 40,
+      "505:0": 56.88889694213867
+    }
+  },
+  {
+    "id": "VariableID:5:21",
+    "name": "space/40",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 40,
+      "4:3": 40,
+      "93:0": 50,
+      "505:0": 71.11112213134766
+    }
+  },
+  {
+    "id": "VariableID:5:22",
+    "name": "space/64",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 64,
+      "4:3": 64,
+      "93:0": 80,
+      "505:0": 113.77779388427734
+    }
+  },
+  {
+    "id": "VariableID:5:23",
+    "name": "margin/page",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:505:371"
+      },
+      "4:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:505:371"
+      },
+      "93:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:505:371"
+      },
+      "505:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:505:371"
+      }
+    }
+  },
+  {
+    "id": "VariableID:5:24",
+    "name": "measure/content",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "WIDTH_HEIGHT"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 548,
+      "4:3": 350,
+      "93:0": 685,
+      "505:0": 974.2223510742188
+    }
+  },
+  {
+    "id": "VariableID:82:251",
+    "name": "col/2",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "WIDTH_HEIGHT"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 200,
+      "4:3": 106,
+      "93:0": 250,
+      "505:0": 355.55560302734375
+    }
+  },
+  {
+    "id": "VariableID:82:252",
+    "name": "col/4",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "WIDTH_HEIGHT"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 432,
+      "4:3": 228,
+      "93:0": 540,
+      "505:0": 768
+    }
+  },
+  {
+    "id": "VariableID:82:253",
+    "name": "col/8",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "WIDTH_HEIGHT"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 896,
+      "4:3": 350,
+      "93:0": 1120,
+      "505:0": 1592.88916015625
+    }
+  },
+  {
+    "id": "VariableID:109:253",
+    "name": "space/128",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 128,
+      "4:3": 128,
+      "93:0": 160,
+      "505:0": 227.5555877685547
+    }
+  },
+  {
+    "id": "VariableID:110:253",
+    "name": "space/192",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 192,
+      "4:3": 192,
+      "93:0": 240,
+      "505:0": 341.3333740234375
+    }
+  },
+  {
+    "id": "VariableID:110:254",
+    "name": "space/256",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 256,
+      "4:3": 256,
+      "93:0": 320,
+      "505:0": 455.1111755371094
+    }
+  },
+  {
+    "id": "VariableID:134:253",
+    "name": "col/6",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "WIDTH_HEIGHT"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 664,
+      "4:3": 350,
+      "93:0": 830,
+      "505:0": 1180.444580078125
+    }
+  },
+  {
+    "id": "VariableID:140:265",
+    "name": "radius/image",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "CORNER_RADIUS"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 24,
+      "4:3": 24,
+      "93:0": 30,
+      "505:0": 42.66667175292969
+    }
+  },
+  {
+    "id": "VariableID:365:853",
+    "name": "space/6",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 6,
+      "4:3": 6,
+      "93:0": 7.5,
+      "505:0": 10.666667938232422
+    }
+  },
+  {
+    "id": "VariableID:494:358",
+    "name": "col/10",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "WIDTH_HEIGHT"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 1128,
+      "4:3": 350,
+      "93:0": 1410,
+      "505:0": 2005.3336181640625
+    }
+  },
+  {
+    "id": "VariableID:505:369",
+    "name": "unit/content",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 1,
+      "4:3": 1,
+      "93:0": 1.25,
+      "505:0": 1.7777780294418335
+    }
+  },
+  {
+    "id": "VariableID:505:370",
+    "name": "unit/chrome",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 1,
+      "4:3": 1,
+      "93:0": 1.25,
+      "505:0": 1.25
+    }
+  },
+  {
+    "id": "VariableID:505:371",
+    "name": "edge/pad",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 40,
+      "4:3": 20,
+      "93:0": 50,
+      "505:0": 50
+    }
+  },
+  {
+    "id": "VariableID:505:372",
+    "name": "chrome/space/8",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 8,
+      "4:3": 8,
+      "93:0": 10,
+      "505:0": 10
+    }
+  },
+  {
+    "id": "VariableID:505:373",
+    "name": "chrome/space/16",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 16,
+      "4:3": 16,
+      "93:0": 20,
+      "505:0": 20
+    }
+  },
+  {
+    "id": "VariableID:505:374",
+    "name": "chrome/space/24",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 24,
+      "4:3": 24,
+      "93:0": 30,
+      "505:0": 30
+    }
+  },
+  {
+    "id": "VariableID:505:375",
+    "name": "chrome/space/32",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 32,
+      "4:3": 32,
+      "93:0": 40,
+      "505:0": 40
+    }
+  },
+  {
+    "id": "VariableID:505:376",
+    "name": "panel/width",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "WIDTH_HEIGHT"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 200,
+      "4:3": 350,
+      "93:0": 250,
+      "505:0": 250
+    }
+  },
+  {
+    "id": "VariableID:505:377",
+    "name": "nav/column",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "WIDTH_HEIGHT"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 272,
+      "4:3": 350,
+      "93:0": 340,
+      "505:0": 340
+    }
+  },
+  {
+    "id": "VariableID:532:1060",
+    "name": "space/2",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 2,
+      "4:3": 2,
+      "93:0": 5,
+      "505:0": 3.549999952316284
+    }
+  },
+  {
+    "id": "VariableID:585:366",
+    "name": "type/font/size/base",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "FONT_SIZE"
+    ],
+    "description": "Semantic type token. Space mode resolves Mobile or Desktop; Type Scale resolves Medium, Small, Large, or XL.",
+    "valuesByMode": {
+      "4:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:26"
+      },
+      "4:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:351"
+      },
+      "93:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:26"
+      },
+      "505:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:26"
+      }
+    }
+  },
+  {
+    "id": "VariableID:585:367",
+    "name": "type/font/size/caption",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "FONT_SIZE"
+    ],
+    "description": "Semantic type token. Space mode resolves Mobile or Desktop; Type Scale resolves Medium, Small, Large, or XL.",
+    "valuesByMode": {
+      "4:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:27"
+      },
+      "4:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:352"
+      },
+      "93:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:27"
+      },
+      "505:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:27"
+      }
+    }
+  },
+  {
+    "id": "VariableID:585:368",
+    "name": "type/font/size/heading",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "FONT_SIZE"
+    ],
+    "description": "Semantic type token. Space mode resolves Mobile or Desktop; Type Scale resolves Medium, Small, Large, or XL.",
+    "valuesByMode": {
+      "4:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:41:312"
+      },
+      "4:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:353"
+      },
+      "93:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:41:312"
+      },
+      "505:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:41:312"
+      }
+    }
+  },
+  {
+    "id": "VariableID:585:369",
+    "name": "type/font/lh/caption",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "LINE_HEIGHT"
+    ],
+    "description": "Semantic type token. Space mode resolves Mobile or Desktop; Type Scale resolves Medium, Small, Large, or XL.",
+    "valuesByMode": {
+      "4:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:51:271"
+      },
+      "4:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:354"
+      },
+      "93:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:51:271"
+      },
+      "505:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:51:271"
+      }
+    }
+  },
+  {
+    "id": "VariableID:585:370",
+    "name": "type/font/lh/base",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "LINE_HEIGHT"
+    ],
+    "description": "Semantic type token. Space mode resolves Mobile or Desktop; Type Scale resolves Medium, Small, Large, or XL.",
+    "valuesByMode": {
+      "4:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:51:272"
+      },
+      "4:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:355"
+      },
+      "93:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:51:272"
+      },
+      "505:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:51:272"
+      }
+    }
+  },
+  {
+    "id": "VariableID:585:371",
+    "name": "type/font/lh/heading",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "LINE_HEIGHT"
+    ],
+    "description": "Semantic type token. Space mode resolves Mobile or Desktop; Type Scale resolves Medium, Small, Large, or XL.",
+    "valuesByMode": {
+      "4:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:51:273"
+      },
+      "4:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:356"
+      },
+      "93:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:51:273"
+      },
+      "505:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:51:273"
+      }
+    }
+  },
+  {
+    "id": "VariableID:585:372",
+    "name": "type/font/size/caption-sans",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "FONT_SIZE"
+    ],
+    "description": "Semantic type token. Space mode resolves Mobile or Desktop; Type Scale resolves Medium, Small, Large, or XL.",
+    "valuesByMode": {
+      "4:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:117:253"
+      },
+      "4:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:357"
+      },
+      "93:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:117:253"
+      },
+      "505:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:117:253"
+      }
+    }
+  },
+  {
+    "id": "VariableID:585:373",
+    "name": "type/font/size/base-sans",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "FONT_SIZE"
+    ],
+    "description": "Semantic type token. Space mode resolves Mobile or Desktop; Type Scale resolves Medium, Small, Large, or XL.",
+    "valuesByMode": {
+      "4:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:117:254"
+      },
+      "4:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:358"
+      },
+      "93:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:117:254"
+      },
+      "505:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:117:254"
+      }
+    }
+  },
+  {
+    "id": "VariableID:585:374",
+    "name": "type/font/size/heading-sans",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "FONT_SIZE"
+    ],
+    "description": "Semantic type token. Space mode resolves Mobile or Desktop; Type Scale resolves Medium, Small, Large, or XL.",
+    "valuesByMode": {
+      "4:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:117:255"
+      },
+      "4:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:359"
+      },
+      "93:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:117:255"
+      },
+      "505:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:117:255"
+      }
+    }
+  },
+  {
+    "id": "VariableID:585:375",
+    "name": "type/font/size/caption-gothic",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "FONT_SIZE"
+    ],
+    "description": "Semantic type token. Space mode resolves Mobile or Desktop; Type Scale resolves Medium, Small, Large, or XL.",
+    "valuesByMode": {
+      "4:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:117:256"
+      },
+      "4:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:360"
+      },
+      "93:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:117:256"
+      },
+      "505:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:117:256"
+      }
+    }
+  },
+  {
+    "id": "VariableID:585:376",
+    "name": "type/font/size/base-gothic",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "FONT_SIZE"
+    ],
+    "description": "Semantic type token. Space mode resolves Mobile or Desktop; Type Scale resolves Medium, Small, Large, or XL.",
+    "valuesByMode": {
+      "4:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:117:257"
+      },
+      "4:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:361"
+      },
+      "93:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:117:257"
+      },
+      "505:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:117:257"
+      }
+    }
+  },
+  {
+    "id": "VariableID:585:377",
+    "name": "type/font/size/heading-gothic",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "FONT_SIZE"
+    ],
+    "description": "Semantic type token. Space mode resolves Mobile or Desktop; Type Scale resolves Medium, Small, Large, or XL.",
+    "valuesByMode": {
+      "4:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:117:258"
+      },
+      "4:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:362"
+      },
+      "93:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:117:258"
+      },
+      "505:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:117:258"
+      }
+    }
+  },
+  {
+    "id": "VariableID:585:378",
+    "name": "type/font/size/caption-mono",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "FONT_SIZE"
+    ],
+    "description": "Semantic type token. Space mode resolves Mobile or Desktop; Type Scale resolves Medium, Small, Large, or XL.",
+    "valuesByMode": {
+      "4:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:121:253"
+      },
+      "4:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:363"
+      },
+      "93:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:121:253"
+      },
+      "505:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:121:253"
+      }
+    }
+  },
+  {
+    "id": "VariableID:585:379",
+    "name": "type/font/size/base-mono",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "FONT_SIZE"
+    ],
+    "description": "Semantic type token. Space mode resolves Mobile or Desktop; Type Scale resolves Medium, Small, Large, or XL.",
+    "valuesByMode": {
+      "4:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:121:254"
+      },
+      "4:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:364"
+      },
+      "93:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:121:254"
+      },
+      "505:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:121:254"
+      }
+    }
+  },
+  {
+    "id": "VariableID:585:380",
+    "name": "type/font/size/heading-mono",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "FONT_SIZE"
+    ],
+    "description": "Semantic type token. Space mode resolves Mobile or Desktop; Type Scale resolves Medium, Small, Large, or XL.",
+    "valuesByMode": {
+      "4:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:121:255"
+      },
+      "4:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:365"
+      },
+      "93:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:121:255"
+      },
+      "505:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:121:255"
+      }
+    }
+  },
+  {
+    "id": "VariableID:661:351",
+    "name": "space/12",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 12,
+      "4:3": 12,
+      "93:0": 15,
+      "505:0": 21.333335876464844
+    }
+  },
+  {
+    "id": "VariableID:661:352",
+    "name": "space/80",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 80,
+      "4:3": 80,
+      "93:0": 100,
+      "505:0": 142.2222442626953
+    }
+  },
+  {
+    "id": "VariableID:676:353",
+    "name": "type/font/lh/caption-gothic",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "LINE_HEIGHT"
+    ],
+    "description": "Gothic caption leading selected by responsive Space mode.",
+    "valuesByMode": {
+      "4:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:676:351"
+      },
+      "4:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:676:352"
+      },
+      "93:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:676:351"
+      },
+      "505:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:676:351"
+      }
+    }
+  },
+  {
+    "id": "VariableID:791:355",
+    "name": "col/1",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:4:4",
+    "scopes": [
+      "WIDTH_HEIGHT"
+    ],
+    "description": "",
+    "valuesByMode": {
+      "4:2": 84,
+      "4:3": 45,
+      "93:0": 105,
+      "505:0": 149.33335876464844
+    }
+  }
+]
+

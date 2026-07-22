@@ -1,0 +1,17 @@
+HTTP/2 206 
+content-type: application/pdf
+content-length: 1
+date: Mon, 20 Jul 2026 14:26:15 GMT
+server: nginx
+last-modified: Mon, 20 Jul 2026 14:26:15 GMT
+cache-control: max-age=31536000
+etag: "6a5e3007-d00d79"
+access-control-expose-headers: Access-Control-Allow-Origin
+access-control-allow-origin: *
+x-cache: Hit from cloudfront
+via: 1.1 bc9d715161855640c4738aa7390d934e.cloudfront.net (CloudFront)
+x-amz-cf-pop: YTO50-P2
+x-amz-cf-id: RIffMbLLpLnS95jWxScAjARL7pTeoc8leQ-ej_1CjHUre5LZ9OYSnQ==
+age: 27418
+content-range: bytes 0-0/13634937
+

@@ -1,0 +1,27 @@
+{
+  "id": "532:1207",
+  "name": "write",
+  "children": [
+    {
+      "id": "532:1208",
+      "name": "write / desktop",
+      "type": "FRAME",
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 942,
+      "visible": true
+    },
+    {
+      "id": "640:448",
+      "name": "write / mobile",
+      "type": "FRAME",
+      "x": 1490,
+      "y": 0,
+      "width": 390,
+      "height": 1938,
+      "visible": true
+    }
+  ]
+}
+

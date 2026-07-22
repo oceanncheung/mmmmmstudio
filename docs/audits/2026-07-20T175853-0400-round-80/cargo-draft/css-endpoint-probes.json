@@ -1,0 +1,58 @@
+[
+  {
+    "path": "/sites/3626191/css",
+    "status": 200,
+    "content_type": "application/json",
+    "bytes": 89589,
+    "sha256": "e6477a0a90b9619c3a4bec69e28d11afd7d027a036c6fc29b38a8a846ce4a69b"
+  },
+  {
+    "path": "/sites/3626191/stylesheet",
+    "status": 404,
+    "content_type": "application/json",
+    "bytes": 78,
+    "sha256": "922f47cfa489f32922d904970f47a4743fc04e23e4cabc3f14c43714fd4b4c8c"
+  },
+  {
+    "path": "/sites/3626191/styles",
+    "status": 404,
+    "content_type": "application/json",
+    "bytes": 74,
+    "sha256": "9467cce3fc52ee4d759bc92df43beb1bf44e87d44c988a26cd45eddde2b80808"
+  },
+  {
+    "path": "/sites/3626191/style",
+    "status": 404,
+    "content_type": "application/json",
+    "bytes": 73,
+    "sha256": "1f899bf2b2e27a687040915ffb2498c95d213a71f9a830ab3062f5ebcf13c6c2"
+  },
+  {
+    "path": "/site/3626191/css",
+    "status": 404,
+    "content_type": "application/json",
+    "bytes": 70,
+    "sha256": "ea3bc582eaaf57499334e166010972e276662d0fa36bc44c21f423b874a8c9e5"
+  },
+  {
+    "path": "/pages/3626191/css",
+    "status": 404,
+    "content_type": "application/json",
+    "bytes": 71,
+    "sha256": "a16ff0496c352723ea7650eea4abb2efcbe11041e2b2183def67e97f772e8c56"
+  },
+  {
+    "path": "/sites/3626191?include=css",
+    "status": 200,
+    "content_type": "application/json",
+    "bytes": 3731,
+    "sha256": "a293321c5a0402b03c30fe4346c23cb37d6da785b887d940800ae9ced9ba03d8"
+  },
+  {
+    "path": "/sites/3626191?with=css",
+    "status": 200,
+    "content_type": "application/json",
+    "bytes": 3731,
+    "sha256": "a293321c5a0402b03c30fe4346c23cb37d6da785b887d940800ae9ced9ba03d8"
+  }
+]

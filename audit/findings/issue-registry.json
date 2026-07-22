@@ -1,0 +1,244 @@
+{
+  "schema_version": "mms-audit/issue-registry/v1",
+  "baseline": "Round 80 Phase 1 plus documented post-baseline deltas",
+  "preservation_baseline": "gold-2026-07-21-responsive-70",
+  "status": "findings only; remediation and publication are not authorized",
+  "counts": {"P0": 0, "P1": 16, "P2": 24, "P3": 4, "total": 44},
+  "source_reports": [
+    "audit/findings/preliminary-findings.md",
+    "audit/findings/phase3-figma-findings.md",
+    "audit/findings/phase3-runtime-findings.md",
+    "audit/findings/phase3-content-findings.md",
+    "audit/findings/phase3-architecture-functional-findings.md",
+    "audit/findings/phase3-platform-security-findings.md",
+    "audit/findings/phase3-ux-findings.md"
+  ],
+  "issues": [
+    {
+      "id": "MMS-AUD-001", "priority": "P1", "category": "responsiveness", "title": "Touchbaes is vertically clipped at the 1024px boundary", "status": "design-decision-gated",
+      "surfaces": ["Home", "Touchbaes", "1024px"], "evidence": "preliminary-findings.md#p1--touchbaes-is-vertically-clipped-at-the-1024px-structural-boundary",
+      "recommendation": "Choose a complete-content river height or proportional boundary scale, then verify interaction and shadows.", "decision_gate": "Ocean chooses the visual geometry.", "verification": "All 22 pairwise states at 1024px show zero ancestor clipping and the game remains operable."
+    },
+    {
+      "id": "MMS-AUD-002", "priority": "P2", "category": "responsiveness", "title": "Random Pics is vertically clipped across expanded widths", "status": "figma-confirmation-gated",
+      "surfaces": ["Home", "Random Pics", "expanded"], "evidence": "preliminary-findings.md#p2--random-pics-is-vertically-clipped-across-expanded-states",
+      "recommendation": "Make the band intrinsically contain its caption, 12px gap, and reel while preserving the untitled interlude.", "decision_gate": "Confirm the current Figma grouping.", "verification": "Zero clip observations from 1024 through 2940px in all pairwise states."
+    },
+    {
+      "id": "MMS-AUD-003", "priority": "P1", "category": "accessibility", "title": "Published Cargo adds invalid ARIA attributes to all project rivers", "status": "pure-defect-candidate",
+      "surfaces": ["Home", "published Cargo", "12 rivers"], "evidence": "preliminary-findings.md#p1--cargo-runtime-corrupts-the-river-accessibility-contract",
+      "recommendation": "Remove the runtime mutation from native rivers while retaining the separate scrubber semantics.", "decision_gate": "None for semantic correction.", "verification": "Axe has zero aria-allowed-attr failures and native pan-x pan-y remains intact."
+    },
+    {
+      "id": "MMS-AUD-004", "priority": "P1", "category": "accessibility", "title": "The document language is missing on all routes", "status": "pure-defect-candidate",
+      "surfaces": ["Home", "Write", "Who", "head"], "evidence": "preliminary-findings.md#p1--document-language-is-absent",
+      "recommendation": "Set the correct root language without altering page layout.", "decision_gate": "None.", "verification": "Local, Cargo, and public route captures report the intended language and no html-has-lang violation."
+    },
+    {
+      "id": "MMS-AUD-005", "priority": "P2", "category": "accessibility", "title": "Compact text links trigger target-size warnings", "status": "physical-device-decision-gated",
+      "surfaces": ["compact navigation", "Home", "Write", "Who"], "evidence": "preliminary-findings.md#needs-manual-decision--compact-navigation-target-size",
+      "recommendation": "Test the WCAG spacing exception and physical usability before changing the approved tight leading.", "decision_gate": "Ocean approves any visible spacing change.", "verification": "Physical touch testing and WCAG target-spacing evidence across compact widths."
+    },
+    {
+      "id": "MMS-AUD-006", "priority": "P1", "category": "accessibility", "title": "Girly, Contrast, and Quirky fail normal-text contrast", "status": "palette-decision-gated",
+      "surfaces": ["all routes", "three expressive themes"], "evidence": "phase3-runtime-findings.md#p1--three-approved-themes-fail-normal-text-contrast",
+      "recommendation": "Approve revised palette values or separate accessible semantic text/control tokens.", "decision_gate": "Ocean approves every visible color change.", "verification": "All normal text and essential controls meet 4.5:1 in every selectable theme."
+    },
+    {
+      "id": "MMS-AUD-007", "priority": "P1", "category": "accessibility", "title": "Portfolio media lacks stable alternatives and labelled project structure", "status": "content-decision-gated",
+      "surfaces": ["Home", "Who", "38 images", "29 videos", "12 figures"], "evidence": "phase3-runtime-findings.md#p1--main-portfolio-media-lacks-meaningful-accessible-alternatives-and-project-structure",
+      "recommendation": "Classify decorative versus meaningful media, approve concise alternatives, and add visual-neutral project labels.", "decision_gate": "Ocean approves alternative text and semantic labels.", "verification": "Screen-reader tree exposes stable names and project navigation without duplicate noise."
+    },
+    {
+      "id": "MMS-AUD-008", "priority": "P1", "category": "accessibility", "title": "Continuous autoplay motion has no pause or reduced-motion pathway", "status": "interaction-design-gated",
+      "surfaces": ["Home", "Who", "videos", "embeds"], "evidence": "phase3-runtime-findings.md#p1--continuous-autoplay-motion-has-no-pause-or-reduced-motion-pathway",
+      "recommendation": "Approve a global pause or reduced-motion experience while retaining intentional default motion.", "decision_gate": "Ocean approves the control and fallback treatment.", "verification": "Reduced-motion and pause paths stop continuous motion; normal mode preserves four Withered eye-roll hooks."
+    },
+    {
+      "id": "MMS-AUD-009", "priority": "P1", "category": "performance", "title": "Published Cargo over-fetches media during compact startup", "status": "root-cause-confirmation-required",
+      "surfaces": ["published Home", "startup network"], "evidence": "phase3-runtime-findings.md#p1--published-cargo-defeats-the-intended-compact-deferred-load-envelope",
+      "recommendation": "Diff deployed body/runtime behavior before changing the canonical loading policy.", "decision_gate": "None after the activating runtime is proven.", "verification": "Published compact startup approaches the deterministic deferred envelope without blank frames."
+    },
+    {
+      "id": "MMS-AUD-010", "priority": "P2", "category": "performance", "title": "Synthetic scroll cadence and compact layout shift miss targets", "status": "physical-profile-gated",
+      "surfaces": ["Home", "compact", "expanded"], "evidence": "phase3-runtime-findings.md#p2--layout-stability-and-scroll-cadence-need-physical-profiling",
+      "recommendation": "Profile media settlement and compositing on physical iPhone and desktop before optimizing.", "decision_gate": "Choose fixes only after traces identify cost centers.", "verification": "Representative hardware reaches the audit budgets without visual regression."
+    },
+    {
+      "id": "MMS-AUD-011", "priority": "P2", "category": "accessibility", "title": "Expanded content-visibility may prune projects from assistive navigation", "status": "manual-at-gated",
+      "surfaces": ["Home", "expanded", "assistive technology"], "evidence": "phase3-runtime-findings.md#p2--expanded-content-visibility-may-prune-projects-from-assistive-navigation",
+      "recommendation": "Test full traversal with VoiceOver and NVDA before changing containment.", "decision_gate": "Manual AT evidence determines remediation.", "verification": "All projects are reachable in supported screen readers without unacceptable performance loss."
+    },
+    {
+      "id": "MMS-AUD-012", "priority": "P1", "category": "content", "title": "Figma mobile Write contains a duplicate Clout passage", "status": "pure-figma-defect-candidate",
+      "surfaces": ["Figma", "Write mobile"], "evidence": "phase3-figma-findings.md#p1--write-mobile-contains-a-duplicate-passage",
+      "recommendation": "Remove only the accidental second instance; keep the intended Clout passage.", "decision_gate": "None; Cargo's five-piece structure is authoritative.", "verification": "Figma mobile and desktop each contain five passages and one Clout instance."
+    },
+    {
+      "id": "MMS-AUD-013", "priority": "P2", "category": "design-system", "title": "Desktop panel width is bound to uncapped col/2", "status": "pure-figma-defect-candidate",
+      "surfaces": ["Figma", "desktop control panel", "2560px"], "evidence": "phase3-figma-findings.md#p2--the-desktop-panel-is-bound-to-the-wrong-width-token",
+      "recommendation": "Bind the component to panel/width so it caps at 250px.", "decision_gate": "None if 1440 appearance remains unchanged.", "verification": "Panel resolves to 250px at the wide endpoint and existing smaller endpoints remain unchanged."
+    },
+    {
+      "id": "MMS-AUD-014", "priority": "P2", "category": "design-system", "title": "Desktop panel height documentation conflicts with live geometry", "status": "design-decision-gated",
+      "surfaces": ["Figma", "Cargo", "desktop control panel"], "evidence": "phase3-figma-findings.md#p2--the-desktop-panels-documented-height-contract-is-stale",
+      "recommendation": "Choose the live 248px composition or the documented 232px target, then update both systems.", "decision_gate": "Ocean selects the authoritative geometry.", "verification": "Figma description, component, and Cargo match at 1024, 1440, and capped widths."
+    },
+    {
+      "id": "MMS-AUD-015", "priority": "P2", "category": "design-system", "title": "Compact panel typography does not encode Cargo's Medium contract", "status": "design-decision-gated",
+      "surfaces": ["Figma", "compact control panel"], "evidence": "phase3-figma-findings.md#p2--compact-panel-typography-does-not-encode-one-coherent-token-contract",
+      "recommendation": "Bind all labels and slider glyphs to the approved local face/Medium semantics and retain only optical inner-label offsets.", "decision_gate": "Confirm Medium remains the panel contract.", "verification": "All four faces and slider glyphs match Cargo metrics and centers."
+    },
+    {
+      "id": "MMS-AUD-016", "priority": "P2", "category": "design-system", "title": "Write desktop relies on fixed frames with unclipped overflow", "status": "figma-structure-candidate",
+      "surfaces": ["Figma", "Write desktop"], "evidence": "phase3-figma-findings.md#p2--write-desktop-relies-on-fixed-frames-plus-unclipped-overflow",
+      "recommendation": "Separate the viewport reference from a Hug-height content container.", "decision_gate": "None if visible composition is preserved.", "verification": "Content owns its complete height and survives type/copy changes without clipping."
+    },
+    {
+      "id": "MMS-AUD-017", "priority": "P2", "category": "design-system", "title": "Write mobile simulates col/4 by clipping col/6 instances", "status": "figma-structure-candidate",
+      "surfaces": ["Figma", "Write mobile"], "evidence": "phase3-figma-findings.md#p2--write-mobile-achieves-col4-passages-by-clipping-col6-instances",
+      "recommendation": "Give the passage instance its real responsive col/4 width instead of a clipped wrapper.", "decision_gate": "None if visible composition is preserved.", "verification": "No wrapper crop is required across faces and scales."
+    },
+    {
+      "id": "MMS-AUD-018", "priority": "P2", "category": "design-system", "title": "Expanded Write spacing trails the current Figma component", "status": "visual-change-gated",
+      "surfaces": ["Write", "expanded", "Figma/Cargo"], "evidence": "phase3-figma-findings.md#p2--write-desktop-spacing-is-behind-the-current-figma-component",
+      "recommendation": "Align the 16px title/body gap and first-row height after visual approval.", "decision_gate": "Ocean approves the resulting vertical shift.", "verification": "Figma and Cargo geometry match at the reference widths."
+    },
+    {
+      "id": "MMS-AUD-019", "priority": "P3", "category": "design-system", "title": "Figma variable scopes and descriptions are incomplete", "status": "maintenance-candidate",
+      "surfaces": ["Figma variables"], "evidence": "phase3-figma-findings.md#p3--variable-scoping-and-documentation-remain-incomplete",
+      "recommendation": "Add appropriate scopes/descriptions and separate typography routing from Space when practical.", "decision_gate": "None for documentation-only work.", "verification": "Variable picker exposes intended properties and every semantic token is documented."
+    },
+    {
+      "id": "MMS-AUD-020", "priority": "P1", "category": "seo", "title": "Home is indexable under duplicate hosts and paths", "status": "route-decision-gated",
+      "surfaces": ["apex", "www", "/home", "/information", "sitemap"], "evidence": "phase3-content-findings.md#p1--home-is-indexable-under-multiple-hosts-and-paths-without-canonicalization",
+      "recommendation": "Approve one canonical authority, redirect aliases, and remove duplicate sitemap entries.", "decision_gate": "Confirm whether /information has legacy value.", "verification": "One canonical Home URL remains indexable and aliases normalize predictably."
+    },
+    {
+      "id": "MMS-AUD-021", "priority": "P1", "category": "seo", "title": "Indexed legacy project routes end at an empty 404", "status": "route-map-decision-gated",
+      "surfaces": ["historic /work routes", "404"], "evidence": "phase3-content-findings.md#p1--indexed-historic-project-routes-now-terminate-at-an-empty-404",
+      "recommendation": "Approve stable project fragments and a precise legacy redirect table.", "decision_gate": "Ocean approves project destinations and the historic slug map.", "verification": "Known old routes 301 to the closest surviving project destination."
+    },
+    {
+      "id": "MMS-AUD-022", "priority": "P1", "category": "accessibility", "title": "Home, Write, and Who lack coherent route-to-content heading hierarchy", "status": "semantic-design-gated",
+      "surfaces": ["Home", "Write", "Who"], "evidence": "phase3-content-findings.md#p1--the-three-pages-do-not-expose-a-coherent-content-heading-hierarchy",
+      "recommendation": "Approve one route-level heading and subordinate project/profile/piece headings with no visual change by default.", "decision_gate": "Ocean decides Random Pics labelling and any visible route heading.", "verification": "Screen-reader heading navigation reflects the information architecture."
+    },
+    {
+      "id": "MMS-AUD-023", "priority": "P2", "category": "accessibility", "title": "Expanded primary navigation is exposed as complementary content", "status": "pure-defect-candidate",
+      "surfaces": ["desktop rail", "all routes"], "evidence": "phase3-content-findings.md#p2--expanded-navigation-loses-its-navigation-landmark",
+      "recommendation": "Expose the link group as a labelled primary navigation landmark without geometry change.", "decision_gate": "None.", "verification": "Expanded accessibility tree contains the intended navigation landmark at all widths."
+    },
+    {
+      "id": "MMS-AUD-024", "priority": "P2", "category": "seo", "title": "Write and Who reuse Home metadata", "status": "copy-approval-gated",
+      "surfaces": ["Write metadata", "Who metadata", "social cards"], "evidence": "phase3-content-findings.md#p2--write-and-who-reuse-homes-metadata-instead-of-describing-their-content",
+      "recommendation": "Approve concise route-specific descriptions and intentional social imagery.", "decision_gate": "Ocean approves the copy and any new assets.", "verification": "Search/social probes show route-accurate titles, descriptions, and images."
+    },
+    {
+      "id": "MMS-AUD-025", "priority": "P2", "category": "ux", "title": "The 404 page has no recovery path", "status": "copy-approval-gated",
+      "surfaces": ["404"], "evidence": "phase3-content-findings.md#p2--the-404-response-offers-no-recovery-path",
+      "recommendation": "Create a minimal raw MM.S 404 with primary links while retaining HTTP 404.", "decision_gate": "Ocean approves the copy.", "verification": "Unknown routes retain 404 status and expose useful recovery links."
+    },
+    {
+      "id": "MMS-AUD-026", "priority": "P3", "category": "seo", "title": "The public favicon is Cargo's default", "status": "asset-approval-gated",
+      "surfaces": ["favicon", "all routes"], "evidence": "phase3-content-findings.md#p3--the-public-favicon-is-still-cargos-default",
+      "recommendation": "Approve and deploy a small MM.S favicon set.", "decision_gate": "Ocean approves artwork.", "verification": "Browser/tab/bookmark checks use the MM.S asset on light and dark chrome."
+    },
+    {
+      "id": "MMS-AUD-027", "priority": "P1", "category": "architecture", "title": "Legacy Home autoplay fights the deferred-media controller", "status": "pure-defect-candidate",
+      "surfaces": ["Home media lifecycle", "home-extras", "panel runtime"], "evidence": "phase3-architecture-functional-findings.md#p1--the-legacy-home-autoplay-helper-defeats-the-deferred-media-controller",
+      "recommendation": "Make the observer lifecycle the sole playback owner and scope iOS retries to loaded near media.", "decision_gate": "None after physical autoplay verification.", "verification": "Far-offscreen videos receive no play attempts and visible media still autoplay on iOS."
+    },
+    {
+      "id": "MMS-AUD-028", "priority": "P1", "category": "operations", "title": "Deployment preflight accepts missing media and stale runtime markers", "status": "pure-defect-candidate",
+      "surfaces": ["Cargo deployment", "Home", "all routes"], "evidence": "phase3-architecture-functional-findings.md#p1--the-required-deployment-preflight-can-pass-missing-media-and-a-stale-runtime",
+      "recommendation": "Add a reviewed manifest for runtime/head versions, ordered media IDs, band counts, embeds, and critical geometry.", "decision_gate": "Manifest updates require explicit baseline approval.", "verification": "Negative fixtures for missing WTW, V7, Touchbaes, or stale markers fail closed locally and after Cargo reload."
+    },
+    {
+      "id": "MMS-AUD-029", "priority": "P2", "category": "architecture", "title": "Root-aware initialization has no teardown", "status": "pure-defect-candidate",
+      "surfaces": ["shared runtime", "Cargo root replacement", "control panel"], "evidence": "phase3-architecture-functional-findings.md#p2--root-aware-initialization-is-not-teardown-safe",
+      "recommendation": "Centralize listeners, intervals, observers, callbacks, and embed state under an explicit teardown owner.", "decision_gate": "None if behavior is preserved.", "verification": "Root replacement leaves one owner and panel/dialog state remains coherent."
+    },
+    {
+      "id": "MMS-AUD-030", "priority": "P2", "category": "security", "title": "V7 and Touchbaes messaging is wildcarded or incompletely validated", "status": "pure-defect-candidate",
+      "surfaces": ["V7", "Touchbaes", "postMessage"], "evidence": "phase3-platform-security-findings.md#p2--v7-and-touchbaes-retain-wildcard-or-incomplete-message-validation",
+      "recommendation": "Use a versioned envelope, exact target origins, and source plus origin validation at both ends.", "decision_gate": "None.", "verification": "Wrong-origin/window/kind/version messages have no effect; valid messages retain behavior."
+    },
+    {
+      "id": "MMS-AUD-031", "priority": "P2", "category": "accessibility", "title": "Compact Montran page turning is pointer-only", "status": "interaction-design-gated",
+      "surfaces": ["Montran", "compact", "keyboard", "VoiceOver"], "evidence": "phase3-architecture-functional-findings.md#p2--compact-montran-turning-is-pointer-only",
+      "recommendation": "Expose a focusable semantic turn path and Left/Right keys while keeping the artwork control-free.", "decision_gate": "Ocean approves the focus treatment.", "verification": "Keyboard and VoiceOver can turn one page without breaking touch taps or native scrolling."
+    },
+    {
+      "id": "MMS-AUD-032", "priority": "P2", "category": "maintainability", "title": "The harness inventories controls but does not exercise primary interactions", "status": "test-gap",
+      "surfaces": ["audit harness", "panel", "scrubbers", "embeds", "breakpoint transition"], "evidence": "phase3-architecture-functional-findings.md#p2--the-browser-harness-measures-interaction-surfaces-without-exercising-them",
+      "recommendation": "Add a separate deterministic interaction suite for panel, scrubber, rivers, lifecycle, state, messages, and Montran.", "decision_gate": "None.", "verification": "Each listed flow has positive and negative automated coverage."
+    },
+    {
+      "id": "MMS-AUD-033", "priority": "P1", "category": "security", "title": "Touchbaes injects child-supplied executable markup into the parent", "status": "pure-security-defect-candidate",
+      "surfaces": ["Touchbaes", "parent overlay", "postMessage"], "evidence": "phase3-platform-security-findings.md#p1--touchbaes-crosses-the-iframe-boundary-with-executable-markup",
+      "recommendation": "Send only bounded declarative state and build the parent rig from trusted local DOM/assets.", "decision_gate": "None; preserve approved visual geometry.", "verification": "No message-derived string reaches innerHTML and the tweezer interaction remains exact."
+    },
+    {
+      "id": "MMS-AUD-034", "priority": "P1", "category": "resilience", "title": "Active V7 and Montran bundles cannot be recreated from tracked source", "status": "pure-recovery-defect-candidate",
+      "surfaces": ["V7", "Montran v17", "Git recovery"], "evidence": "phase3-platform-security-findings.md#p1--active-v7-and-montran-artifacts-cannot-be-recovered-from-tracked-source",
+      "recommendation": "Track authoritative sources and deterministic builders that reproduce the active contracts from a clean checkout.", "decision_gate": "None.", "verification": "Clean-checkout builds match approved hashes or explicit integration contracts."
+    },
+    {
+      "id": "MMS-AUD-035", "priority": "P2", "category": "security", "title": "Executable iframes have no explicit sandbox, permissions, or referrer policy", "status": "capability-test-gated",
+      "surfaces": ["V7", "Touchbaes", "Montran"], "evidence": "phase3-platform-security-findings.md#p2--cross-origin-embeds-have-no-explicit-sandbox-permission-or-referrer-policy",
+      "recommendation": "Test and document the minimum per-embed policy without breaking origin identity or features.", "decision_gate": "Capability matrix must precede enforcement.", "verification": "Policies are explicit and all approved interactions still pass."
+    },
+    {
+      "id": "MMS-AUD-036", "priority": "P2", "category": "security", "title": "Montran accepts arbitrary CORS-readable PDF URLs", "status": "pure-defect-candidate",
+      "surfaces": ["Montran viewer", "pdf query"], "evidence": "phase3-platform-security-findings.md#p2--montran-is-a-public-arbitrary-cors-pdf-parser-endpoint",
+      "recommendation": "Allowlist the approved report or narrow Freight HTTPS paths before any fetch.", "decision_gate": "None.", "verification": "Approved URL range-loads; unapproved protocols/origins/paths are rejected before network activity."
+    },
+    {
+      "id": "MMS-AUD-037", "priority": "P2", "category": "security", "title": "Public responses lack browser security policy headers", "status": "platform-capability-gated",
+      "surfaces": ["Cargo", "public response headers"], "evidence": "phase3-platform-security-findings.md#p2--the-public-response-lacks-browser-security-policy-headers",
+      "recommendation": "Determine Cargo capabilities, begin CSP report-only, then add exact referrer, permission, MIME, frame, and HTTPS policies.", "decision_gate": "Cargo or edge capability and clean report-only evidence.", "verification": "Enforced headers pass the full compact/expanded interaction matrix."
+    },
+    {
+      "id": "MMS-AUD-038", "priority": "P2", "category": "supply-chain", "title": "Framer helper contains a high-severity dependency advisory", "status": "tooling-maintenance-candidate",
+      "surfaces": ["Framer API helper", "devalue"], "evidence": "phase3-platform-security-findings.md#p2--the-framer-api-helper-has-a-high-severity-dependency-advisory",
+      "recommendation": "Pin reviewed versions, move outside the advisory range, rerun design reads, and require a clean audit.", "decision_gate": "None for nonvisual tooling maintenance.", "verification": "Lockfile is deterministic and npm audit reports no known vulnerability."
+    },
+    {
+      "id": "MMS-AUD-039", "priority": "P2", "category": "legal", "title": "StPageFlip's MIT notice is missing from tracked distribution records", "status": "documentation-candidate",
+      "surfaces": ["Montran", "third-party notices"], "evidence": "phase3-platform-security-findings.md#p2--stpageflips-mit-notice-is-missing-from-the-tracked-distribution-record",
+      "recommendation": "Add a consolidated third-party notice file and preserve notices through builds.", "decision_gate": "None.", "verification": "All vendored runtime dependencies and required notices are documented."
+    },
+    {
+      "id": "MMS-AUD-040", "priority": "P3", "category": "privacy", "title": "The site's low-collection privacy behavior is undocumented", "status": "documentation-candidate",
+      "surfaces": ["local/session storage", "external vendors"], "evidence": "phase3-platform-security-findings.md#p3--privacy-is-low-collection-but-undocumented",
+      "recommendation": "Document stored preferences and contacted vendors without adding analytics.", "decision_gate": "None for factual documentation.", "verification": "Documentation matches an independent request/storage audit."
+    },
+    {
+      "id": "MMS-AUD-041", "priority": "P1", "category": "ux", "title": "Compact Home ends without a visible contact path", "status": "product-decision-gated",
+      "surfaces": ["Home compact", "WTW ending", "contact journey"], "evidence": "phase3-ux-findings.md#p1--the-compact-portfolio-journey-ends-without-a-contact-path",
+      "recommendation": "Approve a compact-only raw contact echo after WTW while preserving the 64px ending space.", "decision_gate": "Ocean chooses links, a short sentence, or an intentionally contact-free ending.", "verification": "A compact visitor can contact MM.S at journey end without a generic CTA treatment."
+    },
+    {
+      "id": "MMS-AUD-042", "priority": "P2", "category": "ux", "title": "Projects have no stable nonserial destination", "status": "product-decision-gated",
+      "surfaces": ["Home", "13 projects", "sharing"], "evidence": "phase3-ux-findings.md#p2--thirteen-projects-can-only-be-traversed-serially",
+      "recommendation": "Add stable invisible fragments first; consider a raw-text index only if desired.", "decision_gate": "Ocean decides whether serial discovery is exclusive.", "verification": "Named projects can be linked without replacing rivers or changing composition."
+    },
+    {
+      "id": "MMS-AUD-043", "priority": "P2", "category": "ux", "title": "Navigation does not show visual current location", "status": "visual-treatment-gated",
+      "surfaces": ["Work", "Write", "Who", "shared navigation"], "evidence": "phase3-ux-findings.md#p2--work-write-and-who-do-not-show-visual-current-location",
+      "recommendation": "Approve a minimal current-link state using existing type or underline logic.", "decision_gate": "Ocean approves the visible treatment.", "verification": "Direct-entry users identify the route without tabs, pills, breadcrumbs, or new bars."
+    },
+    {
+      "id": "MMS-AUD-044", "priority": "P3", "category": "ux", "title": "The compact plus is explained only on Home", "status": "research-and-product-gated",
+      "surfaces": ["Write compact", "Who compact", "control panel"], "evidence": "phase3-ux-findings.md#p3--the-compact-plus-is-only-explained-on-home",
+      "recommendation": "Preserve the plus; add a restrained direct-entry cue only if usability testing confirms confusion.", "decision_gate": "Ocean decides surprise versus explicit cue.", "verification": "Direct-entry compact testing confirms panel discoverability without permanent explanatory chrome."
+    }
+  ],
+  "protected_contracts": [
+    "Round 69 gold remains immutable.",
+    "WTW wtw-02 remains 504 by 504 and unclipped.",
+    "Withered Green retains exactly four Cargo-native eye-roll paragraph hooks and no animated heading.",
+    "Horizontal rivers remain native with no wheel interception, forced stepping, snapping, or animated correction."
+  ]
+}

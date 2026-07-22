@@ -1,0 +1,44 @@
+MM.S Phase 1 local validation
+Captured: 2026-07-20T22:31:44Z
+Working tree: /Users/oceancheung/Documents/Startup/MM.S/mm.s website
+
+$ ./cargo/validate-cargo-payload.sh bodycopy cargo/home.html
+OK: bodycopy payload is clean
+[exit 0]
+
+$ ./cargo/validate-cargo-payload.sh bodycopy cargo/who.html
+OK: bodycopy payload is clean
+[exit 0]
+
+$ ./cargo/validate-cargo-payload.sh bodycopy cargo/write.html
+OK: bodycopy payload is clean
+[exit 0]
+
+$ python3 ./cargo/validate-shared-components.py
+shared component parity: PASS (Home, Who, Write)
+[exit 0]
+
+$ python3 ./cargo/validate-test-mirrors.py
+test.html: PASS 204559 bytes sha256=3c4fbcec48707a024225a86cfe2d89cc37d91bbd50d349d547d10b6e2bd7fba5
+who-test.html: PASS 147303 bytes sha256=8e7d2442bf6b7f121ad27ee5a98b52c547d3983832bbd5f7558c7725c74306cb
+write-test.html: PASS 146808 bytes sha256=b02469ae9e09a509cd373787a616695ead6b89c457cd30df6f090467bd186e56
+[exit 0]
+
+$ ./cargo/validate-cargo-payload.sh head cargo/site-head.html
+OK: head payload is clean
+[exit 0]
+
+$ ./cargo/compose-css-bundle.sh > local/complete-css-bundle.css
+OK: css payload is clean
+OK: complete CSS bundle; tokens=1 layout=1 braces=434
+[exit 0]
+
+$ ./cargo/validate-cargo-payload.sh css local/complete-css-bundle.css
+OK: css payload is clean
+[exit 0]
+
+complete_css_bytes=78609
+complete_css_sha256=ee1c2af629f8f31c765fd43b52264d0768baf02144e7055f41b31281ed030af0
+open_braces=434
+close_braces=434
+balanced=True

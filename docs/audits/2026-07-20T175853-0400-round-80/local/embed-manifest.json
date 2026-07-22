@@ -1,0 +1,66 @@
+{
+  "captured_at_utc": "2026-07-20T22:34:32Z",
+  "entries": [
+    {
+      "kind": "v7-cup",
+      "version": "three-r160",
+      "freight_url": "https://freight.cargo.site/m/Z3031274916472238420423367767865/coffee-cup-bundle.html",
+      "local_path": "Portfolio assets/_for cargo deployment/V7/coffee cup 3d/coffee-cup-bundle.html",
+      "bytes": 780341,
+      "sha256": "ee09e9c282d928f8968b91e1301bc0ba2639102a27c1bf1cd40483ab1b609d0a",
+      "git_state": "ignored",
+      "ready_message": {
+        "__mmsEmbedReady": 1,
+        "kind": "v7-cup"
+      },
+      "rebuild_entrypoint": null,
+      "reproducible_from_tracked_source": false
+    },
+    {
+      "kind": "touchbaes",
+      "version": 10,
+      "freight_url": "https://freight.cargo.site/m/E3031754669080377521238157342521/touchbaes-sticker-game-v10.html",
+      "local_path": "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/touchbaes-sticker-game-v10.html",
+      "bytes": 49140,
+      "sha256": "2c4f2c12a8d049ab0805fb8f72f246a95e715154671d5fd8cc808407995afcb5",
+      "git_state": "tracked",
+      "alias_path": "Portfolio assets/_for cargo deployment/touchbaes/sticker game/touchbaes-sticker-game/touchbaes-sticker-game.html",
+      "alias_sha256": "2c4f2c12a8d049ab0805fb8f72f246a95e715154671d5fd8cc808407995afcb5",
+      "ready_message": {
+        "__mmsEmbedReady": 1,
+        "kind": "touchbaes"
+      },
+      "rebuild_entrypoint": null,
+      "reproducible_from_tracked_source": true,
+      "documentation_note": "README predates v10 sizing and message details"
+    },
+    {
+      "kind": "montran-booklet",
+      "version": 17,
+      "freight_url": "https://freight.cargo.site/m/U3034412351395654863674388559673/montran-booklet-direct-pdf-v17.html",
+      "local_path": "work/montran-direct-pdf-v10-src/montran-booklet-direct-pdf-v17.html",
+      "bytes": 1936356,
+      "sha256": "825cf2c3a1f130cb3445e62443985e845991204d19e0c2154cfd43a36126b49b",
+      "git_state": "ignored",
+      "ready_message": {
+        "__mmsBookletReady": 1,
+        "kind": "montran-booklet",
+        "version": 17
+      },
+      "render_width_limit": 1600,
+      "range_transport": "FreightRangeTransport",
+      "rebuild_entrypoint": "work/montran-direct-pdf-v10-src/build-bundle.py",
+      "reproducible_from_tracked_source": false,
+      "rebuild_observed": {
+        "bytes": 1926763,
+        "sha256": "56f5c03c64a2f6ea418484a604f14ef750bd0d3796e3d481973c839748562587",
+        "missing_contracts": [
+          "FreightRangeTransport",
+          "RENDER_WIDTH_LIMIT = 1600",
+          "__mmsBookletReady",
+          "version: 17"
+        ]
+      }
+    }
+  ]
+}

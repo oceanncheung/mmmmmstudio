@@ -1,0 +1,374 @@
+{
+  "capture_root": "/tmp/mms-public-audit-20260720-175853",
+  "capture_note": "Read-only GET with redirects and content decompression; one request per route.",
+  "pages": {
+    "home": {
+      "requested_url": "https://mmmmm.studio/",
+      "effective_url": "https://mmmmm.studio/",
+      "http_status": 200,
+      "http_version": "2",
+      "remote_ip": "3.234.189.133",
+      "redirect_count": 0,
+      "response_bytes": 512588,
+      "response_sha256": "b4f5385496b317e1a7617f19657558830456bbf2c179b4c1c23b5dc8bc04baef",
+      "response_header_bytes": 183,
+      "response_headers_sha256": "513e96be59f92e1e1ee20255847d21010fb996f68ae327482a46c961bc08f27c",
+      "response_header_chain": [
+        {
+          "status_line": "HTTP/2 200 ",
+          "headers": {
+            "date": "Mon, 20 Jul 2026 21:58:53 GMT",
+            "content-type": "text/html; charset=utf-8",
+            "content-length": "512588",
+            "x-cache-status": "C3-HIT",
+            "x-debug-host": "mmmmm.studio",
+            "server": "Cargo"
+          }
+        }
+      ],
+      "document_title": "MM.S",
+      "canonical_urls": [],
+      "meta": {
+        "description": "building better brands. brand identity, graphic design, motion graphics, digital and print",
+        "og:title": "MM.S",
+        "og:description": "building better brands. brand identity, graphic design, motion graphics, digital and print",
+        "og:url": "https://mmmmm.studio",
+        "og:image": "https://freight.cargo.site/w/1000/i/D3043801849626102382991858251577/screenshot-0760154348.jpg",
+        "og:type": "website"
+      },
+      "active_page": {
+        "id": "I2398594830",
+        "title": "Home",
+        "purl": "home",
+        "content_chars": 130669,
+        "content_bytes": 130742,
+        "content_sha256": "03a7f20f1f5d7359d260c065ab239c8d6552f24e581118ccffeec934f9b96cd4",
+        "created_at": null,
+        "updated_at": null
+      },
+      "site": {
+        "id": 3626191,
+        "domain": "mmmmm.studio",
+        "website_title": "MM.S",
+        "homepage_id": "I2398594830",
+        "recent_date": "2026-07-20 18:40:28",
+        "version": "Cargo3",
+        "total_file_size": 234600471,
+        "css_url": "https://mmmmm.studio/stylesheet"
+      },
+      "global_css": {
+        "id": 1452539,
+        "chars": 86087,
+        "bytes": 86129,
+        "sha256": "756d73e5e63bfd4551326e06888ba93574601837a9fbf552ffb3fac4d7710bb3",
+        "created_at": "2022-09-15T23:40:11.000000Z",
+        "updated_at": "2026-07-20T14:37:27.000000Z"
+      },
+      "custom_html": {
+        "chars": 1879,
+        "bytes": 1879,
+        "sha256": "3e3b287a4a7800e2caf7ec1a5b3d16a0eb296d82ae6da969b60ac233632cad2a",
+        "ios_edge_head_markers": [
+          "49"
+        ]
+      },
+      "bodycopy_runtime_markers": {
+        "montran-booklet-direct-pdf-v17": 1,
+        "responsive-70": 2,
+        "touchbaes-sticker-game-v10": 1
+      },
+      "bodycopy_counts": {
+        "tags": {
+          "script": 4,
+          "div": 115,
+          "header": 2,
+          "a": 16,
+          "span": 25,
+          "button": 13,
+          "svg": 5,
+          "path": 5,
+          "aside": 1,
+          "ul": 4,
+          "li": 10,
+          "main": 1,
+          "nav": 1,
+          "p": 18,
+          "br": 13,
+          "text-icon": 4,
+          "section": 13,
+          "video": 27,
+          "img": 38,
+          "figure": 12,
+          "em": 12,
+          "iframe": 3,
+          "dialog": 1,
+          "input": 1,
+          "circle": 3,
+          "style": 1
+        },
+        "media_ids": 68,
+        "unique_media_ids": 68,
+        "shape_policies": {
+          "crop": 59,
+          "interactive": 3,
+          "artwork": 6
+        },
+        "bands": [
+          "eviive",
+          "v7",
+          "touchbaes",
+          "mandy",
+          "loop",
+          "montran",
+          "anyday",
+          "kelly",
+          "curate",
+          "randompics",
+          "purelove",
+          "deadgood",
+          "wtw"
+        ],
+        "bodycopy_external_url_records": 249,
+        "bodycopy_unique_external_urls": 180
+      },
+      "utf8_replacement_chars": 0
+    },
+    "write": {
+      "requested_url": "https://mmmmm.studio/write",
+      "effective_url": "https://mmmmm.studio/write",
+      "http_status": 200,
+      "http_version": "2",
+      "remote_ip": "3.215.100.79",
+      "redirect_count": 0,
+      "response_bytes": 521118,
+      "response_sha256": "3baa28f6aa39420e92ae22b23ad71ab6c984bddb1839f47a42b928578962bfdb",
+      "response_header_bytes": 183,
+      "response_headers_sha256": "df5bd17536124305e0fb0e1a902163551d04a0f8febc7e4e05af5b325688180e",
+      "response_header_chain": [
+        {
+          "status_line": "HTTP/2 200 ",
+          "headers": {
+            "date": "Mon, 20 Jul 2026 21:58:54 GMT",
+            "content-type": "text/html; charset=utf-8",
+            "content-length": "521118",
+            "x-cache-status": "C3-HIT",
+            "x-debug-host": "mmmmm.studio",
+            "server": "Cargo"
+          }
+        }
+      ],
+      "document_title": "write — MM.S",
+      "canonical_urls": [],
+      "meta": {
+        "description": "building better brands. brand identity, graphic design, motion graphics, digital and print",
+        "og:title": "write — MM.S",
+        "og:description": "building better brands. brand identity, graphic design, motion graphics, digital and print",
+        "og:url": "https://mmmmm.studio/write",
+        "og:image": "https://freight.cargo.site/w/1000/i/D3043801849626102382991858251577/screenshot-0760154348.jpg",
+        "og:type": "website"
+      },
+      "active_page": {
+        "id": "P0060651058",
+        "title": "write",
+        "purl": "write",
+        "content_chars": 67695,
+        "content_bytes": 67787,
+        "content_sha256": "acd08c42532bf7138b6058a3f08302f76a7ed1fa38307704bd6f77f2b26cc2e9",
+        "created_at": null,
+        "updated_at": null
+      },
+      "site": {
+        "id": 3626191,
+        "domain": "mmmmm.studio",
+        "website_title": "MM.S",
+        "homepage_id": "I2398594830",
+        "recent_date": "2026-07-20 18:40:28",
+        "version": "Cargo3",
+        "total_file_size": 234600471,
+        "css_url": "https://mmmmm.studio/stylesheet"
+      },
+      "global_css": {
+        "id": 1452539,
+        "chars": 86087,
+        "bytes": 86129,
+        "sha256": "756d73e5e63bfd4551326e06888ba93574601837a9fbf552ffb3fac4d7710bb3",
+        "created_at": "2022-09-15T23:40:11.000000Z",
+        "updated_at": "2026-07-20T14:37:27.000000Z"
+      },
+      "custom_html": {
+        "chars": 1879,
+        "bytes": 1879,
+        "sha256": "3e3b287a4a7800e2caf7ec1a5b3d16a0eb296d82ae6da969b60ac233632cad2a",
+        "ios_edge_head_markers": [
+          "49"
+        ]
+      },
+      "bodycopy_runtime_markers": {
+        "responsive-70": 2
+      },
+      "bodycopy_counts": {
+        "tags": {
+          "script": 2,
+          "div": 18,
+          "header": 1,
+          "a": 12,
+          "span": 11,
+          "button": 13,
+          "svg": 5,
+          "path": 5,
+          "aside": 1,
+          "ul": 5,
+          "li": 24,
+          "main": 1,
+          "nav": 1,
+          "article": 5,
+          "h1": 5,
+          "br": 23,
+          "ol": 1,
+          "p": 6,
+          "dialog": 1,
+          "input": 1,
+          "circle": 3
+        },
+        "media_ids": 0,
+        "unique_media_ids": 0,
+        "shape_policies": {},
+        "bands": [],
+        "bodycopy_external_url_records": 10,
+        "bodycopy_unique_external_urls": 4
+      },
+      "utf8_replacement_chars": 0
+    },
+    "who": {
+      "requested_url": "https://mmmmm.studio/who",
+      "effective_url": "https://mmmmm.studio/who",
+      "http_status": 200,
+      "http_version": "2",
+      "remote_ip": "3.234.189.133",
+      "redirect_count": 0,
+      "response_bytes": 521734,
+      "response_sha256": "ef551c149b4eaf1b24626af15263ab90981252a8099e0d12d45161027de9813e",
+      "response_header_bytes": 183,
+      "response_headers_sha256": "72c2d3b4d83dc32d6ebf4167e749f16b745d8387ac07f1e676b0c91a5220c011",
+      "response_header_chain": [
+        {
+          "status_line": "HTTP/2 200 ",
+          "headers": {
+            "date": "Mon, 20 Jul 2026 21:58:54 GMT",
+            "content-type": "text/html; charset=utf-8",
+            "content-length": "521734",
+            "x-cache-status": "C3-HIT",
+            "x-debug-host": "mmmmm.studio",
+            "server": "Cargo"
+          }
+        }
+      ],
+      "document_title": "who — MM.S",
+      "canonical_urls": [],
+      "meta": {
+        "description": "building better brands. brand identity, graphic design, motion graphics, digital and print",
+        "og:title": "who — MM.S",
+        "og:description": "building better brands. brand identity, graphic design, motion graphics, digital and print",
+        "og:url": "https://mmmmm.studio/who",
+        "og:image": "https://freight.cargo.site/w/1000/i/D3043801849626102382991858251577/screenshot-0760154348.jpg",
+        "og:type": "website"
+      },
+      "active_page": {
+        "id": "B2402536676",
+        "title": "who",
+        "purl": "who",
+        "content_chars": 68234,
+        "content_bytes": 68236,
+        "content_sha256": "36ed459ef60f030b82e1941adac41b6b549c66c1738b6c51c96168d46e5df365",
+        "created_at": null,
+        "updated_at": null
+      },
+      "site": {
+        "id": 3626191,
+        "domain": "mmmmm.studio",
+        "website_title": "MM.S",
+        "homepage_id": "I2398594830",
+        "recent_date": "2026-07-20 18:40:28",
+        "version": "Cargo3",
+        "total_file_size": 234600471,
+        "css_url": "https://mmmmm.studio/stylesheet"
+      },
+      "global_css": {
+        "id": 1452539,
+        "chars": 86087,
+        "bytes": 86129,
+        "sha256": "756d73e5e63bfd4551326e06888ba93574601837a9fbf552ffb3fac4d7710bb3",
+        "created_at": "2022-09-15T23:40:11.000000Z",
+        "updated_at": "2026-07-20T14:37:27.000000Z"
+      },
+      "custom_html": {
+        "chars": 1879,
+        "bytes": 1879,
+        "sha256": "3e3b287a4a7800e2caf7ec1a5b3d16a0eb296d82ae6da969b60ac233632cad2a",
+        "ios_edge_head_markers": [
+          "49"
+        ]
+      },
+      "bodycopy_runtime_markers": {
+        "responsive-70": 2
+      },
+      "bodycopy_counts": {
+        "tags": {
+          "script": 2,
+          "div": 19,
+          "header": 3,
+          "a": 14,
+          "span": 9,
+          "button": 13,
+          "svg": 5,
+          "path": 5,
+          "aside": 1,
+          "ul": 4,
+          "li": 10,
+          "main": 1,
+          "nav": 1,
+          "p": 4,
+          "section": 1,
+          "article": 2,
+          "video": 2,
+          "h1": 2,
+          "dialog": 1,
+          "input": 1,
+          "circle": 3
+        },
+        "media_ids": 2,
+        "unique_media_ids": 2,
+        "shape_policies": {
+          "crop": 2
+        },
+        "bands": [],
+        "bodycopy_external_url_records": 14,
+        "bodycopy_unique_external_urls": 8
+      },
+      "utf8_replacement_chars": 0
+    }
+  },
+  "cross_page": {
+    "global_css_hashes": [
+      "756d73e5e63bfd4551326e06888ba93574601837a9fbf552ffb3fac4d7710bb3"
+    ],
+    "custom_html_hashes": [
+      "3e3b287a4a7800e2caf7ec1a5b3d16a0eb296d82ae6da969b60ac233632cad2a"
+    ],
+    "bodycopy_asset_record_counts_by_kind": {
+      "link": 16,
+      "video": 88,
+      "image": 146,
+      "embed": 4,
+      "pdf": 1
+    },
+    "unique_bodycopy_dependency_urls": 184,
+    "unique_bodycopy_dependency_urls_by_kind": {
+      "link": 8,
+      "video": 60,
+      "image": 111,
+      "embed": 4,
+      "pdf": 1
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "baseline_id": "2026-07-20T175853-0400-round-80",
+  "capture_started_at": "2026-07-20T17:58:53-04:00",
+  "capture_completed_at": "2026-07-20T18:39:41-04:00",
+  "capture_timezone": "America/Toronto",
+  "phase": 1,
+  "phase_name": "Establish a Stable Audit Baseline",
+  "status": "complete",
+  "read_only_external_systems": true,
+  "cargo_published_during_capture": false,
+  "repository": {
+    "name": "oceanncheung/mmmmmstudio",
+    "branch": "round-81/audit-baseline",
+    "head": "dcdbd6fec9c6220486c8572d5f146248b5c3593f",
+    "stable_reference": "round-80-stable",
+    "stable_reference_commit": "d40b930b29bea66a63c2a3a5aa244b03da5a65cf",
+    "protected_historical_reference": "round-69-gold",
+    "protected_historical_commit": "18093409423fb5d268d64e049c31a91bbb78d51a"
+  },
+  "cargo": {
+    "site_id": 3626191,
+    "domain": "mmmmm.studio",
+    "homepage_id": "I2398594830",
+    "who_page_id": "B2402536676",
+    "write_page_id": "P0060651058",
+    "runtime_marker": "responsive-70",
+    "touchbaes_embed": "touchbaes-sticker-game-v10",
+    "montran_embed": "montran-booklet-direct-pdf-v17",
+    "ios_edge_head_marker": "49",
+    "saved_draft_matches_published_primary_artifacts": true
+  },
+  "figma": {
+    "file_name": "web design",
+    "file_key": "aaJEv2Z8j6HaegMHou4N09",
+    "capture_mode": "read-only"
+  },
+  "freight": {
+    "referenced_underlying_objects": 103,
+    "streamed_bytes_hashed": 101965061,
+    "all_objects_sha256_hashed": true,
+    "payloads_retained": false
+  },
+  "source_precedence": [
+    "Explicit latest Ocean decision",
+    "Current approved Figma endpoint for visual intent",
+    "Reload-verified Cargo draft for deployed behavior",
+    "Local source mirror for implementation intent",
+    "Historical logs for diagnosis only"
+  ]
+}

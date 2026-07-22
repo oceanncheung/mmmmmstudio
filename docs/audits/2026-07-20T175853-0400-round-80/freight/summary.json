@@ -1,0 +1,28 @@
+{
+  "captured_at": "2026-07-20T22:29:45Z",
+  "source": "published Home, Write, and Who bodycopy dependencies",
+  "deduplication_key": "freight_id",
+  "asset_count": 103,
+  "total_bytes": 101965061,
+  "by_kind": {
+    "embed": 3,
+    "image": 68,
+    "pdf": 1,
+    "video": 31
+  },
+  "by_content_type": {
+    "application/pdf": 1,
+    "image/gif": 3,
+    "image/jpeg": 57,
+    "image/png": 8,
+    "text/html": 3,
+    "video/mp4": 29,
+    "video/webm": 2
+  },
+  "all_http_200": true,
+  "all_sha256": true,
+  "measured_media_dimensions": 99,
+  "dimension_probe_failures": 0,
+  "hash_failures": 0,
+  "payloads_retained": false
+}

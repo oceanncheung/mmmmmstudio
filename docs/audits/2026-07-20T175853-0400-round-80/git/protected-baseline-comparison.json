@@ -1,0 +1,11 @@
+{
+  "command": "git diff --exit-code round-80-stable -- cargo/gold/round-69",
+  "exit_code": 0,
+  "identical": true,
+  "stdout": "",
+  "stderr": "",
+  "tag_tree_entry_counts": {
+    "round-69-gold": 28,
+    "round-80-stable": 129
+  }
+}

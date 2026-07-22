@@ -1,13 +1,14 @@
 #!/bin/bash
 # Reject transfer/runtime residue before MM.S payloads reach Cargo.
-# Usage: validate-cargo-payload.sh css|persisted-css|bodycopy|head [file]
+# Usage: validate-cargo-payload.sh css|persisted-css|bodycopy|head [file] [expected-page]
 # Omit [file], or pass -, to validate stdin (useful after copying CodeMirror).
 set -euo pipefail
 
 mode=${1:-}
 input=${2:--}
+expected_page=${3:-${MMS_EXPECT_PAGE:-}}
 if [[ ! "$mode" =~ ^(css|persisted-css|bodycopy|head)$ ]]; then
-  echo "usage: $0 css|persisted-css|bodycopy|head [file|-]" >&2
+  echo "usage: $0 css|persisted-css|bodycopy|head [file|-] [expected-page]" >&2
   exit 2
 fi
 
@@ -19,10 +20,21 @@ else
   cp "$input" "$tmp"
 fi
 
+if [[ "$mode" == "bodycopy" && -z "$expected_page" && "$input" != "-" ]]; then
+  case "$(basename "$input")" in
+    home.html|home.template.html|test.html) expected_page=home ;;
+    who.html|who.template.html|who-test.html) expected_page=who ;;
+    write.html|write.template.html|write-test.html) expected_page=write ;;
+  esac
+fi
 fail() {
   echo "ERROR: $*" >&2
   exit 1
 }
+
+if [[ -n "$expected_page" && ! "$expected_page" =~ ^(home|who|write)$ ]]; then
+  fail "expected page must be home, who, or write"
+fi
 
 iconv -f UTF-8 -t UTF-8 "$tmp" >/dev/null 2>&1 || fail "payload is not valid UTF-8"
 perl -0777 -ne 'exit(index($_, "\0") >= 0 ? 0 : 1)' "$tmp" && fail "payload contains a NUL byte"
@@ -100,6 +112,130 @@ PY
       && fail "SVG contains duplicate viewBox/viewbox attributes"
     perl -0777 -ne 'exit(/(?:TextDecoder|atob\()/ ? 0 : 1)' "$tmp" \
       && fail "bodycopy contains transfer-decoder residue"
+    if ! python3 - "$tmp" "$expected_page" <<'PY'
+from html.parser import HTMLParser
+from pathlib import Path
+import sys
+
+
+class WitheredEffectAudit(HTMLParser):
+    VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
+
+    def __init__(self):
+        super().__init__(convert_charrefs=False)
+        self.stack = []
+        self.is_write = False
+        self.mms_root_pages = []
+        self.withered_root_count = 0
+        self.paragraphs = []
+        self.all_eye_roll_hooks = 0
+        self.invalid_eye_roll_hooks = 0
+
+    @staticmethod
+    def classes(attrs):
+        return set(dict(attrs).get("class", "").split())
+
+    def inside_withered(self):
+        return any("mms-writing-withered" in node["classes"] for node in self.stack)
+
+    def current_withered_paragraph(self):
+        for node in reversed(self.stack):
+            if node.get("withered_paragraph") is not None:
+                return node["withered_paragraph"]
+        return None
+
+    def handle_starttag(self, tag, attrs):
+        tag = tag.lower()
+        attr_map = dict(attrs)
+        classes = self.classes(attrs)
+        if attr_map.get("data-page") == "write":
+            self.is_write = True
+        if "mms" in classes:
+            self.mms_root_pages.append(attr_map.get("data-page") or "home")
+        if "mms-writing-withered" in classes:
+            self.withered_root_count += 1
+        direct_withered_paragraph = (
+            tag == "p"
+            and len(self.stack) >= 1
+            and self.stack[-1]["tag"] == "div"
+            and "mms-writing-plate" in self.stack[-1]["classes"]
+            and self.inside_withered()
+        )
+        paragraph = None
+        if direct_withered_paragraph:
+            paragraph = {"direct_eye_roll_spans": 0, "outside_text": False}
+            self.paragraphs.append(paragraph)
+        direct_eye_roll = False
+        if attr_map.get("uses") == "eye-roll" and self.inside_withered():
+            self.all_eye_roll_hooks += 1
+            direct_eye_roll = (
+                tag == "span"
+                and len(self.stack) >= 2
+                and self.stack[-1]["tag"] == "p"
+                and self.stack[-1].get("withered_paragraph") is not None
+                and self.stack[-2]["tag"] == "div"
+                and "mms-writing-plate" in self.stack[-2]["classes"]
+            )
+            if direct_eye_roll:
+                self.stack[-1]["withered_paragraph"]["direct_eye_roll_spans"] += 1
+            else:
+                self.invalid_eye_roll_hooks += 1
+        if tag not in self.VOID_TAGS:
+            self.stack.append({
+                "tag": tag,
+                "classes": classes,
+                "withered_paragraph": paragraph,
+                "direct_eye_roll": direct_eye_roll,
+            })
+
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+        if tag.lower() not in self.VOID_TAGS:
+            self.handle_endtag(tag)
+
+    def handle_endtag(self, tag):
+        tag = tag.lower()
+        while self.stack:
+            opened = self.stack.pop()
+            if opened["tag"] == tag:
+                break
+
+    def handle_data(self, data):
+        if not data.strip():
+            return
+        paragraph = self.current_withered_paragraph()
+        if paragraph is None:
+            return
+        if not any(node.get("direct_eye_roll") for node in self.stack):
+            paragraph["outside_text"] = True
+
+
+audit = WitheredEffectAudit()
+audit.feed(Path(sys.argv[1]).read_text(encoding="utf-8"))
+expected_page = sys.argv[2]
+page_identity_valid = not expected_page or audit.mms_root_pages == [expected_page]
+write_contract_applicable = expected_page == "write" or audit.is_write or audit.withered_root_count > 0
+write_contract_valid = (
+        audit.mms_root_pages == ["write"]
+        and audit.withered_root_count == 1
+        and len(audit.paragraphs) == 4
+        and all(item["direct_eye_roll_spans"] == 1 for item in audit.paragraphs)
+        and all(not item["outside_text"] for item in audit.paragraphs)
+        and audit.all_eye_roll_hooks == 4
+        and audit.invalid_eye_roll_hooks == 0
+)
+valid = page_identity_valid and (not write_contract_applicable or write_contract_valid)
+sys.exit(0 if valid else 1)
+PY
+    then
+      fail "Write must preserve one direct Cargo eye-roll span around each of the four Withered Green paragraphs"
+    fi
+    python3 "$(dirname "$0")/validate-deployment-manifest.py" bodycopy "$tmp" "$expected_page" \
+      || fail "bodycopy does not match the reviewed deployment manifest"
+    python3 "$(dirname "$0")/../audit/scripts/validate-media-playback-owner.py" "$tmp" \
+      || fail "bodycopy restores a competing video playback owner"
+    python3 "$(dirname "$0")/../audit/scripts/validate-root-runtime-owner.py" "$tmp" "$expected_page" \
+      || fail "bodycopy bypasses the reviewed root-runtime lifecycle owner"
     ;;
 
   head)
@@ -107,6 +243,8 @@ PY
     [[ "$marker_count" == "1" ]] || fail "expected one iOS edge-head marker, found $marker_count"
     awk 'length($0) > 500 { bad=1 } END { exit bad ? 0 : 1 }' "$tmp" \
       && fail "head HTML contains a line longer than 500 characters"
+    python3 "$(dirname "$0")/validate-deployment-manifest.py" head "$tmp" \
+      || fail "head HTML does not match the reviewed deployment manifest"
     ;;
 esac
 

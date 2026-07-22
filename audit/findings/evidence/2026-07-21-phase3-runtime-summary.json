@@ -1,0 +1,647 @@
+{
+  "schema_version": "mms-audit/runtime-summary/v1",
+  "generated_at": "2026-07-21",
+  "target_revision": {
+    "git_commit": "afc8b220b10f7de46911b153afaee314a6f80a9e",
+    "description": "post-Round-80 working tree",
+    "audit_mode": "read-only"
+  },
+  "scope": {
+    "purpose": "Phase 3 functional, accessibility, responsive, and performance evidence beyond the already recorded Phase 2 findings",
+    "already_documented_and_not_reclassified": [
+      "Touchbaes clipping at exactly 1024px",
+      "Random Pics expanded clipping",
+      "Cargo runtime river aria mutation",
+      "missing document language",
+      "compact navigation target-size failures"
+    ],
+    "cargo_edited": false,
+    "deployed": false,
+    "published": false
+  },
+  "captures": {
+    "published_compact": {
+      "path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T02-55-09-747Z__published__smoke/captures/smoke__0000__home__compact__white-serif-m-straight.json",
+      "sha256": "918fcb5b0a912740c39903222657b03b35346c3c6e0cd092157b841c156ae81d",
+      "captured_at": "2026-07-21T02:55:18.732Z",
+      "target": "published",
+      "url": "https://mmmmm.studio/",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "dpr": 2
+      },
+      "network": {
+        "total": {
+          "request_count": 128,
+          "failed_count": 1,
+          "transfer_bytes": 47747770,
+          "transfer_mib": 45.536,
+          "resource_bytes": 47745938,
+          "range_requests": 24
+        },
+        "startup": {
+          "request_count": 111,
+          "failed_count": 0,
+          "transfer_bytes": 45243344,
+          "transfer_mib": 43.147,
+          "resource_bytes": 45242066,
+          "range_requests": 16,
+          "resource_type_request_counts": {
+            "document": 3,
+            "fetch": 4,
+            "font": 6,
+            "image": 76,
+            "media": 16,
+            "other": 1,
+            "script": 1,
+            "stylesheet": 2,
+            "xhr": 2
+          },
+          "response_body_bytes_by_resource_type": {
+            "document": 776309,
+            "fetch": 1643,
+            "font": 265298,
+            "image": 20388625,
+            "media": 23450227,
+            "other": 35258,
+            "script": 313785,
+            "stylesheet": 10180,
+            "xhr": 741
+          }
+        }
+      },
+      "performance": {
+        "navigation_duration_ms": 1182.800000011921,
+        "first_contentful_paint_ms": 532,
+        "cumulative_layout_shift_observed": 0.7497196365707888,
+        "long_tasks": [
+          {
+            "duration_ms": 53,
+            "start_ms": 357.30000001192093
+          },
+          {
+            "duration_ms": 80,
+            "start_ms": 423.80000001192093
+          }
+        ],
+        "scroll": {
+          "vertical": {
+            "frames": 48,
+            "mean_frame_ms": 20.833333333333332,
+            "p95_frame_ms": 33.400000000000546,
+            "max_frame_ms": 34.19999999999982,
+            "frames_over_20_ms": 24,
+            "approximate_fps": 48
+          },
+          "horizontal": {
+            "frames": 48,
+            "mean_frame_ms": 10.414583333333345,
+            "p95_frame_ms": 33.30000000000018,
+            "max_frame_ms": 34.19999999999982,
+            "frames_over_20_ms": 4,
+            "approximate_fps": 96.01920384076804
+          }
+        }
+      },
+      "accessibility": {
+        "node_count": 1446,
+        "ignored_count": 992,
+        "role_counts": {
+          "figure": 12,
+          "image": 7,
+          "Video": 27,
+          "Iframe": 3,
+          "link": 10,
+          "button": 3
+        },
+        "unnamed_video_count": 17,
+        "generic_video_error_name_count": 10,
+        "unnamed_figure_count": 12,
+        "unnamed_image_count": 4,
+        "unnamed_interactive_count": 0,
+        "headings": [],
+        "axe_counts": {
+          "violations": 4,
+          "incomplete": 2,
+          "passes": 22,
+          "inapplicable": 36
+        }
+      }
+    },
+    "published_expanded": {
+      "path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T02-55-09-747Z__published__smoke/captures/smoke__0001__home__expanded__white-serif-m-straight.json",
+      "sha256": "6b253fcc78a8a470d59bd4deda41976470b14670c9945b65efd48dfe660cb6ef",
+      "captured_at": "2026-07-21T02:55:30.329Z",
+      "target": "published",
+      "url": "https://mmmmm.studio/",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "dpr": 1
+      },
+      "network": {
+        "total": {
+          "request_count": 119,
+          "failed_count": 1,
+          "transfer_bytes": 51139725,
+          "transfer_mib": 48.771,
+          "resource_bytes": 51138298,
+          "range_requests": 21
+        },
+        "startup": {
+          "request_count": 111,
+          "failed_count": 0,
+          "transfer_bytes": 49467119,
+          "transfer_mib": 47.176,
+          "resource_bytes": 49465841,
+          "range_requests": 16,
+          "resource_type_request_counts": {
+            "document": 3,
+            "fetch": 4,
+            "font": 6,
+            "image": 76,
+            "media": 16,
+            "other": 1,
+            "script": 1,
+            "stylesheet": 2,
+            "xhr": 2
+          },
+          "response_body_bytes_by_resource_type": {
+            "document": 776351,
+            "fetch": 1640,
+            "font": 265294,
+            "image": 24612389,
+            "media": 23450205,
+            "other": 35257,
+            "script": 313794,
+            "stylesheet": 10171,
+            "xhr": 740
+          }
+        }
+      },
+      "performance": {
+        "navigation_duration_ms": 901,
+        "first_contentful_paint_ms": 476,
+        "cumulative_layout_shift_observed": 0.05659282524961829,
+        "long_tasks": [
+          {
+            "duration_ms": 69,
+            "start_ms": 372.30000001192093
+          },
+          {
+            "duration_ms": 64,
+            "start_ms": 3539
+          }
+        ],
+        "scroll": {
+          "vertical": {
+            "frames": 48,
+            "mean_frame_ms": 26.02916666666668,
+            "p95_frame_ms": 33.400000000000546,
+            "max_frame_ms": 33.899999999999636,
+            "frames_over_20_ms": 34,
+            "approximate_fps": 38.41844085160876
+          },
+          "horizontal": {
+            "frames": 48,
+            "mean_frame_ms": 21.356250000000006,
+            "p95_frame_ms": 33.400000000000546,
+            "max_frame_ms": 33.5,
+            "frames_over_20_ms": 25,
+            "approximate_fps": 46.82470002926542
+          }
+        }
+      },
+      "accessibility": {
+        "node_count": 541,
+        "ignored_count": 338,
+        "role_counts": {
+          "figure": 3,
+          "image": 7,
+          "Video": 9,
+          "Iframe": 2,
+          "link": 9,
+          "button": 12,
+          "slider": 1,
+          "scrollbar": 3
+        },
+        "unnamed_video_count": 5,
+        "generic_video_error_name_count": 4,
+        "unnamed_figure_count": 3,
+        "unnamed_image_count": 4,
+        "unnamed_interactive_count": 0,
+        "headings": [],
+        "axe_counts": {
+          "violations": 3,
+          "incomplete": 2,
+          "passes": 27,
+          "inapplicable": 31
+        }
+      }
+    },
+    "local_compact": {
+      "path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T03-07-39-352Z__local-deterministic__smoke/captures/smoke__0000__home__compact__white-serif-m-straight.json",
+      "sha256": "7b4adb626956298e2d55e36918412892bc3f41871e874e9bd777afb5e987e549",
+      "captured_at": "2026-07-21T03:08:12.530Z",
+      "target": "local-deterministic",
+      "url": "http://127.0.0.1:55654/",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "dpr": 2
+      },
+      "network": {
+        "total": {
+          "request_count": 104,
+          "failed_count": 1,
+          "transfer_bytes": 41035743,
+          "transfer_mib": 39.135,
+          "resource_bytes": 41034955,
+          "range_requests": 18
+        },
+        "startup": {
+          "request_count": 18,
+          "failed_count": 0,
+          "transfer_bytes": 6228677,
+          "transfer_mib": 5.94,
+          "resource_bytes": 6228443,
+          "range_requests": 2,
+          "resource_type_request_counts": {
+            "document": 2,
+            "image": 14,
+            "media": 2
+          },
+          "response_body_bytes_by_resource_type": {
+            "document": 443865,
+            "image": 2503343,
+            "media": 3281235
+          }
+        }
+      },
+      "performance": {
+        "navigation_duration_ms": 320.2000000476837,
+        "first_contentful_paint_ms": 192,
+        "cumulative_layout_shift_observed": 0.7926787790722789,
+        "long_tasks": [],
+        "scroll": {
+          "vertical": {
+            "frames": 48,
+            "mean_frame_ms": 19.26875000000001,
+            "p95_frame_ms": 34,
+            "max_frame_ms": 34,
+            "frames_over_20_ms": 21,
+            "approximate_fps": 51.8975024326954
+          },
+          "horizontal": {
+            "frames": 48,
+            "mean_frame_ms": 10.414583333333345,
+            "p95_frame_ms": 33.29999999999927,
+            "max_frame_ms": 34,
+            "frames_over_20_ms": 4,
+            "approximate_fps": 96.01920384076804
+          }
+        }
+      },
+      "accessibility": {
+        "node_count": 1433,
+        "ignored_count": 993,
+        "role_counts": {
+          "figure": 12,
+          "image": 3,
+          "Video": 27,
+          "Iframe": 3,
+          "link": 10,
+          "button": 3
+        },
+        "unnamed_video_count": 2,
+        "generic_video_error_name_count": 25,
+        "unnamed_figure_count": 12,
+        "unnamed_image_count": 0,
+        "unnamed_interactive_count": 0,
+        "headings": [],
+        "axe_counts": {
+          "violations": 3,
+          "incomplete": 2,
+          "passes": 23,
+          "inapplicable": 36
+        }
+      }
+    }
+  },
+  "all_route_evidence": {
+    "local_deterministic": {
+      "run_path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T03-52-18-381Z__local-deterministic__routes/run.json",
+      "run_sha256": "78edaf044be128e69535912c3928c4ccab22f8c51faaff541b92c81997871698",
+      "captures": [
+        {
+          "path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T03-52-18-381Z__local-deterministic__routes/captures/routes__0000__home__compact__white-serif-m-straight.json",
+          "sha256": "65749dce3473f3126b01cfff0dede6417e4125f7758d8ce5808f4981347834bd"
+        },
+        {
+          "path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T03-52-18-381Z__local-deterministic__routes/captures/routes__0001__home__expanded__white-serif-m-straight.json",
+          "sha256": "ad90315200c7be56e3b69b3af10649e70ddd3a3d00b42c360f6050c32fa2643e"
+        },
+        {
+          "path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T03-52-18-381Z__local-deterministic__routes/captures/routes__0002__write__compact__white-serif-m-straight.json",
+          "sha256": "bab22c4a11452eefb3ed1f3dadb0ec06dc4a9f96faaf010a102ae4a8d049dd5f"
+        },
+        {
+          "path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T03-52-18-381Z__local-deterministic__routes/captures/routes__0003__write__expanded__white-serif-m-straight.json",
+          "sha256": "5c9dd5a74c38971ad1c1fe40cce28026e5f44e66c32697fe3f9ff416d5fb6386"
+        },
+        {
+          "path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T03-52-18-381Z__local-deterministic__routes/captures/routes__0004__who__compact__white-serif-m-straight.json",
+          "sha256": "f3f81f2c9bc81392a3e32a124ddd634d54b0b6e5b5f30641cf24b2979ed02588"
+        },
+        {
+          "path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T03-52-18-381Z__local-deterministic__routes/captures/routes__0005__who__expanded__white-serif-m-straight.json",
+          "sha256": "dfa8f5fbe1400a9f425e05618345f426a6086926a7927f42c25c65a1db2aeb85"
+        }
+      ],
+      "summary": {
+        "captures": 6,
+        "fatal": 0,
+        "non_200": 0,
+        "page_overflow": 0,
+        "state_mismatches": 0,
+        "intentional_design_contract_failures": 0,
+        "unexpected_media_clip_observations": 1,
+        "unexpected_clip_media": "randompics-01 expanded",
+        "axe_violation_rule_entries": 11,
+        "request_failures": 3,
+        "request_failure_classification": "expected or aborted media/PDF requests",
+        "observed_media": 70,
+        "withered_contract_failures": 0
+      },
+      "axe_detail": {
+        "html_has_lang": {
+          "captures": 6,
+          "nodes_per_capture": 1
+        },
+        "scrollable_region_focusable": {
+          "captures": [
+            "home compact",
+            "home expanded"
+          ],
+          "nodes_per_capture": 12
+        },
+        "target_size": {
+          "captures": [
+            "home compact",
+            "write compact",
+            "who compact"
+          ],
+          "nodes_per_capture": 5
+        },
+        "aria_allowed_attr": {
+          "captures": 0,
+          "cargo_runtime_only": true
+        }
+      }
+    },
+    "published": {
+      "run_path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T03-54-05-459Z__published__routes/run.json",
+      "run_sha256": "424eccdf64c108d2b08fc9be7a547ec036164c00b2d1d07ee46d656c647a00d6",
+      "captures": [
+        {
+          "path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T03-54-05-459Z__published__routes/captures/routes__0000__home__compact__white-serif-m-straight.json",
+          "sha256": "248730c98a829c9abe2230cc9f9b319923dc07dde1830e0b62b8b6521b20267a"
+        },
+        {
+          "path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T03-54-05-459Z__published__routes/captures/routes__0001__home__expanded__white-serif-m-straight.json",
+          "sha256": "96baa24aa7dea0022a2b6c72ae1853cbc18138f6d86c7c13b09ad0cea966c82f"
+        },
+        {
+          "path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T03-54-05-459Z__published__routes/captures/routes__0002__write__compact__white-serif-m-straight.json",
+          "sha256": "4ee600003212f7fcc2bdc1eb40edb7bbc509676dee5f1b4c4fa294c7eebc8300"
+        },
+        {
+          "path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T03-54-05-459Z__published__routes/captures/routes__0003__write__expanded__white-serif-m-straight.json",
+          "sha256": "924e14defae4d5a8cdbdaf7da2e85f86797c68f175796bce4cbf1d3338bcd4ac"
+        },
+        {
+          "path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T03-54-05-459Z__published__routes/captures/routes__0004__who__compact__white-serif-m-straight.json",
+          "sha256": "31e28edd4da414998c2b57a87b5681c4aecadc7f23c3239ea97d62368fa0dc1b"
+        },
+        {
+          "path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T03-54-05-459Z__published__routes/captures/routes__0005__who__expanded__white-serif-m-straight.json",
+          "sha256": "72043a4f59e4c9a554a45db6a48ef0b85f3a5c24749632d8ca21f5306c46dd40"
+        }
+      ],
+      "summary": {
+        "captures": 6,
+        "fatal": 0,
+        "non_200": 0,
+        "page_overflow": 0,
+        "state_mismatches": 0,
+        "intentional_design_contract_failures": 0,
+        "unexpected_media_clip_observations": 1,
+        "unexpected_clip_media": "randompics-01 expanded",
+        "axe_violation_rule_entries": 13,
+        "request_failures": 3,
+        "request_failure_classification": "expected or aborted media/PDF requests",
+        "observed_media": 70,
+        "withered_contract_failures": 0
+      },
+      "axe_detail": {
+        "html_has_lang": {
+          "captures": 6,
+          "nodes_per_capture": 1
+        },
+        "scrollable_region_focusable": {
+          "captures": [
+            "home compact",
+            "home expanded"
+          ],
+          "nodes_per_capture": 12
+        },
+        "target_size": {
+          "captures": [
+            "home compact",
+            "write compact",
+            "who compact"
+          ],
+          "nodes_per_capture": 5
+        },
+        "aria_allowed_attr": {
+          "captures": [
+            "home compact",
+            "home expanded"
+          ],
+          "nodes_per_capture": 12,
+          "local_fixture_reproduces": false
+        }
+      }
+    }
+  },
+  "canonical_source_inventory": {
+    "home_template": {
+      "path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/cargo/home.template.html",
+      "images": 38,
+      "images_with_empty_alt": 35,
+      "videos": 27,
+      "autoplay_videos": 27,
+      "looping_videos": 27,
+      "videos_with_controls": 0,
+      "videos_with_aria_label_or_title": 0,
+      "project_description_figures": 12,
+      "project_headings": 0
+    },
+    "who_template": {
+      "path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/cargo/who.template.html",
+      "videos": 2,
+      "autoplay_videos": 2,
+      "looping_videos": 2,
+      "videos_with_controls": 0,
+      "videos_with_aria_label_or_title": 0
+    },
+    "reduced_motion": {
+      "css_path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/cargo/site.css",
+      "css_lines": "1319-1324",
+      "current_scope": "intro rotation and startup transitions only",
+      "media_loader_path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/cargo/panel.js",
+      "media_loader_lines": "577-665",
+      "save_data_startup_only_path": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/cargo/shared-early-init.html",
+      "save_data_startup_only_lines": "198-200"
+    }
+  },
+  "findings": [
+    {
+      "id": "phase3-a11y-theme-contrast",
+      "priority": "P1",
+      "scope": "canonical source and both local and published rendering",
+      "status": "decision-gated",
+      "evidence": {
+        "token_source": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/cargo/tokens.css:10-40",
+        "ratios": {
+          "girly_green_on_pink": 1.840567812,
+          "contrast_magenta_on_yellow": 3.152823983,
+          "quirky_sky_on_brown": 3.833794536,
+          "white_black": 21
+        },
+        "wcag_aa_normal_text_threshold": 4.5,
+        "state_capture_examples": [
+          "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T02-56-11-678Z__local-deterministic__states/captures/states__0051__home__compact__girly-serif-m-straight.json",
+          "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T02-56-11-678Z__local-deterministic__states/captures/states__0099__home__compact__quirky-serif-m-straight.json",
+          "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/audit/harness/output/2026-07-21T02-56-11-678Z__local-deterministic__states/captures/states__0147__home__compact__contrast-serif-m-straight.json"
+        ]
+      },
+      "decision_gate": "Ocean must choose whether to revise the approved palette, introduce accessible semantic text/control tokens while preserving the surfaces, or explicitly accept the non-AA experimental themes. No palette mutation is authorized by this audit."
+    },
+    {
+      "id": "phase3-a11y-media-alternatives-and-structure",
+      "priority": "P1",
+      "scope": "canonical source, corroborated by local and published accessibility trees",
+      "status": "content-and-semantics-gated",
+      "evidence": {
+        "source_inventory": "canonical_source_inventory",
+        "published_compact": {
+          "video_roles": 27,
+          "unnamed_videos": 17,
+          "generic_error_named_videos": 10,
+          "unnamed_figures": 12,
+          "unnamed_images": 4,
+          "headings": 0
+        },
+        "published_expanded": {
+          "video_roles": 9,
+          "unnamed_videos": 5,
+          "generic_error_named_videos": 4,
+          "unnamed_figures": 3,
+          "headings": 0
+        }
+      },
+      "decision_gate": "Define which portfolio visuals are meaning-bearing and approve concise alt text or accessible names before markup changes. Confirm the intended project heading hierarchy and replace unnamed figure semantics only after visual-neutral markup is reviewed."
+    },
+    {
+      "id": "phase3-a11y-continuous-motion",
+      "priority": "P1",
+      "scope": "canonical source",
+      "status": "interaction-design-gated",
+      "evidence": {
+        "autoplay_looping_videos_total": 29,
+        "videos_with_controls_total": 0,
+        "reduced_motion_does_not_pause_media": true,
+        "save_data_only_suppresses_startup_render_sequence": true
+      },
+      "decision_gate": "Design and approve a global pause or reduced-motion behavior before implementation. It must not remove the intentionally rotating Withered Green body text from the normal-motion experience."
+    },
+    {
+      "id": "phase3-performance-published-startup-drift",
+      "priority": "P1",
+      "scope": "published Cargo runtime compared with deterministic local fixture",
+      "status": "runtime-diff-gated",
+      "evidence": {
+        "published_compact_startup_transfer_bytes": 45243344,
+        "local_compact_startup_transfer_bytes": 6228677,
+        "published_to_local_startup_transfer_ratio": 7.2636,
+        "published_compact_startup_media_requests": 16,
+        "local_compact_startup_media_requests": 2,
+        "published_compact_startup_image_requests": 76,
+        "local_compact_startup_image_requests": 14,
+        "canonical_loader_source": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/cargo/panel.js:577-665"
+      },
+      "decision_gate": "Diff the exact published Cargo body/runtime against the canonical generated body and identify Cargo hydration or source-activation drift before changing media policy. Protect scrubber prewarming and native river behavior."
+    },
+    {
+      "id": "phase3-performance-layout-and-scroll",
+      "priority": "P2",
+      "scope": "synthetic local and published browser measurements",
+      "status": "physical-profile-gated",
+      "evidence": {
+        "published_compact_cls_observed": 0.7497196365707888,
+        "local_compact_cls_observed": 0.7926787790722789,
+        "published_compact_vertical_fps": 48,
+        "published_expanded_vertical_fps": 38.41844085160876,
+        "published_expanded_horizontal_fps": 46.82470002926542,
+        "published_expanded_vertical_frames_over_20ms": 34,
+        "published_expanded_horizontal_frames_over_20ms": 25
+      },
+      "decision_gate": "Profile on a physical iPhone and representative desktop with media and iframe timelines before selecting optimizations. Synthetic layout-shift values must not be treated as field Core Web Vitals without confirmation."
+    },
+    {
+      "id": "phase3-a11y-expanded-content-visibility",
+      "priority": "P2",
+      "scope": "canonical CSS with matching local and published Chromium accessibility-tree behavior",
+      "status": "assistive-technology-test-gated",
+      "evidence": {
+        "source": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/cargo/site.css:170-175",
+        "compact_accessibility_tree": {
+          "figures": 12,
+          "videos": 27,
+          "iframes": 3
+        },
+        "expanded_initial_accessibility_tree": {
+          "figures": 3,
+          "videos": 9,
+          "iframes": 2
+        }
+      },
+      "decision_gate": "Verify complete-project traversal with VoiceOver and NVDA before changing content-visibility because assistive-technology behavior differs by browser and removing containment has performance cost."
+    }
+  ],
+  "protected_contracts": {
+    "round_69_gold": {
+      "must_remain_immutable": true,
+      "edited_by_phase3": false
+    },
+    "native_rivers": {
+      "must_remain_native": true,
+      "no_wheel_interception_or_forced_stepping": true,
+      "edited_by_phase3": false
+    },
+    "wtw_02_square": {
+      "observations": 264,
+      "non_square_observations": 0,
+      "unexpected_clip_observations": 0,
+      "must_preserve": true
+    },
+    "withered_green_motion": {
+      "source": "/Users/oceancheung/Documents/Startup/MM.S/mm.s website/cargo/write.template.html:31-37",
+      "eye_roll_body_spans": 4,
+      "heading_uses_eye_roll": false,
+      "intentional_rotation_must_preserve": true
+    }
+  }
+}

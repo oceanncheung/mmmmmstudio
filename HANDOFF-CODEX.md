@@ -1103,3 +1103,157 @@ agent needs to continue this project without the prior chat history.
 - Reloaded Cargo and independent public proof both found 12 scrubbers, all 68
   unique Home media IDs, and zero page-level overflow. Cargo Last Published is
   2:40pm EDT on 2026-07-20.
+
+## Current handoff — Round 81 whole-project audit (read-only)
+- The audit is on Git branch `round-81/audit-harness`. Phase 1 is frozen at
+  `docs/audits/2026-07-20T175853-0400-round-80/`, commit `afc8b22`; never edit
+  that evidence or `cargo/gold/round-69/`. Post-baseline facts are additive in
+  `docs/audits/2026-07-20-post-round-80-delta.md`.
+- The audit implementation/findings commit is `c8ef564`; GitHub draft PR 3
+  targets `round-81/audit-baseline`. Review or merge that PR before starting a
+  remediation branch; do not target `main` directly from the audit branch.
+- `audit/` contains the system and asset inventories, exact JSON schemas, the
+  deterministic local/Cargo-snapshot/published browser harness, machine-readable
+  intentional-design contracts, and evidence-backed findings. Run
+  `audit/scripts/validate-phase2.sh` before committing later audit work.
+- WTW `wtw-02` is protected at the current approved 504×504 endpoint. The
+  complete 264-capture visual matrix observed it square and unclipped at every
+  state/width. Do not restore the superseded 765.2×765.2 geometry.
+- Ocean explicitly requires the four Withered Green body paragraphs to keep
+  Cargo's native `uses="eye-roll"` motion. The heading remains static. Source,
+  payload, schema, and browser checks fail closed if the section, route marker,
+  four direct hooks, or complete paragraph coverage drift.
+- Fresh all-route local and public runs cover Home, Write, and Who at 390 and
+  1440px. Both have zero fatal errors, non-200 main responses, page overflow,
+  state mismatches, or intentional-contract failures. Nonzero run exits record
+  detected site findings and are not automatically harness failures.
+- Current decision-gated findings include the 1024px Touchbaes crop, expanded
+  Random Pics crop, Cargo river-ARIA mutation, missing document language,
+  expressive-theme contrast failures, inaccessible media structure, continuous
+  motion without a pause pathway, published startup over-fetch, and several
+  Figma panel/Write structure drifts. Do not remediate palette, visible design,
+  or interaction findings until Ocean approves a batch.
+- The consolidated report is `audit/findings/master-audit-report.md`; the
+  44-item registry is `audit/findings/issue-registry.json` (0 P0, 16 P1,
+  24 P2, 4 P3). The highest systemic guards are the deployment completeness
+  manifest, single media/runtime owner with teardown, and deterministic V7/
+  Montran recovery. The current validator can otherwise pass a missing
+  `wtw-02` or consistently stale runtime marker.
+- The live Figma audit was read-only. No Cargo editor, Freight asset, Figma node,
+  or public page was changed or published during this audit batch.
+- Preserve the user-owned untracked files `cargo/home 3.html`, `cargo/who 3.html`,
+  and `cargo/write 3.html`; never stage or overwrite them.
+
+## Current handoff — latest gold and first remediation guard (2026-07-21)
+- PR 3 is merged into `round-81/audit-baseline`. Remediation work continues on
+  `agent/deployment-manifest`; do not restart from the older audit branch.
+- Ocean designated the actual latest verified site as the current gold. Use
+  `gold-2026-07-21-responsive-70`, not Round 80, as the default comparison and
+  rollback target. Its immutable local snapshot is
+  `cargo/gold/2026-07-21-responsive-70/`. Keep `round-69-gold` and
+  `round-80-stable` unchanged as historical references.
+- The current gold includes the post-Round-80 corrections: WTW `wtw-02` is
+  504×504, and Withered Green keeps exactly four rotating body paragraphs with
+  a static heading.
+- The first approved remediation is the fail-closed deployment manifest:
+  `cargo/deployment-manifest.json` plus
+  `cargo/validate-deployment-manifest.py`. It locks exact page/runtime/media/
+  embed/geometry/source contracts and is invoked by the normal Cargo payload
+  gate. Never regenerate the manifest automatically from current HTML.
+- The aggregate audit gate includes thirteen destructive negative fixtures for the
+  deployment manifest as well as the three Withered Green fixtures. Run both
+  `bash cargo/assemble-test.sh canonical` and
+  `bash audit/scripts/validate-phase2.sh` before the next remediation batch.
+- This guard/gold batch is local/GitHub-only. It did not mutate Cargo, Freight,
+  Figma, or the public site and did not publish Cargo.
+- Gold commit `07531485ca0ac4378fd3182ffa176ee6ccead7dd`, tag, and GitHub release
+  are remote and protected. Draft PR 4 targets `round-81/audit-baseline` from
+  `agent/deployment-manifest`.
+
+## Current handoff — Round 82 media playback ownership (2026-07-21)
+- Work is isolated on `round-82/media-playback-owner` from merged
+  `round-81/audit-baseline`. It remediates only `MMS-AUD-027` and remains
+  local/GitHub-only.
+- `cargo/home-extras.html` no longer contains the legacy all-video autoplay
+  interval. `cargo/panel.js` remains unchanged and is the sole owner of deferred
+  video activation, visible/near playback, pause, and bounded resume behavior.
+- `audit/scripts/validate-media-playback-owner.py` prevents the legacy marker,
+  unbounded video selector, or Home-extras interval from returning. It accepts
+  the bodycopy under test and is invoked by the normal Cargo payload gate, so
+  reload persistence cannot silently retain the old owner. The browser probe
+  is `npm run media-owner-test`; latest-gold visual/interaction parity is
+  `npm run gold-parity-test`.
+- Gold reproduces the old defect at 122 then 176 play attempts. The candidate
+  passes with 14 loaded visible/near attempts and no post-lifecycle growth.
+  Lifecycle/interaction events and both horizontal and vertical distance are
+  covered. Both
+  240-state compact and expanded parity matrices, masked screenshots, panel
+  interactions, and native river checks match
+  `gold-2026-07-21-responsive-70` exactly.
+- The complete canonical assembly and Phase 2 audit gate pass, including 14
+  destructive deployment fixtures and both mandatory browser probes. The immutable
+  Round 80 snapshot stays unchanged; runtime-added deferred `src` attributes
+  are stripped only from an in-memory fixture while the production manifest
+  validator continues to reject them.
+- The audit-only Playwright dependency is pinned at 1.61.1; both browser tests
+  have finite watchdogs after the older pin intermittently stalled at launch.
+- Do not deploy or publish this batch yet. Physical iPhone Safari must confirm
+  that visible/near muted inline video still autoplays. The next independent
+  remediation is `MMS-AUD-029`, explicit root-runtime teardown.
+
+## Current handoff — Round 83 root-runtime teardown (2026-07-21)
+- The active branch is `round-83/root-runtime-teardown`, based on merged
+  `round-81/audit-baseline`. It remediates `MMS-AUD-029` and remains
+  local/GitHub-only; no Cargo or public deployment occurred.
+- `window.__mmsRuntimeLifecycle` is the single owner registry for the current
+  `.mms` root. The panel owner and Home tweezer owner dispose stale listeners,
+  timers, intervals, animation frames, observers, generated scrubbers, stale
+  rig content/state, panel portal state, measured root variables, and stale
+  media state when the replacement runtime initializes. Teardown is
+  idempotent.
+- `audit/scripts/validate-root-runtime-owner.py` is invoked by the normal Cargo
+  payload gate and the aggregate audit gate. Its destructive self-test rejects
+  permanent root guards, unmanaged element/global/media-query listeners, raw
+  timers or animation frames, and unwrapped resize/intersection observers.
+- `npm run runtime-root-test` covers compact 390x844 and expanded 1440x900.
+  Both modes pass an initial load, three full root replacements, and a
+  same-root dialog plus Touchbaes river/iframe rehydration with one active
+  panel/Home owner, exact current-element rebinding, zero stale element
+  listeners, stable resource counts, no errors, no overflow, and protected
+  geometry within 1px. Expanded mode retains 12 scrubbers, an open current-root
+  panel, and native EVIIVE river movement that settles unchanged.
+- Ocean's current preservation target is exclusively
+  `gold-2026-07-21-responsive-70`. Round 69 and Round 80 are immutable
+  historical references, not the default parity or rollback target. The
+  deployment validator now requires the exact current-gold identifier, and the
+  parity test checks both its gold fixture and candidate manifest before
+  opening a browser.
+- Canonical assembly and the full Phase 2 gate pass, including 122/122 frozen
+  hashes, latest-gold 240-state compact/expanded parity, media ownership,
+  manifest negative fixtures, and root replacement. Do not deploy this batch
+  until separately authorized and physically verify the earlier autoplay
+  ownership change on iPhone Safari before any eventual Cargo publication.
+
+## Current handoff — Round 84 clean-gold Home recovery (2026-07-21)
+- Round 83 is merged into `round-81/audit-baseline` through PR 6 (merge
+  `9814a97`; remediation commit `733877c`). The repository was clean and
+  tracking `origin/round-81/audit-baseline` before this documentation update.
+- Cargo Home was restored and published from the exact immutable
+  `cargo/gold/2026-07-21-responsive-70/home.html` bodycopy because
+  runtime-mutated media attributes had been saved into Cargo source. The
+  restore used UTF-8-safe `bodycopy.innerHTML` plus `InputEvent`, Cmd+S, editor
+  reload, and fresh persistence checks; never use Cargo Code View for complete
+  Home replacement.
+- Require 68 unique media IDs and two `responsive-70` markers in Home. In the
+  raw saved and published source require zero live video/iframe `src`, zero
+  `data-mms-loaded`/`data-motion-ready`, zero native video `poster`, zero
+  hidden rivers, 1 eager image, 37 lazy images, and 30 deferred `data-src`
+  attributes. Do not use the runtime-mutated live DOM for these source
+  assertions.
+- This is a source-purity recovery to the approved visual gold. It does not
+  deploy the Round 82 or Round 83 remediation deltas. Keep
+  `gold-2026-07-21-responsive-70` immutable; Round 69 and Round 80 remain
+  historical checkpoints only.
+- Next separate batches are a fail-closed source-purity preflight, the swatch
+  focus treatment, iPad Montran pointer-mode alignment, and durable Safari
+  poster readiness. Do not mix them with this recovery.

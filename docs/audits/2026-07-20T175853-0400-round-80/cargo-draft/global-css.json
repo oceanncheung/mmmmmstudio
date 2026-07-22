@@ -1,0 +1,8 @@
+{
+  "id": 1452539,
+  "created_at": "2022-09-15T23:40:11.000000Z",
+  "updated_at": "2026-07-20T14:37:27.000000Z",
+  "stylesheet_bytes": 86129,
+  "captured_from": "https://api.cargo.site/v1/sites/3626191/css",
+  "capture_mode": "authenticated read-only GET"
+}

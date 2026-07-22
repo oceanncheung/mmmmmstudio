@@ -1,0 +1,47 @@
+{
+  "id": "502:465",
+  "name": "who",
+  "children": [
+    {
+      "id": "502:466",
+      "name": "who / desktop",
+      "type": "FRAME",
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 942,
+      "visible": true
+    },
+    {
+      "id": "638:432",
+      "name": "who / mobile",
+      "type": "FRAME",
+      "x": 1490,
+      "y": 0,
+      "width": 390,
+      "height": 1279.1400146484375,
+      "visible": true
+    },
+    {
+      "id": "648:531",
+      "name": "'/Users/oceancheung/Documents/Startup/MM.S/mm.s website/Portfolio assets/_for cargo deployment/Profile Pic/Final_Profile Pic_CCH-cargo.mp4'",
+      "type": "TEXT",
+      "x": 742,
+      "y": 957,
+      "width": 185,
+      "height": 117,
+      "visible": true
+    },
+    {
+      "id": "648:532",
+      "name": "'/Users/oceancheung/Documents/Startup/MM.S/mm.s website/Portfolio assets/_for cargo deployment/Profile Pic/Final_Profile Pic_CHY-cargo.mp4'",
+      "type": "TEXT",
+      "x": 285,
+      "y": 957,
+      "width": 155,
+      "height": 113,
+      "visible": true
+    }
+  ]
+}
+

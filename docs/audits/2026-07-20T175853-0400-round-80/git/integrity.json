@@ -1,0 +1,8 @@
+{
+  "captured_at": "2026-07-20T18:28:06-04:00",
+  "command": "git fsck --full --strict --no-reflogs",
+  "exit_code": 0,
+  "result": "PASS",
+  "stdout": "",
+  "stderr": ""
+}

@@ -1,0 +1,2291 @@
+html {
+	--mobile-scale: 1.4;
+	--mobile-padding-offset: 0.66;
+}
+
+body {
+	--swatch-1: rgba(0, 0, 0, 0.85);
+	--swatch-2: rgba(0, 0, 0, 0.75);
+	--swatch-3: rgba(0, 0, 0, 0.6);
+	--swatch-4: rgba(0, 0, 0, 0.4);
+	--swatch-5: rgba(0, 0, 0, 0.25);
+}
+
+body.mobile {
+}
+
+a:active,
+.linked:active,
+.zoomable::part(media):active {
+	opacity: 0.7;
+}
+
+.page a.active {
+}
+
+sub {
+	position: relative;
+	vertical-align: baseline;
+	top: 0.3em;
+}
+
+sup {
+	position: relative;
+	vertical-align: baseline;
+	top: -0.4em;
+}
+
+.small-caps {
+	font-variant: small-caps;
+    text-transform: lowercase;
+    letter-spacing: 0.03em;
+}
+
+ol {
+	margin: 0;
+	padding: 0 0 0 2.5em;
+}
+
+ul {
+	margin: 0;
+	padding: 0 0 0 2.0em;
+}
+
+ul.lineated {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	margin: 0 0 0 3em;
+	text-indent: -3em;
+}
+
+blockquote {
+	margin: 0;
+	padding: 0 0 0 2em;
+}
+
+hr {
+	background: rgba(0, 0, 0, 0.7);
+	border: 0;
+	height: 1px;
+	display: block;
+    margin-top: 1.4rem;
+    margin-bottom: 0.25rem;
+}
+
+.content {
+}
+
+bodycopy {
+	font-size: 1.2rem;
+	font-weight: normal;
+	color: rgba(0, 0, 0, 0.85);
+	font-family: serif;
+	font-style: normal;
+	line-height: 1.25;
+	letter-spacing: 0;
+	display: block;
+}
+
+bodycopy a {
+	color: rgba(0, 0, 0, 0.85);
+	border-bottom: 0px solid rgba(127, 127, 127, 0.2);
+	text-decoration: none;
+}
+
+bodycopy a:hover {
+}
+
+h1 {
+    font-size: 3.5rem;
+	font-weight: 700;
+	color: rgba(0, 0, 0, 0.8);
+	font-family: "Diatype Variable";
+	font-style: normal;
+	line-height: 0.795;
+	letter-spacing: 0;
+	margin: 0;
+	font-variation-settings: 'slnt' 0, 'MONO' 0;
+}
+
+h1 a {
+    color: rgba(0, 0, 0, 0.8);
+	border-bottom: 0px solid rgba(127, 127, 127, 0.2);
+	text-decoration: none;
+}
+
+h1 a:hover {
+}
+
+h2 {
+	font-style: normal;
+	font-weight: 350;
+	color: rgba(0, 0, 0, 0.8);
+	font-family: "Marist Variable";
+	font-size: 2.4rem;
+	line-height: 1.2;
+	letter-spacing: 0em;
+	padding: 0;
+	margin: 0;
+}
+
+h2 a {
+	color: rgba(0, 0, 0, 0.8);
+	text-decoration: none;
+}
+
+h2 a:hover {
+}
+
+.caption {
+	font-size: 0.833rem;
+	font-weight: 400;
+	color: rgba(0, 0, 0, 0.75);
+	font-family: "Diatype Variable";
+	font-style: normal;
+	line-height: 1.2;
+	letter-spacing: -0.009em;
+	display: block;
+	font-variation-settings: 'slnt' 0, 'MONO' 0;
+}
+
+.caption a {
+	color: rgba(0, 0, 0, 0.75);
+	text-decoration: none;
+}
+
+.caption a:hover {
+}
+
+media-item .caption {
+	margin-top: 0.6rem;
+}
+
+gallery-grid .caption,
+gallery-columnized .caption,
+gallery-justify .caption {
+	margin-bottom: 2em;
+}
+
+[thumbnail-index] .caption {
+	text-align: center;
+}
+
+[thumbnail-index] .caption .tags {
+	margin-top: 0.25em;
+}
+
+.page {
+	justify-content: flex-end;
+}
+
+.page-content {
+	padding: 1.5rem;
+	text-align: left;
+}
+
+.mobile [id] .page-layout {
+	max-width: 100%;
+}
+
+.page-layout {
+	align-items: flex-start;
+	max-width: 64%;
+	padding: 0.0rem;
+}
+
+media-item::part(media) {
+	border: 0;
+	padding: 0;
+}
+
+.quick-view {
+	height: 100%;
+	width: 100%;
+	padding: 1.5rem;
+	margin-top: 0;
+	margin-right: 0;
+	margin-bottom: auto;
+	margin-left: auto;
+}
+
+.quick-view-background {
+	background-color: #ffffff;
+}
+
+.quick-view .caption {
+	color: rgba(255, 255, 255, 1.0);
+	padding: 20px 0;
+	text-align: right;
+	transition: 100ms opacity ease-in-out;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.quick-view .caption-background {
+	padding: 0.5rem 1rem;
+	display: inline-block;
+	background: rgba(0, 0, 0, 0.5);
+	border-radius: .5rem;
+	text-align: left;
+	max-width: 50rem;
+}
+
+.mobile .quick-view {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 10px;
+}
+
+.mobile .quick-view .caption {
+	padding: 10px 0;
+}
+
+.mobile .quick-view .caption-background {
+	max-width: 100vw;
+}
+
+::part(slideshow-nav) {
+	--button-size: 30px;
+	--button-inset: 20px;
+	--button-icon-color: rgba(255, 255, 255, 0.9);
+	--button-icon-stroke-width: 1.5px;
+	--button-icon-stroke-linecap: none;
+	--button-background-color: rgba(87, 87, 87, 0.35);
+	--button-background-radius: 50%;
+	--button-active-opacity: 0.7;
+}
+
+gallery-slideshow::part(slideshow-nav) {
+	--button-inset: 15px;
+}
+
+.quick-view::part(slideshow-nav) {
+}
+
+.wallpaper-slideshow::part(slideshow-nav) {
+}
+
+.mobile ::part(slideshow-nav) {
+	--button-inset: 10px;
+}
+
+.mobile .quick-view::part(slideshow-nav) {
+	--button-inset: 25px;
+}
+
+shop-product {
+	font-size: 1.2rem;
+	max-width: 22rem;
+	font-family: "Diatype Variable";
+	font-style: normal;
+	font-weight: 400;
+	font-variation-settings: 'slnt' 0, 'MONO' 0;
+	letter-spacing: 0em;
+	margin-bottom: 1em;
+}
+
+shop-product::part(price) {
+	color: rgba(0, 0, 0, 0.75);
+	line-height: 1.1;
+	margin-bottom: 0.5em;
+}
+
+shop-product::part(dropdown) {
+	width: 100%;
+	color: rgba(0, 0, 0, 0.85);
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	background-color: rgba(255, 255, 255, 0.0);
+	background-image: url(https://static.cargo.site/assets/images/select-line-arrows.svg);
+	background-repeat: no-repeat;
+	background-position: top 0em right .1em;
+	line-height: 1.2;
+	padding: 0.58em 2em 0.55em 0.9em;
+	border-radius: 10em;
+	margin-bottom: 0.5em;
+}
+
+shop-product::part(button) {
+	background: rgba(0, 0, 0, 0.15);
+	color: rgba(0, 0, 0, 0.75);
+	text-align: left;
+	line-height: normal;
+	padding: 0.5em 1em;
+	cursor: pointer;
+	border-radius: 10em;
+}
+
+shop-product::part(button):active {
+	opacity: .7;
+}
+
+audio-player {
+	--text-color: rgba(0, 0, 0, 0.85);
+	--text-padding: 0 1.2em 0 1.0em;
+	--background-color: rgba(255, 255, 255, 0);
+	--buffer-background-color: rgba(0, 0, 0, 0.03);
+	--progress-background-color: rgba(0, 0, 0, 0.075);
+	--border-lines: 1px solid rgba(0, 0, 0, 0.2);
+	font-size: 1.2rem;
+	width: 32rem;
+	height: 2.75em;
+	font-family: "Diatype Variable";
+	font-style: normal;
+	font-weight: 400;
+	font-variation-settings: 'slnt' 0, 'MONO' 0;
+	line-height: normal;
+	letter-spacing: 0em;
+	margin-bottom: 0.5em;
+	border-radius: 10em;
+}
+
+audio-player::part(button) {
+	--icon-color: rgba(0, 0, 0, 0.85);
+	--icon-size: 32%;
+	--play-text: '';
+	--pause-text: '';
+	width: 3.15em;
+	display: inline-flex;
+	justify-content: center;
+	cursor: pointer;
+}
+
+audio-player::part(play-icon) {
+	padding-left: 0.6em;
+}
+
+audio-player::part(pause-icon) {
+	padding-left: 0.4em;
+}
+
+audio-player::part(progress-indicator) {
+	border-right: 1px solid rgba(0, 0, 0, 0);
+	height: 100%;
+	cursor: ew-resize;
+}
+
+audio-player::part(separator) {
+	border-right: var(--border-lines);
+}
+
+body.mobile audio-player {
+	max-width: 100%;
+}
+
+/* mm.s — design tokens, generated from Figma variables 2026-07-06
+   Source of truth: Figma file aaJEv2Z8j6HaegMHou4N09 (all values exported mechanically).
+   Axes: data-theme (5) x data-face (4) x data-scale (4) x data-shape (3) on <html>. */
+
+/* ---------- primitives ---------- */
+/* palette v2 "Final" (Figma Draft_MMS_Portfolio 36:241, synced 2026-07-10):
+   girly = pink/green, quirky = brown/sky, contrast = yellow/magenta.
+   navy + red primitives RETIRED with the navy theme. */
+:root {
+  --primitive-white: #FFFFFF; --primitive-black: #000000; --primitive-gray-60: #999999;
+  --primitive-pink: #FFEEF4; --primitive-brown: #553D12; --primitive-green: #00CD0A;
+  --primitive-sky: #4DBAFF; --primitive-yellow: #FEFF01; --primitive-magenta: #FF00FF;
+  --primitive-blue-link: #0000EE; --primitive-purple-visited: #551A8B;
+}
+
+/* ---------- color themes (bg + ink pairs; link/border follow ink) ---------- */
+:root, [data-theme="white"] {
+  --color-bg-page: var(--primitive-white);
+  --color-text-primary: var(--primitive-black);
+  --color-text-muted: var(--primitive-gray-60);
+}
+[data-theme="black"] {
+  --color-bg-page: var(--primitive-black);
+  --color-text-primary: var(--primitive-white);
+  --color-text-muted: var(--primitive-gray-60);
+}
+[data-theme="girly"] {
+  --color-bg-page: var(--primitive-pink);
+  --color-text-primary: var(--primitive-green);
+  --color-text-muted: var(--primitive-green);
+}
+[data-theme="quirky"] {
+  --color-bg-page: var(--primitive-brown);
+  --color-text-primary: var(--primitive-sky);
+  --color-text-muted: var(--primitive-sky);
+}
+[data-theme="contrast"] {
+  --color-bg-page: var(--primitive-yellow);
+  --color-text-primary: var(--primitive-magenta);
+  --color-text-muted: var(--primitive-magenta);
+}
+:root {
+  --color-link: var(--color-text-primary);
+  --color-link-visited: var(--color-text-primary);
+  --color-border: var(--color-text-primary);
+}
+
+/* ---------- fluid GRID + media units (1440px base) — TYPE IS NOT SCALED ----------
+   Ocean's rule (2026-07-06): "the grid should be on scale. the font size
+   should always stay the same." So the compositional GRID scales as one
+   piece from the 1440 base, but every FONT SIZE stays a fixed px.
+     --layout-u = the expanded content-grid unit. It scales continuously from
+                  the 1024px structural hand-off through a 2560px cap.
+     --chrome-u = the navigation/control unit. It stops at 1800px so the rail,
+                  panel and outer edge do not become oversized on wide screens.
+     --media-u  = the independent image/video unit. It follows the grid on
+                  expanded screens and uses a smaller compact clamp.
+   Font sizes + line heights below are FIXED px. */
+:root {
+  --layout-u: clamp(0.711111px, calc(100vw / 1440), 1.777778px);
+  --chrome-u: clamp(0.711111px, calc(100vw / 1440), 1.25px);
+  --media-u: var(--layout-u);
+  --edge-pad: calc(40 * var(--chrome-u));
+  --page-pad: var(--edge-pad);
+  --u: var(--layout-u); /* compatibility during the bodycopy asset migration */
+}
+
+/* ---------- space / grid (continuous expanded layout) ---------- */
+:root {
+  --space-4: calc(4 * var(--layout-u)); --space-6: calc(6 * var(--layout-u)); --space-8: calc(8 * var(--layout-u));
+  --space-12: calc(12 * var(--layout-u)); --space-16: calc(16 * var(--layout-u)); --space-24: calc(24 * var(--layout-u));
+  --space-32: calc(32 * var(--layout-u)); --space-40: calc(40 * var(--layout-u)); --space-64: calc(64 * var(--layout-u));
+  --space-80: calc(80 * var(--layout-u));
+  --space-128: calc(128 * var(--layout-u)); --space-192: calc(192 * var(--layout-u)); --space-256: calc(256 * var(--layout-u));
+  --margin-page: var(--edge-pad); --measure-content: calc(548 * var(--layout-u));
+  --col-1: calc(84 * var(--layout-u)); --col-2: calc(200 * var(--layout-u)); --col-4: calc(432 * var(--layout-u)); --col-6: calc(664 * var(--layout-u));
+  --col-8: calc(896 * var(--layout-u)); --col-10: calc(1128 * var(--layout-u));
+  --radius-image: calc(24 * var(--layout-u));
+  --chrome-space-8: calc(8 * var(--chrome-u));
+  --chrome-space-16: calc(16 * var(--chrome-u));
+  --chrome-space-24: calc(24 * var(--chrome-u));
+  --chrome-space-32: calc(32 * var(--chrome-u));
+  --panel-control-u: clamp(1px, var(--chrome-u), 1.25px);
+  --panel-pad-block-expanded: var(--chrome-space-24);
+  --panel-pad-inline-expanded: var(--chrome-space-16);
+  --panel-width: calc(200 * var(--chrome-u));
+  --nav-col: calc(var(--edge-pad) + var(--panel-width) + var(--chrome-space-32)); /* 272 @ 1440; 340 cap */
+}
+@media (max-width: 1023px) {
+  :root {
+    --layout-u: 1px;
+    --chrome-u: 1px;
+    --media-u: clamp(0.46px, calc(100vw / 760), 0.68px);
+    --edge-pad: clamp(16px, 5.128vw, 40px);
+    --page-pad: var(--edge-pad);
+    --margin-page: var(--edge-pad);
+    --measure-content: calc(100vw - (2 * var(--page-pad)));
+    /* Compact reference grid: 6 stretch columns, 16px gutters. Figma shows
+       the 390px endpoint; Cargo resolves every intermediate viewport. */
+    --compact-grid-gutter: 16px;
+    --compact-grid-col: max(0px, calc((var(--measure-content) - (5 * var(--compact-grid-gutter))) / 6));
+    --compact-grid-span-2: calc((2 * var(--compact-grid-col)) + var(--compact-grid-gutter));
+    --compact-grid-span-4: calc((4 * var(--compact-grid-col)) + (3 * var(--compact-grid-gutter)));
+    --compact-grid-span-6: var(--measure-content);
+    --col-1: 45px; --col-2: 106px; --col-4: 228px;
+    --col-6: var(--measure-content); --col-8: var(--measure-content); --col-10: var(--measure-content);
+  }
+}
+
+/* ---------- type scale: per-face sizes x per-scale — FIXED px (never scales with viewport) ---------- */
+/* 2026-07-10 TYPE SCALE V2 (Ocean: "let's do 22"; plan docs/plans/2026-07-10-
+   type-scale-v2.md): serif ladder S18 M22 L27 XL36; roles caption = base x0.82,
+   heading = base x1.875; lh = x1.146 body / x1.143 caption / x1.222 heading,
+   whole px. Faces keep optical multipliers (sans x0.966, mono x0.90, gothic
+   x0.92). Figma Type Scale variables carry THE SAME numbers (synced this date).
+   The data-scale axis (s/m/l/xl) is the USER's type-size slider — it swaps
+   these fixed sets; it is NOT the viewport. Type stays fixed as the grid
+   scales (Ocean, 2026-07-06). Caption leading is exposed per face so Gothic
+   can use a tighter optical rhythm without changing body or heading leading. */
+:root, [data-scale="m"] {
+  --sz-caption-serif: 18px; --sz-caption-sans: 17.4px; --sz-caption-mono: 16.2px; --sz-caption-gothic: 16.6px;
+  --sz-base-serif: 22px;    --sz-base-sans: 21.3px;    --sz-base-mono: 19.8px;    --sz-base-gothic: 20.2px;
+  --sz-heading-serif: 41px; --sz-heading-sans: 39.6px; --sz-heading-mono: 36.9px; --sz-heading-gothic: 37.7px;
+  --lh-caption-serif: 21px; --lh-caption-sans: 21px; --lh-caption-mono: 21px; --lh-caption-gothic: 18px;
+  --lh-base: 25px; --lh-heading: 50px;
+}
+[data-scale="s"] {
+  --sz-caption-serif: 15px; --sz-caption-sans: 14.5px; --sz-caption-mono: 13.5px; --sz-caption-gothic: 13.8px;
+  --sz-base-serif: 18px;    --sz-base-sans: 17.4px;    --sz-base-mono: 16.2px;    --sz-base-gothic: 16.6px;
+  --sz-heading-serif: 34px; --sz-heading-sans: 32.8px; --sz-heading-mono: 30.6px; --sz-heading-gothic: 31.3px;
+  --lh-caption-serif: 17px; --lh-caption-sans: 17px; --lh-caption-mono: 17px; --lh-caption-gothic: 15px;
+  --lh-base: 21px; --lh-heading: 41px;
+}
+[data-scale="l"] {
+  --sz-caption-serif: 22px; --sz-caption-sans: 21.3px; --sz-caption-mono: 19.8px; --sz-caption-gothic: 20.2px;
+  --sz-base-serif: 27px;    --sz-base-sans: 26.1px;    --sz-base-mono: 24.3px;    --sz-base-gothic: 24.8px;
+  --sz-heading-serif: 51px; --sz-heading-sans: 49.3px; --sz-heading-mono: 45.9px; --sz-heading-gothic: 46.9px;
+  --lh-caption-serif: 25px; --lh-caption-sans: 25px; --lh-caption-mono: 25px; --lh-caption-gothic: 22px;
+  --lh-base: 31px; --lh-heading: 62px;
+}
+[data-scale="xl"] {
+  --sz-caption-serif: 30px; --sz-caption-sans: 29px;   --sz-caption-mono: 27px;   --sz-caption-gothic: 27.6px;
+  --sz-base-serif: 36px;    --sz-base-sans: 34.8px;    --sz-base-mono: 32.4px;    --sz-base-gothic: 33.1px;
+  --sz-heading-serif: 68px; --sz-heading-sans: 65.7px; --sz-heading-mono: 61.2px; --sz-heading-gothic: 62.6px;
+  --lh-caption-serif: 34px; --lh-caption-sans: 34px; --lh-caption-mono: 34px; --lh-caption-gothic: 30px;
+  --lh-base: 41px; --lh-heading: 83px;
+}
+
+/* 2026-07-13 DEVICE TYPE SCALE: compact screens use a dedicated ladder.
+   The user-facing S/M/L/XL axis is preserved, but narrow screens no longer
+   inherit the more expansive desktop sizes. Fresh compact visits start at
+   Mobile Medium; panel.js owns that default while persisted choices survive. */
+@media (max-width: 1023px) {
+  :root, [data-scale="m"] {
+    --sz-caption-serif: 17px; --sz-caption-sans: 16.4px; --sz-caption-mono: 15.3px; --sz-caption-gothic: 15.6px;
+    --sz-base-serif: 20px;    --sz-base-sans: 19.3px;    --sz-base-mono: 18px;      --sz-base-gothic: 18.4px;
+    --sz-heading-serif: 38px; --sz-heading-sans: 36.7px; --sz-heading-mono: 34.2px; --sz-heading-gothic: 35px;
+    --lh-caption-serif: 18px; --lh-caption-sans: 18px; --lh-caption-mono: 18px; --lh-caption-gothic: 17px;
+    --lh-base: 23px; --lh-heading: 46px;
+  }
+  [data-scale="s"] {
+    --sz-caption-serif: 16px; --sz-caption-sans: 15.5px; --sz-caption-mono: 14.4px; --sz-caption-gothic: 14.7px;
+    --sz-base-serif: 17px;    --sz-base-sans: 16.4px;    --sz-base-mono: 15.3px;    --sz-base-gothic: 15.6px;
+    --sz-heading-serif: 32px; --sz-heading-sans: 30.9px; --sz-heading-mono: 28.8px; --sz-heading-gothic: 29.4px;
+    --lh-caption-serif: 17px; --lh-caption-sans: 17px; --lh-caption-mono: 17px; --lh-caption-gothic: 16px;
+    --lh-base: 20px; --lh-heading: 39px;
+  }
+  [data-scale="l"] {
+    --sz-caption-serif: 20px; --sz-caption-sans: 19.3px; --sz-caption-mono: 18px;   --sz-caption-gothic: 18.4px;
+    --sz-base-serif: 24px;    --sz-base-sans: 23.2px;    --sz-base-mono: 21.6px; --sz-base-gothic: 22.1px;
+    --sz-heading-serif: 45px; --sz-heading-sans: 43.5px; --sz-heading-mono: 40.5px; --sz-heading-gothic: 41.4px;
+    --lh-caption-serif: 21px; --lh-caption-sans: 21px; --lh-caption-mono: 21px; --lh-caption-gothic: 20px;
+    --lh-base: 28px; --lh-heading: 55px;
+  }
+  [data-scale="xl"] {
+    --sz-caption-serif: 25px; --sz-caption-sans: 24.2px; --sz-caption-mono: 22.5px; --sz-caption-gothic: 23px;
+    --sz-base-serif: 30px;    --sz-base-sans: 29px;      --sz-base-mono: 27px;   --sz-base-gothic: 27.6px;
+    --sz-heading-serif: 56px; --sz-heading-sans: 54.1px; --sz-heading-mono: 50.4px; --sz-heading-gothic: 51.5px;
+    --lh-caption-serif: 27px; --lh-caption-sans: 27px; --lh-caption-mono: 27px; --lh-caption-gothic: 25px;
+    --lh-base: 35px; --lh-heading: 68px;
+  }
+}
+
+/* ---------- typeface axis: family + which size column to read ---------- */
+/* Cargo font names may differ from these first candidates — adjust in Cargo's
+   editor after checking their picker (see DEPLOY.md). */
+:root, [data-face="serif"] {
+  --font-family-base: "Times New Roman", Times, serif;
+  --font-size-caption: var(--sz-caption-serif);
+  --font-size-base: var(--sz-base-serif);
+  --font-size-heading: var(--sz-heading-serif);
+  --lh-caption: var(--lh-caption-serif);
+}
+[data-face="sans"] {
+  --font-family-base: "TeX Gyre Heros Condensed", "TeX Gyre Heros Cn", "Helvetica Neue Condensed", "Arial Narrow", sans-serif;
+  --font-size-caption: var(--sz-caption-sans);
+  --font-size-base: var(--sz-base-sans);
+  --font-size-heading: var(--sz-heading-sans);
+  --lh-caption: var(--lh-caption-sans);
+}
+[data-face="mono"] {
+  --font-family-base: "Gaisyr Semi-Mono", "ABC Gaisyr Semi Mono", "ABC Gaisyr Semi Mono Trial", "Courier New", monospace;
+  --font-size-caption: var(--sz-caption-mono);
+  --font-size-base: var(--sz-base-mono);
+  --font-size-heading: var(--sz-heading-mono);
+  --lh-caption: var(--lh-caption-mono);
+}
+[data-face="gothic"] {
+  --font-family-base: "UnifrakturMaguntia", "Times New Roman", serif;
+  --font-size-caption: var(--sz-caption-gothic);
+  --font-size-base: var(--sz-base-gothic);
+  --font-size-heading: var(--sz-heading-gothic);
+  --lh-caption: var(--lh-caption-gothic);
+}
+
+/* Cargo can append a page-local clone of an earlier token sheet after the
+   current site CSS. Bind the Gothic caption leading on the document element
+   so the current face-specific value wins that equal-specificity clone. */
+html[data-face="gothic"] {
+  --lh-caption: var(--lh-caption-gothic);
+}
+
+/* Cargo-managed text styles. Preserve these generated class blocks; edit them only through Cargo Text Styles. */
+.mms-mono {
+	--text-style: "mms mono";
+	font-size: 1.2rem;
+	font-weight: 400;
+	color: rgba(0, 0, 0, 0.85);
+	font-family: "Gaisyr Semi-Mono";
+	font-style: normal;
+	line-height: 1.25;
+	letter-spacing: 0;
+	display: block;
+}
+
+.mms-mono a {
+	color: rgba(0, 0, 0, 0.85);
+	border-bottom: 0px solid rgba(127, 127, 127, 0.2);
+	text-decoration: none;
+}
+
+.mms-mono a:hover {
+	
+}
+
+.mms-sans {
+	--text-style: "mms sans";
+	font-size: 1.2rem;
+	font-weight: 400;
+	color: rgba(0, 0, 0, 0.85);
+	font-family: "TeX Gyre Heros Condensed";
+	font-style: normal;
+	line-height: 1.25;
+	letter-spacing: 0;
+	display: block;
+}
+
+.mms-sans a {
+	color: rgba(0, 0, 0, 0.85);
+	border-bottom: 0px solid rgba(127, 127, 127, 0.2);
+	text-decoration: none;
+}
+
+.mms-sans a:hover {
+	
+}
+
+.mms-gothic {
+	--text-style: "mms gothic";
+	font-size: 1.2rem;
+	font-weight: 400;
+	color: rgba(0, 0, 0, 0.85);
+	font-family: UnifrakturMaguntia;
+	font-style: normal;
+	line-height: 1.25;
+	letter-spacing: 0;
+	display: block;
+}
+
+.mms-gothic a {
+	color: rgba(0, 0, 0, 0.85);
+	border-bottom: 0px solid rgba(127, 127, 127, 0.2);
+	text-decoration: none;
+}
+
+.mms-gothic a:hover {
+	
+}
+
+/* mm.s — layout v3 (pairs with tokens.css). 2026-07-06 round 2 (mobile)
+   STICKY architecture, Cargo-proof: Cargo's .page wrappers create a containing
+   block and the editor scrolls an inner div, so position:fixed silently
+   detaches. Everything pinned is position:sticky — identical behavior in the
+   editor, preview, and published page.
+   DESKTOP: 2-col grid; left rail (nav top, control panel bottom) sticks to
+   the viewport; intro + clock stick in a 0-height layer bands scroll over.
+   COMPACT (<1024): sticky top bar (wordmark + menu + clock, z10); intro block
+   in flow with fill bg (slides UNDER the bar, z1); bands with fill bg slide
+   OVER the bar (z20); control panel = bottom sheet via html[data-panel] (z30). */
+
+/* ---- page root + Cargo template neutralization — SCOPED to mms pages ----
+   panel.js sets data-theme on <html> on load, so these fire only on pages
+   that run the mms markup; every other page keeps the template untouched. */
+html[data-theme], html[data-theme] body {
+  margin: 0; padding: 0; min-height: 100%;
+  background: transparent !important;
+  overscroll-behavior-y: auto;
+}
+/* Give ordinary iOS Safari a real theme-colored document canvas behind the
+   transparent Cargo/page stack. Without it, WebKit blends its top material
+   against the UA's white fallback canvas, producing the pale gradient/status
+   strip visible on dark and color themes. This is a backing surface, not an
+   edge plate: wrappers, sticky navigation, and media remain above it and keep
+   painting through to the physical screen edge. */
+html[data-mms-site][data-mms-ios-safari],
+html[data-mms-site][data-mms-ios-safari] body {
+  background-color: var(--color-bg-page) !important;
+  background-image: none !important;
+}
+/* The MM.S composition, not a fixed root-color layer, owns the visible page.
+   This lets Safari's translucent status and URL material see the real river
+   media as it passes underneath. Cargo's wrappers must not insert an opaque
+   plate between that content and the physical viewport. */
+html[data-mms-site] .page,
+html[data-mms-site] .page-layout,
+html[data-mms-site] .page-content,
+html[data-mms-site] bodycopy {
+  background: transparent !important;
+}
+
+/* iOS Safari startup edge sampler. Each 375ms cut receives a fresh TOP fixed
+   node so WebKit can extend that cut's color into its obscured status material
+   without caching the permanent sticky header. The real page or open panel
+   owns the lower edge, avoiding a visible physical-edge seam. It sits below the
+   complete .mms composition (root z1); the header (z10), showcase bands
+   (z20), and panel (z40) therefore paint above them. The samplers accept no
+   input and are removed completely before the transparent/content-through
+   landing. */
+.mms-preview-edge-sampler {
+  position: fixed;
+  inset-inline: 0;
+  display: block;
+  pointer-events: none;
+  opacity: 1;
+  z-index: 0;
+  border: 0;
+}
+.mms-preview-edge-sampler[data-mms-preview-edge="top"] {
+  top: 0;
+  /* A 32px fallback intersected the upper half of the compact wordmark and
+     clock whenever WebKit reported a zero safe-area inset. Safari composites
+     this edge candidate outside normal DOM paint order, so z-index alone
+     could not prevent the apparent cover. Keep a one-pixel edge sample in
+     zero-inset contexts while still honoring a real device safe area. */
+  height: max(1px, env(safe-area-inset-top));
+}
+html[data-theme] .page-layout { max-width: none !important; }
+html[data-theme] .page-content { padding: 0 !important; }
+html[data-theme] bodycopy { max-width: none !important; }
+html[data-theme] .page.pinned { display: none !important; }
+
+/* ---------- reset the parts we own ---------- */
+.mms, .mms * { margin: 0; padding: 0; box-sizing: border-box; }
+.mms {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: var(--nav-col) minmax(0, 1fr);
+  grid-template-rows: 1fr auto;
+  width: 100%;
+  margin-inline: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  min-height: 100lvh;
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--lh-base);
+}
+.mms em, .mms i { font-style: italic; }
+[data-face="gothic"] .mms em, [data-face="gothic"] .mms i { font-style: normal; }
+[data-face="gothic"] .mms b, [data-face="gothic"] .mms strong { font-weight: 400; } /* single-cut */
+.mms a { color: var(--color-link); text-decoration: underline; line-height: var(--lh-base); }
+.mms a:visited { color: var(--color-link-visited); }
+
+/* type roles */
+.mms h1, .mms h2 { font-size: var(--font-size-heading); line-height: var(--lh-heading); font-weight: bold; }
+.mms .body-bold, .mms b, .mms strong { font-weight: bold; }
+.mms .caption, .mms figcaption, .mms small { font-size: var(--font-size-caption); line-height: var(--lh-caption); }
+.mms .muted { color: var(--color-text-muted); }
+
+/* mobile-only elements: hidden on desktop */
+.mms-mbar, .mms-mlinks, .mms-panel-head { display: none; }
+
+/* ---------- desktop left rail (nav links; panel sits in grid row 2) ---------- */
+.mms-rail {
+  grid-column: 1; grid-row: 1;
+  display: flex; flex-direction: column;
+  padding: var(--edge-pad) var(--chrome-space-32) var(--edge-pad) var(--edge-pad);
+  background: var(--color-bg-page);
+  z-index: 30;
+}
+.mms-rail .rail-top { position: sticky; top: var(--edge-pad); z-index: 30; }
+.mms .wordmark { font-weight: bold; }
+.mms a.wordmark,
+.mms a.wordmark:visited {
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+}
+.mms-rail ul { list-style: none; margin-top: var(--chrome-space-24); }
+.mms-rail a { display: inline-block; line-height: var(--lh-base); }
+
+/* control panel: grid row 2 of the rail column, pinned to viewport bottom */
+.mms-panel {
+  grid-column: 1; grid-row: 2; align-self: end;
+  position: sticky; bottom: var(--edge-pad);
+  width: var(--panel-width);
+  max-width: none;
+  margin: 0 var(--chrome-space-32) var(--edge-pad) var(--edge-pad);
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  padding: var(--chrome-space-16);
+  display: flex; flex-direction: column; gap: var(--chrome-space-16);
+  z-index: 30;
+}
+dialog.mms-panel:not([open]) { display: none; }
+
+/* ---------- main column ---------- */
+/* no right padding: rivers bleed to the viewport edge; elements that need
+   the right margin (clock, river scroll-end) carry it themselves */
+.mms-main {
+  grid-column: 2; grid-row: 1 / span 2; position: relative; min-width: 0;
+  padding: var(--edge-pad) 0 var(--edge-pad) 0;
+}
+/* intro-wrap: groups the intro + first band. display:contents on desktop so
+   the desktop layout (sticky-head + spacer + bands as main's children) is
+   unchanged. On mobile it becomes the containing block that pins the intro
+   and RELEASES it once the first work has scrolled past (see mobile block). */
+.mms-intro-wrap { display: contents; }
+/* intro + clock: 0-height sticky layer; bands slide over it (desktop) */
+.mms-sticky-head { position: sticky; top: var(--edge-pad); height: 0; z-index: 0; }
+.mms-intro { width: var(--col-6); }
+.mms-intro p { margin-top: var(--lh-base); }
+.mms-intro text-icon[icon="happy-face-1"] {
+  width: 1em !important;
+  height: 1em !important;
+  margin: 0 0 -0.12em 0 !important;
+  vertical-align: baseline !important;
+}
+.mms-clock {
+  position: absolute; top: 0; right: var(--edge-pad);
+  color: var(--color-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+.mms-intro-spacer { height: calc(280 * var(--layout-u)); } /* transparent window over the sticky intro */
+
+/* ---------- showcase bands (desktop: transparent, z10 over the intro) ---------- */
+.mms-band { position: relative; z-index: 10; background: transparent; }
+.mms-band {
+  content-visibility: auto;
+  contain-intrinsic-size: auto calc(650 * var(--layout-u));
+}
+/* band-to-band gap. The second selector covers the first band being wrapped
+   in .mms-intro-wrap (mobile sticky intro) — band 2 then follows the wrap,
+   not another band, so plain `.mms-band + .mms-band` would miss it. */
+.mms-band + .mms-band,
+.mms-intro-wrap + .mms-band { margin-top: var(--space-192); }
+.mms-river {
+  display: flex; align-items: flex-end; gap: var(--space-32);
+  overflow-x: auto; overflow-y: hidden;
+  overscroll-behavior-x: auto;
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  height: calc(504 * var(--layout-u));
+  /* full-bleed scroller: images run in from the viewport edge, but at max
+     scroll the LAST image rests at the content margin (clock-aligned) */
+  padding-right: var(--edge-pad);
+}
+.mms-river::-webkit-scrollbar { display: none; }
+.mms-river > * {
+  flex: 0 0 auto;
+  scroll-snap-align: none;
+  scroll-snap-stop: normal;
+}
+/* Every river asset carries its Figma design dimensions as unitless custom
+   properties. Layout and media can now scale independently. */
+.mms-river > [style*="--asset-w"] {
+  --asset-u: var(--media-u);
+  width: calc(var(--asset-w) * var(--asset-u));
+  height: calc(var(--asset-h) * var(--asset-u));
+  aspect-ratio: var(--asset-w) / var(--asset-h);
+}
+/* spacer eats the flex gap that follows it, so image 1 lands exactly on
+   --offset — flush with the description block below */
+.mms-river .offset { width: calc(var(--offset, 0px) - var(--space-32)); height: 1px; }
+.mms-band[data-offset="4"] { --offset: calc(var(--col-4) + var(--space-32)); }
+.mms-band[data-offset="2"] { --offset: calc(var(--col-2) + var(--space-32)); }
+
+/* description: static below the river, offset-aligned, own plate */
+.mms-desc {
+  width: var(--col-6);
+  margin-left: var(--offset, 0px);
+  background: var(--color-bg-page);
+  padding-top: var(--space-16);
+}
+/* DESC COLUMN SPANS (Figma 12-col grid: col 84 / gutter 32 at design scale,
+   col 124 at XL — Round 15b, Ocean: "understand how many columns they are
+   occupying"). Every desc is an explicit span, never offset-derived:
+   V7/Loop/DeadGood = 10 cols; everything else = col-6 default.
+   (EVIIVE/Kelly = 6 cols = the .mms-desc default, offset col-4.) */
+[data-band="eviive"] .mms-desc, [data-band="v7"] .mms-desc,
+[data-band="loop"] .mms-desc, [data-band="kelly"] .mms-desc,
+[data-band="deadgood"] .mms-desc {
+  width: calc(100vw - var(--nav-col) - var(--offset, 0px) - var(--edge-pad));
+}
+/* caption plates (Figma: fill bound to bg/page on exactly these three) */
+[data-slot="montran-map-caption"], [data-slot="kelly-caption"],
+[data-slot="randompics-caption"] { background: var(--color-bg-page); }
+.mms-desc .tagline { font-size: var(--font-size-caption); line-height: var(--lh-caption); }
+.mms-desc p { margin-top: var(--space-8); }
+.mms-desc .url { margin-top: var(--space-8); display: inline-block; }
+
+/* ---------- desktop river scrubber ----------
+   Figma Slider 782:465: bg/page plate, 16-unit block padding around a 1px
+   track, and an 8px square thumb. JS copies the associated description's
+   exact width/left edge and maps the thumb to native river scrollLeft. */
+.mms-river-scrubber {
+  display: none;
+  position: relative;
+  box-sizing: border-box;
+  height: calc((2 * var(--space-16)) + 1px);
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.mms-river-scrubber[hidden] { display: none !important; }
+.mms-river-scrubber__track {
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 1px;
+  transform: translateY(-50%);
+  background: var(--color-border);
+  pointer-events: none;
+}
+.mms-river-scrubber__thumb {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: max(44px, 100%);
+  width: max(var(--col-1), var(--scrub-proportional-width, 0px));
+  transform: translate(var(--scrub-thumb-left, 0px), -50%);
+  cursor: grab;
+  touch-action: none;
+}
+.mms-river-scrubber__thumb-art {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% + 0.5px);
+  height: 8px;
+  box-sizing: border-box;
+  transform: translateY(-50%);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-page);
+  transition: none;
+  pointer-events: none;
+}
+.mms-river-scrubber.is-dragging .mms-river-scrubber__thumb { cursor: grabbing; }
+.mms-river-scrubber:focus,
+.mms-river-scrubber:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+}
+.mms-river-scrubber:focus-visible .mms-river-scrubber__thumb-art {
+  outline: 0;
+  outline-offset: 0;
+  box-shadow: none;
+  height: 10px;
+  border: 2px solid var(--color-text-primary);
+  background: var(--color-bg-page);
+}
+.mms-river-scrubber.is-dragging .mms-river-scrubber__thumb-art,
+.mms-river-scrubber.is-dragging:focus-visible .mms-river-scrubber__thumb-art {
+  border-color: var(--color-text-primary);
+  background: var(--color-text-primary);
+}
+@media (min-width: 1024px) and (any-hover: hover) and (any-pointer: fine) {
+  .mms-river-scrubber:not([hidden]) { display: block; }
+  .mms-river-scrubber__thumb:hover .mms-river-scrubber__thumb-art {
+    border-color: var(--color-text-primary);
+    background: var(--color-text-primary);
+  }
+}
+
+/* ---------- image frames: explicit shape-policy wrappers ---------- */
+.mms-img {
+  display: block;
+  background: transparent;
+  border-radius: 0;
+  clip-path: none;
+}
+.mms-frame {
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  overflow: hidden;
+  box-sizing: border-box;
+  border-radius: 0;
+  clip-path: none;
+  background: transparent;
+}
+.mms-frame > .mms-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  object-position: 50% 50%;
+  border-radius: 0;
+  clip-path: none;
+}
+.mms-frame[data-shape-policy="artwork"] {
+  background: var(--color-bg-page);
+}
+.mms-frame[data-fit="cover"] > .mms-img {
+  object-fit: cover;
+  object-position: var(--object-position, 50% 50%);
+}
+/* The uploaded Touchbaes booking poster contains one unintended light source
+   column at its far right. Its declared 403:504 frame is the correct crop;
+   cover from the left removes only that source seam at every rendition size. */
+.mms-frame[data-media-id="touchbaes-03"] > .mms-img {
+  object-fit: cover !important;
+  object-position: 0% 50% !important;
+}
+
+/* Montran is wrapped only to separate compact gesture ownership from the
+   cross-origin page-turner. Expanded mode leaves the iframe fully native. */
+.mms-booklet-shell {
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  overflow: hidden;
+  background: #000;
+}
+.mms-booklet-shell > .mms-booklet {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.mms-booklet-gesture { display: none; }
+[data-shape="rounded"] .mms-frame {
+  border-radius: var(--radius-image);
+  clip-path: inset(0 round var(--radius-image));
+}
+[data-shape="oval"] .mms-frame {
+  border-radius: 50%;
+  clip-path: ellipse(50% 50% at 50% 50%);
+}
+/* The booklet shell is the sole shape-responsive interactive frame. V7 and
+   Touchbaes remain direct rectangular embeds. */
+[data-shape="rounded"] .mms-booklet-shell {
+  border-radius: var(--radius-image);
+  clip-path: inset(0 round var(--radius-image));
+}
+[data-shape="oval"] .mms-booklet-shell {
+  border-radius: 50%;
+  clip-path: ellipse(50% 50% at 50% 50%);
+}
+[data-shape-policy="interactive"]:not(.mms-booklet-shell) {
+  border-radius: 0 !important;
+  clip-path: none !important;
+}
+
+/* ---------- control panel internals ---------- */
+/* header (title + close): shown only in the mobile sheet — the desktop rail
+   panel has no header, matching Figma. Base styles live here; the mobile
+   query flips .mms-panel-head to flex. */
+.mms-panel-title {
+  font-family: var(--font-family-base) !important;
+  font-size: calc(20 * var(--chrome-u)) !important;
+  font-weight: normal;
+}
+.mms-close { width: 44px; height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.mms-close svg { width: calc(24 * var(--chrome-u)); height: calc(24 * var(--chrome-u)); stroke: var(--color-text-primary); stroke-width: 1; fill: none; }
+.mms-panel-link { display: none; }
+.mms-panel-inline { display: none; }
+.mms-inline-plus {
+  display: none;
+  font: inherit;
+  line-height: inherit;
+  vertical-align: baseline;
+  transform: translateY(var(--inline-plus-optical-y, 0.092em));
+  transform-origin: center;
+}
+[data-face="sans"] .mms-inline-plus { --inline-plus-optical-y: -0.005em; }
+[data-face="mono"] .mms-inline-plus { --inline-plus-optical-y: 0.128em; }
+[data-face="gothic"] .mms-inline-plus { --inline-plus-optical-y: 0.08em; }
+
+.mms-panel .row { display: flex; gap: var(--chrome-space-8); }
+.mms-panel-primary { display: contents; }
+.mms-panel .row.dots { order: 1; }
+.mms-panel .mms-scale { order: 2; }
+.mms-panel .row.grid2 { order: 3; }
+.mms-panel .mms-shapes { order: 4; }
+.mms-panel .row.dots { justify-content: space-between; align-items: center; height: 44px; }
+.mms-panel .row.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--chrome-space-8); }
+
+.mms-dot {
+  width: 44px; height: 44px; border: 0; border-radius: 0;
+  background: transparent; cursor: pointer; padding: 0; position: relative;
+}
+.mms-dot::before {
+  content: ""; position: absolute; top: 50%; left: 50%;
+  width: calc(20 * var(--panel-control-u)); height: calc(20 * var(--panel-control-u));
+  transform: translate(-50%, -50%); border: 1px solid var(--color-border);
+  border-radius: 50%; background: var(--dot-bg);
+}
+/* selected indicator = a small CENTER CIRCLE (radio-button semantics, per
+   Figma Swatch). aspect-ratio:1 keeps it circular even when the dot itself is
+   a stretched oval (mobile) — height tracks the dot so it's 12px on the 20px
+   desktop dot, 16px on the 24px mobile dot. */
+.mms-dot::after {
+  content: ""; position: absolute; top: 50%; left: 50%;
+  height: calc(12 * var(--panel-control-u)); aspect-ratio: 1; transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--dot-center, transparent); opacity: 0;
+}
+.mms-dot[aria-pressed="true"]::after { opacity: 1; }
+
+.mms-btn {
+  position: relative; isolation: isolate; height: 44px; border: 0; border-radius: 0;
+  background: transparent; color: var(--color-text-primary);
+  font-size: calc(14 * var(--chrome-u)); cursor: pointer;
+  font-family: var(--font-family-base);
+}
+.mms-btn::before {
+  content: ""; position: absolute; z-index: -1; left: 0; right: 0; top: 50%;
+  height: calc(32 * var(--panel-control-u)); transform: translateY(-50%);
+  border: 1px solid var(--color-border); background: var(--color-bg-page);
+}
+.mms-btn[aria-pressed="true"] { background: transparent; color: var(--color-bg-page); }
+.mms-btn[aria-pressed="true"]::before { background: var(--color-text-primary); }
+/* per-face preview labels keep their own faces AND a fixed Medium-scale
+   caption size (16/15.5/14.4/16 since Type Scale v2 2026-07-10, x-height-
+   normalized) — the panel buttons do NOT grow with the type-scale slider
+   (Ocean). They ride --chrome-u so they scale only until the 1800px cap,
+   unlike the body type which is fixed. Slider a's stay 14/28 (iconographic,
+   Figma panel component; row heights are locked). */
+.mms-btn.face-serif  { font-family: "Times New Roman", Times, serif; font-size: calc(16 * var(--chrome-u)); }
+.mms-btn.face-sans   { font-family: "TeX Gyre Heros Condensed", "TeX Gyre Heros Cn", sans-serif; font-size: calc(15.5 * var(--chrome-u)); }
+.mms-btn.face-mono   { font-family: "Gaisyr Semi-Mono", "ABC Gaisyr Semi Mono", monospace; font-size: calc(14.4 * var(--chrome-u)); }
+.mms-btn.face-gothic { font-family: "UnifrakturMaguntia", serif; font-size: calc(16 * var(--chrome-u)); }
+
+/* Expanded control labels use the desktop breakpoint's Medium type scale.
+   !important defeats Cargo's later generic button font-size rule. */
+@media (min-width: 1024px) {
+  /* Figma desktop panel: 24-unit vertical and 16-unit horizontal padding.
+     Subtract the 1px border so the visible inset lands on the token value.
+     Keep the root qualifier because Cargo's editor retains a later compiled
+     stylesheet while it previews the newly saved global CSS. */
+  .mms dialog.mms-panel {
+    padding:
+      calc(var(--panel-pad-block-expanded) - 1px)
+      calc(var(--panel-pad-inline-expanded) - 1px);
+  }
+  .mms-btn.face-serif  { font-size: 18px !important; }
+  .mms-btn.face-sans   { font-size: 17.4px !important; }
+  .mms-btn.face-mono   { font-size: 16.2px !important; }
+  .mms-btn.face-gothic { font-size: 16.6px !important; }
+  .mms-face-label {
+    display: flex; align-items: center; justify-content: center;
+    width: 100%; height: 100%; line-height: 21px;
+  }
+  .face-sans .mms-face-label { transform: translateY(-1px); }
+  .face-gothic .mms-face-label { transform: translateY(2px); }
+}
+
+/* slider row: a --o-- a, 4 steps. The a's are lowercase, whose glyph mass
+   sits below the line-box center; translateY(-0.14em) lifts each glyph so
+   the horizontal line runs through its visual middle (em-scaled so both
+   sizes shift proportionally). Row is tall enough for the 28px 'a'. */
+.mms-scale { display: flex; align-items: center; gap: var(--chrome-space-8); height: 44px; }
+.mms-scale .a-min {
+  font-family: var(--font-family-base) !important;
+  font-size: 18px !important;
+  line-height: 1; transform: translateY(-0.114em);
+}
+.mms-scale .a-max {
+  font-family: var(--font-family-base) !important;
+  font-size: 36px !important;
+  line-height: 1; transform: translateY(-0.114em);
+}
+.mms-scale input[type="range"] {
+  flex: 1; min-width: 0; -webkit-appearance: none; appearance: none;
+  height: 44px; background: linear-gradient(var(--color-text-primary), var(--color-text-primary)) center / 100% 1px no-repeat;
+}
+.mms-scale input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: calc(12 * var(--panel-control-u)); height: calc(12 * var(--panel-control-u)); border-radius: 50%;
+  background: var(--color-bg-page); border: 1px solid var(--color-text-primary);
+  box-shadow: none; /* Safari draws a default thumb shadow (Ocean: remove) */
+}
+.mms-scale input[type="range"]::-moz-range-thumb {
+  width: calc(12 * var(--panel-control-u)); height: calc(12 * var(--panel-control-u)); border-radius: 50%;
+  background: var(--color-bg-page); border: 1px solid var(--color-text-primary);
+  box-shadow: none;
+}
+
+/* shape options: straight < rounded < oval (optical sizes), 36px row */
+.mms-shapes { display: flex; gap: var(--chrome-space-8); height: 44px; align-items: center; }
+.mms-shape { position: relative; isolation: isolate; flex: 1; height: 44px; border: 0; background: transparent;
+  cursor: pointer; display: grid; place-items: center; padding: 0; }
+.mms-shape::before { content: ""; position: absolute; z-index: -1; inset-inline: 0; top: 50%; transform: translateY(-50%); border: 1px solid var(--color-border); background: var(--color-bg-page); }
+.mms-shape svg { width: calc(24 * var(--panel-control-u)); height: calc(24 * var(--panel-control-u)); fill: var(--color-text-primary); }
+.mms-shape.straight::before { height: min(calc(32 * var(--panel-control-u)), 44px); border-radius: 0; }
+.mms-shape.rounded::before { height: min(calc(34 * var(--panel-control-u)), 44px); border-radius: 6px; }
+.mms-shape.oval::before { height: min(calc(36 * var(--panel-control-u)), 44px); border-radius: 50%; }
+.mms-shape[aria-pressed="true"] { background: transparent; }
+.mms-shape[aria-pressed="true"]::before { background: var(--color-text-primary); }
+.mms-shape[aria-pressed="true"] svg { fill: var(--color-bg-page); }
+
+.mms :focus-visible {
+  outline: 1px dotted var(--color-border);
+  outline-offset: 3px;
+}
+
+/* ---------- Round 15 (2026-07-11) ---------- */
+/* hairline borders: WebKit letterboxes sub-pixel aspect mismatches inside
+   the video box (black bars on Safari/iOS, page-bg slivers in Chromium) —
+   my -2 rescales drifted some aspects ~0.03%. cover crops the mismatch. */
+/* Media fitting is owned by .mms-frame[data-fit], not the replaced element. */
+/* top alignment: the intro's FIRST paragraph inherited the paragraph-rhythm
+   margin (--lh-base = 25px), pushing the whole 0-height sticky head below
+   its own pin offset — misaligned with the MM.S wordmark at rest AND
+   sliding 25px before pinning ("scrolls a little"). */
+/* !important: the mobile-editor neutralizer re-asserts .mms-intro p margins
+   with !important; higher specificity wins the important contest */
+.mms-intro p:first-child { margin-top: 0 !important; }
+/* slider a-glyphs: the flat -0.114em lift was tuned on serif@28. Optical
+   centers measured per face via TextMetrics (fontBoundingBox + ink box):
+   sans/mono want -0.131em at both sizes; gothic sits much lower in its
+   line box and wants nearly none (-0.007/-0.025). */
+[data-face="sans"] .mms-scale .a-min, [data-face="sans"] .mms-scale .a-max,
+[data-face="mono"] .mms-scale .a-min, [data-face="mono"] .mms-scale .a-max {
+  transform: translateY(-0.131em);
+}
+[data-face="gothic"] .mms-scale .a-min { transform: translateY(-0.007em); }
+[data-face="gothic"] .mms-scale .a-max { transform: translateY(-0.025em); }
+/* Hover belongs only to devices that can sustain it. Touch uses active
+   feedback so iOS never retains a sticky hover state. */
+@media (hover: hover) and (pointer: fine) {
+  .mms a:hover { font-weight: bold; }
+  .mms-btn:hover { color: var(--color-bg-page); }
+  .mms-btn:hover::before { background: var(--color-text-primary); }
+  .mms-shape:hover::before { background: var(--color-text-primary); }
+  .mms-shape:hover svg { fill: var(--color-bg-page); }
+  .mms-dot:hover::before { box-shadow: 0 0 0 1px var(--color-border); }
+  .mms-scale input[type="range"]::-webkit-slider-thumb:hover { background: var(--color-text-primary); }
+  .mms-scale input[type="range"]::-moz-range-thumb:hover { background: var(--color-text-primary); }
+}
+.mms button:active { opacity: 0.72; }
+
+/* Fine-pointer expanded panels use Figma's optical 20/24/32/36px rows.
+   Outer padding and group gaps continue following --chrome-u, while the
+   controls themselves stop shrinking below their 1440 reference sizes. */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .mms-panel .row.dots {
+    height: calc(20 * var(--panel-control-u));
+  }
+  .mms-panel .row.grid2 {
+    gap: calc(8 * var(--panel-control-u));
+  }
+  .mms-dot {
+    width: calc(20 * var(--panel-control-u));
+    height: calc(20 * var(--panel-control-u));
+  }
+  .mms-btn { height: calc(32 * var(--panel-control-u)); }
+  .mms-scale,
+  .mms-scale input[type="range"] {
+    height: calc(24 * var(--panel-control-u));
+  }
+  .mms-shapes,
+  .mms-shape { height: calc(36 * var(--panel-control-u)); }
+  .mms-shape.straight::before { height: calc(32 * var(--panel-control-u)); }
+  .mms-shape.rounded::before { height: calc(34 * var(--panel-control-u)); }
+  .mms-shape.oval::before { height: calc(36 * var(--panel-control-u)); }
+}
+
+/* The render preview is a sequence of hard design-state cuts. Do not soften
+   these changes: the raw redraw is the intended loading/rendering gesture. */
+html[data-render-preview] body,
+html[data-render-preview] .mms,
+html[data-render-preview] .mms-rail,
+html[data-render-preview] .mms-mbar .mbar-row,
+html[data-render-preview] .mms-mbar .mms-mlinks,
+html[data-render-preview] dialog.mms-panel {
+  transition: none !important;
+}
+html[data-render-preview] .mms-img,
+html[data-render-preview] .mms-frame { transition: none !important; }
+
+/* ---------- COMPACT (<1024): bar / flow intro / covering bands / dialog sheet ---------- */
+@media (max-width: 1023px) {
+  :root {
+    --panel-toggle-visual-size: 24px;
+    --panel-toggle-glyph-size: 20px;
+    --panel-block-pad: 22px;
+    --mbar-control-optical-y: 0px;
+  }
+  html[data-scale="s"] {
+    --panel-toggle-visual-size: 22px;
+    --panel-toggle-glyph-size: 17px;
+  }
+  html[data-scale="m"] {
+    --panel-toggle-visual-size: 24px;
+    --panel-toggle-glyph-size: 20px;
+  }
+  html[data-scale="l"] {
+    --panel-toggle-visual-size: 26px;
+    --panel-toggle-glyph-size: 24px;
+  }
+  html[data-scale="xl"] {
+    --panel-toggle-visual-size: 28px;
+    --panel-toggle-glyph-size: 28px;
+  }
+  html[data-face="sans"] { --mbar-control-optical-y: 1px; }
+  html[data-face="mono"] { --mbar-control-optical-y: 0px; }
+  html[data-face="gothic"] { --mbar-control-optical-y: -2px; }
+  .mms {
+    --mobile-media-w: 85vw;
+    --mobile-wide-media-w: 150vw;
+    --mobile-loop-cover-w: 110vw;
+    --mobile-booklet-w: 150vw;
+    --mobile-small-media-w: 58vw;
+    --mobile-panorama-w: 128vw;
+    --mobile-deadgood-wide-w: 110vw;
+    --mobile-standard-h: 58svh;
+    --mobile-panorama-h: 32svh;
+    --mobile-game-w: min(100vw, calc(98vw + 5px));
+    --mobile-game-left: calc(32px + (var(--mobile-game-w) * 5.25 / 100));
+    --mobile-game-right: 36px;
+    --mobile-game-bottom: calc(31px + (var(--mobile-game-w) * 19.3 / 100));
+  }
+  .mms { display: block; }
+  .mms-rail { display: none; }
+  .mms-panel:not(dialog) { display: none; }
+
+  /* Touchbaes compact fallback applies only before the game's measured
+     visual-envelope message arrives. The child becomes the sole height
+     authority after that first validated message. */
+  .mms-band iframe[src*="touchbaes"],
+  .mms-band iframe[data-src*="touchbaes"] {
+    width: var(--mobile-game-px-width, var(--mobile-game-w)) !important;
+    height: var(--mobile-game-px-height, calc(
+      24px +
+      ((var(--mobile-game-w) - var(--mobile-game-left) - var(--mobile-game-right)) * 1752 / 1586) +
+      var(--mobile-game-bottom)
+    )) !important;
+  }
+
+  /* sticky top bar: MM.S + menu button + clock. Middle layer (z10):
+     the intro slides UNDER it, the bands slide OVER it. */
+  /* bar = wordmark row + nav links, ALL sticky ("treat them like the nav
+     bar" — Ocean). Bands cover the whole block when passing: intentional. */
+  .mms-mbar {
+    display: contents;
+  }
+  .mms-mbar .mbar-row {
+    display: flex; align-items: center; gap: var(--space-12); min-height: 44px;
+    position: sticky; top: 0; z-index: 10;
+    padding: max(var(--space-16), env(safe-area-inset-top)) var(--margin-page) var(--space-16);
+    background: transparent;
+    isolation: isolate;
+  }
+  /* Keep the edge-adjacent sticky row transparent in every state. Safari 26
+     can retain a solid toolbar extension after sampling any opaque sticky
+     surface here, even after the page later changes it back. Disposable fixed
+     samplers supply only the startup colors; the real .mms composition owns
+     the transparent landing and scrolling content beneath Safari's material. */
+  /* Do not paint a separate safe-area/header plate. With viewport-fit=cover,
+     the real page surface can extend behind Safari's translucent material.
+     Padding still keeps the title, clock, and control clear of system UI. */
+  .mms-mbar .mbar-row::before {
+    content: none;
+  }
+  .mms-intro-wrap > .mms-mlinks {
+    display: block; position: sticky; top: var(--mbar-row-h, 76px); z-index: 10;
+    padding: var(--space-24) var(--margin-page) var(--space-16);
+    /* Safari 26 derives toolbar tint from sticky/fixed backgrounds near the
+       obscured viewport edge. Keep this sticky geometry, but let the actual
+       page/showcase surface paint through instead of exposing a flash theme. */
+    background: transparent;
+  }
+  .mms-mlinks ul { list-style: none; }
+  .mms-mlinks ul + ul { margin-top: var(--lh-base); }
+  .mms-mlinks a {
+    display: block;
+    min-height: 0;
+    line-height: var(--lh-base);
+  }
+  .mms-menu {
+    display: grid; place-items: center; position: relative;
+    width: var(--panel-toggle-visual-size); height: var(--panel-toggle-visual-size);
+    /* Cargo's editor button styles inherit the page type size after this
+       bundle. Pin the optical icon box to its own scale token. */
+    font-size: var(--panel-toggle-glyph-size) !important;
+    margin-left: 0;
+    padding: 0; border: 0; background: transparent; cursor: pointer;
+    -webkit-appearance: none; appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: none; filter: none;
+  }
+  /* The visual/focus box fits the icon. A transparent 44px pseudo target
+     preserves the approved touch area without producing an oversized iOS
+     tap highlight or moving the icon's right edge. */
+  .mms-menu::before {
+    content: ""; position: absolute;
+    inset: calc((var(--panel-toggle-visual-size) - 44px) / 2);
+  }
+  .mms-toggle-icon {
+    display: grid; place-items: center;
+    width: var(--panel-toggle-visual-size); height: var(--panel-toggle-visual-size);
+    color: var(--color-text-primary);
+    background: transparent;
+    transform: translateY(var(--mbar-control-optical-y));
+  }
+  .mms-toggle-icon svg {
+    display: block;
+    width: var(--panel-toggle-glyph-size) !important;
+    height: var(--panel-toggle-glyph-size) !important;
+    fill: none;
+    stroke: currentColor;
+  }
+  .mms-toggle-close { display: none; background: var(--color-text-primary); }
+  .mms-toggle-close svg { stroke: var(--color-bg-page); }
+  .mms-menu[aria-expanded="true"] .mms-toggle-plus { display: none; }
+  .mms-menu[aria-expanded="true"] .mms-toggle-close { display: grid; }
+  .mms-clock-m { margin-left: auto; color: var(--color-text-primary); font-variant-numeric: tabular-nums; }
+
+  .mms-menu:focus { outline: none; }
+  .mms-menu:focus-visible { outline: none; }
+  .mms-menu:focus-visible .mms-toggle-icon {
+    outline: 1.5px solid var(--color-text-primary);
+    outline-offset: 2px;
+  }
+
+  .mms-main { padding: 0; }
+
+  /* intro-wrap = containing block for the sticky intro; it holds the intro +
+     the FIRST band, so the intro pins while the first work scrolls up over it
+     and RELEASES (scrolls out under the bar) once the first work has passed.
+     NO z-index here on purpose: a z-index would create a stacking context that
+     traps the first band's z20 below the bar (z10). Without it, the first
+     band's z20 competes with the bar directly, so the showcase covers the
+     bar + links too (Ocean). position:relative alone doesn't make a context. */
+  .mms-intro-wrap { display: block; position: relative; overflow: visible; }
+  /* intro block: STATIC (pinned) just below the sticky bar (--bar-h, set by
+     panel.js). z1 < bands z20, so the first work covers it; z1 < bar z10, so
+     it slides out under the bar when released. */
+  .mms-sticky-head {
+    position: sticky; top: var(--bar-h, 200px); height: auto; z-index: 1;
+    background: transparent;
+    padding: var(--space-24) var(--margin-page) var(--space-40);
+  }
+  .mms-intro { width: auto !important; }
+  .mms-panel-copy { display: none; }
+  .mms-panel-link { display: none; }
+  .mms-inline-plus { display: inline-block; }
+  .mms-panel-inline {
+    display: inline;
+    color: inherit; font: inherit; line-height: inherit; vertical-align: baseline;
+  }
+  .mms-clock { display: none; } /* the bar carries the mobile clock */
+  .mms-intro-spacer { display: none; }
+
+  /* bands: TRANSPARENT (z20, above the bar). Only the images (opaque) and
+     the description plate cover the nav as they pass; the nav shows through
+     everywhere else. The band itself carries no fill — "images should not
+     have a white fill, only the description" (Ocean).
+     Left edge = --margin-page, same as the intro text; river bleeds off the
+     right edge and scrolls horizontally. */
+  .mms-band {
+    position: relative; z-index: 20;
+    background: transparent;
+    padding: 0;
+    overflow: visible;
+    content-visibility: visible;
+    contain: none;
+    contain-intrinsic-size: none;
+  }
+  .mms-intro-wrap > .mms-band { padding-top: var(--space-40); }
+  .mms-band + .mms-band,
+  .mms-intro-wrap + .mms-band { margin-top: var(--space-64); } /* transparent gap: bar resurfaces between projects */
+  .mms-river {
+    --river-gap: clamp(16px, 3vw, 24px);
+    width: 100vw;
+    height: auto !important;
+    gap: var(--river-gap);
+    padding-inline: 0;
+    pointer-events: auto;
+    touch-action: pan-x pan-y;
+  }
+  /* Resting margins are scrollable flex spacers, not permanent scroller
+     padding. Once the visitor pans, imagery can become truly flush with the
+     physical left/right viewport edges and Safari's edge material. */
+  .mms-river::before,
+  .mms-river::after {
+    content: "";
+    flex: 0 0 max(0px, calc(var(--margin-page) - var(--river-gap)));
+    width: max(0px, calc(var(--margin-page) - var(--river-gap)));
+    height: 1px;
+    pointer-events: none;
+  }
+  .mms-river > * { pointer-events: auto; }
+  .mms-river > [style*="--asset-w"] {
+    --asset-u: min(
+      calc(var(--mobile-media-w) / var(--asset-w)),
+      calc(var(--mobile-standard-h) / var(--asset-h))
+    );
+  }
+  .mms-river > [data-mobile-profile="small"] {
+    --asset-u: min(
+      calc(var(--mobile-small-media-w) / var(--asset-w)),
+      calc(var(--mobile-standard-h) / var(--asset-h))
+    );
+  }
+  .mms-river > [data-mobile-profile="wide"] {
+    --asset-u: min(
+      calc(var(--mobile-wide-media-w) / var(--asset-w)),
+      calc(52svh / var(--asset-h))
+    );
+  }
+  .mms-river > [data-mobile-profile="loop-cover"] {
+    --asset-u: min(
+      calc(var(--mobile-loop-cover-w) / var(--asset-w)),
+      calc(var(--mobile-standard-h) / var(--asset-h))
+    );
+  }
+  .mms-river > [data-mobile-profile="booklet-wide"] {
+    --asset-u: min(
+      calc(var(--mobile-booklet-w) / var(--asset-w)),
+      calc(var(--mobile-standard-h) / var(--asset-h))
+    );
+  }
+  .mms-river > [data-mobile-profile="panorama"] {
+    --asset-u: min(
+      calc(var(--mobile-panorama-w) / var(--asset-w)),
+      calc(var(--mobile-panorama-h) / var(--asset-h))
+    );
+  }
+  .mms-river > [data-mobile-profile="deadgood-wide"] {
+    --asset-u: min(
+      calc(var(--mobile-deadgood-wide-w) / var(--asset-w)),
+      calc(var(--mobile-standard-h) / var(--asset-h))
+    );
+  }
+  .mms-river .offset { display: none; }
+  .mms-band[data-offset] { --offset: 0px; }
+  .mms-desc {
+    width: calc(100vw - (2 * var(--margin-page)));
+    margin-left: var(--margin-page);
+    padding-right: 0;
+  }
+  [data-band="eviive"] .mms-desc, [data-band="v7"] .mms-desc,
+  [data-band="loop"] .mms-desc, [data-band="kelly"] .mms-desc,
+  [data-band="deadgood"] .mms-desc {
+    width: calc(100vw - (2 * var(--margin-page))) !important;
+  }
+
+  /* Compact JS portals this non-modal dialog under body so fixed positioning
+     remains viewport-relative outside Cargo's transformed page wrappers. */
+  dialog.mms-panel {
+    display: none;
+    position: fixed;
+    --panel-inline: 20px;
+    inset: auto 0 0 0;
+    box-sizing: border-box;
+    width: 100vw; max-width: none; max-height: calc(100svh - 16px); overflow-y: auto;
+    overscroll-behavior: contain; touch-action: pan-y; z-index: 40;
+    --font-scale: 1;
+    font-family: var(--font-family-base);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-page) !important;
+    background-image: none !important;
+    isolation: isolate;
+    margin: 0;
+    border: 1px solid var(--color-border); border-bottom: 0;
+    border-inline: 0;
+    padding: var(--panel-block-pad) var(--panel-inline) max(var(--panel-block-pad), calc(env(safe-area-inset-bottom) + 8px));
+    gap: var(--space-16);
+  }
+  /* The shared desktop rail ships native-open so it paints before JavaScript.
+     In compact mode, that attribute alone must never expose the tray: only an
+     explicit user-open state on the root can make it visible. */
+  html[data-panel="open"] dialog.mms-panel[open] { display: flex; }
+  dialog.mms-panel::backdrop { display: none; }
+  /* Updated Figma compact panel: no internal title row. Palette and scale
+     share the first 24px optical row.
+     Five transparent flex cells center true 24px circles, so the visible
+     color marks never merge even as their touch cells compress. */
+  .mms-panel-primary {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-8);
+    align-items: center;
+    order: 1;
+    flex: 0 0 24px; height: 24px;
+    margin: 0;
+    overflow: visible;
+    box-sizing: border-box;
+    padding-inline: 2px !important;
+  }
+  .mms-panel .row.grid2 { order: 2; }
+  .mms-panel .mms-shapes { order: 3; }
+  .mms-panel .row.dots {
+    grid-column: 2;
+    grid-row: 1;
+    order: 1;
+    height: 24px;
+    gap: 0;
+    position: relative;
+  }
+  .mms-dot { flex: 1 1 0; width: auto; height: 44px; border: 0; position: static; background: transparent !important; }
+  .mms-dot::before {
+    content: ""; position: absolute; inset: auto;
+    top: 50%; left: 50%; width: 24px; height: 24px;
+    transform: translate(-50%, -50%);
+    border: 1px solid var(--color-border); border-radius: 50%;
+    background: var(--dot-bg);
+  }
+  /* Five visible 24px dots distribute across the complete palette span.
+     Their edge-to-edge gaps are equal at every compact width while the five
+     transparent flex cells continue to own the interaction regions. */
+  .mms-panel .row.dots .mms-dot:nth-child(1)::before,
+  .mms-panel .row.dots .mms-dot:nth-child(1)::after { left: 12px; }
+  .mms-panel .row.dots .mms-dot:nth-child(2)::before,
+  .mms-panel .row.dots .mms-dot:nth-child(2)::after { left: calc(25% + 6px); }
+  .mms-panel .row.dots .mms-dot:nth-child(3)::before,
+  .mms-panel .row.dots .mms-dot:nth-child(3)::after { left: 50%; }
+  .mms-panel .row.dots .mms-dot:nth-child(4)::before,
+  .mms-panel .row.dots .mms-dot:nth-child(4)::after { left: calc(75% - 6px); }
+  .mms-panel .row.dots .mms-dot:nth-child(5)::before,
+  .mms-panel .row.dots .mms-dot:nth-child(5)::after { left: calc(100% - 12px); }
+  .mms-dot::after { height: 12px; z-index: 1; }
+  /* face buttons: single 4-across row on mobile (Figma sheet), not desktop 2x2 */
+  .mms-panel .row.grid2 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    flex: 0 0 36px; height: 36px; gap: var(--space-8); overflow: visible;
+    margin: 0;
+    align-items: center;
+    box-sizing: border-box;
+    padding-inline: 2px !important;
+  }
+  .mms-btn {
+    position: relative; isolation: isolate; height: 44px; border: 0;
+    background: transparent; color: var(--color-text-primary);
+    display: flex; align-items: center; justify-content: center; line-height: 18px;
+  }
+  .mms-btn::before {
+    content: ""; position: absolute; inset-inline: 0; top: 50%; z-index: -1;
+    height: 36px; transform: translateY(-50%);
+    border: 1px solid var(--color-border); background: var(--color-bg-page);
+  }
+  .mms-btn::after { content: ""; position: absolute; inset: 0; }
+  .mms-btn[aria-pressed="true"] { background: transparent; color: var(--color-bg-page); }
+  .mms-btn[aria-pressed="true"]::before { background: var(--color-text-primary); }
+  .mms-btn.face-serif { font-size: 20px !important; line-height: 23px; }
+  .mms-btn.face-sans { font-size: 19.3px !important; line-height: 23px; }
+  .mms-btn.face-mono { font-size: 18px !important; line-height: 23px; }
+  .mms-btn.face-gothic { font-size: 18.4px !important; line-height: 23px; }
+  .mms-face-label {
+    display: flex; align-items: center; justify-content: center;
+    box-sizing: border-box; width: 100%; height: 36px; line-height: 23px;
+  }
+  .face-serif .mms-face-label { padding: 4px 8px; }
+  .face-sans .mms-face-label { padding: 3px 8px 5px; }
+  .face-mono .mms-face-label { padding: 4px 8px; }
+  .face-gothic .mms-face-label { padding: 6px 8px 2px; }
+  /* slider: 44px touch track, 24px optical row */
+  .mms-scale {
+    grid-column: 1;
+    grid-row: 1;
+    order: 1;
+    width: 100%;
+    min-width: 0;
+    height: 24px;
+    gap: var(--space-4);
+    overflow: visible;
+    box-sizing: border-box;
+    padding-inline: 4px !important;
+  }
+  .mms-scale .a-min { font-size: 17px !important; }
+  .mms-scale .a-max { font-size: 30px !important; }
+  .mms-scale input[type="range"] {
+    height: 44px; background: linear-gradient(var(--color-text-primary), var(--color-text-primary)) center / 100% 1px no-repeat;
+  }
+  .mms-shapes { flex: 0 0 42px; height: 42px; overflow: visible; margin: 0; align-items: center; }
+  .mms-shape { position: relative; height: 44px !important; border: 0; background: transparent; isolation: isolate; }
+  .mms-shape::before {
+    content: ""; position: absolute; box-sizing: border-box; inset-inline: 0; z-index: -1;
+    border: 1px solid var(--color-border); background: var(--color-bg-page);
+  }
+  .mms-shape::after { content: ""; position: absolute; inset: 0; }
+  .mms-shape.straight::before { height: 38px; top: 3px; transform: none; border-radius: 0; }
+  .mms-shape.rounded::before { height: 40px; top: 2px; transform: none; border-radius: 6px; }
+  .mms-shape.oval::before { height: 42px; top: 1px; transform: none; border-radius: 50%; }
+  .mms-shape[aria-pressed="true"] { background: transparent; }
+  .mms-shape[aria-pressed="true"]::before { background: var(--color-text-primary); }
+}
+
+/* Once the sheet no longer needs the complete phone width, keep the exact
+   compact composition and align it to the right. Orientation never changes
+   the control-panel structure. */
+@media (min-width: 431px) and (max-width: 759px) {
+  dialog.mms-panel {
+    width: min(390px, calc(100vw - 32px));
+    inset: auto 16px 0 auto;
+    transform: none;
+    border: 1px solid var(--color-border); border-bottom: 0;
+  }
+}
+
+/* 390px panel + 24px insets leaves at least ~320px of portfolio preview. */
+@media (min-width: 760px) and (max-width: 1023px) {
+  dialog.mms-panel {
+    width: 390px;
+    inset: auto 24px 24px auto;
+    transform: none;
+    border: 1px solid var(--color-border);
+  }
+}
+
+/* ---------- Cargo mobile-offset neutralizer — KEEP THIS SECTION LAST ---------- */
+/* Cargo's mobile editor generates a #mobile-offset-styles sheet: clones of
+   every padding/margin declaration scaled by var(--mobile-padding-offset),
+   injected AFTER this stylesheet (and one clone selector, ".mms *", leaks
+   unprefixed into desktop too). Their clones carry no !important, so these
+   re-assertions always win in both editor modes and on the live site. */
+.mms { margin-inline: 0 !important; padding: 0 !important; }
+.mms * { margin: 0 !important; padding: 0 !important; }
+.mms-rail { padding: var(--edge-pad) var(--chrome-space-32) var(--edge-pad) var(--edge-pad) !important; }
+.mms-rail ul { margin-top: var(--chrome-space-24) !important; }
+.mms-rail a, .mms-mlinks a { padding-block: 0 !important; }
+.mms-panel { padding: var(--chrome-space-16) !important; margin: 0 var(--chrome-space-32) var(--edge-pad) var(--edge-pad) !important; }
+.mms-main { padding: var(--edge-pad) 0 var(--edge-pad) 0 !important; }
+.mms-intro p { margin-top: var(--lh-base) !important; }
+.mms-band + .mms-band,
+.mms-intro-wrap + .mms-band { margin-top: var(--space-192) !important; }
+.mms-river { padding-right: var(--edge-pad) !important; }
+.mms-desc { margin-left: var(--offset, 0px) !important; padding-top: var(--space-16) !important; }
+.mms-desc p, .mms-desc .url { margin-top: var(--space-8) !important; }
+@media (max-width: 1023px) {
+  .mms-mbar .mbar-row {
+    padding: max(var(--space-16), env(safe-area-inset-top)) var(--margin-page) var(--space-16) !important;
+  }
+  .mms-menu { margin-left: 0 !important; }
+  .mms-intro-wrap > .mms-mlinks {
+    padding: var(--space-24) var(--margin-page) var(--space-16) !important;
+    margin-top: 0 !important;
+  }
+  .mms-mlinks ul + ul { margin-top: var(--lh-base) !important; }
+  .mms-clock-m { margin-left: auto !important; }
+  .mms-main { padding: 0 0 var(--space-64) !important; }
+  .mms-sticky-head { padding: var(--space-24) var(--margin-page) var(--space-40) !important; }
+  .mms-band { padding: 0 !important; }
+  .mms-intro-wrap > .mms-band { padding-top: var(--space-40) !important; }
+  .mms-band + .mms-band,
+  .mms-intro-wrap + .mms-band { margin-top: var(--space-64) !important; }
+  .mms-river { padding-inline: 0 !important; }
+  .mms-desc { margin-left: var(--margin-page) !important; padding-right: 0 !important; padding-top: var(--space-16) !important; }
+  dialog.mms-panel[open] {
+    padding: var(--panel-block-pad) var(--panel-inline) max(var(--panel-block-pad), calc(env(safe-area-inset-bottom) + 8px)) !important;
+    margin: 0 !important;
+  }
+  dialog.mms-panel .mms-panel-primary {
+    margin: 0 !important;
+    padding-inline: 2px !important;
+  }
+  dialog.mms-panel .row.grid2 { margin: 0 !important; padding-inline: 2px !important; }
+  dialog.mms-panel .mms-scale { padding-inline: 4px !important; }
+  dialog.mms-panel .mms-shapes { margin: 0 !important; }
+}
+@media (min-width: 1024px) {
+  .mms dialog.mms-panel {
+    padding:
+      calc(var(--panel-pad-block-expanded) - 1px)
+      calc(var(--panel-pad-inline-expanded) - 1px) !important;
+  }
+  /* Figma desktop panel 1:1039: slider is the second row and its endpoint
+     letters sit 4 design units inward from the panel's content edges. */
+  dialog.mms-panel .mms-scale { padding-inline: calc(4 * var(--chrome-u)) !important; }
+}
+
+/* ---------- montran band: map tile (post-neutralizer; NO margin/padding decls,
+   so the neutralizer's keep-last rule is unaffected) ----------
+   Cargo pins color + font-family on text inside bodycopy (.mms inheritance never
+   reaches it) — counter with the vars. The sanitizer strips inline font-family,
+   so these MUST live here, not inline.
+   Caption = Cargo native icon + hanging text ("acts like a bullet" — Ocean).
+   Figma Frame 339:784: icon 20.7x19.3, gap 2, text 493 in a 515.7 row;
+   em units (@ caption 14px: 1.48em=20.7, 0.143em=2) keep it scaling with
+   typeface + type-scale axes. */
+.mms-tile, .mms-band .caption { font-family: var(--font-family-base); color: var(--color-text-primary); }
+.mms-band .caption { display: flex; align-items: flex-start; gap: 0.2em; }
+.mms-band .caption text-icon {
+  flex: 0 0 auto; width: 1.1em !important; height: 1.1em !important;
+  transform: translateY(0.08em);
+}
+/* kelly zine caption: icon points UP at the grid (Figma 442:521 rot 90) */
+[data-band="kelly"] .caption text-icon { transform: translateY(0.08em) rotate(-90deg); }
+/* neutralizer-proof paddings for river captions */
+[data-slot="kelly-caption"] { padding-top: calc(8*var(--layout-u)) !important; }
+
+/* ---------- Round 21: captioned tiles + compact showcase refinements ---------- */
+.mms-map-tile {
+  --map-gap: calc(12 * var(--layout-u));
+  --map-tile-h: calc(504 * var(--asset-u));
+  --map-image-w: calc(690 * var(--asset-u));
+  --map-image-h: calc(442 * var(--asset-u));
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  align-items: flex-start;
+  gap: var(--map-gap) !important;
+  height: var(--map-tile-h) !important;
+  overflow: hidden;
+}
+.mms-map-tile > [data-slot="montran-map-caption"] {
+  flex: 0 0 auto;
+  margin: 0 !important;
+}
+.mms-map-tile > .mms-frame {
+  flex: 0 0 auto !important;
+  width: var(--map-image-w) !important;
+  height: var(--map-image-h) !important;
+  aspect-ratio: 690 / 442;
+}
+.mms-map-tile > .mms-frame > .mms-img {
+  object-fit: contain;
+  object-position: left bottom;
+}
+
+[data-frame-for="randompics-video"] {
+  width: calc(432 * var(--asset-u));
+  height: calc(667.2 * var(--asset-u));
+  aspect-ratio: 432 / 667.2;
+  flex: 0 0 auto;
+}
+
+/* Kelly is a nested grid rather than a direct river child. Pin its expanded
+   geometry explicitly so Cargo's generic image rules cannot turn the four
+   cells into a single oversized row. */
+@media (min-width: 1024px) {
+  [data-band="kelly"] > .mms-river {
+    height: auto !important;
+  }
+  [data-slot="kelly-grid"] {
+    display: grid !important;
+    grid-template-columns: repeat(2, calc(523.4 * var(--layout-u))) !important;
+    grid-template-rows: repeat(2, calc(380.2 * var(--layout-u))) auto !important;
+    width: calc(1046.8 * var(--layout-u)) !important;
+    height: auto !important;
+  }
+  [data-slot="kelly-grid"] > .mms-frame {
+    width: calc(523.4 * var(--layout-u)) !important;
+    height: calc(380.2 * var(--layout-u)) !important;
+    aspect-ratio: 523.4 / 380.2;
+  }
+  [data-slot="kelly-grid"] > .mms-frame > .mms-img { object-fit: contain; }
+}
+
+@media (max-width: 1023px) {
+  /* Four equal-width horizontal cards. The caption occupies only the first
+     column, so its sentence wraps locally instead of spanning the river. */
+  [data-slot="kelly-grid"] {
+    display: grid !important;
+    grid-template-columns: repeat(4, var(--mobile-media-w)) !important;
+    grid-template-rows: auto auto !important;
+    column-gap: clamp(16px, 3vw, 24px) !important;
+    row-gap: var(--space-12) !important;
+    width: max-content !important;
+    height: auto !important;
+    background: var(--color-bg-page);
+  }
+  [data-slot="kelly-grid"] > .mms-frame {
+    width: var(--mobile-media-w) !important;
+    height: auto !important;
+    aspect-ratio: 523.4 / 380.2;
+    grid-row: 1 !important;
+  }
+  [data-slot="kelly-grid"] > [data-kelly-item="3"] { grid-column: 1 !important; }
+  [data-slot="kelly-grid"] > [data-kelly-item="2"] { grid-column: 2 !important; }
+  [data-slot="kelly-grid"] > [data-kelly-item="1"] { grid-column: 3 !important; }
+  [data-slot="kelly-grid"] > [data-kelly-item="4"] { grid-column: 4 !important; }
+  /* Cargo appends a later `.mms * { padding: 0 !important; }` clone in some
+     mobile renders. Keep this selector more specific, and reserve enough ink
+     space for the deepest compact Sans XL descender before the river's
+     intentional overflow-y clipping boundary. */
+  .mms [data-slot="kelly-caption"] {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    width: var(--mobile-media-w) !important;
+    padding-top: 0 !important;
+    padding-bottom: max(6px, 0.25em) !important;
+    box-sizing: border-box;
+  }
+  [data-band="kelly"] .mms-desc { position: relative; }
+  [data-band="kelly"] .mms-desc::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--color-bg-page);
+    pointer-events: none;
+  }
+
+  /* Compact booklet interaction belongs to the parent river. Transparent
+     tap halves permit a single page command, while touch-action leaves both
+     native horizontal river panning and vertical page scrolling available. */
+  .mms-booklet-shell > .mms-booklet { pointer-events: none; }
+  .mms-booklet-gesture {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 46% 8% 46%;
+    touch-action: pan-x pan-y;
+  }
+  .mms-booklet-turn {
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: transparent;
+    appearance: none;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: pan-x pan-y;
+  }
+  .mms-booklet-turn[data-booklet-turn="previous"] { grid-column: 1; }
+  .mms-booklet-turn[data-booklet-turn="next"] { grid-column: 3; }
+
+  /* Caption and media form one opaque, centered unit. This prevents the
+     sticky header from showing through their intentional internal gap. */
+  .mms-band[data-band="randompics"] {
+    padding: 0 !important;
+  }
+  [data-band="randompics"] .mms-river {
+    width: 100%;
+    justify-content: center;
+    overflow-x: hidden;
+    padding-inline: var(--margin-page) !important;
+  }
+  [data-band="randompics"] .mms-river::before,
+  [data-band="randompics"] .mms-river::after { display: none; }
+  [data-band="randompics"] .mms-tile {
+    --randompics-video-w: var(--mobile-media-w);
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: flex-end !important;
+    gap: var(--space-12) !important;
+    width: var(--randompics-video-w) !important;
+    height: auto !important;
+    background: var(--color-bg-page);
+  }
+  [data-slot="randompics-caption"] {
+    width: var(--randompics-video-w) !important;
+  }
+  [data-frame-for="randompics-video"] {
+    flex: 0 0 auto !important;
+    width: var(--randompics-video-w) !important;
+    height: auto !important;
+    aspect-ratio: 432 / 667.2;
+  }
+
+  .mms-map-tile {
+    width: var(--mobile-media-w) !important;
+    height: auto !important;
+    gap: var(--space-12) !important;
+    overflow: visible;
+    background: var(--color-bg-page);
+  }
+  .mms-map-tile > [data-slot="montran-map-caption"] {
+    width: var(--mobile-media-w) !important;
+  }
+  .mms-map-tile > .mms-frame {
+    width: var(--mobile-media-w) !important;
+    height: auto !important;
+  }
+  #mms-tw-rig { display: none !important; }
+  [data-band="montran"] iframe[data-src] { background: #000; }
+  [data-slot="mandy-hf-alpha-video"] { background: transparent !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mms-intro [uses="rotation"] { animation: none !important; }
+  html[data-render-preview] body,
+  html[data-render-preview] .mms,
+  html[data-render-preview] .mms-img,
+html[data-render-preview] .mms-frame { transition: none !important; }
+}
+
+/* Cargo's generated mobile-offset sheet can be injected after the managed
+   stylesheet. Keep this final and specific: text navigation follows the body
+   baseline; the actual control surfaces remain 44px. */
+.mms .mms-rail a {
+  padding-block: 0 !important;
+  line-height: var(--lh-base) !important;
+}
+@media (max-width: 1023px) {
+  .mms .mms-mbar .mms-mlinks a {
+    display: block !important;
+    min-height: 0 !important;
+    padding-block: 0 !important;
+    line-height: var(--lh-base) !important;
+  }
+}
+
+/* ---------- Named pages: Who + Write (Figma 502:466 / 532:1208) ----------
+   These pages share the current MM.S shell and control runtime, but their
+   content is ordinary editorial layout rather than a showcase river. Keep
+   every rule page-scoped so Work remains unchanged. */
+.mms[data-page] .mms-main {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+.mms[data-page] .mms-sticky-head { z-index: 1; }
+.mms[data-page] .mms-intro p:first-child { margin-top: 0 !important; }
+.mms[data-page] .mms-person-copy h1,
+.mms[data-page] .mms-writing-piece h1 {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--lh-base);
+  font-weight: 400;
+  color: var(--color-text-primary);
+}
+
+/* Who: 664px introduction followed by two 432px founder columns. */
+.mms[data-page="who"] .mms-sticky-head {
+  position: relative;
+  top: auto;
+  height: auto;
+}
+@media (min-width: 1024px) {
+  .mms[data-page="who"] .mms-main {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.mms[data-page="who"] .mms-who-intro-compact { display: none; }
+.mms[data-page="who"] .mms-who-ocean-stage { display: contents; }
+.mms[data-page="who"] .mms-who-profiles {
+  display: grid;
+  grid-template-columns: var(--col-4) var(--col-4);
+  gap: var(--space-32);
+  width: var(--col-10);
+  margin-top: auto !important;
+}
+.mms[data-page="who"] .mms-person {
+  width: var(--col-4);
+  min-width: 0;
+}
+.mms[data-page="who"] .mms-person-media {
+  display: flex;
+  width: 100%;
+  height: auto;
+}
+.mms[data-page="who"] .mms-person-media .mms-frame {
+  width: max(200px, calc(200 * var(--layout-u)));
+  height: auto;
+  aspect-ratio: 200 / 237.276;
+  flex: 0 0 auto;
+}
+.mms[data-page="who"] .mms-person-copy {
+  width: 100%;
+  padding-top: var(--space-16) !important;
+}
+.mms[data-page="who"] .mms-person-copy p {
+  margin-top: var(--space-8) !important;
+  font-size: var(--font-size-caption);
+  line-height: var(--lh-caption);
+}
+.mms[data-page="who"] .mms-person-copy a {
+  display: inline-block;
+  margin-top: var(--space-8) !important;
+}
+
+/* Write: Figma's five editorial blocks use deliberate staggered widths. */
+.mms[data-page="write"] .mms-writing {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-64);
+  width: var(--col-10);
+}
+.mms[data-page="write"] .mms-write-top {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-32);
+  min-height: calc(304 * var(--layout-u));
+  margin-left: max(
+    0px,
+    calc((100% - max(316px, calc(316 * var(--layout-u))) - max(316px, calc(316 * var(--layout-u))) - var(--space-32)) / 2)
+  ) !important;
+}
+.mms[data-page="write"] .mms-writing-piece {
+  box-sizing: border-box;
+  min-width: 0;
+  padding-top: 0 !important;
+  background: var(--color-bg-page);
+  font-size: var(--font-size-base);
+  line-height: var(--lh-base);
+}
+.mms[data-page="write"] .mms-writing-plate { display: contents; }
+.mms[data-page="write"] .mms-writing-plate > p,
+.mms[data-page="write"] .mms-writing-plate > ol,
+.mms[data-page="write"] .mms-writing-plate > ul {
+  margin-top: var(--space-8) !important;
+}
+.mms[data-page="write"] .mms-writing-withered .mms-writing-plate > p + p {
+  margin-top: var(--lh-base) !important;
+}
+.mms[data-page="write"] .mms-writing-piece ol,
+.mms[data-page="write"] .mms-writing-piece ul {
+  padding-left: calc(27 * var(--layout-u)) !important;
+}
+.mms[data-page="write"] .mms-list-continuation {
+  display: inline-block;
+  padding-left: calc(9 * var(--layout-u)) !important;
+}
+.mms[data-page="write"] .mms-writing-selfhelp,
+.mms[data-page="write"] .mms-writing-clout { width: max(316px, calc(316 * var(--layout-u))); }
+.mms[data-page="write"] .mms-writing-selfhelp { min-height: calc(247 * var(--layout-u)); }
+.mms[data-page="write"] .mms-writing-clout { min-height: calc(201 * var(--layout-u)); }
+.mms[data-page="write"] .mms-writing-withered {
+  width: max(432px, var(--col-4));
+  min-height: calc(458 * var(--layout-u));
+  margin-top: 0 !important;
+  margin-left: min(
+    calc((2 * var(--col-2)) + (2 * var(--space-32))),
+    max(0px, calc(100% - max(432px, var(--col-4))))
+  ) !important;
+}
+.mms[data-page="write"] .mms-writing-amazon {
+  width: max(664px, var(--col-6));
+  min-height: calc(254 * var(--layout-u));
+  margin-top: 0 !important;
+  margin-left: max(0px, calc((100% - max(664px, var(--col-6))) / 2)) !important;
+}
+.mms[data-page="write"] .mms-writing-world {
+  width: max(432px, var(--col-4));
+  min-height: calc(204 * var(--layout-u));
+  margin-top: 0 !important;
+  margin-left: auto !important;
+}
+
+@media (max-width: 1023px) {
+  /* Named pages inherit the exact Home sticky-link contract. The shared
+     ResizeObserver therefore produces the same MM.S-to-links gap and bar
+     height on Work, Who, and Write. */
+  .mms[data-page] .mms-main {
+    min-height: 0;
+    padding: 0 0 var(--space-64) !important;
+  }
+  .mms[data-page] {
+    /* Full containers follow the six-column grid. The deliberately irregular
+       editorial blocks below retain their 390px Figma proportions, then cap
+       at the corresponding desktop text-frame endpoints. */
+    --named-grid-width: var(--compact-grid-span-6);
+    --write-selfhelp-width: 100%;
+    --write-clout-width: var(--compact-grid-span-4);
+    --write-withered-width: 100%;
+    --write-amazon-width: 100%;
+    --write-world-width: 100%;
+  }
+
+  .mms[data-page="who"] .mms-who-intro-expanded { display: none; }
+  .mms[data-page="who"] .mms-who-ocean-stage {
+    display: block;
+    position: relative;
+    overflow: visible;
+  }
+  .mms[data-page="who"] .mms-who-intro-compact {
+    display: block;
+    position: sticky;
+    top: var(--bar-h, 200px);
+    height: auto;
+    z-index: 1;
+    background: transparent;
+    padding: var(--space-24) 0 var(--space-24) !important;
+  }
+  .mms[data-page="who"] .mms-who-profiles {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-32);
+    width: var(--named-grid-width);
+    margin: 0 0 0 var(--margin-page) !important;
+  }
+  .mms[data-page="who"] .mms-person {
+    position: relative;
+    z-index: 20;
+    width: 100%;
+    background: transparent;
+  }
+  .mms[data-page="who"] .mms-person-ocean {
+    padding-top: var(--space-40) !important;
+  }
+  .mms[data-page="who"] .mms-person-media {
+    position: relative;
+    background: var(--color-bg-page);
+    width: 100%;
+    height: auto;
+  }
+  .mms[data-page="who"] .mms-person-media .mms-frame {
+    width: min(200px, calc(var(--named-grid-width) - var(--compact-grid-span-4)));
+    height: auto;
+    aspect-ratio: 200 / 237.276;
+  }
+  .mms[data-page="who"] .mms-person-copy {
+    position: relative;
+    background: var(--color-bg-page);
+    padding-top: var(--space-16) !important;
+  }
+
+  .mms[data-page="write"] .mms-sticky-head { display: none; }
+  .mms[data-page="write"] .mms-writing {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-32);
+    position: relative;
+    z-index: auto;
+    width: var(--named-grid-width);
+    margin: var(--space-32) 0 0 var(--margin-page) !important;
+    background: transparent;
+    pointer-events: none;
+  }
+  .mms[data-page="write"] .mms-write-top {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-32);
+    min-height: 0;
+    margin-left: 0 !important;
+  }
+  .mms[data-page="write"] .mms-writing-piece {
+    position: relative;
+    z-index: 20;
+    min-height: 0;
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+    padding-top: 0 !important;
+    background: transparent;
+    pointer-events: none;
+  }
+  .mms[data-page="write"] .mms-writing-plate {
+    display: inline-block;
+    box-sizing: border-box;
+    width: fit-content;
+    max-width: 100%;
+    padding-top: 0 !important;
+    background: var(--color-bg-page);
+    pointer-events: auto;
+  }
+  .mms[data-page="write"] .mms-writing-piece ol,
+  .mms[data-page="write"] .mms-writing-piece ul { padding-left: 18px !important; }
+  .mms[data-page="write"] .mms-writing-plate > h1 + p,
+  .mms[data-page="write"] .mms-writing-plate > h1 + ol,
+  .mms[data-page="write"] .mms-writing-plate > h1 + ul {
+    margin-top: var(--space-16) !important;
+  }
+  .mms[data-page="write"] .mms-list-continuation { padding-left: 9px !important; }
+  .mms[data-page="write"] .mms-writing-selfhelp { width: var(--write-selfhelp-width); }
+  .mms[data-page="write"] .mms-writing-clout {
+    width: var(--write-clout-width);
+    align-self: flex-end;
+  }
+  .mms[data-page="write"] .mms-writing-withered { width: var(--write-withered-width); }
+  .mms[data-page="write"] .mms-writing-amazon { width: var(--write-amazon-width); }
+  .mms[data-page="write"] .mms-writing-world {
+    width: var(--write-world-width);
+    align-self: flex-start;
+  }
+}
+
+/* Named-page additions live after Cargo's generated mobile-offset clones.
+   Reassert only the non-zero compact spacing introduced by this section. */
+@media (max-width: 1023px) {
+  .mms[data-page] .mms-intro-wrap > .mms-mlinks {
+    padding: var(--space-24) var(--margin-page) var(--space-16) !important;
+    margin-top: 0 !important;
+  }
+  .mms[data-page="who"] .mms-who-intro-compact {
+    padding: var(--space-24) 0 var(--space-24) !important;
+  }
+  .mms[data-page="who"] .mms-person-ocean {
+    padding-top: var(--space-40) !important;
+  }
+  .mms[data-page="who"] .mms-who-profiles {
+    margin: 0 0 0 var(--margin-page) !important;
+  }
+}

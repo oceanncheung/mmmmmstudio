@@ -1,0 +1,50 @@
+{
+  "captured_at_utc": "2026-07-20T22:34:32Z",
+  "baseline": "Round 80 stable",
+  "shared_runtime": "responsive-70",
+  "runtime_marker_counts": {
+    "cargo/home.html": 2,
+    "cargo/who.html": 2,
+    "cargo/write.html": 2
+  },
+  "panel_runtime_marker_count": 2,
+  "head_marker": {
+    "attribute": "data-mms-ios-edge-head",
+    "value": "49",
+    "count": 1
+  },
+  "home_inventory": {
+    "bands": 13,
+    "media_rows": 68,
+    "unique_media_ids": 68,
+    "tag_counts": {
+      "img": 38,
+      "video": 27,
+      "iframe": 3
+    },
+    "shape_policy_counts": {
+      "crop": 59,
+      "artwork": 6,
+      "interactive": 3
+    }
+  },
+  "embeds": {
+    "v7": {
+      "kind": "v7-cup",
+      "freight_id": "Z3031274916472238420423367767865",
+      "ready_contract": "__mmsEmbedReady=1"
+    },
+    "touchbaes": {
+      "kind": "touchbaes",
+      "version": 10,
+      "freight_id": "E3031754669080377521238157342521",
+      "ready_contract": "__mmsEmbedReady=1"
+    },
+    "montran": {
+      "kind": "montran-booklet",
+      "version": 17,
+      "freight_id": "U3034412351395654863674388559673",
+      "ready_contract": "__mmsBookletReady=1"
+    }
+  }
+}

@@ -1,0 +1,195 @@
+[
+  {
+    "id": "VariableID:51:270",
+    "name": "font/family",
+    "resolvedType": "STRING",
+    "collectionId": "VariableCollectionId:51:269",
+    "scopes": [
+      "FONT_FAMILY"
+    ],
+    "description": "Selectable production family. Serif = Times New Roman; Sans = TeX Gyre Heros Cn; Mono = ABC Gaisyr Semi Mono Trial; Gothic = UnifrakturMaguntia.",
+    "valuesByMode": {
+      "51:0": "Times New Roman",
+      "51:1": "TeX Gyre Heros Cn",
+      "51:2": "ABC Gaisyr Semi Mono Trial",
+      "51:3": "UnifrakturMaguntia"
+    }
+  },
+  {
+    "id": "VariableID:117:259",
+    "name": "size/caption",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:51:269",
+    "scopes": [
+      "FONT_SIZE"
+    ],
+    "description": "Face-aware Caption size selector. Serif aliases the responsive Caption token; Sans, Mono, and Gothic use optical compensation.",
+    "valuesByMode": {
+      "51:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:367"
+      },
+      "51:1": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:372"
+      },
+      "51:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:378"
+      },
+      "51:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:375"
+      }
+    }
+  },
+  {
+    "id": "VariableID:117:260",
+    "name": "size/base",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:51:269",
+    "scopes": [
+      "FONT_SIZE"
+    ],
+    "description": "Face-aware Body size selector. Serif aliases the responsive Body token; Sans, Mono, and Gothic use optical compensation.",
+    "valuesByMode": {
+      "51:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:366"
+      },
+      "51:1": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:373"
+      },
+      "51:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:379"
+      },
+      "51:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:376"
+      }
+    }
+  },
+  {
+    "id": "VariableID:117:261",
+    "name": "size/heading",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:51:269",
+    "scopes": [
+      "FONT_SIZE"
+    ],
+    "description": "Face-aware Heading size selector. Serif aliases the responsive Heading token; Sans, Mono, and Gothic use optical compensation.",
+    "valuesByMode": {
+      "51:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:368"
+      },
+      "51:1": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:374"
+      },
+      "51:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:380"
+      },
+      "51:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:377"
+      }
+    }
+  },
+  {
+    "id": "VariableID:127:253",
+    "name": "font/style-caption-italic",
+    "resolvedType": "STRING",
+    "collectionId": "VariableCollectionId:51:269",
+    "scopes": [
+      "FONT_STYLE"
+    ],
+    "description": "Caption-italic selector. Serif and Sans = Italic; Mono = Regular Italic; Gothic = Book because no italic cut exists.",
+    "valuesByMode": {
+      "51:0": "Italic",
+      "51:1": "Italic",
+      "51:2": "Regular Italic",
+      "51:3": "Book"
+    }
+  },
+  {
+    "id": "VariableID:162:301",
+    "name": "font/style-regular",
+    "resolvedType": "STRING",
+    "collectionId": "VariableCollectionId:51:269",
+    "scopes": [
+      "FONT_STYLE"
+    ],
+    "description": "Regular style selector. Serif, Sans, and Mono = Regular; Gothic = Book.",
+    "valuesByMode": {
+      "51:0": "Regular",
+      "51:1": "Regular",
+      "51:2": "Regular",
+      "51:3": "Book"
+    }
+  },
+  {
+    "id": "VariableID:162:302",
+    "name": "font/style-bold",
+    "resolvedType": "STRING",
+    "collectionId": "VariableCollectionId:51:269",
+    "scopes": [
+      "FONT_STYLE"
+    ],
+    "description": "Bold style selector. Serif, Sans, and Mono = Bold; Gothic = Book because no bold cut exists.",
+    "valuesByMode": {
+      "51:0": "Bold",
+      "51:1": "Bold",
+      "51:2": "Bold",
+      "51:3": "Book"
+    }
+  },
+  {
+    "id": "VariableID:676:354",
+    "name": "lh/caption",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:51:269",
+    "scopes": [
+      "LINE_HEIGHT"
+    ],
+    "description": "Caption leading selector. Serif, Sans, and Mono use responsive Caption leading; Gothic uses its dedicated tighter leading.",
+    "valuesByMode": {
+      "51:0": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:369"
+      },
+      "51:1": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:369"
+      },
+      "51:2": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:585:369"
+      },
+      "51:3": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:676:353"
+      }
+    }
+  },
+  {
+    "id": "VariableID:676:355",
+    "name": "header/control/icon-top",
+    "resolvedType": "FLOAT",
+    "collectionId": "VariableCollectionId:51:269",
+    "scopes": [
+      "GAP"
+    ],
+    "description": "Top inset for the compact 24px header control glyph inside its 44px target, optically corrected per typeface.",
+    "valuesByMode": {
+      "51:0": 10,
+      "51:1": 11,
+      "51:2": 10,
+      "51:3": 8
+    }
+  }
+]
+

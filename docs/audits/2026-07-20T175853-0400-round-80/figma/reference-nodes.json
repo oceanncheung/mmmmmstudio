@@ -1,0 +1,486 @@
+[
+  {
+    "id": "83:251",
+    "name": "home / desktop — rework (WIP)",
+    "type": "FRAME",
+    "width": 1440,
+    "height": 942,
+    "x": 1560,
+    "y": 0,
+    "visible": true,
+    "layoutMode": "NONE",
+    "primaryAxisSizingMode": "FIXED",
+    "counterAxisSizingMode": "FIXED",
+    "itemSpacing": 0,
+    "paddingTop": 0,
+    "paddingRight": 40,
+    "paddingBottom": 40,
+    "paddingLeft": 0,
+    "clipsContent": false,
+    "opacity": 1,
+    "explicitVariableModes": {
+      "VariableCollectionId:4:4": "4:2",
+      "VariableCollectionId:4:5": "4:4"
+    },
+    "boundVariables": {
+      "paddingRight": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:23"
+      },
+      "paddingBottom": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:21"
+      },
+      "fills": [
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:2"
+        }
+      ],
+      "layoutGrids": [
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:19"
+        },
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:20"
+        },
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:23"
+        }
+      ]
+    },
+    "childCount": 3
+  },
+  {
+    "id": "11:31",
+    "name": "home / mobile",
+    "type": "FRAME",
+    "width": 390,
+    "height": 844,
+    "x": 9053,
+    "y": 0,
+    "visible": true,
+    "layoutMode": "VERTICAL",
+    "primaryAxisSizingMode": "FIXED",
+    "counterAxisSizingMode": "FIXED",
+    "itemSpacing": 32,
+    "paddingTop": 20,
+    "paddingRight": 20,
+    "paddingBottom": 20,
+    "paddingLeft": 20,
+    "clipsContent": true,
+    "opacity": 1,
+    "explicitVariableModes": {
+      "VariableCollectionId:4:4": "4:3",
+      "VariableCollectionId:4:5": "4:4",
+      "VariableCollectionId:51:269": "51:0"
+    },
+    "boundVariables": {
+      "itemSpacing": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:20"
+      },
+      "paddingLeft": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:23"
+      },
+      "paddingTop": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:23"
+      },
+      "paddingRight": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:23"
+      },
+      "paddingBottom": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:23"
+      },
+      "fills": [
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:2"
+        }
+      ],
+      "layoutGrids": [
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:18"
+        },
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:19"
+        },
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:23"
+        }
+      ]
+    },
+    "childCount": 2
+  },
+  {
+    "id": "502:466",
+    "name": "who / desktop",
+    "type": "FRAME",
+    "width": 1440,
+    "height": 942,
+    "x": 0,
+    "y": 0,
+    "visible": true,
+    "layoutMode": "NONE",
+    "primaryAxisSizingMode": "FIXED",
+    "counterAxisSizingMode": "FIXED",
+    "itemSpacing": 0,
+    "paddingTop": 0,
+    "paddingRight": 40,
+    "paddingBottom": 40,
+    "paddingLeft": 0,
+    "clipsContent": false,
+    "opacity": 1,
+    "explicitVariableModes": {
+      "VariableCollectionId:4:4": "4:2",
+      "VariableCollectionId:4:5": "4:4"
+    },
+    "boundVariables": {
+      "paddingRight": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:23"
+      },
+      "paddingBottom": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:21"
+      },
+      "fills": [
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:2"
+        }
+      ],
+      "layoutGrids": [
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:19"
+        },
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:20"
+        },
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:23"
+        }
+      ]
+    },
+    "childCount": 3
+  },
+  {
+    "id": "638:432",
+    "name": "who / mobile",
+    "type": "FRAME",
+    "width": 390,
+    "height": 1279.1400146484375,
+    "x": 1490,
+    "y": 0,
+    "visible": true,
+    "layoutMode": "VERTICAL",
+    "primaryAxisSizingMode": "AUTO",
+    "counterAxisSizingMode": "FIXED",
+    "itemSpacing": 32,
+    "paddingTop": 20,
+    "paddingRight": 20,
+    "paddingBottom": 64,
+    "paddingLeft": 20,
+    "clipsContent": false,
+    "opacity": 1,
+    "explicitVariableModes": {
+      "VariableCollectionId:4:4": "4:3",
+      "VariableCollectionId:4:5": "4:4"
+    },
+    "boundVariables": {
+      "itemSpacing": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:20"
+      },
+      "paddingLeft": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:23"
+      },
+      "paddingTop": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:23"
+      },
+      "paddingRight": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:23"
+      },
+      "paddingBottom": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:22"
+      },
+      "fills": [
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:2"
+        }
+      ],
+      "layoutGrids": [
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:18"
+        },
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:19"
+        },
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:23"
+        }
+      ]
+    },
+    "childCount": 2
+  },
+  {
+    "id": "532:1208",
+    "name": "write / desktop",
+    "type": "FRAME",
+    "width": 1440,
+    "height": 942,
+    "x": 0,
+    "y": 0,
+    "visible": true,
+    "layoutMode": "NONE",
+    "primaryAxisSizingMode": "FIXED",
+    "counterAxisSizingMode": "FIXED",
+    "itemSpacing": 0,
+    "paddingTop": 0,
+    "paddingRight": 40,
+    "paddingBottom": 40,
+    "paddingLeft": 0,
+    "clipsContent": false,
+    "opacity": 1,
+    "explicitVariableModes": {
+      "VariableCollectionId:4:4": "4:2",
+      "VariableCollectionId:4:5": "4:4"
+    },
+    "boundVariables": {
+      "paddingRight": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:23"
+      },
+      "paddingBottom": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:21"
+      },
+      "fills": [
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:2"
+        }
+      ],
+      "layoutGrids": [
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:19"
+        },
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:20"
+        },
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:23"
+        }
+      ]
+    },
+    "childCount": 3
+  },
+  {
+    "id": "640:448",
+    "name": "write / mobile",
+    "type": "FRAME",
+    "width": 390,
+    "height": 1938,
+    "x": 1490,
+    "y": 0,
+    "visible": true,
+    "layoutMode": "VERTICAL",
+    "primaryAxisSizingMode": "AUTO",
+    "counterAxisSizingMode": "FIXED",
+    "itemSpacing": 32,
+    "paddingTop": 20,
+    "paddingRight": 20,
+    "paddingBottom": 64,
+    "paddingLeft": 20,
+    "clipsContent": false,
+    "opacity": 1,
+    "explicitVariableModes": {
+      "VariableCollectionId:4:4": "4:3",
+      "VariableCollectionId:4:5": "4:4"
+    },
+    "boundVariables": {
+      "itemSpacing": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:20"
+      },
+      "paddingLeft": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:23"
+      },
+      "paddingTop": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:23"
+      },
+      "paddingRight": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:23"
+      },
+      "paddingBottom": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:22"
+      },
+      "fills": [
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:2"
+        }
+      ],
+      "layoutGrids": [
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:18"
+        },
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:19"
+        },
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:23"
+        }
+      ]
+    },
+    "childCount": 2
+  },
+  {
+    "id": "1:1039",
+    "name": "Control Panel",
+    "type": "COMPONENT",
+    "width": 200,
+    "height": 248,
+    "x": 39,
+    "y": 50,
+    "visible": true,
+    "layoutMode": "VERTICAL",
+    "primaryAxisSizingMode": "AUTO",
+    "counterAxisSizingMode": "FIXED",
+    "itemSpacing": 16,
+    "paddingTop": 24,
+    "paddingRight": 16,
+    "paddingBottom": 24,
+    "paddingLeft": 16,
+    "clipsContent": true,
+    "opacity": 1,
+    "explicitVariableModes": {
+      "VariableCollectionId:4:5": "4:4"
+    },
+    "boundVariables": {
+      "itemSpacing": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:18"
+      },
+      "paddingLeft": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:18"
+      },
+      "paddingTop": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:19"
+      },
+      "paddingRight": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:18"
+      },
+      "paddingBottom": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:19"
+      },
+      "width": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:82:251"
+      },
+      "fills": [
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:2"
+        }
+      ],
+      "strokes": [
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:19:35"
+        }
+      ]
+    },
+    "childCount": 4
+  },
+  {
+    "id": "1:2899",
+    "name": "Control Panel / Sheet",
+    "type": "COMPONENT",
+    "width": 390,
+    "height": 178,
+    "x": 30,
+    "y": 53,
+    "visible": true,
+    "layoutMode": "VERTICAL",
+    "primaryAxisSizingMode": "AUTO",
+    "counterAxisSizingMode": "FIXED",
+    "itemSpacing": 0,
+    "paddingTop": 16,
+    "paddingRight": 20,
+    "paddingBottom": 16,
+    "paddingLeft": 20,
+    "clipsContent": true,
+    "opacity": 1,
+    "explicitVariableModes": {
+      "VariableCollectionId:4:4": "4:3"
+    },
+    "boundVariables": {
+      "paddingLeft": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:23"
+      },
+      "paddingTop": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:18"
+      },
+      "paddingRight": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:23"
+      },
+      "paddingBottom": {
+        "type": "VARIABLE_ALIAS",
+        "id": "VariableID:5:18"
+      },
+      "fills": [
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5:2"
+        }
+      ],
+      "strokes": [
+        {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:19:35"
+        }
+      ]
+    },
+    "childCount": 3
+  }
+]
+

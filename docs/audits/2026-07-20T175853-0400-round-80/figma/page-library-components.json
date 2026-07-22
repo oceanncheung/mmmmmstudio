@@ -1,0 +1,17 @@
+{
+  "id": "6:3",
+  "name": "library — components",
+  "children": [
+    {
+      "id": "532:1061",
+      "name": "Section 1",
+      "type": "SECTION",
+      "x": -100,
+      "y": -270,
+      "width": 3220,
+      "height": 2148,
+      "visible": true
+    }
+  ]
+}
+

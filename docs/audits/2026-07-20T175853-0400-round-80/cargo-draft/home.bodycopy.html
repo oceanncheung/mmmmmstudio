@@ -1,0 +1,2082 @@
+<script id="mms-early-viewport-init">
+(function () {
+  /* Cargo can execute the same bodycopy once during initial parsing and again
+     during hydration. Only the first initializer owns this refresh sequence. */
+  if (window.__mmsEarlyPreviewStarted) return;
+  window.__mmsEarlyPreviewStarted = 'edge-preview-v2';
+
+  var root = document.documentElement;
+  var THEMES = ['white', 'girly', 'quirky', 'contrast', 'black'];
+  var THEME_COLORS = {
+    white: '#FFFFFF',
+    girly: '#FFEEF4',
+    quirky: '#553D12',
+    contrast: '#FEFF01',
+    black: '#000000'
+  };
+  var FACES = ['serif', 'sans', 'mono', 'gothic'];
+  var SCALES = ['s', 'm', 'l', 'xl'];
+  var SHAPES = ['straight', 'rounded', 'oval'];
+  var AXES = { theme: THEMES, face: FACES, scale: SCALES, shape: SHAPES };
+  var FALLBACKS = { theme: 'white', face: 'serif', scale: 'm', shape: 'straight' };
+  var THEME_MIGRATIONS = { navy: 'girly', brown: 'quirky', yellow: 'contrast' };
+  var PREVIEW_COUNT = 4;
+  var PREVIEW_HOLD_MS = 375;
+  var PREVIEW_FAILSAFE_MS = 3000;
+  var userAgent = navigator.userAgent || '';
+  var isIOS = /iPad|iPhone|iPod/.test(userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isSafari = /Safari/.test(userAgent) &&
+    !/CriOS|FxiOS|EdgiOS|OPiOS|DuckDuckGo/.test(userAgent);
+  var usePreviewEdgeSampler = Boolean(isIOS && isSafari && window.matchMedia &&
+    window.matchMedia('(max-width: 1023px)').matches);
+
+  if (usePreviewEdgeSampler) root.setAttribute('data-mms-ios-safari', '1');
+
+  function storedAxis(axis) {
+    var value = null;
+    try { value = localStorage.getItem('mms-' + axis); } catch (e) {}
+    if (axis === 'theme' && value && THEME_MIGRATIONS[value]) value = THEME_MIGRATIONS[value];
+    return AXES[axis].indexOf(value) >= 0 ? value : FALLBACKS[axis];
+  }
+
+  function applyAxes(values) {
+    Object.keys(AXES).forEach(function (axis) {
+      root.setAttribute('data-' + axis, values[axis]);
+    });
+  }
+
+  function randomIndex(length) {
+    if (window.crypto && window.crypto.getRandomValues) {
+      var value = new Uint32Array(1);
+      window.crypto.getRandomValues(value);
+      return value[0] % length;
+    }
+    return Math.floor(Math.random() * length);
+  }
+
+  function shuffled(values) {
+    var result = values.slice();
+    for (var index = result.length - 1; index > 0; index -= 1) {
+      var swapIndex = randomIndex(index + 1);
+      var held = result[index];
+      result[index] = result[swapIndex];
+      result[swapIndex] = held;
+    }
+    return result;
+  }
+
+  function extendedAxisSequence(values, length) {
+    for (var attempt = 0; attempt < 48; attempt += 1) {
+      var pool = values.slice();
+      while (pool.length < length) pool.push(values[randomIndex(values.length)]);
+      var candidate = shuffled(pool);
+      var adjacent = candidate.some(function (value, index) {
+        return index > 0 && value === candidate[index - 1];
+      });
+      if (!adjacent) return candidate;
+    }
+    var fallback = values.slice();
+    while (fallback.length < length) fallback.push(values[fallback.length % values.length]);
+    return fallback;
+  }
+
+  function axisDifference(left, right) {
+    return Object.keys(AXES).reduce(function (count, axis) {
+      return count + (left[axis] === right[axis] ? 0 : 1);
+    }, 0);
+  }
+
+  function finalCutDiffersFromTarget(values, target) {
+    return values.theme !== target.theme &&
+      values.face !== target.face &&
+      values.scale !== target.scale;
+  }
+
+  function signatureFor(sequence) {
+    return sequence.map(function (values) {
+      return [values.theme, values.face, values.scale, values.shape].join(':');
+    }).join('|');
+  }
+
+  function uniqueCombinationCount(sequence) {
+    var seen = {};
+    sequence.forEach(function (values) { seen[signatureFor([values])] = true; });
+    return Object.keys(seen).length;
+  }
+
+  function keepTargetOffEnds(values, target) {
+    var result = values.slice();
+    var targetIndex = result.indexOf(target);
+    if (targetIndex === 0) {
+      var firstHeld = result[0]; result[0] = result[1]; result[1] = firstHeld;
+    } else if (targetIndex === result.length - 1) {
+      var lastHeld = result[result.length - 1];
+      result[result.length - 1] = result[result.length - 2];
+      result[result.length - 2] = lastHeld;
+    }
+    return result;
+  }
+
+  function buildRenderSequence(target) {
+    var previousSignature = null;
+    try { previousSignature = sessionStorage.getItem('mms-render-sequence'); } catch (e) {}
+    var previewThemes = THEMES.filter(function (theme) { return theme !== target.theme; });
+    var sequence = [];
+    var signature = '';
+    for (var attempt = 0; attempt < 48; attempt += 1) {
+      var themes = shuffled(previewThemes);
+      var faces = shuffled(FACES);
+      var scales = shuffled(SCALES);
+      var shapes = extendedAxisSequence(SHAPES, PREVIEW_COUNT);
+      sequence = themes.map(function (theme, index) {
+        return { theme: theme, face: faces[index], scale: scales[index], shape: shapes[index] };
+      });
+      signature = signatureFor(sequence);
+      if (uniqueCombinationCount(sequence) === PREVIEW_COUNT &&
+          signature !== previousSignature &&
+          axisDifference(sequence[0], target) >= 2 &&
+          finalCutDiffersFromTarget(sequence[sequence.length - 1], target)) break;
+    }
+    if (sequence.length !== PREVIEW_COUNT || signature === previousSignature ||
+        axisDifference(sequence[0], target) < 2 ||
+        !finalCutDiffersFromTarget(sequence[sequence.length - 1], target)) {
+      var fallbackFaces = keepTargetOffEnds(shuffled(FACES), target.face);
+      var fallbackScales = keepTargetOffEnds(shuffled(SCALES), target.scale);
+      var fallbackShapes = extendedAxisSequence(SHAPES, PREVIEW_COUNT);
+      sequence = shuffled(previewThemes).map(function (theme, index) {
+        return {
+          theme: theme,
+          face: fallbackFaces[index],
+          scale: fallbackScales[index],
+          shape: fallbackShapes[index]
+        };
+      });
+      signature = signatureFor(sequence);
+      if (signature === previousSignature && sequence.length > 1) {
+        var firstTheme = sequence[0].theme;
+        sequence[0].theme = sequence[1].theme;
+        sequence[1].theme = firstTheme;
+        signature = signatureFor(sequence);
+      }
+    }
+    try { sessionStorage.setItem('mms-render-sequence', signature); } catch (e) {}
+    return { values: sequence, signature: signature };
+  }
+
+  function dispatchPreviewEvent(name, detail) {
+    try {
+      document.dispatchEvent(new CustomEvent(name, { detail: detail }));
+    } catch (e) {
+      var event = document.createEvent('CustomEvent');
+      event.initCustomEvent(name, false, false, detail);
+      document.dispatchEvent(event);
+    }
+  }
+
+  root.setAttribute('data-mms-site', '1');
+
+  var viewport = document.querySelector('meta[name="viewport"]');
+  if (!viewport) {
+    viewport = document.createElement('meta');
+    viewport.setAttribute('name', 'viewport');
+    document.head.appendChild(viewport);
+  }
+  var viewportParts = (viewport.getAttribute('content') || 'width=device-width, initial-scale=1')
+    .split(',').map(function (part) { return part.trim(); }).filter(Boolean)
+    .filter(function (part) { return part.indexOf('viewport-fit=') !== 0; });
+  viewportParts.push('viewport-fit=cover');
+  viewport.setAttribute('content', viewportParts.join(', '));
+  document.querySelectorAll('meta[name="theme-color"]').forEach(function (meta) { meta.remove(); });
+
+  var target = {
+    theme: storedAxis('theme'),
+    face: storedAxis('face'),
+    scale: storedAxis('scale'),
+    shape: storedAxis('shape')
+  };
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var saveData = Boolean(navigator.connection && navigator.connection.saveData);
+  var sequencePlan = reduced || saveData ? { values: [], signature: '' } : buildRenderSequence(target);
+  var requestFrame = window.requestAnimationFrame || function (callback) {
+    return window.setTimeout(function () { callback(Date.now()); }, 16);
+  };
+  var cancelFrame = window.cancelAnimationFrame || window.clearTimeout;
+  var previewEdgeSamplers = [];
+  var previewEdgeSerial = 0;
+  var frameHandle = 0;
+  var failsafeHandle = 0;
+  var settlingHandle = 0;
+  var currentCut = 0;
+  var holdStartedAt = null;
+  var themeSampleTimer = 0;
+  var themeSampleSerial = 0;
+  var pendingThemeSample = null;
+
+  /* Safari 26 derives solid obscured-edge color from viewport-constrained
+     elements. Use a disposable TOP node only during refresh cuts and palette
+     changes; never paint the permanent sticky header, which Safari may retain
+     after it changes. The real page or open panel owns the lower edge. A
+     bottom probe remains visibly exposed as a seam on physical iPhones. */
+  function replacePreviewEdgeSamplers(theme, phase) {
+    if (!usePreviewEdgeSampler) return;
+    var host = document.body || document.documentElement;
+    var previous = previewEdgeSamplers.slice();
+    var color = THEME_COLORS[theme] || THEME_COLORS.white;
+    var edges = ['top'];
+    var next = edges.map(function (edge) {
+      var sampler = document.createElement('div');
+      previewEdgeSerial += 1;
+      sampler.className = 'mms-preview-edge-sampler';
+      sampler.setAttribute('data-mms-preview-edge', edge);
+      sampler.setAttribute('data-mms-preview-phase', phase || 'cut');
+      sampler.setAttribute('data-mms-preview-serial', String(previewEdgeSerial));
+      sampler.setAttribute('aria-hidden', 'true');
+      sampler.style.backgroundColor = color;
+      host.appendChild(sampler);
+      return sampler;
+    });
+    previewEdgeSamplers = next;
+    /* Append first, then remove the prior node in the same task: WebKit never
+       sees a frame with no edge candidate, while every cut still has a fresh
+       container identity. */
+    previous.forEach(function (sampler) { sampler.remove(); });
+  }
+
+  function releasePreviewEdgeSamplers() {
+    var releasing = previewEdgeSamplers.slice();
+    previewEdgeSamplers = [];
+    releasing.forEach(function (sampler) { sampler.style.visibility = 'hidden'; });
+    requestFrame(function () {
+      requestFrame(function () {
+        releasing.forEach(function (sampler) { sampler.remove(); });
+      });
+    });
+  }
+
+  /* An intentional palette change needs a fresh WebKit top-edge candidate or
+     the status material can retain the previously sampled theme. The compact
+     panel itself paints the selected theme through the lower safe area and
+     stays open; no bottom probe is required. */
+  function sampleThemeEdges(theme) {
+    if (!usePreviewEdgeSampler) return;
+    themeSampleSerial += 1;
+    var serial = themeSampleSerial;
+    if (themeSampleTimer) window.clearTimeout(themeSampleTimer);
+    replacePreviewEdgeSamplers(theme, 'theme-selection');
+    requestFrame(function () {
+      requestFrame(function () {
+        if (serial !== themeSampleSerial) return;
+        themeSampleTimer = window.setTimeout(function () {
+          if (serial !== themeSampleSerial) return;
+          themeSampleTimer = 0;
+          releasePreviewEdgeSamplers();
+        }, 160);
+      });
+    });
+  }
+
+  function requestThemeSample(theme) {
+    if (!usePreviewEdgeSampler) return;
+    pendingThemeSample = theme;
+    if (controller && (controller.active || controller.status === 'settling')) return;
+    var selectedTheme = pendingThemeSample;
+    pendingThemeSample = null;
+    sampleThemeEdges(selectedTheme);
+  }
+
+  var controller = {
+    version: 4,
+    count: PREVIEW_COUNT,
+    holdMs: PREVIEW_HOLD_MS,
+    totalMs: PREVIEW_COUNT * PREVIEW_HOLD_MS,
+    target: target,
+    sequence: sequencePlan.values,
+    signature: sequencePlan.signature,
+    active: false,
+    status: reduced ? 'reduced-motion' : (saveData ? 'save-data' : 'idle'),
+    cut: 0,
+    cancel: function () { finishPreview('interaction'); },
+    finish: function () { finishPreview('external'); },
+    sampleTheme: requestThemeSample
+  };
+  window.__mmsRenderPreview = controller;
+
+  function removeLifecycleListeners() {
+    document.removeEventListener('pointerdown', cancelFromInteraction, true);
+    document.removeEventListener('keydown', cancelFromInteraction, true);
+    document.removeEventListener('visibilitychange', finishIfHidden);
+    window.removeEventListener('pagehide', finishFromPageHide);
+    window.removeEventListener('pageshow', finishFromPageShow);
+  }
+
+  function settlePreview(reason) {
+    if (controller.status === 'done') return;
+    controller.status = 'done';
+    if (settlingHandle) window.clearTimeout(settlingHandle);
+    releasePreviewEdgeSamplers();
+    root.removeAttribute('data-render-preview');
+    root.removeAttribute('data-render-preview-cut');
+    dispatchPreviewEvent('mms-render-preview-done', { reason: reason, target: target });
+    if (pendingThemeSample) {
+      var selectedTheme = pendingThemeSample;
+      pendingThemeSample = null;
+      sampleThemeEdges(selectedTheme);
+    }
+  }
+
+  function finishPreview(reason) {
+    if (!controller.active) return;
+    controller.active = false;
+    controller.status = 'settling';
+    controller.cut = 0;
+    if (frameHandle) cancelFrame(frameHandle);
+    if (failsafeHandle) window.clearTimeout(failsafeHandle);
+    applyAxes(target);
+    replacePreviewEdgeSamplers(target.theme, 'landing');
+    root.setAttribute('data-render-preview', 'settling');
+    root.removeAttribute('data-render-preview-cut');
+    removeLifecycleListeners();
+    frameHandle = requestFrame(function () {
+      frameHandle = requestFrame(function () { settlePreview(reason); });
+    });
+    settlingHandle = window.setTimeout(function () { settlePreview(reason); }, 160);
+  }
+
+  function cancelFromInteraction() { finishPreview('interaction'); }
+  function finishIfHidden() {
+    if (document.visibilityState === 'hidden') finishPreview('hidden');
+  }
+  function finishFromPageHide() { finishPreview('pagehide'); }
+  function finishFromPageShow(event) {
+    if (event.persisted) finishPreview('pageshow');
+  }
+
+  function paintCut(index) {
+    currentCut = index;
+    controller.cut = index + 1;
+    applyAxes(controller.sequence[index]);
+    replacePreviewEdgeSamplers(controller.sequence[index].theme, 'cut-' + String(index + 1));
+    root.setAttribute('data-render-preview-cut', String(index + 1));
+    dispatchPreviewEvent('mms-render-preview-cut', {
+      index: index + 1,
+      count: PREVIEW_COUNT,
+      values: controller.sequence[index]
+    });
+  }
+
+  function holdFrame(now) {
+    if (!controller.active) return;
+    if (holdStartedAt === null) holdStartedAt = now;
+    if (now - holdStartedAt < PREVIEW_HOLD_MS) {
+      frameHandle = requestFrame(holdFrame);
+      return;
+    }
+    if (currentCut + 1 < controller.sequence.length) {
+      paintCut(currentCut + 1);
+      holdStartedAt = now;
+      frameHandle = requestFrame(holdFrame);
+      return;
+    }
+    finishPreview('complete');
+  }
+
+  if (reduced || saveData || controller.sequence.length !== PREVIEW_COUNT) {
+    applyAxes(target);
+    controller.status = reduced ? 'reduced-motion' : (saveData ? 'save-data' : 'invalid-plan');
+    return;
+  }
+
+  controller.active = true;
+  controller.status = 'active';
+  root.setAttribute('data-render-preview', 'active');
+  document.addEventListener('pointerdown', cancelFromInteraction, true);
+  document.addEventListener('keydown', cancelFromInteraction, true);
+  document.addEventListener('visibilitychange', finishIfHidden);
+  window.addEventListener('pagehide', finishFromPageHide);
+  window.addEventListener('pageshow', finishFromPageShow);
+  paintCut(0);
+  frameHandle = requestFrame(holdFrame);
+  failsafeHandle = window.setTimeout(function () { finishPreview('failsafe'); }, PREVIEW_FAILSAFE_MS);
+})();
+</script>
+<div class="mms">
+<header class="mms-mbar">
+  <div class="mbar-row">
+    <a aria-label="MM.S home" class="wordmark" href="/">MM.S</a>
+    <span class="mms-clock-m js-clock"></span>
+    <button aria-controls="mms-panel" aria-expanded="false" aria-label="open site controls" class="mms-menu" data-panel-toggle=""><span aria-hidden="true" class="mms-toggle-icon mms-toggle-plus"><svg viewBox="0 0 24 24"><path d="M4 12H20M12 4V20"></path></svg></span><span aria-hidden="true" class="mms-toggle-icon mms-toggle-close"><svg viewBox="0 0 24 24"><path d="M5 5L19 19M19 5L5 19"></path></svg></span></button>
+  </div>
+</header>
+<aside class="mms-rail">
+  <div class="rail-top">
+    <a aria-label="MM.S home" class="wordmark" href="/">MM.S</a>
+    <ul>
+  <li><a aria-current="page" href="/">Work</a></li>
+  <li><a href="/write">Write</a></li>
+  <li><a href="/who">Who?</a></li>
+</ul>
+<ul>
+  <li><a href="mailto:ocean@mmmmm.studio,alvis@mmmmm.studio">Email</a></li>
+  <li><a href="https://www.linkedin.com/company/mmmmmstudio/">Linkedin</a></li>
+</ul>
+  </div>
+</aside>
+<main class="mms-main">
+<div class="mms-intro-wrap">
+<nav class="mms-mlinks">
+  <ul>
+  <li><a aria-current="page" href="/">Work</a></li>
+  <li><a href="/write">Write</a></li>
+  <li><a href="/who">Who?</a></li>
+</ul>
+<ul>
+  <li><a href="mailto:ocean@mmmmm.studio,alvis@mmmmm.studio">Email</a></li>
+  <li><a href="https://www.linkedin.com/company/mmmmmstudio/">Linkedin</a></li>
+</ul>
+</nav>
+<div class="mms-sticky-head">
+
+<header class="mms-intro">
+<p>MM.S is a design studio specializing in brand identity, digital, motion, and print design. Our work and non-work span between corporate OOH campaigns to DIY zines.</p>
+<p>Everyone is a designer somewhere.<br />This is the somewhere.</p>
+<p>Have fun with the <span aria-hidden="true" class="mms-inline-plus">+</span> <span class="mms-panel-copy">control panel</span>
+<span class="mms-panel-inline">control panel</span> <span animate="4" rotation="0" uses="rotation">
+<text-icon icon="happy-face-1"></text-icon>
+</span>
+</p>
+</header>
+<div class="mms-clock js-clock" id="mms-clock"></div>
+</div>
+<div class="mms-intro-spacer">
+</div>
+<section class="mms-band" data-band="eviive" data-offset="4">
+<div aria-valuenow="0" class="mms-river" hidden="" id="mms-river-eviive">
+<div class="offset">
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="eviive-01" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:432;--asset-h:432">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="critical" data-poster="https://freight.cargo.site/t/original/i/A3031230889628157697836525860665/01-Logo-symbol_Animation_EVIIVE-cargo-h264-poster.jpg" data-src="https://freight.cargo.site/t/original/i/W3028308513949149028916421769017/Logo-symbol_Animation_EVIIVE-cargo-h264.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/A3031230889628157697836525860665/01-Logo-symbol_Animation_EVIIVE-cargo-h264-poster.jpg" preload="none" style="background:transparent" webkit-playsinline="">
+</video>
+</div>
+
+
+<div class="mms-frame" data-fit="contain" data-media-id="eviive-02" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:279;--asset-h:279">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="critical" data-poster="https://freight.cargo.site/t/original/i/V3031232001837698134006521444153/02-6x-images-for-MMS_EVIIVE_Image-5-web-smooth-hq-white-bg-poster.jpg" data-src="https://freight.cargo.site/t/original/i/F3022813868419761244926460344121/6x-images-for-MMS_EVIIVE_Image-5-web-smooth-hq-white-bg.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/V3031232001837698134006521444153/02-6x-images-for-MMS_EVIIVE_Image-5-web-smooth-hq-white-bg-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="eviive-03" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:896;--asset-h:504">
+<img alt="" class="mms-img" decoding="async" fetchpriority="high" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/3600/q/90/i/T3029359532540439699946090313529/eviive-sequence-3-retina.jpg" srcset="https://freight.cargo.site/w/420/q/90/i/T3029359532540439699946090313529/eviive-sequence-3-retina.jpg 420w, https://freight.cargo.site/w/900/q/90/i/T3029359532540439699946090313529/eviive-sequence-3-retina.jpg 900w, https://freight.cargo.site/w/1800/q/90/i/T3029359532540439699946090313529/eviive-sequence-3-retina.jpg 1800w, https://freight.cargo.site/w/2400/q/90/i/T3029359532540439699946090313529/eviive-sequence-3-retina.jpg 2400w, https://freight.cargo.site/w/3200/q/90/i/T3029359532540439699946090313529/eviive-sequence-3-retina.jpg 3200w, https://freight.cargo.site/w/3600/q/90/i/T3029359532540439699946090313529/eviive-sequence-3-retina.jpg 3600w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="eviive-04" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:443;--asset-h:372">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/886/q/85/i/J3028246254011184458481990678329/eviive-4.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/J3028246254011184458481990678329/eviive-4.jpg 420w, https://freight.cargo.site/w/886/q/85/i/J3028246254011184458481990678329/eviive-4.jpg 886w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="eviive-05" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:558;--asset-h:372">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/B3031232030079663310855844968249/03-Final_Navy_EVIIVE-Logo-Animation_Jul-2026-web-hq-1800-h264-poster.jpg" data-src="https://freight.cargo.site/t/original/i/B3028308528632757311589224855353/Final_Navy_EVIIVE-Logo-Animation_Jul-2026-web-hq-1800-h264.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/B3031232030079663310855844968249/03-Final_Navy_EVIIVE-Logo-Animation_Jul-2026-web-hq-1800-h264-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="eviive-06" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:670;--asset-h:377.593">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/2800/q/90/i/X3029359532558886444019799865145/eviive-sequence-6-retina.jpg" srcset="https://freight.cargo.site/w/420/q/90/i/X3029359532558886444019799865145/eviive-sequence-6-retina.jpg 420w, https://freight.cargo.site/w/900/q/90/i/X3029359532558886444019799865145/eviive-sequence-6-retina.jpg 900w, https://freight.cargo.site/w/1800/q/90/i/X3029359532558886444019799865145/eviive-sequence-6-retina.jpg 1800w, https://freight.cargo.site/w/2400/q/90/i/X3029359532558886444019799865145/eviive-sequence-6-retina.jpg 2400w, https://freight.cargo.site/w/2800/q/90/i/X3029359532558886444019799865145/eviive-sequence-6-retina.jpg 2800w" />
+</div>
+</div>
+<figure class="mms-desc">
+<div class="title-group">EVIIVE<br />
+<span class="tagline">
+<em>2025 – Brand identity and web design • Biotech</em>
+</span>
+</div>
+        <p>In the branding project with EVIIVE, a Swiss biotech startup, we identified precision, early detection and scalability as the key visual cues, presented through an electric yet authoritative color palette, a clean, precise layout system and a touch of abstract microorganism imagery.</p>
+        <a class="url" href="https://eviive.ch">eviive.ch</a>
+</figure>
+</section>
+</div>
+
+
+<section class="mms-band" data-band="v7">
+<div aria-valuenow="0" class="mms-river" hidden="" id="mms-river-v7">
+<iframe class="mms-img mms-cup" data-embed-kind="v7-cup" data-fit="none" data-media-id="v7-01" data-mobile-profile="embed" data-motion-priority="critical" data-poster="https://freight.cargo.site/t/original/i/F3031232775678612026122211735353/v7-cup-poster.png" data-shape-policy="interactive" data-src="https://freight.cargo.site/m/Z3031274916472238420423367767865/coffee-cup-bundle.html" loading="lazy" scrolling="no" style="--asset-w:307;--asset-h:307;border: 0px; display: block; background: transparent" title="V7 rotating coffee cup">
+</iframe>
+<div class="mms-frame" data-fit="contain" data-media-id="v7-02" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:336;--asset-h:504">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/680/q/85/i/R3025118182046317275766954964793/v7-postcard.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/R3025118182046317275766954964793/v7-postcard.jpg 420w, https://freight.cargo.site/w/680/q/85/i/R3025118182046317275766954964793/v7-postcard.jpg 680w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="v7-03" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:759;--asset-h:504">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/B3031232058413862208073716250425/04-OOH_Train-Station_Video-Slide-cargo-small-h264-poster.jpg" data-slot="v7-ooh-train-video" data-src="https://freight.cargo.site/t/original/i/X3028308543445492802777994803001/OOH_Train-Station_Video-Slide-cargo-small-h264.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/B3031232058413862208073716250425/04-OOH_Train-Station_Video-Slide-cargo-small-h264-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="v7-04" data-mobile-profile="panorama" data-shape-policy="crop" style="--asset-w:788;--asset-h:197">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/E3031232087873312493787870181177/05-Freetothink_motionthecity_260303-upscaled-4x-retina-h264-poster.jpg" data-slot="v7-freetothink-motion" data-src="https://freight.cargo.site/t/original/i/B3028308558313568526187893405497/Freetothink_motionthecity_260303-upscaled-4x-retina-h264.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/E3031232087873312493787870181177/05-Freetothink_motionthecity_260303-upscaled-4x-retina-h264-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="v7-05" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:672;--asset-h:504">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/J3031232116853147433585575769913/06-Mockup_Video-Truck_V7-cargo-small-h264-poster.jpg" data-slot="v7-video-truck" data-src="https://freight.cargo.site/t/original/i/P3028308573144750761450372904761/Mockup_Video-Truck_V7-cargo-small-h264.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/J3031232116853147433585575769913/06-Mockup_Video-Truck_V7-cargo-small-h264-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="v7-06" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:281;--asset-h:374">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/1122/q/90/i/A3029359532632673420314638071609/v7-sequence-6-retina.jpg" srcset="https://freight.cargo.site/w/420/q/90/i/A3029359532632673420314638071609/v7-sequence-6-retina.jpg 420w, https://freight.cargo.site/w/900/q/90/i/A3029359532632673420314638071609/v7-sequence-6-retina.jpg 900w, https://freight.cargo.site/w/1122/q/90/i/A3029359532632673420314638071609/v7-sequence-6-retina.jpg 1122w" />
+</div>
+</div>
+<figure class="mms-desc">
+<div class="title-group">V7 Labs<br />
+<span class="tagline">
+<em>2026 – OOH campaign graphic and motion design • Artificial Intelligence</em>
+</span>
+</div>
+<p>What does it mean to stay human when so much of work is being reshaped by AI? We kept coming back to imperfection. People pause, doubt, read context, notice nuance, and make calls that are not purely quantitative. For V7’s London OOH and cafe activation, we turned professional pressure into motion. With the quantitative groundwork handled beneath the surface, overload shifts into focus.</p>
+</figure>
+</section>
+<section class="mms-band" data-band="touchbaes" data-offset="2">
+      <div aria-valuenow="0" class="mms-river" hidden="" id="mms-river-touchbaes" style="height: calc(606.5*var(--layout-u));">
+        <div class="offset">
+</div>
+        
+        
+        <div class="mms-frame" data-fit="contain" data-media-id="touchbaes-01" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:417;--asset-h:417">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/P3031232147548529572238269658937/07-3d-animation_social-nov-8-cargo-under-1mb-1080-h264-poster.jpg" data-src="https://freight.cargo.site/t/original/i/V3028308587975932996712852404025/3d-animation_social-nov-8-cargo-under-1mb-1080-h264.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/P3031232147548529572238269658937/07-3d-animation_social-nov-8-cargo-under-1mb-1080-h264-poster.jpg" preload="none" style="background:transparent" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="touchbaes-02" data-mobile-profile="standard" data-shape-policy="artwork" style="--asset-w:278;--asset-h:494">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-mp4="https://freight.cargo.site/t/original/i/K3028483048076456848870970275641/8bit-girls-alpha-v2.mp4" data-poster="https://freight.cargo.site/t/original/i/L3031232176454577535741137041209/08-8bit-girls-final-alpha-1080-poster.png" data-src="https://freight.cargo.site/t/original/i/C3022812573698134943474161071929/8bit-girls-final-alpha-1080.webm" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/L3031232176454577535741137041209/08-8bit-girls-final-alpha-1080-poster.png" preload="none" style="background:transparent" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="touchbaes-03" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:403;--asset-h:504">
+<img alt="touchbaes booking poster" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/840/q/85/i/J3022057905776630719280532993849/touchbaes-booking.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/J3022057905776630719280532993849/touchbaes-booking.jpg 420w, https://freight.cargo.site/w/840/q/85/i/J3022057905776630719280532993849/touchbaes-booking.jpg 840w" />
+</div>
+        <div class="mms-frame" data-fit="contain" data-media-id="touchbaes-04" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:262.5;--asset-h:606.5">
+<img alt="touchbaes sticker sheet" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/525/q/85/i/Q3028246600809973044221561059129/touchbaes-sticker-v2.png" srcset="https://freight.cargo.site/w/420/q/85/i/Q3028246600809973044221561059129/touchbaes-sticker-v2.png 420w, https://freight.cargo.site/w/525/q/85/i/Q3028246600809973044221561059129/touchbaes-sticker-v2.png 525w" style="background:transparent" />
+</div>
+        <iframe class="mms-game" data-embed-kind="touchbaes" data-fit="none" data-media-id="touchbaes-05" data-mobile-profile="embed" data-motion-priority="near" data-shape-policy="interactive" data-src="https://freight.cargo.site/m/E3031754669080377521238157342521/touchbaes-sticker-game-v10.html" loading="lazy" scrolling="no" style="width: max(762px, calc(820 * var(--layout-u))); border: 0px; display: block; background: transparent; height: max(500px, calc(540 * var(--layout-u)));" title="touchbaes sticker game">
+</iframe>
+<div class="mms-frame" data-fit="contain" data-media-id="touchbaes-06" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:372;--asset-h:372">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/Y3031232205692666892570776352569/09-video-small-poster.jpg" data-src="https://freight.cargo.site/t/original/i/K3022811110465501528685107787577/video-small.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/Y3031232205692666892570776352569/09-video-small-poster.jpg" preload="none" style="background:transparent" webkit-playsinline="">
+</video>
+</div>
+        
+        <div class="mms-frame" data-fit="contain" data-media-id="touchbaes-07" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:558;--asset-h:372">
+<img alt="touchbaes business card mockup" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/2400/q/90/i/Y3029359532614226676240928519993/touchbaes-last-retina.jpg" srcset="https://freight.cargo.site/w/420/q/90/i/Y3029359532614226676240928519993/touchbaes-last-retina.jpg 420w, https://freight.cargo.site/w/900/q/90/i/Y3029359532614226676240928519993/touchbaes-last-retina.jpg 900w, https://freight.cargo.site/w/1800/q/90/i/Y3029359532614226676240928519993/touchbaes-last-retina.jpg 1800w, https://freight.cargo.site/w/2400/q/90/i/Y3029359532614226676240928519993/touchbaes-last-retina.jpg 2400w" />
+</div>
+      </div>
+      <figure class="mms-desc">
+        <div class="title-group">touchbaes<br />
+<span class="tagline">
+<em>2026 – Brand identity, illustration and 3d animation • Fashion &#x26; Beauty</em>
+</span>
+</div>
+        <p>Once a badass, hot and cunty vintage clothing store, selling baes you could wear. Now a badass, hot and cunty nail + lash salon, serving every bae with that polished touch. Happy to work with <a href="https://ellacportfolio.com">Ella Cheng</a> on the rebrand &#x3C;3</p>
+<p>Book a nail appointment <a href="https://www.touchbaes.ca">here</a>
+</p>
+      </figure>
+    </section>
+<section class="mms-band" data-band="mandy" data-offset="2">
+<div aria-valuenow="0" class="mms-river" hidden="" id="mms-river-mandy" style="height: calc(900*var(--layout-u));">
+<div class="offset">
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="mandy-01" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:675;--asset-h:900">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/C3031232234580268111999934183225/10-SATAIC-transformation-Comp-cargo-small-h264-poster.jpg" data-slot="mandy-sataic-video" data-src="https://freight.cargo.site/t/original/i/S3028308617638297467237811402553/SATAIC-transformation-Comp-cargo-small-h264.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/C3031232234580268111999934183225/10-SATAIC-transformation-Comp-cargo-small-h264-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="mandy-02" data-mobile-profile="wide" data-shape-policy="artwork" style="--asset-w:779;--asset-h:504">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-mp4="https://freight.cargo.site/t/original/i/E3028483072094117632840806479673/mandy-hf-alpha-v2.mp4" data-poster="https://freight.cargo.site/t/original/i/N3031232263191168170323448739641/11-hf_20260708_032138_2ca7e18b-6113-498e-9b3e-603f187014fb-alpha-small-ratio-1.5466-poster.png" data-slot="mandy-hf-alpha-video" data-src="https://freight.cargo.site/t/original/i/V3025158174716596286590825314105/hf_20260708_032138_2ca7e18b-6113-498e-9b3e-603f187014fb-alpha-small-ratio-1.5466.webm" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/N3031232263191168170323448739641/11-hf_20260708_032138_2ca7e18b-6113-498e-9b3e-603f187014fb-alpha-small-ratio-1.5466-poster.png" preload="none" style="background:transparent" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="mandy-03" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:377;--asset-h:504">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/752/q/85/i/A3025291300404464182587126495033/mandy-photo1-fix.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/A3025291300404464182587126495033/mandy-photo1-fix.jpg 420w, https://freight.cargo.site/w/752/q/85/i/A3025291300404464182587126495033/mandy-photo1-fix.jpg 752w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="mandy-04" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:504;--asset-h:504">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/1000/q/85/i/M3025118651718868136485848659769/mandy-tee.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/M3025118651718868136485848659769/mandy-tee.jpg 420w, https://freight.cargo.site/w/900/q/85/i/M3025118651718868136485848659769/mandy-tee.jpg 900w, https://freight.cargo.site/w/1000/q/85/i/M3025118651718868136485848659769/mandy-tee.jpg 1000w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="mandy-05" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:612;--asset-h:344">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/1240/q/85/i/E3025118669852017560942337898297/mandy-photo-2.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/E3025118669852017560942337898297/mandy-photo-2.jpg 420w, https://freight.cargo.site/w/900/q/85/i/E3025118669852017560942337898297/mandy-photo-2.jpg 900w, https://freight.cargo.site/w/1240/q/85/i/E3025118669852017560942337898297/mandy-photo-2.jpg 1240w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="mandy-06" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:344;--asset-h:344">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/700/q/85/i/G3025118686970596061344801797945/mandy-ig.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/G3025118686970596061344801797945/mandy-ig.jpg 420w, https://freight.cargo.site/w/700/q/85/i/G3025118686970596061344801797945/mandy-ig.jpg 700w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="mandy-07" data-mobile-profile="standard" data-shape-policy="artwork" style="--asset-w:335;--asset-h:200;margin-left:calc(8.5*var(--layout-u));margin-right:calc(8.5*var(--layout-u))">
+<img alt="" class="mms-img" data-slot="mandy-mewmew-element" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/703/q/85/i/I3025317449180697499940409620281/mandy-mewmew-v4.png" srcset="https://freight.cargo.site/w/420/q/85/i/I3025317449180697499940409620281/mandy-mewmew-v4.png 420w, https://freight.cargo.site/w/703/q/85/i/I3025317449180697499940409620281/mandy-mewmew-v4.png 703w" style="background:transparent" />
+</div>
+</div>
+<figure class="mms-desc">
+<div class="title-group">Mandy Ma &#x26; Co.<br />
+<span class="tagline">
+<em>2026 – Graphic design • Fashion</em>
+</span>
+</div>
+<p>Mandy Ma is an alter ego who struggles between corporate and art. Wall Street and Bushwick. MBA or MA. Masculinity and femininity. Wanting more and being content. Accelerating the world into a living hell and saving everyone.</p>
+</figure>
+</section>
+<section class="mms-band" data-band="loop">
+<div aria-valuenow="0" class="mms-river" hidden="" id="mms-river-loop">
+<div class="mms-frame" data-fit="contain" data-media-id="loop-01" data-mobile-profile="loop-cover" data-shape-policy="crop" style="--asset-w:766;--asset-h:504">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/1530/q/85/i/H3025362994634537346592378763065/loop-cover.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/H3025362994634537346592378763065/loop-cover.jpg 420w, https://freight.cargo.site/w/900/q/85/i/H3025362994634537346592378763065/loop-cover.jpg 900w, https://freight.cargo.site/w/1530/q/85/i/H3025362994634537346592378763065/loop-cover.jpg 1530w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="loop-02" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:504;--asset-h:504">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/Y3031232291119538697919709886265/12-v3_Loop-Wrapped_Animated-illustration-cargo-small-h264-poster.jpg" data-src="https://freight.cargo.site/t/original/i/K3028308647282215193689060849465/v3_Loop-Wrapped_Animated-illustration-cargo-small-h264.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/Y3031232291119538697919709886265/12-v3_Loop-Wrapped_Animated-illustration-cargo-small-h264-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="loop-03" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:472;--asset-h:354">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/P3031232318789654808484037310265/13-Loop-Card_3D-Animation-cargo-h264-poster.jpg" data-src="https://freight.cargo.site/t/original/i/S3028308662094950684877830797113/Loop-Card_3D-Animation-cargo-h264.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/P3031232318789654808484037310265/13-Loop-Card_3D-Animation-cargo-h264-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="loop-04" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:579;--asset-h:504">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/1157/q/85/i/U3026333005972541800612566185785/loop-image-2-v2.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/U3026333005972541800612566185785/loop-image-2-v2.jpg 420w, https://freight.cargo.site/w/900/q/85/i/U3026333005972541800612566185785/loop-image-2-v2.jpg 900w, https://freight.cargo.site/w/1157/q/85/i/U3026333005972541800612566185785/loop-image-2-v2.jpg 1157w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="loop-05" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:290;--asset-h:252">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/1374/q/90/i/K3029442176001478510919090222905/loop-sequence-last-retina.jpg" srcset="https://freight.cargo.site/w/420/q/90/i/K3029442176001478510919090222905/loop-sequence-last-retina.jpg 420w, https://freight.cargo.site/w/900/q/90/i/K3029442176001478510919090222905/loop-sequence-last-retina.jpg 900w, https://freight.cargo.site/w/1374/q/90/i/K3029442176001478510919090222905/loop-sequence-last-retina.jpg 1374w" />
+</div>
+</div>
+<figure class="mms-desc">
+<div class="title-group">Loop Financial<br />
+<span class="tagline">
+<em>2025 – OOH campaign graphic and motion design • Fintech</em>
+</span>
+</div>
+<p>Our work with Loop spanned everything from card program launches and OOH campaigns to event materials and everyday brand collateral. The challenge? Keeping every execution fresh while staying unmistakably Loop: direct, global, and built for business.</p>
+</figure>
+</section>
+<section class="mms-band" data-band="montran" data-offset="2">
+<div aria-valuenow="0" class="mms-river" hidden="" id="mms-river-montran">
+<div class="offset">
+</div>
+<iframe class="mms-img mms-booklet" data-fit="none" data-media-id="montran-01" data-mobile-profile="booklet-wide" data-shape-policy="interactive" data-slot="montran-booklet" data-src="https://freight.cargo.site/m/U3034412351395654863674388559673/montran-booklet-direct-pdf-v17.html?pdf=https%3A%2F%2Ffreight.cargo.site%2Ft%2Foriginal%2Fi%2FP3028590574867085520722012452665%2Fmontran_sustainability-report_2025_v4-web.pdf" loading="lazy" scrolling="no" style="--asset-w:1176;--asset-h:504;border: 0px; display: block; background: rgb(0, 0, 0)" title="Montran sustainability report booklet">
+</iframe>
+<div class="mms-frame" data-fit="contain" data-media-id="montran-02" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:733;--asset-h:504">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/3200/q/90/i/J3029442176019925254992799774521/montran-sequence-2-retina.jpg" srcset="https://freight.cargo.site/w/420/q/90/i/J3029442176019925254992799774521/montran-sequence-2-retina.jpg 420w, https://freight.cargo.site/w/900/q/90/i/J3029442176019925254992799774521/montran-sequence-2-retina.jpg 900w, https://freight.cargo.site/w/1800/q/90/i/J3029442176019925254992799774521/montran-sequence-2-retina.jpg 1800w, https://freight.cargo.site/w/2400/q/90/i/J3029442176019925254992799774521/montran-sequence-2-retina.jpg 2400w, https://freight.cargo.site/w/3200/q/90/i/J3029442176019925254992799774521/montran-sequence-2-retina.jpg 3200w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="montran-03" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:400;--asset-h:400">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/G3031232346146176269795302356793/14-montran-icon-animation-poster.jpg" data-slot="montran-icon-video" data-src="https://freight.cargo.site/t/original/i/C3026651793472485332597365847865/montran-icon-animation.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/G3031232346146176269795302356793/14-montran-icon-animation-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-tile mms-map-tile" style="--asset-w: 690; --asset-h: 504; display: flex; flex-direction: column; justify-content: space-between; flex: 0 0 auto; --map-tile-h: 887px; --map-image-w: 1214.000px; --map-image-h: 777.664px;">
+<p class="caption" data-slot="montran-map-caption" style="margin: 0 0 calc(12*var(--layout-u)) 0; width: calc(526*var(--layout-u));">
+<text-icon icon="pointer-2"></text-icon>Apparently everyone needed a different map to showcase product coverage across different regions, so I built a custom map generator for my own sanity (and achieved 100% reduction in &#x22;Got time to update the map?&#x22; messages.)</p>
+<div class="mms-frame" data-fit="contain" data-frame-for="montran-map" data-media-id="montran-04" data-mobile-profile="standard" data-shape-policy="artwork" style="--asset-w:690;--asset-h:442;flex-shrink:0">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/3200/q/90/i/H3029359532577333188093509416761/map-generator-retina.png" srcset="https://freight.cargo.site/w/420/q/90/i/H3029359532577333188093509416761/map-generator-retina.png 420w, https://freight.cargo.site/w/900/q/90/i/H3029359532577333188093509416761/map-generator-retina.png 900w, https://freight.cargo.site/w/1800/q/90/i/H3029359532577333188093509416761/map-generator-retina.png 1800w, https://freight.cargo.site/w/2400/q/90/i/H3029359532577333188093509416761/map-generator-retina.png 2400w, https://freight.cargo.site/w/3200/q/90/i/H3029359532577333188093509416761/map-generator-retina.png 3200w" style="background:transparent" />
+</div>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="montran-05" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:403;--asset-h:504">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/Y3031232375033777489224460187449/15-Montran_CSD_RS_EN-noaudio-poster.jpg" data-slot="montran-csd-video" data-src="https://freight.cargo.site/t/original/i/E3026651808137646871196459382585/Montran_CSD_RS_EN-noaudio.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/Y3031232375033777489224460187449/15-Montran_CSD_RS_EN-noaudio-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="montran-06" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:695;--asset-h:391">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/2782/q/90/i/M3029359532595779932167218968377/montran-last-retina.jpg" srcset="https://freight.cargo.site/w/420/q/90/i/M3029359532595779932167218968377/montran-last-retina.jpg 420w, https://freight.cargo.site/w/900/q/90/i/M3029359532595779932167218968377/montran-last-retina.jpg 900w, https://freight.cargo.site/w/1800/q/90/i/M3029359532595779932167218968377/montran-last-retina.jpg 1800w, https://freight.cargo.site/w/2400/q/90/i/M3029359532595779932167218968377/montran-last-retina.jpg 2400w, https://freight.cargo.site/w/2782/q/90/i/M3029359532595779932167218968377/montran-last-retina.jpg 2782w" />
+</div>
+</div>
+<figure class="mms-desc">
+<div class="title-group">Montran<br />
+<span class="tagline">
+<em>2025 – Brand identity, web development, graphic and motion design • Fintech</em>
+</span>
+</div>
+<p>A rebranding exercise with a small constraint: logo, color palette, and typefaces had to stay the same. We developed a new set of illustrations, motion assets, icons, and graphic devices to modernize the brand experience without touching the parts clients already recognize.</p>
+</figure>
+</section>
+<section class="mms-band" data-band="anyday" data-offset="2">
+<div aria-valuenow="0" class="mms-river" hidden="" id="mms-river-anyday">
+<div class="offset">
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="anyday-01" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:565;--asset-h:376">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/P3031232402132044533503791511353/16-anyday-logo-slideshow-v3-h264-poster.jpg" data-slot="anyday-logo-video" data-src="https://freight.cargo.site/t/original/i/E3028308676907686176066600744761/anyday-logo-slideshow-v3-h264.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/P3031232402132044533503791511353/16-anyday-logo-slideshow-v3-h264-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="anyday-02" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:308;--asset-h:308">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/T3031232431296346914038592616249/17-anyday-money-moments-h264-poster.jpg" data-slot="anyday-money-video" data-src="https://freight.cargo.site/t/original/i/L3028308691757315155402789795641/anyday-money-moments-h264.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/T3031232431296346914038592616249/17-anyday-money-moments-h264-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="anyday-03" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:504;--asset-h:504">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/R3031232462416004166386606192441/18-anyday-hotel-report-h264-poster.jpg" data-slot="anyday-hotel-video" data-src="https://freight.cargo.site/t/original/i/G3028308706570050646591559743289/anyday-hotel-report-h264.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/R3031232462416004166386606192441/18-anyday-hotel-report-h264-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="anyday-04" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:435.3;--asset-h:378.9">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/952/q/85/i/L3027048668493509838917526402873/anyday-image6.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/L3027048668493509838917526402873/anyday-image6.jpg 420w, https://freight.cargo.site/w/900/q/85/i/L3027048668493509838917526402873/anyday-image6.jpg 900w, https://freight.cargo.site/w/952/q/85/i/L3027048668493509838917526402873/anyday-image6.jpg 952w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="anyday-05" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:351.9;--asset-h:469.2">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/M3031232490676416087309639268153/19-anyday-scroller-h264-poster.jpg" data-slot="anyday-scroller-video" data-src="https://freight.cargo.site/t/original/i/I3028308721419679625927748794169/anyday-scroller-h264.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/M3031232490676416087309639268153/19-anyday-scroller-h264-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+</div>
+<figure class="mms-desc">
+<div class="title-group">AnyDay Financial<br />
+<span class="tagline">
+<em>2024 – Brand identity, graphic and motion design • Fintech</em>
+</span>
+</div>
+<p>At the heart of AnyDay is a simple idea: workers deserve access to their hard-earned wages and tips as soon as the shift is done. The visual direction was designed to make digital payments feel immediate, approachable, and credible.</p>
+</figure>
+</section>
+<section class="mms-band" data-band="kelly" data-offset="4">
+<div aria-valuenow="0" class="mms-river" hidden="" id="mms-river-kelly" style="height: calc(789.1*var(--layout-u));">
+<div class="offset">
+</div>
+<div data-slot="kelly-grid" style="display:grid;grid-template-columns:calc(523.4*var(--layout-u)) calc(523.4*var(--layout-u));gap:0;width:calc(1046.9*var(--layout-u));flex:0 0 auto;">
+<div class="mms-frame" data-fit="contain" data-kelly-item="1" data-media-id="kelly-01" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:523.4;--asset-h:380.2">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/1046/q/85/i/N3027049860337644441291656312633/kelly-sgc30-6.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/N3027049860337644441291656312633/kelly-sgc30-6.jpg 420w, https://freight.cargo.site/w/900/q/85/i/N3027049860337644441291656312633/kelly-sgc30-6.jpg 900w, https://freight.cargo.site/w/1046/q/85/i/N3027049860337644441291656312633/kelly-sgc30-6.jpg 1046w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-kelly-item="2" data-media-id="kelly-02" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:523.4;--asset-h:380.2">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/1046/q/85/i/R3027049892102937736219504195385/kelly-sgc30-3.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/R3027049892102937736219504195385/kelly-sgc30-3.jpg 420w, https://freight.cargo.site/w/900/q/85/i/R3027049892102937736219504195385/kelly-sgc30-3.jpg 900w, https://freight.cargo.site/w/1046/q/85/i/R3027049892102937736219504195385/kelly-sgc30-3.jpg 1046w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-kelly-item="3" data-media-id="kelly-03" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:523.4;--asset-h:380.2">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/1046/q/85/i/L3027050213316092291723926484793/kelly-sgc30-5.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/L3027050213316092291723926484793/kelly-sgc30-5.jpg 420w, https://freight.cargo.site/w/900/q/85/i/L3027050213316092291723926484793/kelly-sgc30-5.jpg 900w, https://freight.cargo.site/w/1046/q/85/i/L3027050213316092291723926484793/kelly-sgc30-5.jpg 1046w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-kelly-item="4" data-media-id="kelly-04" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:523.4;--asset-h:380.2">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/1046/q/85/i/L3027050230656031721010905003833/kelly-sgc30-1.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/L3027050230656031721010905003833/kelly-sgc30-1.jpg 420w, https://freight.cargo.site/w/900/q/85/i/L3027050230656031721010905003833/kelly-sgc30-1.jpg 900w, https://freight.cargo.site/w/1046/q/85/i/L3027050230656031721010905003833/kelly-sgc30-1.jpg 1046w" />
+</div>
+<div class="caption" data-slot="kelly-caption" style="grid-column: 1 / -1;">
+<text-icon icon="pointer-2"></text-icon>Known for her Hermès bag collection, this custom-made “Kelly’s Kelly” bag is to celebrate the music, style, and cultural influence she brought into our world.</div>
+</div>
+</div>
+<figure class="mms-desc">
+<div class="title-group">Kelly’s Kelly<br />
+<span class="tagline">
+<em>2025 – Graphic design • Editorial</em>
+</span>
+</div>
+<p>Kelly Chen, our childhood diva, is the Hong Kong Kylie Minogue musically, with a Victoria Beckham lifestyle. This intimate, personal zine contains poems, photography, and graphic design as a confession of twin flame love.</p>
+</figure>
+</section>
+<section class="mms-band" data-band="curate">
+<div aria-valuenow="0" class="mms-river" hidden="" id="mms-river-curate">
+<div class="mms-frame" data-fit="contain" data-media-id="curate-01" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:376;--asset-h:327">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/752/q/85/i/Z3028481505928652286752455178041/curate-image2-v2.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/Z3028481505928652286752455178041/curate-image2-v2.jpg 420w, https://freight.cargo.site/w/752/q/85/i/Z3028481505928652286752455178041/curate-image2-v2.jpg 752w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="curate-02" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:894;--asset-h:504">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/F3031232519896058700065569027897/20-curate-image1-vid-h264-poster.jpg" data-slot="curate-image1-video" data-src="https://freight.cargo.site/t/original/i/R3028308736250861861190228293433/curate-image1-vid-h264.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/F3031232519896058700065569027897/20-curate-image1-vid-h264-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="curate-03" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:504;--asset-h:504">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/1008/q/85/i/J3027050938125560435919628580665/curate-hf.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/J3027050938125560435919628580665/curate-hf.jpg 420w, https://freight.cargo.site/w/900/q/85/i/J3027050938125560435919628580665/curate-hf.jpg 900w, https://freight.cargo.site/w/1008/q/85/i/J3027050938125560435919628580665/curate-hf.jpg 1008w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="curate-04" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:462;--asset-h:402">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/2200/q/90/i/K3029359532521992955872380761913/curate-last-retina.jpg" srcset="https://freight.cargo.site/w/420/q/90/i/K3029359532521992955872380761913/curate-last-retina.jpg 420w, https://freight.cargo.site/w/900/q/90/i/K3029359532521992955872380761913/curate-last-retina.jpg 900w, https://freight.cargo.site/w/1800/q/90/i/K3029359532521992955872380761913/curate-last-retina.jpg 1800w, https://freight.cargo.site/w/2200/q/90/i/K3029359532521992955872380761913/curate-last-retina.jpg 2200w" />
+</div>
+</div>
+<figure class="mms-desc">
+<div class="title-group">Curate Health<br />
+<span class="tagline">
+<em>2024 – Graphic design • Wellness</em>
+</span>
+</div>
+<p>A set of brand applications for Curate Health, from exterior signage and window graphics to printed programs and menus. The project expands the identity into a more complete spatial system.</p>
+</figure>
+</section>
+<section class="mms-band" data-band="randompics" data-offset="2">
+<div class="mms-river" style="height:calc(747*var(--layout-u));">
+<div class="offset">
+</div>
+<div class="mms-tile" style="--asset-w:432;--asset-h:747;display:flex; flex-direction:column; justify-content:flex-start; gap:calc(8*var(--layout-u)); flex:0 0 auto">
+<p class="caption" data-slot="randompics-caption" style="width:calc(432*var(--layout-u));">
+<text-icon icon="pointer-2"></text-icon>The algorithm of a fallen snow angel wearing Chanel couture traveling across chaotic city life by subway just to find herself destined to be at Thai Palms Restaurant, PS, CA.</p>
+<div class="mms-frame" data-fit="contain" data-frame-for="randompics-video" data-media-id="randompics-01" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:432;--asset-h:667.2;flex-shrink:0">
+<video autoplay="" class="mms-img mms-video" data-mms-loaded="1" data-mms-source="https://freight.cargo.site/t/original/i/L3028308751008257120157869586233/randompics-slideshow-h264.mp4" data-motion-priority="near" data-motion-ready="1" data-poster="https://freight.cargo.site/t/original/i/F3031232547566174810629896451897/21-randompics-slideshow-h264-poster.jpg" data-slot="randompics-video" data-src="https://freight.cargo.site/t/original/i/L3028308751008257120157869586233/randompics-slideshow-h264.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/F3031232547566174810629896451897/21-randompics-slideshow-h264-poster.jpg" preload="none" src="https://freight.cargo.site/t/original/i/L3028308751008257120157869586233/randompics-slideshow-h264.mp4" webkit-playsinline=""></video></div></div></div></section><section class="mms-band" data-band="purelove" data-offset="4"><div aria-valuenow="0" class="mms-river" hidden="" id="mms-river-purelove" style="height:calc(783.9*var(--layout-u));"><div class="offset">
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="purelove-01" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:627.2;--asset-h:783.9">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/1254/q/85/i/I3028246618297486426098215991097/purelove-1.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/I3028246618297486426098215991097/purelove-1.jpg 420w, https://freight.cargo.site/w/900/q/85/i/I3028246618297486426098215991097/purelove-1.jpg 900w, https://freight.cargo.site/w/1254/q/85/i/I3028246618297486426098215991097/purelove-1.jpg 1254w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="purelove-02" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:544.3;--asset-h:680">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/1088/q/85/i/Q3028246916120169496138926831417/purelove-2.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/Q3028246916120169496138926831417/purelove-2.jpg 420w, https://freight.cargo.site/w/900/q/85/i/Q3028246916120169496138926831417/purelove-2.jpg 900w, https://freight.cargo.site/w/1088/q/85/i/Q3028246916120169496138926831417/purelove-2.jpg 1088w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="purelove-03" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:440;--asset-h:550">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/880/q/85/i/G3028246944196113976324864390969/purelove-3.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/G3028246944196113976324864390969/purelove-3.jpg 420w, https://freight.cargo.site/w/880/q/85/i/G3028246944196113976324864390969/purelove-3.jpg 880w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="purelove-04" data-mobile-profile="standard" data-shape-policy="artwork" style="--asset-w:873;--asset-h:680">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/1746/q/85/i/S3028289855602474049842539181881/purelove-4-v2.png" srcset="https://freight.cargo.site/w/420/q/85/i/S3028289855602474049842539181881/purelove-4-v2.png 420w, https://freight.cargo.site/w/900/q/85/i/S3028289855602474049842539181881/purelove-4-v2.png 900w, https://freight.cargo.site/w/1746/q/85/i/S3028289855602474049842539181881/purelove-4-v2.png 1746w" style="background:transparent" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="purelove-05" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:336.3;--asset-h:448.4">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/N3031232577062518584491469485881/22-purelove-flash-poster.jpg" data-slot="purelove-flash-video" data-src="https://freight.cargo.site/t/original/i/S3028279585838879613892415764281/purelove-flash.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/N3031232577062518584491469485881/22-purelove-flash-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+</div>
+<figure class="mms-desc">
+<div class="title-group">PURE LOVE（純愛）<br />
+<span class="tagline">
+<em>2024 – Art direction • Personal project</em>
+</span>
+</div>
+<p>Maybe unreturned love is the purest love. PURE LOVE is a photography art direction project with photographer <a href="https://www.travisleung.com">Travis Leung</a> about obsession, passive power, and being worshipped without giving anything back.</p>
+</figure>
+</section>
+<section class="mms-band" data-band="deadgood">
+<div aria-valuenow="0" class="mms-river" hidden="" id="mms-river-deadgood">
+<div class="mms-frame" data-fit="contain" data-media-id="deadgood-01" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:411.3;--asset-h:358">
+<img alt="" class="mms-img" decoding="async" loading="eager" src="https://freight.cargo.site/t/original/i/K3028244189709842145940907538233/dg-image2.gif" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="deadgood-02" data-mobile-profile="deadgood-wide" data-shape-policy="crop" style="--asset-w:894.4;--asset-h:504">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 110vw, 65vw" src="https://freight.cargo.site/w/1788/q/85/i/A3028247346261347806898251413305/dg-image4.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/A3028247346261347806898251413305/dg-image4.jpg 420w, https://freight.cargo.site/w/900/q/85/i/A3028247346261347806898251413305/dg-image4.jpg 900w, https://freight.cargo.site/w/1788/q/85/i/A3028247346261347806898251413305/dg-image4.jpg 1788w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="deadgood-03" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:579;--asset-h:504">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/N3031232606872457007606104897337/23-dg-slides-poster.jpg" data-src="https://freight.cargo.site/t/original/i/W3028244200907015798682605369145/dg-slides.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/N3031232606872457007606104897337/23-dg-slides-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="deadgood-04" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:411.3;--asset-h:358">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/822/q/85/i/R3028483060048393752708469274425/dg-image3-v2.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/R3028483060048393752708469274425/dg-image3-v2.jpg 420w, https://freight.cargo.site/w/822/q/85/i/R3028483060048393752708469274425/dg-image3-v2.jpg 822w" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="deadgood-05" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:543.5;--asset-h:358">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/1088/q/85/i/K3028247312208658246830419130169/dg-cover.jpg" srcset="https://freight.cargo.site/w/420/q/85/i/K3028247312208658246830419130169/dg-cover.jpg 420w, https://freight.cargo.site/w/900/q/85/i/K3028247312208658246830419130169/dg-cover.jpg 900w, https://freight.cargo.site/w/1088/q/85/i/K3028247312208658246830419130169/dg-cover.jpg 1088w" />
+</div>
+</div>
+<figure class="mms-desc">
+<div class="title-group">Dead Good<br />
+<span class="tagline">
+<em>2023 – Brand identity and graphic design • Photography studio</em>
+</span>
+</div>
+<p>Dead Good&#x27;s name itself is a striking combination of concepts. We capture this duality through the interplay of black and white with soft, glowing light leaks. A nod to the name&#x27;s inherent contrasts, this fusion imparts a sense of timelessness and boundlessness.</p>
+</figure>
+</section>
+<section class="mms-band" data-band="wtw">
+<div aria-valuenow="0" class="mms-river" hidden="" id="mms-river-wtw">
+<div class="mms-frame" data-fit="contain" data-media-id="wtw-01" data-mobile-profile="standard" data-shape-policy="artwork" style="--asset-w:746.7;--asset-h:504">
+<img alt="" class="mms-img" decoding="async" loading="eager" sizes="(max-width: 1023px) 85vw, 65vw" src="https://freight.cargo.site/w/1494/q/85/i/C3028244178623348957641467017017/wtw-lanyard.png" srcset="https://freight.cargo.site/w/420/q/85/i/C3028244178623348957641467017017/wtw-lanyard.png 420w, https://freight.cargo.site/w/900/q/85/i/C3028244178623348957641467017017/wtw-lanyard.png 900w, https://freight.cargo.site/w/1494/q/85/i/C3028244178623348957641467017017/wtw-lanyard.png 1494w" style="background:transparent" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="wtw-02" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:765.2;--asset-h:765.2">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/L3031232634561019862244141872953/24-wtw-wordmark-poster.jpg" data-src="https://freight.cargo.site/t/original/i/U3028243848518863758609040848697/wtw-wordmark.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/L3031232634561019862244141872953/24-wtw-wordmark-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="cover" data-media-id="wtw-03" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:592.9;--asset-h:333.50625;--object-position:50% 50%">
+<img alt="" class="mms-img" decoding="async" loading="eager" src="https://freight.cargo.site/t/original/i/X3028243859623803690982190921529/wtw-image1.gif" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="wtw-04" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:388.2;--asset-h:388.2">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/P3031232663448621081673299703609/25-wtw-grid-logo-poster.jpg" data-src="https://freight.cargo.site/t/original/i/J3028243826290537149789031151417/wtw-grid-logo.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/P3031232663448621081673299703609/25-wtw-grid-logo-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="wtw-05" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:388.2;--asset-h:388.2">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/S3031232692022627651849395156793/26-wtw-grid-image-poster.jpg" data-src="https://freight.cargo.site/t/original/i/K3028243512603654176358105921337/wtw-grid-image.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/S3031232692022627651849395156793/26-wtw-grid-image-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="wtw-06" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:579;--asset-h:504">
+<img alt="" class="mms-img" decoding="async" loading="eager" src="https://freight.cargo.site/t/original/i/M3028243870784083855576469649209/wtw-image6.gif" />
+</div>
+<div class="mms-frame" data-fit="contain" data-media-id="wtw-07" data-mobile-profile="standard" data-shape-policy="crop" style="--asset-w:896;--asset-h:504">
+<video autoplay="" class="mms-img mms-video" data-motion-priority="near" data-poster="https://freight.cargo.site/t/original/i/P3031232719434489345381788858169/27-wtw-grid-animation-poster.jpg" data-src="https://freight.cargo.site/t/original/i/L3028243501517160988058665400121/wtw-grid-animation.mp4" loop="" muted="" playsinline="" poster="https://freight.cargo.site/t/original/i/P3031232719434489345381788858169/27-wtw-grid-animation-poster.jpg" preload="none" webkit-playsinline="">
+</video>
+</div>
+</div>
+<figure class="mms-desc">
+<div class="title-group">WTW? (What’s the Word?)<br />
+<span class="tagline">
+<em>2023 – Brand identity and graphic design • Entertainment</em>
+</span>
+</div>
+<p>WTW? is a Hong Kong-based platform for curated hip hop events. The identity was designed as a flexible system. A consistent typographic structure and graphic treatments, paired with modular layouts create recognition across posters, social content and event communications, while allowing each program to have its own visual direction.</p>
+</figure>
+</section>
+</main>
+
+<dialog aria-label="site controls" aria-modal="false" class="mms-panel" id="mms-panel" open="">
+  <div class="mms-panel-primary">
+    <div class="row dots">
+      <button aria-label="white theme" aria-pressed="true" class="mms-dot" data-theme-set="white" style="--dot-bg:var(--primitive-white);--dot-center:var(--primitive-black)"></button>
+      <button aria-label="girly theme" aria-pressed="false" class="mms-dot" data-theme-set="girly" style="--dot-bg:var(--primitive-green);--dot-center:var(--primitive-pink)"></button>
+      <button aria-label="quirky theme" aria-pressed="false" class="mms-dot" data-theme-set="quirky" style="--dot-bg:var(--primitive-sky);--dot-center:var(--primitive-brown)"></button>
+      <button aria-label="contrast theme" aria-pressed="false" class="mms-dot" data-theme-set="contrast" style="--dot-bg:var(--primitive-magenta);--dot-center:var(--primitive-yellow)"></button>
+      <button aria-label="black theme" aria-pressed="false" class="mms-dot" data-theme-set="black" style="--dot-bg:var(--primitive-black);--dot-center:var(--primitive-white)"></button>
+    </div>
+    <div class="mms-scale">
+      <span class="a-min">a</span>
+      <input aria-label="type scale" id="mms-scale" max="3" min="0" step="1" type="range" value="1" />
+      <span class="a-max">a</span>
+    </div>
+  </div>
+  <div class="row grid2">
+    <button aria-pressed="true" class="mms-btn face-serif" data-face-set="serif"><span class="mms-face-label">Serif</span></button>
+    <button aria-pressed="false" class="mms-btn face-sans" data-face-set="sans"><span class="mms-face-label">Sans</span></button>
+    <button aria-pressed="false" class="mms-btn face-mono" data-face-set="mono"><span class="mms-face-label">Mono</span></button>
+    <button aria-pressed="false" class="mms-btn face-gothic" data-face-set="gothic"><span class="mms-face-label">Gothic</span></button>
+  </div>
+  <div class="mms-shapes">
+    <button aria-label="straight frames" aria-pressed="true" class="mms-shape straight" data-shape-set="straight"><svg viewBox="0 0 24 24" viewbox="0 0 24 24"><path d="M2 20 L8.5 9.5 L13 15 L16.5 10.5 L22 20 Z"></path><circle cx="17.5" cy="6" r="2.5"></circle></svg></button>
+    <button aria-label="rounded frames" aria-pressed="false" class="mms-shape rounded" data-shape-set="rounded"><svg viewBox="0 0 24 24" viewbox="0 0 24 24"><path d="M2 20 L8.5 9.5 L13 15 L16.5 10.5 L22 20 Z"></path><circle cx="17.5" cy="6" r="2.5"></circle></svg></button>
+    <button aria-label="oval frames" aria-pressed="false" class="mms-shape oval" data-shape-set="oval"><svg viewBox="0 0 24 24" viewbox="0 0 24 24"><path d="M2 20 L8.5 9.5 L13 15 L16.5 10.5 L22 20 Z"></path><circle cx="17.5" cy="6" r="2.5"></circle></svg></button>
+  </div>
+</dialog></div>
+<script>/* mm.s control panel — sets data-* axes on <html>; persists; live clock;
+   mobile control sheet toggle. 2026-07-06 r2 */
+(function () {
+  function init() {
+  var currentMms = document.querySelector('.mms');
+  if (currentMms) {
+    var currentPanel = currentMms.querySelector('dialog.mms-panel');
+    document.querySelectorAll('dialog.mms-panel').forEach(function (candidate) {
+      if (currentPanel && candidate !== currentPanel) {
+        if (candidate.open) candidate.close();
+        candidate.remove();
+      }
+    });
+  }
+  if (window.__mmsPanelVersion === 'responsive-70' && window.__mmsPanelRoot === currentMms) return;
+  if (!document.querySelector('.mms') || !document.querySelector('.mms-panel [data-theme-set]')) {
+    window.setTimeout(init, 50);
+    return;
+  }
+  window.__mmsPanelVersion = 'responsive-70';
+  window.__mmsPanelRoot = currentMms;
+  var root = document.documentElement;
+  var SCALES = ['s', 'm', 'l', 'xl'];
+  var THEMES = ['white', 'girly', 'quirky', 'contrast', 'black'];
+  var FACES = ['serif', 'sans', 'mono', 'gothic'];
+  var SHAPES = ['straight', 'rounded', 'oval'];
+  var userAgent = navigator.userAgent || '';
+  var isIOS = /iP(ad|hone|od)/.test(userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isSafari = /Safari\//.test(userAgent) &&
+    !/Chrome|Chromium|CriOS|Edg|EdgiOS|OPR|FxiOS|Firefox/.test(userAgent);
+  var earlyPreview = window.__mmsRenderPreview || null;
+  var renderPreviewStop = null;
+  function ensureFullBleedViewport() {
+    var viewport = document.querySelector('meta[name="viewport"]');
+    if (!viewport) {
+      viewport = document.createElement('meta');
+      viewport.setAttribute('name', 'viewport');
+      document.head.appendChild(viewport);
+    }
+    var parts = (viewport.getAttribute('content') || 'width=device-width, initial-scale=1')
+      .split(',').map(function (part) { return part.trim(); }).filter(Boolean)
+      .filter(function (part) { return part.indexOf('viewport-fit=') !== 0; });
+    parts.push('viewport-fit=cover');
+    viewport.setAttribute('content', parts.join(', '));
+    /* A theme-color paints Safari's status/toolbar and overscroll regions with
+       a solid swatch. Let the real document continue beneath Safari instead. */
+    document.querySelectorAll('meta[name="theme-color"]').forEach(function (meta) {
+      meta.remove();
+    });
+  }
+
+  function apply(axis, value, persist) {
+    if (persist !== false && renderPreviewStop) renderPreviewStop(true);
+    root.setAttribute('data-' + axis, value);
+    if (axis === 'theme' && persist !== false && earlyPreview &&
+        typeof earlyPreview.sampleTheme === 'function') {
+      earlyPreview.sampleTheme(value);
+    }
+    if (persist !== false) {
+      try { localStorage.setItem('mms-' + axis, value); } catch (e) {}
+    }
+    var sel = '[data-' + axis + '-set]';
+    document.querySelectorAll(sel).forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-' + axis + '-set') === value));
+    });
+    if (axis === 'scale') {
+      var slider = document.getElementById('mms-scale');
+      if (slider) slider.value = String(SCALES.indexOf(value));
+    }
+    setTimeout(setBarH, 0);
+    scheduleMontranMapFit();
+  }
+
+  ensureFullBleedViewport();
+
+  // Restore persisted state. Fresh compact and expanded visits both start at
+  // their device-specific Medium modes. Implicit defaults are not stored.
+  // palette v2 migration (2026-07-10): old theme ids saved in visitors'
+  // localStorage map onto the renamed themes.
+  var THEME_MIG = { navy: 'girly', brown: 'quirky', yellow: 'contrast' };
+  var previewInProgress = Boolean(earlyPreview &&
+    (earlyPreview.active || earlyPreview.status === 'settling'));
+  ['theme', 'face', 'scale', 'shape'].forEach(function (axis) {
+    var saved = null;
+    try { saved = localStorage.getItem('mms-' + axis); } catch (e) {}
+    if (axis === 'theme' && saved && THEME_MIG[saved]) saved = THEME_MIG[saved];
+    var fallback = { theme: 'white', face: 'serif', scale: 'm', shape: 'straight' }[axis];
+    var earlyTarget = earlyPreview && earlyPreview.target && earlyPreview.target[axis];
+    var initial = earlyTarget || saved || root.getAttribute('data-' + axis) || fallback;
+    if (axis === 'scale' && !saved) initial = fallback;
+    if (!previewInProgress) apply(axis, initial, false);
+  });
+  window.addEventListener('pageshow', function () {
+    document.querySelectorAll('meta[name="theme-color"]').forEach(function (meta) { meta.remove(); });
+  });
+
+  function syncControlState() {
+    ['theme', 'face', 'shape'].forEach(function (axis) {
+      var value = root.getAttribute('data-' + axis);
+      document.querySelectorAll('[data-' + axis + '-set]').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.getAttribute('data-' + axis + '-set') === value));
+      });
+    });
+    var currentScale = root.getAttribute('data-scale') || 'm';
+    var currentSlider = document.getElementById('mms-scale');
+    if (currentSlider) currentSlider.value = String(SCALES.indexOf(currentScale));
+  }
+  syncControlState();
+  if (earlyPreview && (earlyPreview.active || earlyPreview.status === 'settling')) {
+    renderPreviewStop = function () { earlyPreview.cancel(); };
+    var syncEarlyPreviewCut = function () { syncControlState(); };
+    var finishEarlyPreview = function () {
+      renderPreviewStop = null;
+      syncControlState();
+      document.removeEventListener('mms-render-preview-cut', syncEarlyPreviewCut);
+      document.removeEventListener('mms-render-preview-done', finishEarlyPreview);
+      window.setTimeout(setBarH, 0);
+      scheduleMontranMapFit();
+    };
+    document.addEventListener('mms-render-preview-cut', syncEarlyPreviewCut);
+    document.addEventListener('mms-render-preview-done', finishEarlyPreview);
+  }
+  window.setTimeout(syncControlState, 100);
+  window.setTimeout(syncControlState, 500);
+  window.setTimeout(syncControlState, 1500);
+  // radio groups
+  ['theme', 'face', 'shape'].forEach(function (axis) {
+    document.querySelectorAll('[data-' + axis + '-set]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        apply(axis, b.getAttribute('data-' + axis + '-set'), true);
+      });
+    });
+  });
+
+  // slider: 4 steps -> scale modes
+  var slider = document.getElementById('mms-scale');
+  if (slider) slider.addEventListener('input', function () { apply('scale', SCALES[+slider.value] || 'm', true); });
+
+  // live clock: every .js-clock element (desktop corner + mobile bar)
+  var clocks = document.querySelectorAll('.js-clock');
+  function tick() {
+    var d = new Date();
+    var t = [d.getHours(), d.getMinutes(), d.getSeconds()]
+      .map(function (n) { return String(n).padStart(2, '0'); }).join(':');
+    clocks.forEach(function (c) { c.textContent = t; });
+  }
+  if (clocks.length) { tick(); setInterval(tick, 1000); }
+
+  // One native dialog serves two contexts: sticky in the expanded rail and a
+  // persistent non-modal viewport tray in compact mode. Compact mode portals
+  // the same node under body so Cargo's transformed wrappers cannot trap fixed
+  // positioning; expanded mode restores it to this placeholder.
+  var panel = document.querySelector('.mms dialog.mms-panel') || document.querySelector('dialog.mms-panel');
+  var compactPanel = window.matchMedia('(max-width: 1023px)');
+  var lastCompactMode = compactPanel.matches;
+  var lastPanelTrigger = null;
+  var panelSlot = null;
+  if (panel && panel.parentNode) {
+    panelSlot = document.createComment('mms-panel-slot');
+    panel.parentNode.insertBefore(panelSlot, panel);
+  }
+
+  function portalCompactPanel() {
+    if (panel && panel.parentNode !== document.body) document.body.appendChild(panel);
+  }
+
+  function restoreExpandedPanel() {
+    if (!panel) return;
+    var shell = document.querySelector('.mms');
+    if ((!panelSlot || !panelSlot.parentNode) && shell) {
+      panelSlot = document.createComment('mms-panel-slot');
+      shell.appendChild(panelSlot);
+    }
+    if (panelSlot && panelSlot.parentNode && panel.previousSibling !== panelSlot) {
+      panelSlot.parentNode.insertBefore(panel, panelSlot.nextSibling);
+    }
+  }
+
+  function setPanelButtons(open) {
+    document.querySelectorAll('[data-panel-toggle]').forEach(function (b) {
+      b.setAttribute('aria-expanded', String(open));
+      if (b.classList.contains('mms-menu')) {
+        b.setAttribute('aria-label', open ? 'close site controls' : 'open site controls');
+      }
+    });
+  }
+
+  function closeCompactPanel(restoreFocus) {
+    var wasOpen = root.getAttribute('data-panel') === 'open' || Boolean(panel && panel.open);
+    root.removeAttribute('data-panel');
+    setPanelButtons(false);
+    if (panel) {
+      panel.setAttribute('aria-modal', 'false');
+      if (panel.open) panel.close();
+    }
+    if (restoreFocus && lastPanelTrigger && document.contains(lastPanelTrigger)) {
+      lastPanelTrigger.focus();
+    }
+  }
+
+  function openCompactPanel(trigger, keyboardOpen) {
+    if (!panel) return;
+    lastPanelTrigger = trigger || document.querySelector('[data-panel-toggle]');
+    portalCompactPanel();
+    panel.setAttribute('aria-modal', 'false');
+    root.setAttribute('data-panel', 'open');
+    setPanelButtons(true);
+    if (!panel.open) panel.show();
+    if (keyboardOpen) {
+      setTimeout(function () {
+        var firstControl = panel.querySelector('#mms-scale') || panel.querySelector('button, input');
+        if (firstControl) firstControl.focus();
+      }, 0);
+    }
+  }
+
+  function syncPanelMode() {
+    if (!panel) return;
+    var modeChanged = compactPanel.matches !== lastCompactMode;
+    lastCompactMode = compactPanel.matches;
+    if (modeChanged) {
+      var savedScale = null;
+      try { savedScale = localStorage.getItem('mms-scale'); } catch (e) {}
+      if (!savedScale) apply('scale', 'm', false);
+    }
+    if (compactPanel.matches) {
+      // Header/type remeasurement calls this after every setting change. Keep
+      // an intentionally open compact tray open; only reset when entering
+      // compact mode from the always-open desktop panel or when already shut.
+      if (root.getAttribute('data-panel') === 'open' && panel.open) {
+        portalCompactPanel();
+        panel.setAttribute('aria-modal', 'false');
+        setPanelButtons(true);
+        return;
+      }
+      closeCompactPanel(false);
+      portalCompactPanel();
+    } else {
+      root.removeAttribute('data-panel');
+      if (panel.open) panel.close();
+      restoreExpandedPanel();
+      panel.setAttribute('aria-modal', 'false');
+      if (!panel.open) panel.show();
+      setPanelButtons(false);
+    }
+    postBookletMode();
+  }
+
+  var bookletFrame = document.querySelector('iframe[data-slot="montran-booklet"]');
+  var bookletShell = null;
+  var bookletGesture = null;
+
+  /* Compact booklet gestures belong to the outer river, not the cross-origin
+     iframe. The iframe stays native on expanded desktops. On compact screens
+     this transparent split overlay lets the browser pan the river normally;
+     only a stationary tap in the left or right half posts one page command. */
+  function ensureBookletGesture() {
+    if (!bookletFrame) return;
+    bookletShell = bookletFrame.closest('.mms-booklet-shell');
+    if (!bookletShell) {
+      bookletShell = document.createElement('div');
+      bookletShell.className = 'mms-booklet-shell';
+      ['--asset-w', '--asset-h'].forEach(function (property) {
+        var value = bookletFrame.style.getPropertyValue(property);
+        if (value) bookletShell.style.setProperty(property, value);
+      });
+      ['data-mobile-profile', 'data-media-id', 'data-shape-policy', 'data-fit'].forEach(function (attribute) {
+        var value = bookletFrame.getAttribute(attribute);
+        if (value) bookletShell.setAttribute(attribute, value);
+        bookletFrame.removeAttribute(attribute);
+      });
+      bookletFrame.parentNode.insertBefore(bookletShell, bookletFrame);
+      bookletShell.appendChild(bookletFrame);
+    }
+    bookletGesture = bookletShell.querySelector('.mms-booklet-gesture');
+    if (!bookletGesture) {
+      bookletGesture = document.createElement('div');
+      bookletGesture.className = 'mms-booklet-gesture';
+      ['previous', 'next'].forEach(function (direction) {
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'mms-booklet-turn';
+        button.setAttribute('data-booklet-turn', direction);
+        button.setAttribute('aria-label', direction + ' booklet spread');
+        button.tabIndex = -1;
+        bookletGesture.appendChild(button);
+      });
+      bookletShell.appendChild(bookletGesture);
+    }
+  }
+  ensureBookletGesture();
+
+  var bookletTargetOrigin = '*';
+  if (bookletFrame) {
+    try {
+      bookletTargetOrigin = new URL(
+        bookletFrame.getAttribute('data-src') || bookletFrame.getAttribute('src') || '',
+        window.location.href
+      ).origin;
+    } catch (e) {}
+  }
+
+  function postBookletTurn(direction) {
+    if (!bookletFrame || !bookletFrame.contentWindow || !compactPanel.matches) return;
+    try {
+      bookletFrame.contentWindow.postMessage({
+        __mmsBookletTurn: 1,
+        position: direction === 'previous' ? 0.25 : 0.75,
+        direction: direction
+      }, bookletTargetOrigin);
+    } catch (e) {}
+  }
+
+  if (bookletGesture) {
+    var bookletPointer = null;
+    var bookletSuppressClickUntil = 0;
+    var bookletTurnLockedUntil = 0;
+    bookletGesture.addEventListener('pointerdown', function (event) {
+      if (!compactPanel.matches || event.isPrimary === false ||
+          (event.button !== undefined && event.button !== 0)) return;
+      var targetButton = event.target && event.target.closest
+        ? event.target.closest('[data-booklet-turn]')
+        : null;
+      bookletPointer = {
+        id: event.pointerId,
+        x: event.clientX,
+        y: event.clientY,
+        time: Date.now(),
+        direction: targetButton && bookletGesture.contains(targetButton)
+          ? targetButton.getAttribute('data-booklet-turn')
+          : null,
+        moved: false
+      };
+    }, { passive: true });
+    bookletGesture.addEventListener('pointermove', function (event) {
+      if (!bookletPointer || bookletPointer.id !== event.pointerId) return;
+      if (Math.hypot(event.clientX - bookletPointer.x, event.clientY - bookletPointer.y) > 8) {
+        bookletPointer.moved = true;
+      }
+    }, { passive: true });
+    function requestCompactBookletTurn(direction) {
+      var now = Date.now();
+      if (!compactPanel.matches || now < bookletTurnLockedUntil) return;
+      bookletTurnLockedUntil = now + 700;
+      postBookletTurn(direction);
+    }
+    function finishBookletPointer(event) {
+      if (!bookletPointer || bookletPointer.id !== event.pointerId) return;
+      var direction = bookletPointer.direction;
+      var moved = bookletPointer.moved ||
+        Math.hypot(event.clientX - bookletPointer.x, event.clientY - bookletPointer.y) > 8;
+      var elapsed = Date.now() - bookletPointer.time;
+      bookletPointer = null;
+      /* iOS Safari does not reliably synthesize click after a stationary
+         pointer sequence on an element that also permits native panning.
+         Commit the turn directly on pointerup; pointercancel and moved
+         gestures remain pure river/page scrolling. */
+      bookletSuppressClickUntil = Date.now() + 450;
+      if (event.type !== 'pointerup' || moved || elapsed > 500 || !direction) return;
+      requestCompactBookletTurn(direction);
+    }
+    bookletGesture.addEventListener('pointerup', finishBookletPointer, { passive: true });
+    bookletGesture.addEventListener('pointercancel', finishBookletPointer, { passive: true });
+    bookletGesture.querySelectorAll('[data-booklet-turn]').forEach(function (button) {
+      button.addEventListener('click', function (event) {
+        /* Pointer taps are handled above. Retain a keyboard/programmatic
+           fallback without allowing Safari's delayed click to double-turn. */
+        if (event.detail !== 0) return;
+        var now = Date.now();
+        if (!compactPanel.matches || now < bookletSuppressClickUntil || now < bookletTurnLockedUntil) return;
+        requestCompactBookletTurn(button.getAttribute('data-booklet-turn'));
+      });
+    });
+  }
+
+  function postBookletMode() {
+    if (!bookletFrame || !bookletFrame.contentWindow) return;
+    try {
+      bookletFrame.contentWindow.postMessage({
+        __mmsBookletMode: 1,
+        compact: compactPanel.matches
+      }, bookletTargetOrigin);
+    } catch (e) {}
+  }
+  if (bookletFrame) bookletFrame.addEventListener('load', postBookletMode);
+  window.addEventListener('message', function (event) {
+    if (!bookletFrame || event.source !== bookletFrame.contentWindow ||
+        event.origin !== bookletTargetOrigin) return;
+    var data = event.data || {};
+    if (data.__mmsBookletReady === 1 && data.kind === 'montran-booklet' && data.version === 17) {
+      postBookletMode();
+    }
+  });
+
+  document.querySelectorAll('[data-panel-toggle]').forEach(function (b) {
+    b.addEventListener('click', function (event) {
+      if (!compactPanel.matches) return;
+      var keyboard = event.detail === 0;
+      if (root.getAttribute('data-panel') === 'open') closeCompactPanel(keyboard);
+      else openCompactPanel(b, event.detail === 0);
+    });
+  });
+
+  /* Rounded and oval media are visually clipped, but their horizontal river
+     remains a full rectangular scroller above the sticky header. On iOS that
+     river owns taps even in a transparent clipped corner. Forward only a
+     completed tap (never pointerdown/touchmove) when it lands inside the
+     header toggle's 44px target and outside every visible media silhouette.
+     Native horizontal and vertical panning therefore remain untouched. */
+  function pointInsideRect(rect, x, y) {
+    return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+  }
+
+  function pointInsideMediaShape(element, x, y) {
+    var rect = element.getBoundingClientRect();
+    if (!rect.width || !rect.height || !pointInsideRect(rect, x, y)) return false;
+    if (element.getAttribute('data-shape-policy') === 'interactive' &&
+        !element.classList.contains('mms-booklet-shell')) return true;
+    var shape = root.getAttribute('data-shape') || 'straight';
+    if (shape === 'oval') {
+      var dx = (x - (rect.left + rect.width / 2)) / (rect.width / 2);
+      var dy = (y - (rect.top + rect.height / 2)) / (rect.height / 2);
+      return (dx * dx) + (dy * dy) <= 1;
+    }
+    if (shape === 'rounded') {
+      var radius = Math.min(
+        parseFloat(getComputedStyle(element).borderTopLeftRadius) || 0,
+        rect.width / 2,
+        rect.height / 2
+      );
+      if (!radius) return true;
+      var innerX = Math.max(rect.left + radius, Math.min(x, rect.right - radius));
+      var innerY = Math.max(rect.top + radius, Math.min(y, rect.bottom - radius));
+      var cornerX = x - innerX;
+      var cornerY = y - innerY;
+      return (cornerX * cornerX) + (cornerY * cornerY) <= radius * radius;
+    }
+    return true;
+  }
+
+  document.addEventListener('click', function (event) {
+    if (!event.isTrusted || !compactPanel.matches || root.getAttribute('data-panel') === 'open') return;
+    var target = event.target && event.target.nodeType === 1 ? event.target : null;
+    var river = target && target.closest ? target.closest('.mms-river') : null;
+    var toggle = document.querySelector('.mms-menu[data-panel-toggle]');
+    if (!river || !toggle) return;
+
+    var toggleRect = toggle.getBoundingClientRect();
+    var hitSize = Math.max(44, toggleRect.width, toggleRect.height);
+    var toggleHit = {
+      left: toggleRect.left + (toggleRect.width - hitSize) / 2,
+      right: toggleRect.left + (toggleRect.width + hitSize) / 2,
+      top: toggleRect.top + (toggleRect.height - hitSize) / 2,
+      bottom: toggleRect.top + (toggleRect.height + hitSize) / 2
+    };
+    if (!pointInsideRect(toggleHit, event.clientX, event.clientY)) return;
+
+    if (target.closest('.mms-game, .caption, a, button, input')) return;
+    var visibleMedia = Array.prototype.some.call(river.querySelectorAll('.mms-frame, [data-shape-policy="interactive"]'), function (media) {
+      return pointInsideMediaShape(media, event.clientX, event.clientY);
+    });
+    if (visibleMedia) return;
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    window.setTimeout(function () { toggle.click(); }, 0);
+  }, true);
+  document.querySelectorAll('[data-panel-close]').forEach(function (b) {
+    b.addEventListener('click', function () { closeCompactPanel(true); });
+  });
+  document.addEventListener('click', function (event) {
+    if (!compactPanel.matches || root.getAttribute('data-panel') !== 'open' || !panel) return;
+    var path = typeof event.composedPath === 'function' ? event.composedPath() : [];
+    var insidePanel = path.indexOf(panel) >= 0 || panel.contains(event.target);
+    var toggle = event.target && event.target.closest ? event.target.closest('[data-panel-toggle]') : null;
+    if (!insidePanel && !toggle) closeCompactPanel(false);
+  });
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && compactPanel.matches && root.getAttribute('data-panel') === 'open') {
+      event.preventDefault();
+      closeCompactPanel(true);
+    }
+  });
+  if (panel) {
+    panel.addEventListener('close', function () {
+      if (compactPanel.matches && root.getAttribute('data-panel') === 'open') {
+        root.removeAttribute('data-panel');
+        setPanelButtons(false);
+      }
+    });
+  }
+  if (compactPanel.addEventListener) compactPanel.addEventListener('change', syncPanelMode);
+  else if (compactPanel.addListener) compactPanel.addListener(syncPanelMode);
+  window.addEventListener('resize', syncPanelMode);
+  window.addEventListener('load', syncPanelMode);
+  syncPanelMode();
+
+  // iOS/Safari video fallback (2026-07-10): the two ALPHA videos (8bit-girls,
+  // mandy hf) ship VP9-alpha webm, which every WebKit browser renders without
+  // alpha (or not at all). Those <video>s carry data-mp4 = HEVC-alpha rendition;
+  // swap on any iOS browser (all are WebKit, incl. CriOS/FxiOS) or desktop
+  // Safari. Opaque videos are plain H.264 mp4 and need no swap.
+  // The fallback source is selected only when a video approaches the
+  // viewport; assigning every source during init defeated mobile deferral.
+
+  // Heavy media loads within one viewport of view. Videos pause when they
+  // leave that range; iframes receive a lifecycle message so WebGL can stop
+  // rendering even after its one-time load.
+  var loopCover = document.querySelector('[data-media-id="loop-01"]');
+  if (loopCover) loopCover.dataset.mobileProfile = 'loop-cover';
+  if (bookletShell) bookletShell.dataset.mobileProfile = 'booklet-wide';
+
+  function deferredSource(element) {
+    if ((isIOS || isSafari) && element.matches('video[data-mp4]')) {
+      return element.getAttribute('data-mp4');
+    }
+    return element.getAttribute('data-src');
+  }
+  function activateDeferred(element) {
+    if (!element || element.dataset.mmsLoaded === '1') return;
+    var source = deferredSource(element);
+    if (!source) return;
+    element.removeAttribute('src');
+    element.dataset.mmsSource = source;
+    element.dataset.mmsLoaded = '1';
+    var poster = element.getAttribute('data-poster');
+    if (element.tagName === 'VIDEO') {
+      if (poster && !element.getAttribute('poster')) element.setAttribute('poster', poster);
+      element.muted = true;
+      element.defaultMuted = true;
+      element.autoplay = true;
+      element.playsInline = true;
+      element.setAttribute('muted', '');
+      element.setAttribute('autoplay', '');
+      element.setAttribute('playsinline', '');
+      element.setAttribute('webkit-playsinline', '');
+    }
+    element.setAttribute('src', source);
+    if (element.tagName === 'VIDEO') {
+      try { element.load(); } catch (e) {}
+      element.addEventListener('loadedmetadata', function () { requestVideoPlay(element); }, { once: true });
+      element.addEventListener('canplay', function () { requestVideoPlay(element); }, { once: true });
+      element.addEventListener('playing', function () {
+        element.dataset.motionReady = '1';
+      }, { once: true });
+      element.addEventListener('error', function () {
+        element.dataset.motionError = '1';
+      });
+    } else if (element.tagName === 'IFRAME' && poster) {
+      element.style.backgroundImage = 'url("' + poster.replace(/"/g, '%22') + '")';
+      element.style.backgroundPosition = 'center';
+      element.style.backgroundRepeat = 'no-repeat';
+      element.style.backgroundSize = 'contain';
+    }
+  }
+  function requestVideoPlay(video) {
+    if (!video || video.dataset.mmsLoaded !== '1') return;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    try {
+      var promise = video.play();
+      if (promise && promise.catch) promise.catch(function () {});
+    } catch (e) {}
+  }
+  function setMediaActive(element, active) {
+    if (active) activateDeferred(element);
+    if (element.tagName === 'VIDEO') {
+      if (!active) { try { element.pause(); } catch (e) {} return; }
+      requestVideoPlay(element);
+    } else if (element.tagName === 'IFRAME' && element.contentWindow && element.dataset.mmsLoaded === '1') {
+      try { element.contentWindow.postMessage({ __mmsEmbedVisibility: 1, visible: active }, '*'); } catch (e) {}
+    }
+  }
+
+  /* A scrubber can move farther than native lazy loading anticipates in one
+     pointer frame. Prepare the complete nearby river before it becomes
+     interactive so a jump never reveals an empty image/video frame. Actual
+     video and iframe sources remain governed by the existing observer. */
+  function prewarmRiverMedia(container) {
+    if (!container) return;
+    container.querySelectorAll('img[loading="lazy"]').forEach(function (image) {
+      image.setAttribute('loading', 'eager');
+    });
+    container.querySelectorAll('video[data-poster], iframe[data-poster]').forEach(function (element) {
+      var poster = element.getAttribute('data-poster');
+      if (!poster) return;
+      if (element.tagName === 'VIDEO') {
+        if (!element.getAttribute('poster')) element.setAttribute('poster', poster);
+        return;
+      }
+      if (!element.style.backgroundImage) {
+        element.style.backgroundImage = 'url("' + poster.replace(/"/g, '%22') + '")';
+        element.style.backgroundPosition = 'center';
+        element.style.backgroundRepeat = 'no-repeat';
+        element.style.backgroundSize = 'contain';
+      }
+    });
+  }
+
+  var mediaLoaderStarted = false;
+  function startDeferredMedia() {
+    if (mediaLoaderStarted) return;
+    mediaLoaderStarted = true;
+    var deferredMedia = document.querySelectorAll('.mms video[data-src], .mms iframe[data-src]');
+    var scrubberDesktopMedia = window.matchMedia(
+      '(min-width: 1024px) and (any-hover: hover) and (any-pointer: fine)'
+    );
+    function prewarmAllRiverMedia() {
+      if (!scrubberDesktopMedia.matches) return;
+      document.querySelectorAll('.mms-band').forEach(prewarmRiverMedia);
+    }
+    prewarmAllRiverMedia();
+    if (typeof scrubberDesktopMedia.addEventListener === 'function') {
+      scrubberDesktopMedia.addEventListener('change', prewarmAllRiverMedia);
+    } else if (typeof scrubberDesktopMedia.addListener === 'function') {
+      scrubberDesktopMedia.addListener(prewarmAllRiverMedia);
+    }
+    deferredMedia.forEach(function (element) {
+      if (element.tagName === 'VIDEO') element.setAttribute('preload', 'none');
+    });
+    deferredMedia.forEach(function (element) {
+      if (element.getAttribute('data-motion-priority') !== 'critical') return;
+      if (element.tagName === 'VIDEO') element.setAttribute('preload', 'auto');
+      if (element.tagName === 'IFRAME') element.setAttribute('loading', 'eager');
+      setMediaActive(element, true);
+    });
+    if ('IntersectionObserver' in window) {
+      var riverPrewarmObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          prewarmRiverMedia(entry.target);
+          riverPrewarmObserver.unobserve(entry.target);
+        });
+      }, { rootMargin: '100% 0px', threshold: 0 });
+      document.querySelectorAll('.mms-band').forEach(function (band) {
+        riverPrewarmObserver.observe(band);
+      });
+
+      var mediaObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) { setMediaActive(entry.target, entry.isIntersecting); });
+      }, { rootMargin: '100% 100%', threshold: 0 });
+      deferredMedia.forEach(function (element) { mediaObserver.observe(element); });
+
+      /* The Touchbaes game sits several items into its horizontal river. Load
+         the live iframe when the project band is vertically near, rather than
+         waiting until the user has already swiped to the game's x-position.
+         This keeps the game deferred during startup while removing the
+         poster-to-iframe flash from the visible river. */
+      var touchbaesFrame = document.querySelector('.mms iframe[data-embed-kind="touchbaes"]');
+      var touchbaesBand = touchbaesFrame && touchbaesFrame.closest('.mms-band');
+      if (touchbaesFrame && touchbaesBand && touchbaesFrame.dataset.mmsLoaded !== '1') {
+        var touchbaesBandObserver = new IntersectionObserver(function (entries) {
+          if (!entries.some(function (entry) { return entry.isIntersecting; })) return;
+          touchbaesFrame.setAttribute('loading', 'eager');
+          setMediaActive(touchbaesFrame, true);
+          touchbaesBandObserver.disconnect();
+        }, { rootMargin: '100% 0px', threshold: 0 });
+        touchbaesBandObserver.observe(touchbaesBand);
+      }
+    } else {
+      document.querySelectorAll('.mms-band').forEach(prewarmRiverMedia);
+      deferredMedia.forEach(function (element) { setMediaActive(element, true); });
+    }
+  }
+  window.addEventListener('message', function (event) {
+    if (!event.data || event.data.__mmsEmbedReady !== 1) return;
+    var frames = document.querySelectorAll('.mms iframe[data-embed-kind]');
+    frames.forEach(function (frame) {
+      if (event.source !== frame.contentWindow) return;
+      if (event.data.kind !== frame.getAttribute('data-embed-kind')) return;
+      var expectedOrigin = '';
+      try { expectedOrigin = new URL(deferredSource(frame), window.location.href).origin; } catch (e) {}
+      if (expectedOrigin && event.origin !== expectedOrigin) return;
+      frame.dataset.motionReady = '1';
+      frame.style.backgroundImage = 'none';
+    });
+  });
+  startDeferredMedia();
+  function resumeVisibleVideos() {
+    document.querySelectorAll('.mms video[data-mms-loaded="1"]').forEach(function (video) {
+      var rect = video.getBoundingClientRect();
+      if (rect.bottom >= -window.innerHeight && rect.top <= window.innerHeight * 2) requestVideoPlay(video);
+    });
+  }
+  window.addEventListener('pageshow', resumeVisibleVideos);
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) resumeVisibleVideos();
+  });
+  ['touchstart', 'pointerdown'].forEach(function (type) {
+    document.addEventListener(type, resumeVisibleVideos, { passive: true, once: true });
+  });
+
+  /* Desktop river scrubbers provide a visible mouse and keyboard route while
+     leaving each river's approved native scroll behavior untouched. The
+     control is generated only for bands with a description; its geometry is
+     copied from that live description so track and text always share an edge
+     at every expanded width. */
+  function initRiverScrubbers() {
+    var fineDesktop = window.matchMedia(
+      '(min-width: 1024px) and (any-hover: hover) and (any-pointer: fine)'
+    );
+    var controllers = [];
+
+    /* Cargo may hydrate showcase bands after startDeferredMedia() has taken
+       its first DOM snapshot. Every scrubber retry therefore also prewarms
+       every band that has arrived by then, before a direct jump is possible. */
+    if (fineDesktop.matches) {
+      document.querySelectorAll('.mms-band').forEach(prewarmRiverMedia);
+    }
+
+    function directChild(parent, className) {
+      return Array.prototype.find.call(parent.children, function (child) {
+        return child.classList && child.classList.contains(className);
+      }) || null;
+    }
+
+    var eligibleBands = Array.prototype.filter.call(
+      document.querySelectorAll('.mms-band'),
+      function (band) {
+        return directChild(band, 'mms-river') && directChild(band, 'mms-desc');
+      }
+    );
+    var pendingBands = eligibleBands.filter(function (band) {
+      return !directChild(band, 'mms-river-scrubber');
+    });
+    if (!pendingBands.length) return;
+
+    pendingBands.forEach(function (band, index) {
+      var river = directChild(band, 'mms-river');
+      var description = directChild(band, 'mms-desc');
+      if (!river || !description) return;
+
+      var project = band.getAttribute('data-band') || String(index + 1);
+      if (!river.id) river.id = 'mms-river-' + project;
+
+      var control = document.createElement('div');
+      control.className = 'mms-river-scrubber';
+      control.hidden = true;
+      control.tabIndex = 0;
+      control.setAttribute('role', 'scrollbar');
+      control.setAttribute('aria-orientation', 'horizontal');
+      control.setAttribute('aria-controls', river.id);
+      control.setAttribute('aria-valuemin', '0');
+      control.setAttribute('aria-valuemax', '100');
+
+      var titleGroup = description.querySelector('.title-group');
+      var title = titleGroup && titleGroup.firstChild
+        ? titleGroup.firstChild.textContent.trim()
+        : project;
+      control.setAttribute('aria-label', 'Scroll ' + title + ' gallery');
+
+      var track = document.createElement('span');
+      track.className = 'mms-river-scrubber__track';
+      track.setAttribute('aria-hidden', 'true');
+      var thumb = document.createElement('span');
+      thumb.className = 'mms-river-scrubber__thumb';
+      thumb.setAttribute('aria-hidden', 'true');
+      var artwork = document.createElement('span');
+      artwork.className = 'mms-river-scrubber__thumb-art';
+      thumb.appendChild(artwork);
+      control.appendChild(track);
+      control.appendChild(thumb);
+      band.insertBefore(control, description);
+
+      var frame = 0;
+      var drag = null;
+
+      function sync() {
+        frame = 0;
+        if (!fineDesktop.matches) {
+          control.hidden = true;
+          return;
+        }
+
+        var descriptionRect = description.getBoundingClientRect();
+        var bandRect = band.getBoundingClientRect();
+        var trackWidth = descriptionRect.width;
+        var scrollMax = Math.max(0, river.scrollWidth - river.clientWidth);
+        if (!trackWidth || scrollMax <= 1) {
+          control.hidden = true;
+          control.setAttribute('aria-valuenow', '0');
+          return;
+        }
+
+        control.style.width = trackWidth.toFixed(3) + 'px';
+        control.style.setProperty(
+          'margin-left',
+          (descriptionRect.left - bandRect.left).toFixed(3) + 'px',
+          'important'
+        );
+        control.hidden = false;
+
+        var proportionalWidth = Math.min(
+          trackWidth,
+          trackWidth * river.clientWidth / Math.max(1, river.scrollWidth)
+        );
+        control.style.setProperty('--scrub-proportional-width', proportionalWidth.toFixed(3) + 'px');
+        var thumbWidth = Math.min(trackWidth, thumb.getBoundingClientRect().width);
+        var travel = Math.max(0, trackWidth - thumbWidth);
+        var progress = Math.max(0, Math.min(1, river.scrollLeft / scrollMax));
+        control.style.setProperty('--scrub-thumb-left', (travel * progress).toFixed(3) + 'px');
+        var percent = Math.round(progress * 100);
+        control.setAttribute('aria-valuenow', String(percent));
+        control.setAttribute('aria-valuetext', percent + '% through ' + title + ' gallery');
+      }
+
+      function schedule() {
+        if (!frame) frame = window.requestAnimationFrame(sync);
+      }
+
+      function scrollFromTrack(clientX) {
+        prewarmRiverMedia(river);
+        var rect = control.getBoundingClientRect();
+        var thumbWidth = Math.min(rect.width, thumb.getBoundingClientRect().width);
+        var travel = Math.max(0, rect.width - thumbWidth);
+        var scrollMax = Math.max(0, river.scrollWidth - river.clientWidth);
+        if (!travel || !scrollMax) return;
+        var thumbLeft = Math.max(0, Math.min(travel, clientX - rect.left - thumbWidth / 2));
+        river.scrollLeft = thumbLeft / travel * scrollMax;
+        schedule();
+      }
+
+      control.addEventListener('pointerdown', function (event) {
+        if (event.button !== 0 || event.target === thumb || thumb.contains(event.target)) return;
+        prewarmRiverMedia(river);
+        event.preventDefault();
+        control.focus({ preventScroll: true });
+        scrollFromTrack(event.clientX);
+      });
+
+      thumb.addEventListener('pointerdown', function (event) {
+        if (event.button !== 0) return;
+        prewarmRiverMedia(river);
+        event.preventDefault();
+        event.stopPropagation();
+        var controlRect = control.getBoundingClientRect();
+        var thumbWidth = Math.min(controlRect.width, thumb.getBoundingClientRect().width);
+        var travel = Math.max(0, controlRect.width - thumbWidth);
+        var scrollMax = Math.max(0, river.scrollWidth - river.clientWidth);
+        if (!travel || !scrollMax) return;
+        drag = {
+          pointerId: event.pointerId,
+          startX: event.clientX,
+          startScroll: river.scrollLeft,
+          travel: travel,
+          scrollMax: scrollMax
+        };
+        thumb.setPointerCapture(event.pointerId);
+        control.classList.add('is-dragging');
+        control.focus({ preventScroll: true });
+      });
+
+      thumb.addEventListener('pointermove', function (event) {
+        if (!drag || drag.pointerId !== event.pointerId) return;
+        event.preventDefault();
+        river.scrollLeft = drag.startScroll +
+          ((event.clientX - drag.startX) / drag.travel) * drag.scrollMax;
+        schedule();
+      });
+
+      function endDrag(event) {
+        if (!drag || (event && event.pointerId !== drag.pointerId)) return;
+        if (thumb.hasPointerCapture(drag.pointerId)) thumb.releasePointerCapture(drag.pointerId);
+        drag = null;
+        control.classList.remove('is-dragging');
+        schedule();
+      }
+      thumb.addEventListener('pointerup', endDrag);
+      thumb.addEventListener('pointercancel', endDrag);
+      thumb.addEventListener('lostpointercapture', endDrag);
+
+      control.addEventListener('keydown', function (event) {
+        var scrollMax = Math.max(0, river.scrollWidth - river.clientWidth);
+        if (!scrollMax) return;
+        var step = Math.max(40, river.clientWidth * 0.1);
+        var page = river.clientWidth * 0.7;
+        var next = river.scrollLeft;
+        if (event.key === 'ArrowLeft') next -= step;
+        else if (event.key === 'ArrowRight') next += step;
+        else if (event.key === 'PageUp') next -= page;
+        else if (event.key === 'PageDown') next += page;
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = scrollMax;
+        else return;
+        prewarmRiverMedia(river);
+        event.preventDefault();
+        river.scrollLeft = Math.max(0, Math.min(scrollMax, next));
+        schedule();
+      });
+
+      river.addEventListener('scroll', schedule, { passive: true });
+      river.addEventListener('load', schedule, true);
+      river.addEventListener('loadedmetadata', schedule, true);
+      if ('ResizeObserver' in window) {
+        var observer = new ResizeObserver(schedule);
+        observer.observe(river);
+        observer.observe(description);
+        Array.prototype.forEach.call(river.children, function (child) {
+          observer.observe(child);
+        });
+      }
+      controllers.push({ schedule: schedule });
+      control.addEventListener('pointerenter', function () { prewarmRiverMedia(river); }, { passive: true });
+      control.addEventListener('focus', function () { prewarmRiverMedia(river); });
+      [0, 100, 500, 1500].forEach(function (delay) {
+        window.setTimeout(schedule, delay);
+      });
+    });
+
+    function scheduleAll() {
+      controllers.forEach(function (controller) { controller.schedule(); });
+    }
+    window.addEventListener('resize', scheduleAll);
+    window.addEventListener('orientationchange', scheduleAll);
+    window.addEventListener('load', scheduleAll);
+    if (typeof fineDesktop.addEventListener === 'function') {
+      fineDesktop.addEventListener('change', scheduleAll);
+    } else if (typeof fineDesktop.addListener === 'function') {
+      fineDesktop.addListener(scheduleAll);
+    }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleAll);
+  }
+  window.__mmsEnsureRiverScrubbers = initRiverScrubbers;
+  initRiverScrubbers();
+
+  // Montran's map tile has a fixed showcase-height budget. Keep the caption
+  // fully visible with its intended 12-unit gap, and shrink only the map when
+  // larger type settings need more room. The design ratio is 690:442.
+  var mapFitTimer = 0;
+  function fitMontranMap() {
+    mapFitTimer = 0;
+    var caption = document.querySelector('[data-slot="montran-map-caption"]');
+    var tile = caption && caption.parentElement;
+    var image = tile && tile.querySelector('img');
+    if (!tile || !caption || !image) return;
+    tile.classList.add('mms-map-tile');
+    if (window.matchMedia('(max-width: 1023px)').matches) {
+      tile.style.removeProperty('--map-tile-h');
+      tile.style.removeProperty('--map-image-w');
+      tile.style.removeProperty('--map-image-h');
+      return;
+    }
+    var tileW = tile.clientWidth;
+    if (!tileW) return;
+    var gap = parseFloat(getComputedStyle(tile).rowGap) || 0;
+    var desiredH = tileW * 442 / 690;
+    var baseH = Math.ceil(tileW * 504 / 690);
+    var emergencyImageH = Math.min(desiredH, Math.max(48, tileW * 0.18));
+    var tileH = Math.max(baseH, Math.ceil(caption.offsetHeight + gap + emergencyImageH));
+    tile.style.setProperty('--map-tile-h', tileH + 'px');
+    var availableH = Math.max(0, tileH - caption.offsetHeight - gap);
+    var imageH = Math.min(desiredH, availableH);
+    var imageW = Math.min(tileW, imageH * 690 / 442);
+    tile.style.setProperty('--map-image-w', imageW.toFixed(3) + 'px');
+    tile.style.setProperty('--map-image-h', imageH.toFixed(3) + 'px');
+  }
+  function scheduleMontranMapFit() {
+    clearTimeout(mapFitTimer);
+    mapFitTimer = window.setTimeout(fitMontranMap, 0);
+  }
+  var mapCaption = document.querySelector('[data-slot="montran-map-caption"]');
+  var mapTile = mapCaption && mapCaption.parentElement;
+  var mapImage = mapTile && mapTile.querySelector('img');
+  if (mapTile) {
+    mapTile.classList.add('mms-map-tile');
+    if (mapImage && !mapImage.complete) mapImage.addEventListener('load', scheduleMontranMapFit, { once: true });
+    if ('ResizeObserver' in window) {
+      var mapObserver = new ResizeObserver(scheduleMontranMapFit);
+      mapObserver.observe(mapTile);
+      mapObserver.observe(mapCaption);
+    }
+    [0, 100, 500, 1500].forEach(function (delay) {
+      window.setTimeout(scheduleMontranMapFit, delay);
+    });
+    window.addEventListener('resize', scheduleMontranMapFit);
+    window.addEventListener('load', scheduleMontranMapFit);
+  }
+
+  // The compact navigation and introduction share the EVIIVE containing
+  // block. Measure both sticky layers so the intro begins below the links and
+  // the complete group releases only when EVIIVE has passed.
+  function setBarH() {
+    var row = document.querySelector('.mms-mbar .mbar-row');
+    var links = document.querySelector('.mms-intro-wrap > .mms-mlinks');
+    var rowH = row ? Math.round(row.getBoundingClientRect().height) : 0;
+    var linksH = links ? Math.round(links.getBoundingClientRect().height) : 0;
+    root.style.setProperty('--mbar-row-h', rowH + 'px');
+    root.style.setProperty('--mlinks-h', linksH + 'px');
+    root.style.setProperty('--bar-h', (rowH + linksH) + 'px');
+    if (panel) syncPanelMode();
+  }
+  setBarH();
+  window.setTimeout(syncPanelMode, 100);
+  window.setTimeout(syncPanelMode, 500);
+  window.setTimeout(syncPanelMode, 1500);
+  window.addEventListener('resize', setBarH);
+  window.addEventListener('load', setBarH);
+  if ('ResizeObserver' in window) {
+    var ro = new ResizeObserver(setBarH);
+    var row = document.querySelector('.mms-mbar .mbar-row');
+    var links = document.querySelector('.mms-intro-wrap > .mms-mlinks');
+    if (row) ro.observe(row);
+    if (links) ro.observe(links);
+  }
+  }
+  init();
+  [0, 100, 500, 1500].forEach(function (delay) {
+    window.setTimeout(function () {
+      if (typeof window.__mmsEnsureRiverScrubbers === 'function') {
+        window.__mmsEnsureRiverScrubbers();
+      }
+    }, delay);
+  });
+})();</script>
+<script>/*mms-video-autoplay*/(function(){function go(){document.querySelectorAll("video.mms-video").forEach(function(v){try{v.muted=true;v.defaultMuted=true;v.autoplay=true;v.playsInline=true;v.setAttribute("muted","");v.setAttribute("autoplay","");v.setAttribute("playsinline","");v.setAttribute("webkit-playsinline","");if(v.paused){var p=v.play();if(p&&p.catch)p.catch(function(){});}}catch(e){}});}go();document.addEventListener("visibilitychange",go);document.addEventListener("pageshow",go);document.addEventListener("click",go);document.addEventListener("touchstart",go,{passive:true});setInterval(go,2500);})();</script><style>#mms-tw-rig{position:absolute;left:0;top:0;width:285px;z-index:20;pointer-events:none;display:none;}#mms-tw-rig .tweezer-back,#mms-tw-rig .tweezer-front{position:absolute;left:0;top:0;width:100%;pointer-events:none;transform:translate(-4%,-4%) scale(.98);transform-origin:5% 5%;}#mms-tw-rig .tweezer-back{z-index:1;}#mms-tw-rig .drag-sticker{position:absolute;left:0;top:0;z-index:3;pointer-events:none;opacity:.99;transform:translate(var(--drag-offset-x,calc(-100% + 18px)),var(--drag-offset-y,calc(-100% + 15px))) rotate(var(--drag-r,0deg)) scale(1.06);transform-origin:var(--drag-origin-x,calc(100% - 18px)) var(--drag-origin-y,calc(100% - 15px));}#mms-tw-rig .tweezer-front{z-index:6;}#mms-tw-rig img[hidden]{display:none;}</style><div id="mms-tw-rig"></div><script>/* mms-tweezer-overlay v3 — desktop escaped rig + compact iframe sizing */
+(function () {
+  if (window.__mmsTwOverlayV3) return;
+  window.__mmsTwOverlayV3 = 1;
+
+  function rig() { return document.getElementById('mms-tw-rig'); }
+  function mountRig() {
+    var node = rig();
+    var shell = document.querySelector('.mms');
+    if (node && shell && node.parentNode !== shell) shell.appendChild(node);
+    return node;
+  }
+  function gameFrame() { return document.querySelector('iframe.mms-game'); }
+  function compact() { return window.matchMedia('(max-width: 1023px)').matches; }
+  function hideRig() {
+    var node = rig();
+    if (node) node.style.display = 'none';
+  }
+  mountRig();
+  var frame = gameFrame();
+  var river = frame && frame.closest('.mms-river');
+  var riverScrollBound = false;
+  var desktopHeight = frame ? frame.style.height : '';
+  var restMsg = null;
+  var scheduled = false;
+  var lastCompactMode = null;
+  var lastGameHeight = 0;
+  var lastGameWidth = 0;
+  var gameHeightLocked = false;
+  var EASE = 'left .45s cubic-bezier(.22,.61,.36,1), top .45s cubic-bezier(.22,.61,.36,1)';
+
+  function syncCompactGeometry(force) {
+    var shell = document.querySelector('.mms');
+    if (!shell || !compact()) return;
+    var viewportWidth = Math.round(window.innerWidth);
+    var width = Math.round(Math.min(viewportWidth, (viewportWidth * 0.98) + 5));
+    if (!force && width === lastGameWidth) return;
+    lastGameWidth = width;
+    lastGameHeight = 0;
+    gameHeightLocked = false;
+    var left = Math.round(32 + (width * 0.0525));
+    var right = 36;
+    var bottom = Math.round(31 + (width * 0.193));
+    /* Match the child's integer-pixel envelope. Ceil made the placeholder
+       frame one pixel taller than the live game at common phone widths. */
+    var fallbackHeight = Math.round(24 + ((width - left - right) * 1752 / 1586) + bottom);
+    shell.style.setProperty('--mobile-game-px-width', width + 'px');
+    shell.style.setProperty('--mobile-game-px-height', fallbackHeight + 'px');
+  }
+
+  function place(data, animate) {
+    var node = mountRig();
+    var iframe = gameFrame();
+    if (!node || !iframe || compact()) {
+      hideRig();
+      return;
+    }
+    node.style.zIndex = '20';
+    node.style.width = data.w + 'px';
+    if (typeof data.html === 'string' && data.html !== node.innerHTML) node.innerHTML = data.html;
+    var offsetParent = node.offsetParent || document.body;
+    var parentRect = offsetParent.getBoundingClientRect();
+    var frameRect = iframe.getBoundingClientRect();
+    if (animate) {
+      node.style.transition = EASE;
+      void node.offsetHeight;
+    } else {
+      node.style.transition = 'none';
+    }
+    node.style.left = frameRect.left - parentRect.left + data.tx + 'px';
+    node.style.top = frameRect.top - parentRect.top + data.ty + 'px';
+    node.style.display = 'block';
+  }
+
+  function applyGameHeight(height, edgeReserve) {
+    var iframe = gameFrame();
+    if (!iframe || !compact() || !Number.isFinite(height)) return;
+    if (!edgeReserve || ['left', 'right', 'bottom'].some(function (key) {
+      var value = Number(edgeReserve[key]);
+      return !Number.isFinite(value) || value < 0 || value > 320;
+    })) return;
+    var stableHeight = Math.max(1, Math.ceil(height));
+    var currentHeight = Math.round(iframe.getBoundingClientRect().height);
+    /* Fractional aspect-ratio rounding can make the parent's fallback differ
+       from the child's integer envelope by one pixel at a few compact widths.
+       Treat that as the same envelope so readiness never nudges the river. */
+    if (!gameHeightLocked && Math.abs(stableHeight - currentHeight) <= 1) {
+      lastGameHeight = currentHeight;
+      gameHeightLocked = true;
+      iframe.dataset.gameMeasured = 'true';
+      return;
+    }
+    if (gameHeightLocked || Math.abs(stableHeight - lastGameHeight) < 1) return;
+    lastGameHeight = stableHeight;
+    gameHeightLocked = true;
+    iframe.dataset.gameMeasured = 'true';
+    var shell = document.querySelector('.mms');
+    if (shell) shell.style.setProperty('--mobile-game-px-height', stableHeight + 'px');
+    iframe.style.setProperty('height', stableHeight + 'px', 'important');
+  }
+
+  function syncMode(force) {
+    var iframe = gameFrame();
+    if (!iframe) return;
+    var isCompact = compact();
+    if (force || isCompact !== lastCompactMode) {
+      lastCompactMode = isCompact;
+      try {
+        iframe.contentWindow.postMessage({ __mmsGameMode: 1, compact: isCompact }, '*');
+      } catch (e) {}
+    }
+    if (isCompact) {
+      syncCompactGeometry(force);
+      hideRig();
+    } else {
+      delete iframe.dataset.gameMeasured;
+      iframe.style.removeProperty('height');
+      if (desktopHeight) iframe.style.setProperty('height', desktopHeight);
+      if (restMsg) place(restMsg, false);
+    }
+  }
+
+  window.addEventListener('message', function (event) {
+    var iframe = gameFrame();
+    if (!iframe || event.source !== iframe.contentWindow) return;
+    var expectedOrigin = '';
+    try {
+      expectedOrigin = new URL(iframe.dataset.mmsSource || iframe.getAttribute('data-src') || iframe.src, window.location.href).origin;
+    } catch (e) {}
+    if (!expectedOrigin || event.origin !== expectedOrigin) return;
+    var data = event.data;
+    if (!data) return;
+    if (data.__mmsGameSize) {
+      if (Number(data.geometryVersion) !== 10) return;
+      if (Boolean(data.compact) !== compact()) return;
+      applyGameHeight(Number(data.height), data.edgeReserve);
+      return;
+    }
+    if (!data.__tw) return;
+    if (compact() || data.t === 'hide') {
+      hideRig();
+      return;
+    }
+    if (data.t === 'move' || data.t === 'freeze' || data.t === 'rest') {
+      if (data.t === 'rest') restMsg = data;
+      place(data, data.t === 'rest');
+    }
+  });
+
+  function reposition() {
+    scheduled = false;
+    if (!compact() && restMsg) place(restMsg, false);
+  }
+  function schedule() {
+    if (compact()) return;
+    if (scheduled) return;
+    scheduled = true;
+    window.requestAnimationFrame(reposition);
+  }
+  function syncRiverListener() {
+    if (!river) return;
+    var shouldBind = !compact();
+    if (shouldBind === riverScrollBound) return;
+    riverScrollBound = shouldBind;
+    if (shouldBind) river.addEventListener('scroll', schedule, { passive: true });
+    else river.removeEventListener('scroll', schedule);
+  }
+  if (frame) frame.addEventListener('load', function () { syncMode(true); });
+  window.addEventListener('resize', function () {
+    syncCompactGeometry(false);
+    syncMode(false);
+    syncRiverListener();
+    schedule();
+  });
+  syncRiverListener();
+  syncMode(true);
+})();
+</script>

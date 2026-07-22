@@ -1,0 +1,27 @@
+{
+  "schema_version": "mms-audit/post-baseline-geometry-supersessions/v1",
+  "baseline": "docs/audits/2026-07-20T175853-0400-round-80",
+  "authority": "additive post-baseline evidence; frozen Round 80 rows remain historical",
+  "supersessions": [
+    {
+      "page": "home",
+      "media_id": "wtw-02",
+      "field_scope": [
+        "design_width_1440_css_px",
+        "design_height_1440_css_px"
+      ],
+      "frozen_value": {
+        "width_css_px": 765.2,
+        "height_css_px": 765.2
+      },
+      "current_value": {
+        "width_css_px": 504,
+        "height_css_px": 504
+      },
+      "canonical_source_contract": "cargo/home.template.html: data-media-id=wtw-02; --asset-w:504; --asset-h:504",
+      "browser_evidence": "audit/findings/evidence/2026-07-21-phase2-browser-summary.json#runs.local_home_visual.wtw_02",
+      "narrative_evidence": "docs/audits/2026-07-20-post-round-80-delta.md#wtw-second-media-geometry",
+      "status": "current"
+    }
+  ]
+}

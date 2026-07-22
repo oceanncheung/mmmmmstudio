@@ -1,0 +1,232 @@
+{
+  "comparison": "protected cargo/gold/round-69 mirror against canonical cargo/* paths in annotated tag round-69-gold",
+  "tag_object": "67a1f20a46fdfc9c5ac9a644a234b29193118e98",
+  "peeled_commit": "18093409423fb5d268d64e049c31a91bbb78d51a",
+  "file_count": 27,
+  "all_protected_files_identical": true,
+  "files": [
+    {
+      "protected_path": "cargo/gold/round-69/GOLD-BASELINE.md",
+      "tag_path": "cargo/GOLD-BASELINE.md",
+      "worktree_sha256": "949b60af2eb7f68116897d8d8815aa353740e43463d818232525aad33b131ea0",
+      "tag_sha256": "949b60af2eb7f68116897d8d8815aa353740e43463d818232525aad33b131ea0",
+      "bytes": 4506,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/assemble-named-pages.sh",
+      "tag_path": "cargo/assemble-named-pages.sh",
+      "worktree_sha256": "5140bece7a4da47203c099ed636972d8495c771edb29fe3073ef3eb5888473eb",
+      "tag_sha256": "5140bece7a4da47203c099ed636972d8495c771edb29fe3073ef3eb5888473eb",
+      "bytes": 221,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/assemble-pages.py",
+      "tag_path": "cargo/assemble-pages.py",
+      "worktree_sha256": "77585a8a31e0148f1c4656e8b74d2233860936753f1fa9f66453542d35b68e07",
+      "tag_sha256": "77585a8a31e0148f1c4656e8b74d2233860936753f1fa9f66453542d35b68e07",
+      "bytes": 7438,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/assemble-test.sh",
+      "tag_path": "cargo/assemble-test.sh",
+      "worktree_sha256": "113ed1ce42a458b8b4242ad2bfc2e26ff18c787dba22bb147cb4e78b3a6fb03d",
+      "tag_sha256": "113ed1ce42a458b8b4242ad2bfc2e26ff18c787dba22bb147cb4e78b3a6fb03d",
+      "bytes": 1229,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/compose-css-bundle.sh",
+      "tag_path": "cargo/compose-css-bundle.sh",
+      "worktree_sha256": "3fdc8e0b0862a6066fc12c25e19eae20288806d692c9fd508efd357343977de7",
+      "tag_sha256": "3fdc8e0b0862a6066fc12c25e19eae20288806d692c9fd508efd357343977de7",
+      "bytes": 1276,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/home-extras.html",
+      "tag_path": "cargo/home-extras.html",
+      "worktree_sha256": "47483aee845241840d0e1cf4f0ba4503204e89ac133214ed9213ef12e55fc0ca",
+      "tag_sha256": "47483aee845241840d0e1cf4f0ba4503204e89ac133214ed9213ef12e55fc0ca",
+      "bytes": 7817,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/home.template.html",
+      "tag_path": "cargo/home.template.html",
+      "worktree_sha256": "1ae777474e707cd1af707b17cb8b6c1f3ddbd902e75537f357b65989fe8a21e5",
+      "tag_sha256": "1ae777474e707cd1af707b17cb8b6c1f3ddbd902e75537f357b65989fe8a21e5",
+      "bytes": 52811,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/panel.js",
+      "tag_path": "cargo/panel.js",
+      "worktree_sha256": "2f99059b7209c63f7390947072be1f1044cbc7f5ead48cc91014c0263f65f3c1",
+      "tag_sha256": "2f99059b7209c63f7390947072be1f1044cbc7f5ead48cc91014c0263f65f3c1",
+      "bytes": 32696,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/shared-compact-nav.html",
+      "tag_path": "cargo/shared-compact-nav.html",
+      "worktree_sha256": "48894f085c588618f509308d3dee1ee6066a3b4f280bd0ebf2598a4ff98f7ed1",
+      "tag_sha256": "48894f085c588618f509308d3dee1ee6066a3b4f280bd0ebf2598a4ff98f7ed1",
+      "bytes": 57,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/shared-desktop-clock.html",
+      "tag_path": "cargo/shared-desktop-clock.html",
+      "worktree_sha256": "64359601241330c541b1bb4c258797c540e0121cc448ead6863b9ef0de15a624",
+      "tag_sha256": "64359601241330c541b1bb4c258797c540e0121cc448ead6863b9ef0de15a624",
+      "bytes": 62,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/shared-desktop-nav.html",
+      "tag_path": "cargo/shared-desktop-nav.html",
+      "worktree_sha256": "489741ab31a2673e85c0f4a6cbe5f017c0cc4ebdbe23611b55c5d51fb009f76b",
+      "tag_sha256": "489741ab31a2673e85c0f4a6cbe5f017c0cc4ebdbe23611b55c5d51fb009f76b",
+      "bytes": 132,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/shared-early-init.html",
+      "tag_path": "cargo/shared-early-init.html",
+      "worktree_sha256": "dbf6cb8d87f7ba7cbe1014520032bfcaab3943da73fd090ed2003e35bd1c9ecb",
+      "tag_sha256": "dbf6cb8d87f7ba7cbe1014520032bfcaab3943da73fd090ed2003e35bd1c9ecb",
+      "bytes": 15723,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/shared-mobile-header.html",
+      "tag_path": "cargo/shared-mobile-header.html",
+      "worktree_sha256": "52cfd5006a9a1735de4a117617370e08617a33a9b46c2579c66a63a51eaed055",
+      "tag_sha256": "52cfd5006a9a1735de4a117617370e08617a33a9b46c2579c66a63a51eaed055",
+      "bytes": 583,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/shared-nav-items.html",
+      "tag_path": "cargo/shared-nav-items.html",
+      "worktree_sha256": "0f5ab94a8b59380ded80de9931af08d9072396a24411038254d6f245ba453361",
+      "tag_sha256": "0f5ab94a8b59380ded80de9931af08d9072396a24411038254d6f245ba453361",
+      "bytes": 331,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/shared-panel.html",
+      "tag_path": "cargo/shared-panel.html",
+      "worktree_sha256": "ce5715dbb396024b2df081265afa0d949fb118b51382790ebae237c027946bc9",
+      "tag_sha256": "ce5715dbb396024b2df081265afa0d949fb118b51382790ebae237c027946bc9",
+      "bytes": 2683,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/site-head.html",
+      "tag_path": "cargo/site-head.html",
+      "worktree_sha256": "3dd9eb35e887dca145adac0d796d629ff3894fdaba7ee444c2e15373fcfdb204",
+      "tag_sha256": "3dd9eb35e887dca145adac0d796d629ff3894fdaba7ee444c2e15373fcfdb204",
+      "bytes": 1310,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/site.css",
+      "tag_path": "cargo/site.css",
+      "worktree_sha256": "9f9ced7d17226f4c9d935b7451c991be85a26edf6598344b0ea1aac39406c809",
+      "tag_sha256": "9f9ced7d17226f4c9d935b7451c991be85a26edf6598344b0ea1aac39406c809",
+      "bytes": 63809,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/test.html",
+      "tag_path": "cargo/test.html",
+      "worktree_sha256": "4a94d054f17401dca726cc727bbf9169b273469e92c602241cb70a52e7be05e5",
+      "tag_sha256": "4a94d054f17401dca726cc727bbf9169b273469e92c602241cb70a52e7be05e5",
+      "bytes": 189370,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/tokens.css",
+      "tag_path": "cargo/tokens.css",
+      "worktree_sha256": "a277d3960405266d1ae9e4ec3c4e4f2e710c72cdfe308ac15fe205d87ca5d319",
+      "tag_sha256": "a277d3960405266d1ae9e4ec3c4e4f2e710c72cdfe308ac15fe205d87ca5d319",
+      "bytes": 12333,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/validate-cargo-payload.sh",
+      "tag_path": "cargo/validate-cargo-payload.sh",
+      "worktree_sha256": "728bfa48c891af160db3b18c12a39d95f59f10fab459f947d27a609016cc1f00",
+      "tag_sha256": "728bfa48c891af160db3b18c12a39d95f59f10fab459f947d27a609016cc1f00",
+      "bytes": 5167,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/validate-shared-components.py",
+      "tag_path": "cargo/validate-shared-components.py",
+      "worktree_sha256": "440ae89cc0dd3ee9e3e37feb68efc9e82f395a896e6872bbec4637867cb85114",
+      "tag_sha256": "440ae89cc0dd3ee9e3e37feb68efc9e82f395a896e6872bbec4637867cb85114",
+      "bytes": 5127,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/validate-test-mirrors.py",
+      "tag_path": "cargo/validate-test-mirrors.py",
+      "worktree_sha256": "9381c0b43609511f4f56426984a4ccfa6c04082b0d7db097c4cf7f754bfe3b0d",
+      "tag_sha256": "9381c0b43609511f4f56426984a4ccfa6c04082b0d7db097c4cf7f754bfe3b0d",
+      "bytes": 1891,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/who-intro.html",
+      "tag_path": "cargo/who-intro.html",
+      "worktree_sha256": "170829b95a9fe9ca494763d415970f6d5535981585d0878342b0ab2601aa6785",
+      "tag_sha256": "170829b95a9fe9ca494763d415970f6d5535981585d0878342b0ab2601aa6785",
+      "bytes": 319,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/who-test.html",
+      "tag_path": "cargo/who-test.html",
+      "worktree_sha256": "f0cd9661e15dd93cf76715ec94dad5f28cab40420d35d6752c110b3714e3ffe3",
+      "tag_sha256": "f0cd9661e15dd93cf76715ec94dad5f28cab40420d35d6752c110b3714e3ffe3",
+      "bytes": 132399,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/who.template.html",
+      "tag_path": "cargo/who.template.html",
+      "worktree_sha256": "1eb7e7aa4e3ae37ac2da9793f63e52b76e8d3bb92f60b0dd0b9b523a3f2c0e21",
+      "tag_sha256": "1eb7e7aa4e3ae37ac2da9793f63e52b76e8d3bb92f60b0dd0b9b523a3f2c0e21",
+      "bytes": 3040,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/write-test.html",
+      "tag_path": "cargo/write-test.html",
+      "worktree_sha256": "0609ee2eddea37b53c484a62e6445e534314fc8a5ad3a3db9311d42158e9dc31",
+      "tag_sha256": "0609ee2eddea37b53c484a62e6445e534314fc8a5ad3a3db9311d42158e9dc31",
+      "bytes": 131842,
+      "identical": true
+    },
+    {
+      "protected_path": "cargo/gold/round-69/write.template.html",
+      "tag_path": "cargo/write.template.html",
+      "worktree_sha256": "74c9df8b3681212ff0979891647c7c5793b4de2ee18729e25b5869a17cd3f5e0",
+      "tag_sha256": "74c9df8b3681212ff0979891647c7c5793b4de2ee18729e25b5869a17cd3f5e0",
+      "bytes": 3075,
+      "identical": true
+    }
+  ],
+  "scope_document": {
+    "worktree_path": "docs/versioning/ROUND-69-SCOPE.md",
+    "tag_path": "docs/versioning/ROUND-69-SCOPE.md",
+    "worktree_sha256": "67576c9f1e73850fcf00c679884d48cec43d048d9fed8ae03a784059462cc196",
+    "tag_sha256": "67576c9f1e73850fcf00c679884d48cec43d048d9fed8ae03a784059462cc196",
+    "identical": true
+  }
+}

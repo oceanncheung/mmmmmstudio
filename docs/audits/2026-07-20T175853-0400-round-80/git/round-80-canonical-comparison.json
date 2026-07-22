@@ -1,0 +1,90 @@
+{
+  "source_manifest": "docs/versioning/ROUND-80-STABLE.md",
+  "tag": "round-80-stable",
+  "tag_object": "c138a57aa8064ffc0b8e720b306cf00193b4b2fb",
+  "peeled_commit": "d40b930b29bea66a63c2a3a5aa244b03da5a65cf",
+  "all_nine_match_tag_and_manifest": true,
+  "artifacts": [
+    {
+      "path": "cargo/tokens.css",
+      "documented_sha256": "70178291f00dfeacaae9fc7c0fde2d7f444cb26456d969b7d2523d0274a71d98",
+      "worktree_sha256": "70178291f00dfeacaae9fc7c0fde2d7f444cb26456d969b7d2523d0274a71d98",
+      "tag_sha256": "70178291f00dfeacaae9fc7c0fde2d7f444cb26456d969b7d2523d0274a71d98",
+      "bytes": 12385,
+      "worktree_matches_tag": true,
+      "matches_documented_hash": true
+    },
+    {
+      "path": "cargo/site.css",
+      "documented_sha256": "c47485c1c3b55fc6b5cb577a7ad3c2115cd2cb6fdc7f3f1261ef20ae6a51f6f1",
+      "worktree_sha256": "c47485c1c3b55fc6b5cb577a7ad3c2115cd2cb6fdc7f3f1261ef20ae6a51f6f1",
+      "tag_sha256": "c47485c1c3b55fc6b5cb577a7ad3c2115cd2cb6fdc7f3f1261ef20ae6a51f6f1",
+      "bytes": 66224,
+      "worktree_matches_tag": true,
+      "matches_documented_hash": true
+    },
+    {
+      "path": "cargo/panel.js",
+      "documented_sha256": "a5e7f492f987804df0b1ea999ae4d25aeabf49dbe81c39e6749cb8cfd9f68987",
+      "worktree_sha256": "a5e7f492f987804df0b1ea999ae4d25aeabf49dbe81c39e6749cb8cfd9f68987",
+      "tag_sha256": "a5e7f492f987804df0b1ea999ae4d25aeabf49dbe81c39e6749cb8cfd9f68987",
+      "bytes": 45079,
+      "worktree_matches_tag": true,
+      "matches_documented_hash": true
+    },
+    {
+      "path": "cargo/site-head.html",
+      "documented_sha256": "d677c1a7e81a20482d1aa02959284f51775f0fe39411521ef91d9a972657fd56",
+      "worktree_sha256": "d677c1a7e81a20482d1aa02959284f51775f0fe39411521ef91d9a972657fd56",
+      "tag_sha256": "d677c1a7e81a20482d1aa02959284f51775f0fe39411521ef91d9a972657fd56",
+      "bytes": 1880,
+      "worktree_matches_tag": true,
+      "matches_documented_hash": true
+    },
+    {
+      "path": "cargo/home.template.html",
+      "documented_sha256": "cbe9b02a07759db7490e5f8690215331fc082474987aa0188d393a26b98a7b34",
+      "worktree_sha256": "cbe9b02a07759db7490e5f8690215331fc082474987aa0188d393a26b98a7b34",
+      "tag_sha256": "cbe9b02a07759db7490e5f8690215331fc082474987aa0188d393a26b98a7b34",
+      "bytes": 52887,
+      "worktree_matches_tag": true,
+      "matches_documented_hash": true
+    },
+    {
+      "path": "cargo/home.html",
+      "documented_sha256": "6d5b6f84023ac825fda7ef4934cbdb470ccd210013905a766a3d6744b00e1d32",
+      "worktree_sha256": "6d5b6f84023ac825fda7ef4934cbdb470ccd210013905a766a3d6744b00e1d32",
+      "tag_sha256": "6d5b6f84023ac825fda7ef4934cbdb470ccd210013905a766a3d6744b00e1d32",
+      "bytes": 125655,
+      "worktree_matches_tag": true,
+      "matches_documented_hash": true
+    },
+    {
+      "path": "cargo/who.html",
+      "documented_sha256": "d15ae1d4af733983a70f3182e8374b5daad0d54301e9e713783c26976dbbe383",
+      "worktree_sha256": "d15ae1d4af733983a70f3182e8374b5daad0d54301e9e713783c26976dbbe383",
+      "tag_sha256": "d15ae1d4af733983a70f3182e8374b5daad0d54301e9e713783c26976dbbe383",
+      "bytes": 68399,
+      "worktree_matches_tag": true,
+      "matches_documented_hash": true
+    },
+    {
+      "path": "cargo/write.html",
+      "documented_sha256": "58bfea2fa9b1ea37351cd0205d661aa7d9235dbc92f49699201b99aacad91ef2",
+      "worktree_sha256": "58bfea2fa9b1ea37351cd0205d661aa7d9235dbc92f49699201b99aacad91ef2",
+      "tag_sha256": "58bfea2fa9b1ea37351cd0205d661aa7d9235dbc92f49699201b99aacad91ef2",
+      "bytes": 67904,
+      "worktree_matches_tag": true,
+      "matches_documented_hash": true
+    },
+    {
+      "path": "cargo/test.html",
+      "documented_sha256": "3c4fbcec48707a024225a86cfe2d89cc37d91bbd50d349d547d10b6e2bd7fba5",
+      "worktree_sha256": "3c4fbcec48707a024225a86cfe2d89cc37d91bbd50d349d547d10b6e2bd7fba5",
+      "tag_sha256": "3c4fbcec48707a024225a86cfe2d89cc37d91bbd50d349d547d10b6e2bd7fba5",
+      "bytes": 204559,
+      "worktree_matches_tag": true,
+      "matches_documented_hash": true
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MM.S audit postMessage self-test</title>
+</head>
+<body>
+  <iframe id="child" title="postMessage self-test child" src="/postmessage-child.html"></iframe>
+  <script>
+    (() => {
+      const token = "mms-postmessage-self-test-v1";
+      const startedAt = Date.now();
+      const randomValues = [Math.random(), Math.random()];
+      const dateNowIsNative = Function.prototype.toString.call(Date.now).includes("[native code]");
+      const randomIsNative = Function.prototype.toString.call(Math.random).includes("[native code]");
+      let normalReply = false;
+      let portReply = false;
+
+      function updateResult() {
+        if (!normalReply || !portReply) return;
+        window.__mmsSelfTest = {
+          complete: true,
+          token,
+          elapsedMs: Date.now() - startedAt,
+          randomValues,
+          dateNowIsNative,
+          randomIsNative,
+          normalReply,
+          portReply,
+        };
+        document.documentElement.dataset.complete = "true";
+      }
+
+      window.addEventListener("message", (event) => {
+        if (event.origin !== location.origin) return;
+        if (event.data?.kind !== "child-to-parent" || event.data?.token !== token) return;
+        normalReply = true;
+        updateResult();
+      });
+
+      document.querySelector("#child").addEventListener("load", () => {
+        const child = document.querySelector("#child").contentWindow;
+        child.postMessage({ kind: "parent-to-child", token }, location.origin);
+
+        const channel = new MessageChannel();
+        channel.port1.addEventListener("message", (event) => {
+          if (event.data?.kind !== "port-reply" || event.data?.token !== token) return;
+          portReply = true;
+          updateResult();
+        }, { once: true });
+        channel.port1.start();
+        child.postMessage({ kind: "port-offer", token }, location.origin, [channel.port2]);
+      }, { once: true });
+    })();
+  </script>
+</body>
+</html>
