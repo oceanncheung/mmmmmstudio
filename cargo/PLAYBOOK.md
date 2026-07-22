@@ -37,6 +37,14 @@ Ocean. Do not improvise inside the live editor.**
 6. **Local bundle = source, Cargo = deployment.** Edit local files FIRST
    (tokens.css / site.css / home.html / panel.js), then push to Cargo, then
    verify, then update DEPLOY.md + ../CLAUDE.md. Never let them diverge.
+6a. **Saved bodycopy must pass the schema-2 source-purity contract.** Before
+   every bodycopy injection run
+   `cargo/validate-cargo-payload.sh bodycopy cargo/{page}.html {page}`. After
+   Cmd+S and reload, extract the raw saved bodycopy and run the same validator
+   again. Do not validate an activated preview DOM: the runtime legitimately
+   adds sources, posters, loading markers, hidden state, and scrubbers in
+   memory. A saved-source mismatch blocks the deployment; never weaken or
+   regenerate the reviewed manifest to accept it.
 7. **Verify after every Cargo change AND after a reload.** Computed styles
    and DOM probes only — never "it should work now". Persistence is only
    proven by reload + re-probe.

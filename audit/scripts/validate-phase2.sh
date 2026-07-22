@@ -68,17 +68,44 @@ home = (snapshot / "home.bodycopy.html").read_text(encoding="utf-8")
 home = home.replace("--asset-w:765.2;--asset-h:765.2", "--asset-w:504;--asset-h:504", 1)
 
 # The authenticated snapshot was captured after Cargo's runtime had activated
-# some deferred videos. Normalize only those runtime-owned live src attributes
-# in memory so this fixture exercises the saved bodycopy contract. The frozen
-# evidence remains byte-identical and the production validator stays strict.
-def strip_runtime_src(match):
+# deferred media and changed loading state. Normalize only that runtime-owned
+# state in memory so this fixture exercises the saved bodycopy contract. The
+# frozen evidence remains byte-identical and production validation stays strict.
+def strip_runtime_media_state(match):
     tag = match.group(0)
-    if " data-src=" not in tag:
-        return tag
-    return re.sub(r'\s+src="[^"]*"', "", tag)
+    if " data-src=" in tag:
+        tag = re.sub(r'\s+src="[^"]*"', "", tag)
+    return re.sub(
+        r'\s+(?:poster|data-mms-loaded|data-motion-ready|data-mms-source)="[^"]*"',
+        "",
+        tag,
+    )
 
 
-home = re.sub(r'<(?:video|iframe)\b[^>]*>', strip_runtime_src, home)
+def strip_river_hidden(match):
+    return re.sub(r'\s+hidden(?:="[^"]*")?', "", match.group(0))
+
+
+image_index = 0
+
+
+def restore_image_loading(match):
+    global image_index
+    tag = re.sub(r'\s+loading="[^"]*"', "", match.group(0))
+    value = "eager" if image_index == 0 else "lazy"
+    image_index += 1
+    if tag.endswith("/>"):
+        return f'{tag[:-2]} loading="{value}"/>'
+    return f'{tag[:-1]} loading="{value}">'
+
+
+home = re.sub(r'<(?:video|iframe)\b[^>]*>', strip_runtime_media_state, home)
+home = re.sub(
+    r'<[^>]+\bclass="[^"]*\bmms-river\b[^"]*"[^>]*>',
+    strip_river_hidden,
+    home,
+)
+home = re.sub(r'<img\b[^>]*>', restore_image_loading, home)
 with tempfile.NamedTemporaryFile("w", suffix=".html", encoding="utf-8") as handle:
     handle.write(home)
     handle.flush()
@@ -137,6 +164,7 @@ for label, payload in mutations.items():
 print(f"Withered Green negative fixtures: PASS ({len(mutations)} rejected)")
 PY
 python3 - "$ROOT" <<'PY'
+import json
 import re
 import subprocess
 import sys
@@ -168,6 +196,44 @@ def alter_wtw_geometry(source):
     if count != 1:
         raise SystemExit("could not build negative WTW geometry fixture")
     return updated
+
+
+def add_live_video_src(source):
+    match = re.search(r'<video\b[^>]*\bdata-src="([^"]+)"[^>]*>', source)
+    if match is None:
+        raise SystemExit("could not build live-video source fixture")
+    tag = match.group(0).replace("<video", f'<video src="{match.group(1)}"', 1)
+    return source[:match.start()] + tag + source[match.end():]
+
+
+def add_equal_native_poster(source):
+    match = re.search(r'<video\b[^>]*\bdata-poster="([^"]+)"[^>]*>', source)
+    if match is None:
+        raise SystemExit("could not build native-poster fixture")
+    tag = match.group(0).replace("<video", f'<video poster="{match.group(1)}"', 1)
+    return source[:match.start()] + tag + source[match.end():]
+
+
+def add_equal_iframe_poster(source):
+    match = re.search(r'<iframe\b[^>]*\bdata-poster="([^"]+)"[^>]*>', source)
+    if match is None:
+        raise SystemExit("could not build iframe-poster fixture")
+    tag = match.group(0).replace("<iframe", f'<iframe poster="{match.group(1)}"', 1)
+    return source[:match.start()] + tag + source[match.end():]
+
+
+def promote_first_iframe(source):
+    match = re.search(r'<iframe\b[^>]*\bloading="lazy"[^>]*>', source)
+    if match is None:
+        raise SystemExit("could not build iframe-loading fixture")
+    tag = match.group(0).replace('loading="lazy"', 'loading="eager"', 1)
+    return source[:match.start()] + tag + source[match.end():]
+
+
+def swap_eager_image_identity(source):
+    updated = source.replace('loading="eager"', 'loading="__mms_swap__"', 1)
+    updated = updated.replace('loading="lazy"', 'loading="eager"', 1)
+    return updated.replace('loading="__mms_swap__"', 'loading="lazy"', 1)
 
 
 bodycopy_mutations = {
@@ -209,6 +275,40 @@ bodycopy_mutations = {
         '<iframe src="https://example.invalid/" class="mms-img mms-cup"',
         1,
     ),
+    "unexpected live video source": add_live_video_src(home),
+    "persisted loaded marker": home.replace(
+        "<video autoplay=", '<video data-mms-loaded="1" autoplay=', 1
+    ),
+    "persisted ready marker": home.replace(
+        "<video autoplay=", '<video data-motion-ready="1" autoplay=', 1
+    ),
+    "persisted source marker": home.replace(
+        "<video autoplay=", '<video data-mms-source="example" autoplay=', 1
+    ),
+    "persisted native poster": add_equal_native_poster(home),
+    "persisted iframe poster": add_equal_iframe_poster(home),
+    "persisted child source": home.replace(
+        "</video>", '<source src="https://example.invalid/runtime.mp4"></video>', 1
+    ),
+    "persisted hidden river": home.replace(
+        '<div class="mms-river"', '<div class="mms-river" hidden=""', 1
+    ),
+    "persisted display-none river": home.replace(
+        '<div class="mms-river">', '<div class="mms-river" style="display: none">', 1
+    ),
+    "runtime image priority drift": home.replace(
+        'loading="lazy"', 'loading="eager"', 1
+    ),
+    "runtime eager-image identity swap": swap_eager_image_identity(home),
+    "runtime iframe priority drift": promote_first_iframe(home),
+    "runtime video preload drift": home.replace(
+        'preload="none"', 'preload="auto"', 1
+    ),
+    "serialized river scrubber": home.replace(
+        '<figure class="mms-desc"',
+        '<div class="mms-river-scrubber"></div><figure class="mms-desc"',
+        1,
+    ),
     "legacy all-video playback owner": home + (
         '<script>/*mms-video-autoplay*/document.querySelectorAll("video.mms-video")'
         '.forEach(function(video){video.play()});</script>'
@@ -218,6 +318,22 @@ bodycopy_mutations = {
         "</dialog>\n<script>",
         1,
     ),
+}
+
+source_purity_labels = {
+    "persisted loaded marker",
+    "persisted ready marker",
+    "persisted source marker",
+    "persisted native poster",
+    "persisted iframe poster",
+    "persisted child source",
+    "persisted hidden river",
+    "persisted display-none river",
+    "runtime image priority drift",
+    "runtime eager-image identity swap",
+    "runtime iframe priority drift",
+    "runtime video preload drift",
+    "serialized river scrubber",
 }
 
 for label, payload in bodycopy_mutations.items():
@@ -234,6 +350,10 @@ for label, payload in bodycopy_mutations.items():
         )
     if result.returncode == 0:
         raise SystemExit(f"negative deployment fixture unexpectedly passed: {label}")
+    if label in source_purity_labels and "saved-source purity" not in result.stderr:
+        raise SystemExit(
+            f"source-purity fixture was rejected by an unrelated guard: {label}: {result.stderr}"
+        )
 
 stale_head = head.replace('data-mms-ios-edge-head="49"', 'data-mms-ios-edge-head="48"')
 if stale_head == head:
@@ -250,7 +370,41 @@ with tempfile.NamedTemporaryFile("w", suffix=".html", encoding="utf-8") as handl
 if result.returncode == 0:
     raise SystemExit("negative deployment fixture unexpectedly passed: stale head")
 
-print(f"Deployment-manifest negative fixtures: PASS ({len(bodycopy_mutations) + 1} rejected)")
+manifest_validator = root / "cargo/validate-deployment-manifest.py"
+manifest = json.loads((root / "cargo/deployment-manifest.json").read_text(encoding="utf-8"))
+manifest_mutations = {}
+missing_purity = json.loads(json.dumps(manifest))
+del missing_purity["pages"]["home"]["source_purity"]
+manifest_mutations["missing source-purity contract"] = missing_purity
+old_schema = json.loads(json.dumps(manifest))
+old_schema["schema_version"] = 1
+manifest_mutations["stale manifest schema"] = old_schema
+
+for label, payload in manifest_mutations.items():
+    with tempfile.NamedTemporaryFile("w", suffix=".json", encoding="utf-8") as manifest_handle:
+        json.dump(payload, manifest_handle)
+        manifest_handle.flush()
+        result = subprocess.run(
+            [
+                sys.executable,
+                str(manifest_validator),
+                "bodycopy",
+                str(root / "cargo/home.html"),
+                "home",
+                "--manifest",
+                manifest_handle.name,
+            ],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    if result.returncode == 0:
+        raise SystemExit(f"negative manifest fixture unexpectedly passed: {label}")
+
+print(
+    "Deployment-manifest negative fixtures: PASS "
+    f"({len(bodycopy_mutations) + 1 + len(manifest_mutations)} rejected)"
+)
 PY
 "$ROOT/cargo/compose-css-bundle.sh" >/dev/null
 python3 "$ROOT/cargo/validate-shared-components.py"

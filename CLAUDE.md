@@ -2266,3 +2266,19 @@ current source of truth for the built site.
   remain GitHub remediation work and were not deployed by the Round 84 gold
   restore. Keep their later deployment and physical iPad verification
   separate.
+
+## Current state — Round 85 fail-closed saved-source purity
+- The active branch is `round-85/source-purity-guard`. Deployment manifest
+  schema 2 now locks the clean saved-source state for Home, Who, and Write.
+- Bodycopy must contain no live video/iframe/child-source URLs, native media
+  posters, runtime loaded/ready/source markers, hidden rivers, or generated
+  scrubbers. Image and iframe loading, video preload, deferred-source counts,
+  and the sole eager Home image (`eviive-03`) must match the manifest exactly.
+- Never validate saved-source purity from an activated preview DOM. Obtain the
+  raw bodycopy, run `cargo/validate-cargo-payload.sh bodycopy`, then reload and
+  repeat after every Cargo save. Do not weaken the manifest to accept runtime
+  residue.
+- `cargo/assemble-test.sh canonical` and `audit/scripts/validate-phase2.sh`
+  pass, including 30 deployment negative fixtures and the complete browser
+  parity/lifecycle suite. This round changes no Cargo page or visual output and
+  must remain separate from the following swatch and iPad/Safari fixes.

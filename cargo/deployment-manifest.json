@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "site": "ocean",
   "approved_baseline": "gold-2026-07-21-responsive-70",
   "approval_note": "Ocean designated the latest verified responsive-70 site, including the post-Round-80 WTW square and Withered Green motion corrections, as the new gold baseline on 2026-07-21. Round 80 and Round 69 remain immutable historical references.",
@@ -44,6 +44,37 @@
         "img": 38,
         "video": 27,
         "iframe": 3
+      },
+      "source_purity": {
+        "live_video_src": 0,
+        "live_iframe_src": 0,
+        "live_source_src": 0,
+        "native_media_poster": 0,
+        "data_mms_loaded": 0,
+        "data_motion_ready": 0,
+        "data_mms_source": 0,
+        "hidden_rivers": 0,
+        "generated_scrubbers": 0,
+        "deferred_data_src": 30,
+        "eager_image_ids": [
+          "eviive-03"
+        ],
+        "image_loading": {
+          "eager": 1,
+          "lazy": 37,
+          "other": 0
+        },
+        "iframe_loading": {
+          "eager": 0,
+          "lazy": 3,
+          "other": 0
+        },
+        "video_preload": {
+          "none": 27,
+          "auto": 0,
+          "metadata": 0,
+          "other": 0
+        }
       },
       "media_ids": [
         "eviive-01",
@@ -233,6 +264,35 @@
       "media_kind_counts": {
         "video": 2
       },
+      "source_purity": {
+        "live_video_src": 0,
+        "live_iframe_src": 0,
+        "live_source_src": 0,
+        "native_media_poster": 0,
+        "data_mms_loaded": 0,
+        "data_motion_ready": 0,
+        "data_mms_source": 0,
+        "hidden_rivers": 0,
+        "generated_scrubbers": 0,
+        "deferred_data_src": 2,
+        "eager_image_ids": [],
+        "image_loading": {
+          "eager": 0,
+          "lazy": 0,
+          "other": 0
+        },
+        "iframe_loading": {
+          "eager": 0,
+          "lazy": 0,
+          "other": 0
+        },
+        "video_preload": {
+          "none": 2,
+          "auto": 0,
+          "metadata": 0,
+          "other": 0
+        }
+      },
       "media_ids": [
         "who-ocean",
         "who-alvis"
@@ -250,6 +310,35 @@
       "bands": [],
       "media_counts_by_band": {},
       "media_kind_counts": {},
+      "source_purity": {
+        "live_video_src": 0,
+        "live_iframe_src": 0,
+        "live_source_src": 0,
+        "native_media_poster": 0,
+        "data_mms_loaded": 0,
+        "data_motion_ready": 0,
+        "data_mms_source": 0,
+        "hidden_rivers": 0,
+        "generated_scrubbers": 0,
+        "deferred_data_src": 0,
+        "eager_image_ids": [],
+        "image_loading": {
+          "eager": 0,
+          "lazy": 0,
+          "other": 0
+        },
+        "iframe_loading": {
+          "eager": 0,
+          "lazy": 0,
+          "other": 0
+        },
+        "video_preload": {
+          "none": 0,
+          "auto": 0,
+          "metadata": 0,
+          "other": 0
+        }
+      },
       "media_ids": [],
       "media_source_hashes": {},
       "embeds": [],
