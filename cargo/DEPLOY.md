@@ -4523,7 +4523,7 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   This round is saved in the Cargo draft only. It was not published, and
   `gold-2026-07-21-responsive-70` was not edited.
 
-## Round 89 (2026-07-22): Touchbaes iPad alpha-video readiness — LOCAL PASS / HOME DEPLOYMENT BLOCKED
+## Round 89 (2026-07-22): Touchbaes iPad alpha-video readiness — DRAFT DEPLOYED / RELOAD-VERIFIED
 - Physical-iPad follow-up reported that Touchbaes asset 2 could remain on its
   first-frame poster for minutes. The selected iPad source is the valid,
   fast-started 1080x1920 HEVC-alpha MP4: 4.046 seconds, 2,078,186 bytes, with
@@ -4552,14 +4552,21 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   four rotating Withered Green body spans, a static heading, and zero
   overflow. The shared readiness helper is inert on both pages because neither
   contains `touchbaes-02`.
-- Home deployment could not be completed safely. Every authenticated Home
-  editor tab leaves Chrome Browser Use resolving the critical V7 Freight
-  document response, which disables the raw-CDP channel required for direct
-  bodycopy replacement. Reopening fresh and alternate authenticated tabs did
-  not clear it. Per `cargo/PLAYBOOK.md`, stopped after the supported recipe
-  failed repeatedly; did not use Cargo Code View, did not mutate the Home
-  payload, and did not publish. Home therefore remains on the reload-verified
-  Round 88 draft while Who and Write contain the no-op Round 89 shared helper.
-  Resume only after Ocean refreshes or reopens the authenticated Home editor,
-  then deploy complete `cargo/home.html` by direct bodycopy assignment and
-  require 68/68 unique media IDs after reload.
+- Chrome's Home editor continued resolving the V7 Freight document response,
+  so its raw direct-edit channel remained unavailable. The authenticated
+  in-app Cargo editor exposed the same supported hydrated bodycopy and a clean
+  direct-edit channel. Replaced the complete canonical Home through
+  `bodycopy.innerHTML` plus `InputEvent`, saved with Cmd+S, and reloaded. Cargo
+  Code View was never used.
+- Extracted Cargo's raw saved Home record after reload and passed it through
+  the schema-2 bodycopy validator. It contains 68/68 unique media IDs, seven
+  Touchbaes items, the Round 89 helper, two `responsive-70` markers, no live
+  video source, no native poster, `preload="none"`, and the original approved
+  `data-poster`. The activated preview legitimately uses the 720px runtime
+  poster. Compact and expanded probes retain native rivers, zero page-level
+  overflow, one root, all 68 media IDs, and the protected 504x504 WTW geometry
+  at a 1440px composition.
+- Home, Who, and Write now contain the same canonical shared runtime and are
+  reload-verified in the Cargo draft. This round was not published; the public
+  site remains Round 87. Physical iPad Safari remains the final decoder and
+  autoplay proof for Touchbaes asset 2.

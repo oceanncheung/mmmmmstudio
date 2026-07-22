@@ -1364,15 +1364,18 @@ agent needs to continue this project without the prior chat history.
   408,732 bytes. The 2,078,186-byte MP4 is valid and fast-started but Freight
   reports no range support. The focused 768x1024 and 1024x1366 iPad contract
   and the complete Phase 2 gate pass.
-- Cargo deployment is intentionally incomplete and unpublished. Who and Write
-  contain the updated shared runtime and are reload-verified; Home still has
-  the complete Round 88 draft. Home's critical V7 iframe leaves the Chrome
-  editor in a paused-document-response state, disabling the supported direct
-  bodycopy channel. Multiple fresh authenticated tabs reproduced it. Do not
-  use Code View as a fallback: it previously deleted the complete V7 and
-  Touchbaes rivers.
-- Resume after Ocean refreshes or reopens the authenticated Home editor. Use
-  UTF-8-safe direct `bodycopy.innerHTML` plus `InputEvent`, Cmd+S, reload, and
-  require 68/68 unique media IDs, seven Touchbaes items, the Round 89 helper,
-  and zero overflow. Then physically verify the moving second Touchbaes asset
-  on iPad Safari. Do not publish without Ocean's explicit authorization.
+- Home, Who, and Write now contain the updated shared runtime and are
+  reload-verified in the Cargo draft. Chrome's Home editor remained blocked by
+  the paused V7 document response, so Home was transferred through the
+  authenticated in-app Cargo editor using the required UTF-8-safe direct
+  `bodycopy.innerHTML` plus `InputEvent` path, Cmd+S, and reload. Code View was
+  never used.
+- Cargo's raw saved Home record passes the schema-2 source-purity validator:
+  68/68 unique media IDs, seven Touchbaes items, the Round 89 helper, two
+  `responsive-70` markers, no live source, no native poster, `preload="none"`,
+  and the original approved poster identity. Compact and expanded probes retain
+  native rivers, zero page-level horizontal overflow, and WTW at 504x504 in
+  the 1440px composition. Who and Write retain their protected media and
+  four/static Withered Green contracts.
+- The remaining acceptance gate is physical iPad Safari playback of the second
+  Touchbaes asset. Do not publish without Ocean's explicit authorization.

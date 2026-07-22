@@ -2356,10 +2356,14 @@ current source of truth for the built site.
 - `npm run touchbaes-readiness-test` passes at 768x1024 and 1024x1366, and the
   complete Phase 2 gate passes. Physical iPad Safari remains the final decoder
   and autoplay proof.
-- Cargo is in a safe partial draft state and is not published. Who and Write
-  are reload-verified with the updated shared runtime; Home remains on Round
-  88 because its critical V7 iframe keeps the authenticated Chrome editor in a
-  paused-document-response state that blocks the required direct bodycopy
-  channel. Never replace Home through Code View. After Ocean refreshes or
-  reopens Home, deploy the complete canonical Home and reload-require 68 unique
-  media IDs before any publication decision.
+- Cargo is reload-verified with the same Round 89 shared runtime on Home, Who,
+  and Write, and it remains unpublished. Chrome's Home editor kept the direct
+  channel blocked behind the paused V7 response, so the complete canonical Home
+  was transferred through the authenticated in-app Cargo editor using direct
+  `bodycopy.innerHTML` plus `InputEvent`, Cmd+S, and reload. Never replace Home
+  through Code View.
+- Cargo's raw saved Home record passes the schema-2 source-purity validator and
+  retains 68 unique media IDs, seven Touchbaes items, no live source, no native
+  poster, `preload="none"`, the original approved poster identity, zero page
+  overflow, and protected 504x504 WTW geometry at 1440px. Physical iPad Safari
+  remains the final Touchbaes decoder/autoplay proof.
