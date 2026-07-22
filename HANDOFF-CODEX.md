@@ -1304,3 +1304,24 @@ agent needs to continue this project without the prior chat history.
 - The next separate remediation is the iPad/Safari media batch: Touchbaes second
   asset readiness, Montran coarse-pointer interaction, and durable poster/load
   behavior. Do not mix it into the completed swatch round.
+
+## Current handoff — Round 87 hover-only swatch ring (2026-07-22)
+- Round 87 supersedes only Round 86's swatch-focus decision. There is no theme
+  swatch border or ring at rest, after pointer/touch selection, or during
+  keyboard focus. The only visible ring is the 1px circular artwork ring while
+  a fine pointer is actively hovering the swatch.
+- Keep `.mms-dot` target geometry transparent and unchanged. Base and compact
+  `.mms-dot::before` borders remain `0`; the hover rule remains inside
+  `(hover: hover) and (pointer: fine)`. Do not restore a swatch
+  `:focus-visible::before` rule or a dotted button outline.
+- The published four-region CSS is 86,459 UTF-8 bytes, SHA-256
+  `2e7cd7798dcbea7ba222e967d6824507e8c4e7844903cf55e6fb69b170ea0bf9`.
+  Cargo's head and three managed font regions remain intact.
+- Public Home is verified at 68/68 unique media IDs, 13 rivers, 12 expanded
+  scrubbers, square WTW asset geometry, and zero horizontal overflow. Who is
+  verified with two videos; Write is verified with four rotating Withered Green
+  body paragraphs and a static heading. All pages retain two `responsive-70`
+  markers.
+- The full Phase 2 gate passes. The sole current gold remains
+  `gold-2026-07-21-responsive-70` and was not edited. The next separate
+  remediation remains the iPad/Safari media-readiness batch.

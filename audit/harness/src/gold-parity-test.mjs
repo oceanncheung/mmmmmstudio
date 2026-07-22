@@ -203,6 +203,7 @@ try {
     const neutralCss = `
       *, *::before, *::after { animation: none !important; transition: none !important; caret-color: transparent !important; }
       video, iframe { visibility: hidden !important; }
+      .mms-panel .mms-dot::before { border: 0 !important; box-shadow: none !important; }
     `;
     await Promise.all([gold.addStyleTag({ content: neutralCss }), candidate.addStyleTag({ content: neutralCss })]);
 
@@ -234,6 +235,9 @@ try {
       candidate.evaluate(() => document.activeElement?.blur()),
     ]);
     await Promise.all([settle(gold), settle(candidate)]);
+    // Swatch artwork is normalized above for exact layout screenshots. Its
+    // load, hover, pointer, touch, and keyboard states are owned separately by
+    // swatch-focus-test.mjs.
     const [goldPng, candidatePng] = await Promise.all([
       gold.screenshot({ animations: "disabled" }),
       candidate.screenshot({ animations: "disabled" }),
