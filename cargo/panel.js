@@ -772,6 +772,18 @@
     }
     return element.getAttribute('data-src');
   }
+  function isTouchbaesAlphaVideo(element) {
+    var frame = element && element.closest ? element.closest('[data-media-id="touchbaes-02"]') : null;
+    return Boolean(frame && element.tagName === 'VIDEO');
+  }
+  function deferredPoster(element) {
+    var poster = element.getAttribute('data-poster');
+    if (!poster || !isTouchbaesAlphaVideo(element)) return poster;
+    /* The original transparent PNG is 1.7 MB. The 720px Freight rendition is
+       still at least 2x the asset's maximum settled iPad width while avoiding
+       a redundant original-size transfer beside the 2 MB HEVC-alpha video. */
+    return poster.replace('/t/original/i/', '/w/720/q/85/i/');
+  }
   function activateDeferred(element) {
     if (!element || element.dataset.mmsLoaded === '1') return;
     var source = deferredSource(element);
@@ -779,8 +791,9 @@
     element.removeAttribute('src');
     element.dataset.mmsSource = source;
     element.dataset.mmsLoaded = '1';
-    var poster = element.getAttribute('data-poster');
+    var poster = deferredPoster(element);
     if (element.tagName === 'VIDEO') {
+      if (isTouchbaesAlphaVideo(element)) element.setAttribute('preload', 'auto');
       if (poster && !element.getAttribute('poster')) element.setAttribute('poster', poster);
       element.muted = true;
       element.defaultMuted = true;
@@ -795,6 +808,9 @@
     if (element.tagName === 'VIDEO') {
       try { element.load(); } catch (e) {}
       runtime.on(element, 'loadedmetadata', function () { requestVideoPlay(element); }, { once: true });
+      if (isTouchbaesAlphaVideo(element)) {
+        runtime.on(element, 'loadeddata', function () { requestVideoPlay(element); }, { once: true });
+      }
       runtime.on(element, 'canplay', function () { requestVideoPlay(element); }, { once: true });
       runtime.on(element, 'playing', function () {
         element.dataset.motionReady = '1';
@@ -839,7 +855,7 @@
       image.setAttribute('loading', 'eager');
     });
     container.querySelectorAll('video[data-poster], iframe[data-poster]').forEach(function (element) {
-      var poster = element.getAttribute('data-poster');
+      var poster = deferredPoster(element);
       if (!poster) return;
       if (element.tagName === 'VIDEO') {
         if (!element.getAttribute('poster')) element.setAttribute('poster', poster);

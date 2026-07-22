@@ -1352,3 +1352,27 @@ agent needs to continue this project without the prior chat history.
   non-editing page only after Ocean explicitly authorizes publication.
 - The sole current gold remains `gold-2026-07-21-responsive-70` and is
   unchanged. Keep the separate iPad/Safari media-readiness remediation next.
+
+## Current handoff — Round 89 Touchbaes iPad readiness (2026-07-22)
+- Round 89 fixes only the reported Touchbaes second-asset stall. The runtime
+  identifies `[data-media-id="touchbaes-02"] video`, selects its existing
+  HEVC-alpha fallback on iPad/Safari, sets `preload="auto"` only when the
+  near-media observer activates it, retries once at `loadeddata`, and uses the
+  720px Freight poster rendition at runtime. Saved media attributes, manifest,
+  dimensions, layout, and `gold-2026-07-21-responsive-70` are unchanged.
+- The original poster is 1,728,991 bytes; the 720px runtime rendition is
+  408,732 bytes. The 2,078,186-byte MP4 is valid and fast-started but Freight
+  reports no range support. The focused 768x1024 and 1024x1366 iPad contract
+  and the complete Phase 2 gate pass.
+- Cargo deployment is intentionally incomplete and unpublished. Who and Write
+  contain the updated shared runtime and are reload-verified; Home still has
+  the complete Round 88 draft. Home's critical V7 iframe leaves the Chrome
+  editor in a paused-document-response state, disabling the supported direct
+  bodycopy channel. Multiple fresh authenticated tabs reproduced it. Do not
+  use Code View as a fallback: it previously deleted the complete V7 and
+  Touchbaes rivers.
+- Resume after Ocean refreshes or reopens the authenticated Home editor. Use
+  UTF-8-safe direct `bodycopy.innerHTML` plus `InputEvent`, Cmd+S, reload, and
+  require 68/68 unique media IDs, seven Touchbaes items, the Round 89 helper,
+  and zero overflow. Then physically verify the moving second Touchbaes asset
+  on iPad Safari. Do not publish without Ocean's explicit authorization.

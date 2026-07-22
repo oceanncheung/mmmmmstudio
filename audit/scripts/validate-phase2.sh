@@ -42,6 +42,7 @@ echo "Phase 2 harness configuration: PASS"
 (cd "$ROOT/audit/harness" && npm run media-owner-test)
 (cd "$ROOT/audit/harness" && npm run gold-parity-test)
 (cd "$ROOT/audit/harness" && npm run swatch-focus-test)
+(cd "$ROOT/audit/harness" && npm run touchbaes-readiness-test)
 
 "$ROOT/cargo/validate-cargo-payload.sh" bodycopy "$ROOT/cargo/home.html"
 "$ROOT/cargo/validate-cargo-payload.sh" bodycopy "$ROOT/cargo/who.html"

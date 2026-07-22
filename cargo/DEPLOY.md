@@ -4522,3 +4522,44 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   must be rechecked on the non-editing site after a later authorized publish.
   This round is saved in the Cargo draft only. It was not published, and
   `gold-2026-07-21-responsive-70` was not edited.
+
+## Round 89 (2026-07-22): Touchbaes iPad alpha-video readiness — LOCAL PASS / HOME DEPLOYMENT BLOCKED
+- Physical-iPad follow-up reported that Touchbaes asset 2 could remain on its
+  first-frame poster for minutes. The selected iPad source is the valid,
+  fast-started 1080x1920 HEVC-alpha MP4: 4.046 seconds, 2,078,186 bytes, with
+  `moov` at byte 32. Freight does not serve byte ranges for it. The old path
+  concurrently requested the 1,728,991-byte original transparent PNG poster
+  while leaving the activated video at `preload="none"`.
+- Added a manifest-safe runtime correction owned only by
+  `touchbaes-02`: when the existing near-media observer activates it, preload
+  switches to `auto`, the first decoded `loadeddata` frame gets one bounded
+  playback retry, and the native poster uses Freight's 720px rendition
+  (408,732 bytes) instead of the original. The saved `data-poster`,
+  `data-src`, `data-mp4`, source priority, dimensions, deployment manifest,
+  and protected gold are unchanged. A failed video retains that optimized
+  poster.
+- Added `touchbaes-readiness-test.mjs` at 768x1024 and 1024x1366 iPad
+  contexts. It proves HEVC selection, target-only `preload="auto"`, runtime
+  poster substitution without saved-source drift, exactly one first-frame
+  retry, retained error poster, unchanged sibling preload, native river
+  behavior, intact geometry, and zero page overflow. The focused test and the
+  complete Phase 2 gate pass, including 122/122 frozen hashes, both 240-state
+  gold matrices, media ownership, root teardown, source purity, and all 30
+  destructive deployment fixtures.
+- Reassembled all three canonical bodycopies. Who and Write were deployed
+  through UTF-8-safe direct `innerHTML` plus `InputEvent`, saved, reloaded, and
+  verified: Who retains two videos and zero overflow; Write retains exactly
+  four rotating Withered Green body spans, a static heading, and zero
+  overflow. The shared readiness helper is inert on both pages because neither
+  contains `touchbaes-02`.
+- Home deployment could not be completed safely. Every authenticated Home
+  editor tab leaves Chrome Browser Use resolving the critical V7 Freight
+  document response, which disables the raw-CDP channel required for direct
+  bodycopy replacement. Reopening fresh and alternate authenticated tabs did
+  not clear it. Per `cargo/PLAYBOOK.md`, stopped after the supported recipe
+  failed repeatedly; did not use Cargo Code View, did not mutate the Home
+  payload, and did not publish. Home therefore remains on the reload-verified
+  Round 88 draft while Who and Write contain the no-op Round 89 shared helper.
+  Resume only after Ocean refreshes or reopens the authenticated Home editor,
+  then deploy complete `cargo/home.html` by direct bodycopy assignment and
+  require 68/68 unique media IDs after reload.

@@ -2346,3 +2346,20 @@ current source of truth for the built site.
 - The focused compact/expanded test, canonical assembly, and complete Phase 2
   gate pass. The public site still serves Round 87 until Ocean explicitly
   authorizes a publish. `gold-2026-07-21-responsive-70` remains immutable.
+
+## Current state — Round 89 Touchbaes iPad readiness
+- The Touchbaes second asset now has a targeted manifest-safe readiness path:
+  runtime-only 720px poster rendition, `preload="auto"` only after existing
+  proximity activation, and one `loadeddata` play retry. Source identities,
+  saved preload/poster attributes, media geometry, layout, and the protected
+  gold remain unchanged. A video error keeps the poster visible.
+- `npm run touchbaes-readiness-test` passes at 768x1024 and 1024x1366, and the
+  complete Phase 2 gate passes. Physical iPad Safari remains the final decoder
+  and autoplay proof.
+- Cargo is in a safe partial draft state and is not published. Who and Write
+  are reload-verified with the updated shared runtime; Home remains on Round
+  88 because its critical V7 iframe keeps the authenticated Chrome editor in a
+  paused-document-response state that blocks the required direct bodycopy
+  channel. Never replace Home through Code View. After Ocean refreshes or
+  reopens Home, deploy the complete canonical Home and reload-require 68 unique
+  media IDs before any publication decision.
