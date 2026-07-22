@@ -154,7 +154,7 @@
         "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
         "docs/audits/2026-07-20T175853-0400-round-80/local/embed-manifest.json"
       ],
-      "fallback": "iframe posters remain until a valid ready message; outbound visibility/mode messages use captured wildcard targets",
+      "fallback": "iframe posters remain until a valid ready message; frozen Round 80 V7 and Touchbaes child/outbound paths still include wildcard targets",
       "missing_evidence_markers": [],
       "use": "accepts ready messages from the expected V7, Touchbaes, and Montran frame"
     },
@@ -1271,7 +1271,15 @@
       "unique_media_ids": 68
     },
     "iframe_messaging": {
-      "parent_validation": "panel.js matches event.source and expected embed kind; Montran also validates origin",
+      "frozen_parent_validation": "Round 80 validates expected frame windows and applicable origins/kinds, but predates protocol-v1 opt-in",
+      "frozen_wildcard_messages_observed": [
+        "generic V7/Touchbaes visibility",
+        "Touchbaes mode",
+        "V7 ready",
+        "Touchbaes ready/size/tweezer"
+      ],
+      "prepared_local_parent": "Round 93 targets exact derived child origins and carries kind/protocolVersion; present malformed protocol attributes fail closed; this code is not deployed",
+      "prepared_successors": "audit/contracts/embed-message-protocol-candidates.json",
       "ready_contracts": [
         {
           "__mmsEmbedReady": 1,
@@ -1286,11 +1294,6 @@
           "kind": "montran-booklet",
           "version": 17
         }
-      ],
-      "wildcard_messages_observed": [
-        "V7 ready",
-        "Touchbaes ready/size/mode",
-        "generic embed visibility"
       ]
     },
     "video_runtime": {

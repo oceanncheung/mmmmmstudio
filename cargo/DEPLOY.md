@@ -4681,3 +4681,58 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   to Cargo, not published, and did not alter Figma, Cargo payloads, Freight
   assets, visual geometry, runtime behavior, or
   `gold-2026-07-21-responsive-70`.
+
+## Round 93 (2026-07-22): V7 and Touchbaes message protocol — TEST-ONLY / NOT DEPLOYED
+- Prepared the `MMS-AUD-030` exact-origin protocol without modifying the
+  currently active recovered embed files. The shared parent now derives each
+  V7/Touchbaes child origin from its deferred iframe source, sends visibility
+  and game-mode messages only to that exact origin, includes `kind` and
+  `protocolVersion: 1`, and fails closed when the origin cannot be derived.
+- Parent receipt remains compatible with the active legacy children until an
+  iframe opts into `data-embed-protocol="1"`. Opted-in V7 and Touchbaes frames
+  require the exact current window, exact derived origin, kind, exact numeric
+  protocol version, boolean payload fields, and existing bounded payload
+  contracts before readiness, height, or escaped-rig state can change. A
+  present but empty, malformed, or unsupported protocol attribute fails closed
+  instead of silently reverting to the legacy path.
+- Advanced the internal panel and Home lifecycle owners to
+  `root-lifecycle-2/embed-message-v1` without changing the public
+  `responsive-70` marker. An isolated same-root browser fixture proves an
+  installed lifecycle-1 owner is torn down and replaced, so a Cargo rerun
+  cannot retain the former wildcard/unversioned listeners.
+- Added separately hash-locked child successors rather than overwriting live
+  recovery sources: V7 `three-r160/message-v1` builds deterministically to
+  781,074 bytes with SHA-256
+  `0e196aa0f2e1d35f0671ea1d746f5453037ee7e320a36ca189b1a5d817cf256f`;
+  Touchbaes v11 builds to 50,030 bytes with SHA-256
+  `6c4947e22ac8f8b5ec06d1c4f9d238367c561819a5eac6d8a699403e6f75fee0`.
+  Both children derive the real parent origin from `document.referrer`, reject
+  wrong source/origin/kind/version and non-boolean mode values, and post only
+  to the exact parent origin.
+- `audit/contracts/embed-message-protocol-candidates.json` records the two
+  successors as `prepared-not-active` and identifies the exact artifacts they
+  supersede. `validate-embed-message-protocol.py` requires tracked hash-locked
+  inputs, two identical isolated builds, retained protocol markers, no
+  wildcard target in the candidate/parent paths, and eleven destructive
+  contract failures. The prepared-state guard also requires both canonical
+  Home iframe URLs and both deployment-manifest entries to remain on the
+  legacy children with no protocol attribute; one-sided activation fails the
+  gate.
+- Browser coverage now proves exact parent targets, versioned outbound
+  envelopes, strict parent readiness/Touchbaes height/rig filtering, real V7
+  pause/resume behavior, real Touchbaes mode/readiness/size behavior,
+  malformed protocol-attribute rejection, same-root owner replacement, and
+  unchanged Montran interactions. The complete Phase 2 gate passes, including
+  122/122 frozen hashes, both 240-state gold matrices, iPad readiness, all
+  primary interactions, saved-source purity, root replacement, and all 30
+  deployment-negative fixtures.
+- The active V7 recovery still reproduces 780,341 bytes at SHA-256
+  `ee09e9c282d928f8968b91e1301bc0ba2639102a27c1bf1cd40483ab1b609d0a`;
+  active Montran v17 still reproduces 1,936,356 bytes at SHA-256
+  `825cf2c3a1f130cb3445e62443985e845991204d19e0c2154cfd43a36126b49b`.
+  `gold-2026-07-21-responsive-70` remains untouched.
+- This round was not uploaded to Freight, deployed to Cargo, or published.
+  Active closure requires one atomic later batch: upload both successor
+  children, update both immutable iframe URLs plus `data-embed-protocol="1"`,
+  deploy the complete parent bodycopy, reload-verify, then capture and promote
+  the new active artifact identities. Do not deploy either side alone.

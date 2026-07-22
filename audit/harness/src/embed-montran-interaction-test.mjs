@@ -11,6 +11,8 @@ const COMPACT_VIEWPORT = { width: 390, height: 844 };
 const EXPANDED_VIEWPORT = { width: 1024, height: 844 };
 const FREIGHT_ORIGIN = "https://freight.cargo.site";
 const WRONG_ORIGIN = "https://wrong.invalid";
+const EMBED_PROTOCOL_VERSION = 1;
+const MALFORMED_EMBED_PROTOCOL_VALUES = ["", "v1", "1x", "01"];
 const TWEEZER_OPEN_SRC = `${FREIGHT_ORIGIN}/t/original/i/T3022869107490037873358127281977/tweezer-open.png`;
 const TWEEZER_CLOSED_SRC = `${FREIGHT_ORIGIN}/t/original/i/N3022869107453144385210708178745/tweezer-close.png`;
 const TWEEZER_FRONT_SRC = `${FREIGHT_ORIGIN}/t/original/i/V3022869107471591129284417730361/tweezer-front-arm.png`;
@@ -45,6 +47,22 @@ const FIXTURE_HTML = `<!doctype html>
 </script>
 </body>
 </html>`;
+
+function protocolEnvelope(kind, payload) {
+  return { protocolVersion: EMBED_PROTOCOL_VERSION, kind, ...payload };
+}
+
+async function setEmbedProtocol(page, selector, value) {
+  const frame = page.locator(selector);
+  await frame.evaluate((element, protocol) => {
+    element.setAttribute("data-embed-protocol", protocol);
+  }, value);
+  assert.equal(
+    await frame.getAttribute("data-embed-protocol"),
+    value,
+    `${selector} did not retain the exact protocol attribute value`,
+  );
+}
 
 async function fixtureFrame(page, selector) {
   const locator = page.locator(selector);
@@ -123,6 +141,56 @@ async function waitForMessage(frame, marker, expectedValue) {
   ), { key: marker, value: expectedValue }, { timeout: 15_000 });
 }
 
+async function exerciseParentOutbound({ page, v7Frame, touchbaesFrame, parentOrigin }) {
+  await waitForMessage(touchbaesFrame, "__mmsGameMode", true);
+  const modes = messagesWith(await fixtureRecords(touchbaesFrame), "__mmsGameMode");
+  assert.ok(modes.length >= 1, "Touchbaes did not receive its parent mode envelope");
+  assert.deepEqual(modes.at(-1).data, protocolEnvelope("touchbaes", {
+    __mmsGameMode: 1,
+    compact: true,
+  }), "Touchbaes parent mode envelope is not versioned exactly");
+  assert.equal(modes.at(-1).origin, parentOrigin, "Touchbaes mode came from the wrong parent origin");
+
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await page.waitForTimeout(100);
+  await page.locator(SELECTORS.v7).scrollIntoViewIfNeeded();
+  await waitForMessage(v7Frame, "__mmsEmbedVisibility");
+  let visibility = messagesWith(await fixtureRecords(v7Frame), "__mmsEmbedVisibility");
+  const latestVisibility = visibility.at(-1);
+  assert.equal(latestVisibility.data.protocolVersion, EMBED_PROTOCOL_VERSION,
+    "V7 visibility is missing its protocol version");
+  assert.equal(latestVisibility.data.kind, "v7-cup", "V7 visibility has the wrong kind");
+  assert.equal(typeof latestVisibility.data.visible, "boolean", "V7 visibility is not a strict boolean");
+  assert.equal(latestVisibility.origin, parentOrigin, "V7 visibility came from the wrong parent origin");
+
+  const originalSource = await page.locator(SELECTORS.v7).getAttribute("data-src");
+  assert.ok(originalSource, "V7 source disappeared before exact-target validation");
+  v7Frame = await navigateFixture(page, SELECTORS.v7, `${WRONG_ORIGIN}/v7-outbound-target.html`);
+  await clearFixture(v7Frame);
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await page.waitForTimeout(100);
+  await page.locator(SELECTORS.v7).scrollIntoViewIfNeeded();
+  await page.waitForTimeout(125);
+  visibility = messagesWith(await fixtureRecords(v7Frame), "__mmsEmbedVisibility");
+  assert.equal(visibility.length, 0, "wrong-origin V7 frame received an exact-origin visibility message");
+
+  v7Frame = await navigateFixture(page, SELECTORS.v7, originalSource);
+  await clearFixture(v7Frame);
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await page.waitForTimeout(100);
+  await page.locator(SELECTORS.v7).scrollIntoViewIfNeeded();
+  await waitForMessage(v7Frame, "__mmsEmbedVisibility");
+  visibility = messagesWith(await fixtureRecords(v7Frame), "__mmsEmbedVisibility");
+  assert.ok(visibility.every((record) => (
+    record.data.protocolVersion === EMBED_PROTOCOL_VERSION &&
+    record.data.kind === "v7-cup" &&
+    typeof record.data.visible === "boolean" &&
+    record.origin === parentOrigin
+  )), "restored V7 received a malformed visibility envelope");
+  process.stdout.write("Exact parent embed targets and versioned outbound envelopes: PASS\n");
+  return v7Frame;
+}
+
 async function resetReadiness(page, selector) {
   await page.locator(selector).evaluate((element) => {
     delete element.dataset.motionReady;
@@ -172,6 +240,8 @@ async function rigState(page) {
     }));
     return {
       display: getComputedStyle(rig).display,
+      left: rig.style.left,
+      top: rig.style.top,
       width: rig.style.width,
       scriptCount: rig.querySelectorAll("script").length,
       imageCount: images.length,
@@ -198,28 +268,44 @@ async function exerciseGenericReadiness({ page, v7Frame, touchbaesFrame, staleFr
   for (const [label, payload] of [
     ["null payload", null],
     ["primitive payload", "ready"],
-    ["missing marker", { kind: "v7-cup" }],
-    ["missing kind", { __mmsEmbedReady: 1 }],
-    ["wrong kind", { __mmsEmbedReady: 1, kind: "touchbaes" }],
+    ["missing marker", protocolEnvelope("v7-cup", {})],
+    ["missing kind", { __mmsEmbedReady: 1, protocolVersion: EMBED_PROTOCOL_VERSION }],
+    ["wrong kind", protocolEnvelope("touchbaes", { __mmsEmbedReady: 1 })],
+    ["missing protocol version", { __mmsEmbedReady: 1, kind: "v7-cup" }],
+    ["stale protocol version", { __mmsEmbedReady: 1, kind: "v7-cup", protocolVersion: 0 }],
+    ["future protocol version", { __mmsEmbedReady: 1, kind: "v7-cup", protocolVersion: 2 }],
+    ["string protocol version", { __mmsEmbedReady: 1, kind: "v7-cup", protocolVersion: "1" }],
   ]) {
     await sendFromFixture(v7Frame, payload, parentOrigin);
     await page.waitForTimeout(25);
     await assertReadinessUntouched(page, SELECTORS.v7, `generic ${label}`);
   }
 
-  await sendFromFixture(staleFrame, { __mmsEmbedReady: 1, kind: "v7-cup" }, parentOrigin);
+  await sendFromFixture(staleFrame, protocolEnvelope("v7-cup", { __mmsEmbedReady: 1 }), parentOrigin);
   await page.waitForTimeout(25);
   await assertReadinessUntouched(page, SELECTORS.v7, "generic stale source");
 
   const originalV7Source = await page.locator(SELECTORS.v7).getAttribute("data-src");
   assert.ok(originalV7Source, "V7 source disappeared before wrong-origin test");
   v7Frame = await navigateFixture(page, SELECTORS.v7, `${WRONG_ORIGIN}/v7-current-window.html`);
-  await sendFromFixture(v7Frame, { __mmsEmbedReady: 1, kind: "v7-cup" }, parentOrigin);
+  await sendFromFixture(v7Frame, protocolEnvelope("v7-cup", { __mmsEmbedReady: 1 }), parentOrigin);
   await page.waitForTimeout(25);
   await assertReadinessUntouched(page, SELECTORS.v7, "generic wrong origin");
   v7Frame = await navigateFixture(page, SELECTORS.v7, originalV7Source);
+  await resetReadiness(page, SELECTORS.v7);
 
-  await sendFromFixture(v7Frame, { __mmsEmbedReady: 1, kind: "v7-cup" }, parentOrigin);
+  for (const malformedProtocol of MALFORMED_EMBED_PROTOCOL_VALUES) {
+    await setEmbedProtocol(page, SELECTORS.v7, malformedProtocol);
+    await sendFromFixture(v7Frame, protocolEnvelope("v7-cup", { __mmsEmbedReady: 1 }), parentOrigin);
+    await page.waitForTimeout(25);
+    await assertReadinessUntouched(
+      page,
+      SELECTORS.v7,
+      `generic malformed protocol attribute ${JSON.stringify(malformedProtocol)}`,
+    );
+  }
+  await setEmbedProtocol(page, SELECTORS.v7, String(EMBED_PROTOCOL_VERSION));
+  await sendFromFixture(v7Frame, protocolEnvelope("v7-cup", { __mmsEmbedReady: 1 }), parentOrigin);
   await page.waitForFunction((selector) => (
     document.querySelector(selector)?.dataset.motionReady === "1"
   ), SELECTORS.v7);
@@ -228,7 +314,7 @@ async function exerciseGenericReadiness({ page, v7Frame, touchbaesFrame, staleFr
   assert.equal(v7State.backgroundImage, "none", "valid V7 readiness retained its poster");
   assert.equal(untouchedGame.ready, "", "valid V7 readiness changed the Touchbaes iframe");
 
-  await sendFromFixture(touchbaesFrame, { __mmsEmbedReady: 1, kind: "touchbaes" }, parentOrigin);
+  await sendFromFixture(touchbaesFrame, protocolEnvelope("touchbaes", { __mmsEmbedReady: 1 }), parentOrigin);
   await page.waitForFunction((selector) => (
     document.querySelector(selector)?.dataset.motionReady === "1"
   ), SELECTORS.touchbaes);
@@ -252,6 +338,8 @@ async function exerciseTouchbaesSize({ page, touchbaesFrame, staleFrame, parentO
   const wrongOriginBaseline = await gameHeightState(page);
   await sendFromFixture(touchbaesFrame, {
     __mmsGameSize: 1,
+    protocolVersion: EMBED_PROTOCOL_VERSION,
+    kind: "touchbaes",
     geometryVersion: 10,
     compact: true,
     height: Math.ceil(wrongOriginBaseline.computedHeight) + 40,
@@ -268,6 +356,8 @@ async function exerciseTouchbaesSize({ page, touchbaesFrame, staleFrame, parentO
   const candidateHeight = Math.ceil(baseline.computedHeight) + 41;
   const validSize = {
     __mmsGameSize: 1,
+    protocolVersion: EMBED_PROTOCOL_VERSION,
+    kind: "touchbaes",
     geometryVersion: 10,
     compact: true,
     height: candidateHeight,
@@ -280,8 +370,16 @@ async function exerciseTouchbaesSize({ page, touchbaesFrame, staleFrame, parentO
 
   const rejectedCases = [
     ["malformed payload", null],
+    ["non-numeric marker", { ...validSize, __mmsGameSize: "1" }],
+    ["missing kind", { ...validSize, kind: undefined }],
+    ["wrong kind", { ...validSize, kind: "v7-cup" }],
+    ["missing protocol version", { ...validSize, protocolVersion: undefined }],
+    ["stale protocol version", { ...validSize, protocolVersion: 0 }],
+    ["future protocol version", { ...validSize, protocolVersion: 2 }],
+    ["string protocol version", { ...validSize, protocolVersion: "1" }],
     ["stale geometry version", { ...validSize, geometryVersion: 9 }],
     ["compact mismatch", { ...validSize, compact: false }],
+    ["non-boolean compact", { ...validSize, compact: "true" }],
     ["NaN height", { ...validSize, height: Number.NaN }],
     ["infinite height", { ...validSize, height: Number.POSITIVE_INFINITY }],
     ["zero height", { ...validSize, height: 0 }],
@@ -296,6 +394,17 @@ async function exerciseTouchbaesSize({ page, touchbaesFrame, staleFrame, parentO
     assertGameStateEqual(await gameHeightState(page), baseline, `Touchbaes ${label}`);
   }
 
+  for (const malformedProtocol of MALFORMED_EMBED_PROTOCOL_VALUES) {
+    await setEmbedProtocol(page, SELECTORS.touchbaes, malformedProtocol);
+    await sendFromFixture(touchbaesFrame, validSize, parentOrigin);
+    await page.waitForTimeout(25);
+    assertGameStateEqual(
+      await gameHeightState(page),
+      baseline,
+      `Touchbaes malformed protocol attribute ${JSON.stringify(malformedProtocol)}`,
+    );
+  }
+  await setEmbedProtocol(page, SELECTORS.touchbaes, String(EMBED_PROTOCOL_VERSION));
   await sendFromFixture(touchbaesFrame, validSize, parentOrigin);
   await page.waitForFunction((selector) => (
     document.querySelector(selector)?.dataset.gameMeasured === "true"
@@ -326,6 +435,8 @@ async function exerciseTouchbaesTrustedRig({ page, touchbaesFrame, parentOrigin 
 
   await sendFromFixture(touchbaesFrame, {
     __tw: 1,
+    protocolVersion: EMBED_PROTOCOL_VERSION,
+    kind: "touchbaes",
     t: "move",
     tx: 12,
     ty: 34,
@@ -347,6 +458,23 @@ async function exerciseTouchbaesTrustedRig({ page, touchbaesFrame, parentOrigin 
   assert.equal(state.images[1].dragOriginY, "64px", "trusted sticker y origin was not preserved");
   assert.equal(state.images[2].src, TWEEZER_FRONT_SRC, "trusted rig used the wrong front arm");
 
+  const acceptedState = state;
+  for (const [label, payload] of [
+    ["non-numeric marker", protocolEnvelope("touchbaes", { __tw: true, t: "hide" })],
+    ["missing protocol", { __tw: 1, kind: "touchbaes", t: "hide" }],
+    ["stale protocol", protocolEnvelope("touchbaes", { __tw: 1, protocolVersion: 0, t: "hide" })],
+    ["future protocol", protocolEnvelope("touchbaes", { __tw: 1, protocolVersion: 2, t: "hide" })],
+    ["wrong kind", protocolEnvelope("v7-cup", { __tw: 1, t: "hide" })],
+  ]) {
+    await sendFromFixture(touchbaesFrame, payload, parentOrigin);
+    await page.waitForTimeout(25);
+    const rejectedState = await rigState(page);
+    assert.equal(rejectedState.display, acceptedState.display, `${label} changed rig display`);
+    assert.equal(rejectedState.left, acceptedState.left, `${label} moved the rig horizontally`);
+    assert.equal(rejectedState.top, acceptedState.top, `${label} moved the rig vertically`);
+    assert.equal(rejectedState.imageCount, acceptedState.imageCount, `${label} rebuilt the rig`);
+  }
+
   const maliciousHtml = [
     `<img class="tweezer-back" src="${TWEEZER_OPEN_SRC}" onerror="window.__bad=1" alt="">`,
     `<script>window.__bad=1</script>`,
@@ -355,6 +483,8 @@ async function exerciseTouchbaesTrustedRig({ page, touchbaesFrame, parentOrigin 
   ].join("");
   await sendFromFixture(touchbaesFrame, {
     __tw: 1,
+    protocolVersion: EMBED_PROTOCOL_VERSION,
+    kind: "touchbaes",
     t: "move",
     tx: 13,
     ty: 35,
@@ -373,6 +503,8 @@ async function exerciseTouchbaesTrustedRig({ page, touchbaesFrame, parentOrigin 
 
   await sendFromFixture(touchbaesFrame, {
     __tw: 1,
+    protocolVersion: EMBED_PROTOCOL_VERSION,
+    kind: "touchbaes",
     t: "move",
     tx: Number.POSITIVE_INFINITY,
     ty: 0,
@@ -669,8 +801,20 @@ async function run() {
       fixtureFrame(page, SELECTORS.touchbaes),
       fixtureFrame(page, SELECTORS.montran),
     ]);
+    await page.locator(SELECTORS.v7).evaluate((frame, version) => {
+      frame.setAttribute("data-embed-protocol", String(version));
+    }, EMBED_PROTOCOL_VERSION);
+    await page.locator(SELECTORS.touchbaes).evaluate((frame, version) => {
+      frame.setAttribute("data-embed-protocol", String(version));
+    }, EMBED_PROTOCOL_VERSION);
     const staleFrame = await addStaleFixture(page);
     await page.waitForTimeout(1_700);
+    v7Frame = await exerciseParentOutbound({
+      page,
+      v7Frame,
+      touchbaesFrame,
+      parentOrigin: server.origin,
+    });
     await Promise.all([v7Frame, touchbaesFrame, montranFrame, staleFrame].map(clearFixture));
 
     ({ v7Frame, touchbaesFrame } = await exerciseGenericReadiness({

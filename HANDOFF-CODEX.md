@@ -1440,3 +1440,43 @@ agent needs to continue this project without the prior chat history.
 - Keep `MMS-AUD-036` PDF URL allowlisting and `MMS-AUD-039` third-party notices
   as separate later batches because either can change distribution behavior or
   bytes. No Cargo deployment is required for Round 92 itself.
+
+## Current handoff — Round 93 prepared embed protocol promotion (2026-07-22)
+- Round 93 is repository-only work on `round-93/embed-message-protocol`; it has
+  not been uploaded to Freight, deployed to Cargo, or published. The protected
+  `gold-2026-07-21-responsive-70` tree is unchanged.
+- The canonical parent sources are `cargo/panel.js` and
+  `cargo/home-extras.html`. They now send V7 visibility and Touchbaes mode
+  messages to exact child origins with `kind` and `protocolVersion: 1`.
+  Inbound protocol enforcement is opt-in through
+  `data-embed-protocol="1"`, preserving the active legacy children until an
+  atomic URL promotion. Only an absent attribute selects the legacy path;
+  empty, malformed, or unsupported present values fail closed.
+- Internal lifecycle owners are now
+  `responsive-70/root-lifecycle-2/embed-message-v1` and
+  `tweezer-v3/root-lifecycle-2/embed-message-v1`. Keep the visible/public
+  `responsive-70` marker unchanged. The root-replacement harness must keep
+  proving that exact lifecycle-1 owners are deactivated and replaced on the
+  same `.mms` root.
+- Do not edit `work/v7-cup-src/`: it remains the exact source for the active
+  780,341-byte V7 artifact. The hardened candidate lives in
+  `work/v7-cup-message-v1-src/` and must build to 781,074 bytes, SHA-256
+  `0e196aa0f2e1d35f0671ea1d746f5453037ee7e320a36ca189b1a5d817cf256f`.
+- Do not overwrite Touchbaes v10 or its active alias. The upload candidate is
+  `touchbaes-sticker-game-v11.html`, 50,030 bytes, SHA-256
+  `6c4947e22ac8f8b5ec06d1c4f9d238367c561819a5eac6d8a699403e6f75fee0`.
+  Geometry version stays 10; only the cross-window protocol advances.
+- The mandatory focused checks are
+  `python3 audit/scripts/validate-embed-message-protocol.py --self-test`,
+  `npm --prefix audit/harness run embed-montran-test`, and
+  `npm --prefix audit/harness run embed-message-protocol-test`, plus
+  `npm --prefix audit/harness run runtime-root-test`. The complete
+  `bash audit/scripts/validate-phase2.sh` gate passes. The prepared activation
+  validator must continue rejecting any one-sided URL, manifest, or protocol
+  attribute change.
+- Promotion must be atomic: upload both candidate children to new immutable
+  Freight URLs; update both Home template URLs and add
+  `data-embed-protocol="1"`; update the reviewed deployment manifest; assemble
+  all pages; deploy the complete parent and Home payload together; reload and
+  verify; then record the new active hashes. Never switch only the parent or
+  only one child, because Touchbaes mode/height/tweezer negotiation would fail.

@@ -86,7 +86,7 @@ Home owns 68 media items: {'iframe': 3, 'img': 38, 'video': 27}. The frozen Frei
 | touchbaes | 10 | `https://freight.cargo.site/m/E3031754669080377521238157342521/touchbaes-sticker-game-v10.html` | true | `{"__mmsEmbedReady": 1, "kind": "touchbaes"}` |
 | montran-booklet | 17 | `https://freight.cargo.site/m/U3034412351395654863674388559673/montran-booklet-direct-pdf-v17.html` | false | `{"__mmsBookletReady": 1, "kind": "montran-booklet", "version": 17}` |
 
-Video delivery uses deferred sources, posters, muted inline autoplay, proximity preloading, and visibility pausing. The parent validates iframe source windows and message kinds; wildcard-origin messages remain in the V7/Touchbaes/generic visibility contracts and are recorded for later security audit.
+Video delivery uses deferred sources, posters, muted inline autoplay, proximity preloading, and visibility pausing. The frozen Round 80 V7/Touchbaes bridge still includes wildcard child and outbound paths. Round 93 prepares exact-target parent messaging plus hash-locked protocol-v1 child successors, but none is promoted until both Freight URLs and the Cargo parent can switch atomically.
 
 ## Cargo platform and metadata
 
@@ -126,7 +126,7 @@ The neutralized Cargo wrapper stack is `.page > .page-layout > .page-content > b
 | ResizeObserver | updates scrubbers, Montran map fit, and compact header measurements | load/resize/orientation listeners and scheduled measurements are retained; no ResizeObserver polyfill captured |
 | muted inline autoplay and posters | plays motion inline on iOS while preserving a static first frame until readiness | play rejection is caught and the poster/background remains visible |
 | visibility lifecycle | pauses/resumes video and notifies iframe motion when the page or media is not visible | if messaging is unavailable, posters and document content remain; iframe internal motion control is not guaranteed |
-| validated iframe postMessage | accepts ready messages from the expected V7, Touchbaes, and Montran frame | iframe posters remain until a valid ready message; outbound visibility/mode messages use captured wildcard targets |
+| validated iframe postMessage | accepts ready messages from the expected V7, Touchbaes, and Montran frame | iframe posters remain until a valid ready message; frozen Round 80 V7 and Touchbaes child/outbound paths still include wildcard targets |
 | WebGL embed | renders the V7 Three.js cup inside a cross-origin Freight iframe | static iframe poster remains until the validated ready signal; no alternate live renderer captured |
 | PDF canvas and HTTP range transport | renders the Montran booklet selectively inside a Freight iframe | the frozen manifest records range transport and a 1600 px ceiling but does not prove the active full-download fallback; the poster/loader is the captured parent fallback |
 | viewport-fit and safe-area environment variables | allows content bleed while protecting compact header and panel controls on iOS | regular viewport padding and a 1 px sampler minimum apply when safe-area values resolve to zero |

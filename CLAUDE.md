@@ -2425,3 +2425,34 @@ current source of truth for the built site.
   Phase 2 gate. Keep `gold-2026-07-21-responsive-70` immutable. Handle Montran
   PDF allowlisting (`MMS-AUD-036`) and third-party notices (`MMS-AUD-039`) only
   in independent later batches.
+
+## Current state — Round 93 V7 and Touchbaes protocol candidates
+- The parent bridge uses exact derived child origins for V7 visibility and
+  Touchbaes mode messages and includes `kind` plus `protocolVersion: 1`.
+  Strict inbound versioning is enabled only by
+  `data-embed-protocol="1"`; the current Home template deliberately does not
+  opt in before successor Freight URLs exist. Only an absent attribute is
+  legacy-compatible; a present empty, malformed, or unsupported value must
+  fail closed.
+- The internal owner versions are
+  `responsive-70/root-lifecycle-2/embed-message-v1` for the shared panel and
+  `tweezer-v3/root-lifecycle-2/embed-message-v1` for Home extras. Do not change
+  the public `responsive-70` marker. Same-root reruns must tear down any exact
+  lifecycle-1 owner before installing these owners.
+- Preserve the active V7 recovery tree and Touchbaes v10 exactly. Hardened
+  successors are isolated in `work/v7-cup-message-v1-src/` and
+  `touchbaes-sticker-game-v11.html`. Their hashes and superseded identities are
+  locked by `audit/contracts/embed-message-protocol-candidates.json` with
+  activation state `prepared-not-active`.
+- While the candidates remain prepared, the validator must prove that both
+  canonical Home URLs and both deployment-manifest entries still identify the
+  active legacy children and that neither iframe has `data-embed-protocol`.
+  Any one-sided activation is a gate failure.
+- Run `audit/scripts/validate-embed-message-protocol.py --self-test`, both
+  embed browser tests, and the complete Phase 2 gate after any parent or child
+  message change. Wrong source, origin, kind, version, or boolean type must
+  have no effect; no candidate/parent postMessage target may be `"*"`.
+- Any real activation is a separate atomic Freight plus Cargo batch. Upload
+  both successors, update both immutable URLs and protocol attributes, update
+  the deployment manifest, assemble, deploy, reload-verify, and only then
+  promote the new active artifact contract. Do not deploy Round 93 piecemeal.

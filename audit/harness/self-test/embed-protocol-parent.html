@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MM.S embed protocol parent</title>
+</head>
+<body>
+  <script>
+    window.__mmsProtocolRecords = [];
+    window.addEventListener("message", (event) => {
+      const sourceId = Array.from(document.querySelectorAll("iframe")).find(
+        (frame) => frame.contentWindow === event.source,
+      )?.id || "unknown";
+      window.__mmsProtocolRecords.push({ data: event.data, origin: event.origin, sourceId });
+    });
+  </script>
+</body>
+</html>

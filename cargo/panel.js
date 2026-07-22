@@ -2,7 +2,7 @@
    mobile control sheet toggle. 2026-07-06 r2 */
 (function () {
   var PANEL_MARKER = 'responsive-70';
-  var PANEL_OWNER_VERSION = 'responsive-70/root-lifecycle-1';
+  var PANEL_OWNER_VERSION = 'responsive-70/root-lifecycle-2/embed-message-v1';
 
   function ensureRuntimeLifecycle() {
     var existing = window.__mmsRuntimeLifecycle;
@@ -772,6 +772,42 @@
     }
     return element.getAttribute('data-src');
   }
+  var EMBED_PROTOCOL_VERSION = 1;
+  function embedOrigin(frame) {
+    if (!frame) return '';
+    var source = frame.dataset.mmsSource || deferredSource(frame) || frame.getAttribute('src');
+    if (!source) return '';
+    try {
+      var origin = new URL(source, window.location.href).origin;
+      return origin && origin !== 'null' ? origin : '';
+    } catch (e) {
+      return '';
+    }
+  }
+  function embedKind(frame) {
+    return frame && frame.getAttribute('data-embed-kind') || '';
+  }
+  function embedProtocol(frame) {
+    if (!frame || !frame.hasAttribute('data-embed-protocol')) return 0;
+    return frame.getAttribute('data-embed-protocol') === String(EMBED_PROTOCOL_VERSION) ?
+      EMBED_PROTOCOL_VERSION : -1;
+  }
+  function postEmbedVisibility(frame, visible) {
+    var origin = embedOrigin(frame);
+    var kind = embedKind(frame);
+    if (!origin || !kind || !frame.contentWindow) return false;
+    try {
+      frame.contentWindow.postMessage({
+        __mmsEmbedVisibility: 1,
+        protocolVersion: EMBED_PROTOCOL_VERSION,
+        kind: kind,
+        visible: Boolean(visible)
+      }, origin);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
   function isTouchbaesAlphaVideo(element) {
     var frame = element && element.closest ? element.closest('[data-media-id="touchbaes-02"]') : null;
     return Boolean(frame && element.tagName === 'VIDEO');
@@ -841,7 +877,7 @@
       if (!active) { try { element.pause(); } catch (e) {} return; }
       requestVideoPlay(element);
     } else if (element.tagName === 'IFRAME' && element.contentWindow && element.dataset.mmsLoaded === '1') {
-      try { element.contentWindow.postMessage({ __mmsEmbedVisibility: 1, visible: active }, '*'); } catch (e) {}
+      postEmbedVisibility(element, active);
     }
   }
 
@@ -932,14 +968,16 @@
     }
   }
   runtime.on(window, 'message', function (event) {
-    if (!event.data || event.data.__mmsEmbedReady !== 1) return;
-    var frames = document.querySelectorAll('.mms iframe[data-embed-kind]');
+    if (!event.data || typeof event.data !== 'object' || event.data.__mmsEmbedReady !== 1) return;
+    var frames = currentMms.querySelectorAll('iframe[data-embed-kind]');
     frames.forEach(function (frame) {
       if (event.source !== frame.contentWindow) return;
-      if (event.data.kind !== frame.getAttribute('data-embed-kind')) return;
-      var expectedOrigin = '';
-      try { expectedOrigin = new URL(deferredSource(frame), window.location.href).origin; } catch (e) {}
-      if (expectedOrigin && event.origin !== expectedOrigin) return;
+      if (event.data.kind !== embedKind(frame)) return;
+      var expectedOrigin = embedOrigin(frame);
+      if (!expectedOrigin || event.origin !== expectedOrigin) return;
+      var requiredProtocol = embedProtocol(frame);
+      if (requiredProtocol < 0) return;
+      if (requiredProtocol && event.data.protocolVersion !== requiredProtocol) return;
       frame.dataset.motionReady = '1';
       frame.style.backgroundImage = 'none';
     });
@@ -1319,9 +1357,7 @@
       try { video.pause(); } catch (e) {}
     });
     currentMms.querySelectorAll('iframe[data-embed-kind][data-mms-loaded="1"]').forEach(function (frame) {
-      try {
-        frame.contentWindow.postMessage({ __mmsEmbedVisibility: 1, visible: false }, '*');
-      } catch (e) {}
+      postEmbedVisibility(frame, false);
     });
     if (window.__mmsPanelRoot === currentMms) {
       window.__mmsPanelRoot = null;

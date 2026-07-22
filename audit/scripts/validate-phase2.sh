@@ -8,6 +8,7 @@ ROOT=$(CDPATH= cd -- "$(dirname "$0")/../.." && pwd)
 python3 "$ROOT/audit/scripts/generate-system-inventory.py" --check
 python3 "$ROOT/audit/scripts/generate-asset-manifest.py" --check
 python3 "$ROOT/audit/scripts/validate-embed-reproducibility.py" --self-test
+python3 "$ROOT/audit/scripts/validate-embed-message-protocol.py" --self-test
 
 python3 - "$ROOT" <<'PY'
 import json
