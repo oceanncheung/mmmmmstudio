@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "issue": "MMS-AUD-036",
+  "activation": "prepared-not-active",
+  "candidate": {
+    "kind": "montran-booklet",
+    "version": 18,
+    "wire_message_version": 17,
+    "builder": "work/montran-pdf-allowlist-v18-src/build-bundle.py",
+    "policy_source": "work/montran-pdf-allowlist-v18-src/pdf-policy.js",
+    "policy_data": "work/montran-pdf-allowlist-v18-src/approved-pdf.json",
+    "output_name": "montran-booklet-direct-pdf-v18.html",
+    "expected_bytes": 1938550,
+    "expected_sha256": "ca9ee9c69594af7c9e4a214f422413d00e43cbd5b493ec48f1f033295690e512",
+    "supersedes": {
+      "version": 17,
+      "bytes": 1936356,
+      "sha256": "825cf2c3a1f130cb3445e62443985e845991204d19e0c2154cfd43a36126b49b",
+      "freight_url": "https://freight.cargo.site/m/U3034412351395654863674388559673/montran-booklet-direct-pdf-v17.html",
+      "data_src": "https://freight.cargo.site/m/U3034412351395654863674388559673/montran-booklet-direct-pdf-v17.html?pdf=https%3A%2F%2Ffreight.cargo.site%2Ft%2Foriginal%2Fi%2FP3028590574867085520722012452665%2Fmontran_sustainability-report_2025_v4-web.pdf"
+    },
+    "inputs": [
+      {
+        "path": "work/montran-direct-pdf-v10-src/index.html",
+        "sha256": "6de8f74d45e36420a111a58fbad604c76ccbcfbfaefc3d9168c6e121f746f7ff"
+      },
+      {
+        "path": "work/montran-direct-pdf-v10-src/booklet.config.json",
+        "sha256": "7eb731382380de3e80fd29cfd018119f18b6cef49dde106fc4402002253891d9"
+      },
+      {
+        "path": "work/montran-direct-pdf-v10-src/loading-poster.jpg",
+        "sha256": "16afcfe464baa343846b6e7593054f063efec1ef90e07a6e0c6b6db27cfbd0f4"
+      },
+      {
+        "path": "work/montran-direct-pdf-v10-src/vendor/page-flip.browser.js",
+        "sha256": "bbaca0bbef57a22bb66a3fc69d67baf9a17fb9a9c89ec9ed35e2b91abe4bd1e7"
+      },
+      {
+        "path": "work/montran-direct-pdf-v10-src/vendor/pdf.min.mjs",
+        "sha256": "4ba2f15599b03fde8755ad91349920c21dadd3e8fd6b6460a7663d46d4cf21b5"
+      },
+      {
+        "path": "work/montran-direct-pdf-v10-src/vendor/pdf.worker.min.mjs",
+        "sha256": "2ab9e09667296dab1a618868b3ce6e6c23d5b8f48120ae7c5b34e7e335ed01fa"
+      },
+      {
+        "path": "work/montran-pdf-allowlist-v18-src/approved-pdf.json",
+        "sha256": "5abe5a99eef2105f2f9faf4e962cb290092c28b5b96c67abb0ea4deb7a20d20d"
+      },
+      {
+        "path": "work/montran-pdf-allowlist-v18-src/pdf-policy.js",
+        "sha256": "5f50c16562cab6e2ff4c00b4ca1a1ace392d0169ce7a72775bd6bb64ee9f2bfe"
+      },
+      {
+        "path": "work/montran-pdf-allowlist-v18-src/build-bundle.py",
+        "sha256": "12efaaa49f7358cc52fea57095b62deeb8276930a2ec1e6517b7f6c7d591f86b"
+      }
+    ],
+    "required_source_contracts": [
+      {
+        "path": "work/montran-pdf-allowlist-v18-src/approved-pdf.json",
+        "contains": [
+          "\"schema_version\": 1",
+          "\"approved_pdf_url\": \"https://freight.cargo.site/t/original/i/P3028590574867085520722012452665/montran_sustainability-report_2025_v4-web.pdf\"",
+          "\"expected_bytes\": 13634937",
+          "\"expected_sha256\": \"664dab49810d21acaa0ffbb7d6749268215c1b655ccec11f461d67c147f02629\""
+        ]
+      },
+      {
+        "path": "work/montran-pdf-allowlist-v18-src/pdf-policy.js",
+        "contains": [
+          "const APPROVED_PDF_URL = __MMS_APPROVED_PDF_URL_JSON__",
+          "value !== APPROVED_PDF_URL",
+          "parsed.protocol !== \"https:\"",
+          "parsed.origin !== \"https://freight.cargo.site\"",
+          "parsed.username !== \"\"",
+          "parsed.password !== \"\"",
+          "parsed.search !== \"\"",
+          "parsed.hash !== \"\"",
+          "parsed.href !== APPROVED_PDF_URL",
+          "redirect: \"error\"",
+          "const response = await fetch(url, requestOptions)",
+          "new Headers(requestOptions.headers || {}).has(\"range\")",
+          "contentLength !== APPROVED_PDF_BYTES",
+          "rangeTotal !== APPROVED_PDF_BYTES",
+          "The approved Montran report identity changed."
+        ]
+      },
+      {
+        "path": "work/montran-pdf-allowlist-v18-src/build-bundle.py",
+        "contains": [
+          "new URLSearchParams(location.search).getAll(\"pdf\")",
+          "pdfParameters.length > 1",
+          "resolveApprovedPdfUrl(",
+          "pdfParameters.length === 1 ? pdfParameters[0] : config.pdfFile",
+          "document.replace(\"fetch(url,\", \"fetchApprovedPdf(url,\")",
+          "config[\"pdfFile\"] = approved_pdf_url",
+          "APPROVED_PDF_BYTES = 13_634_937",
+          "APPROVED_PDF_SHA256 = ("
+        ]
+      }
+    ],
+    "required_output_contracts": [
+      "const APPROVED_PDF_URL = \"https://freight.cargo.site/t/original/i/P3028590574867085520722012452665/montran_sustainability-report_2025_v4-web.pdf\"",
+      "new URLSearchParams(location.search).getAll(\"pdf\")",
+      "pdfParameters.length > 1",
+      "pdfParameters.length === 1 ? pdfParameters[0] : config.pdfFile",
+      "function resolveApprovedPdfUrl(value)",
+      "async function fetchApprovedPdf(url, options)",
+      "const APPROVED_PDF_BYTES = 13634937",
+      "mode: \"cors\"",
+      "credentials: \"omit\"",
+      "referrerPolicy: \"no-referrer\"",
+      "redirect: \"error\"",
+      "contentLength !== APPROVED_PDF_BYTES",
+      "rangeTotal !== APPROVED_PDF_BYTES",
+      "The approved Montran report identity changed.",
+      "class FreightRangeTransport",
+      "const chunkSize = 262144",
+      "disableAutoFetch: true",
+      "disableStream: true",
+      "const RENDER_WIDTH_LIMIT = 1600",
+      "const RENDER_CACHE_LIMIT = 12",
+      "\"startAtPdfPage\": 19",
+      "__mmsBookletReady: 1",
+      "kind: \"montran-booklet\"",
+      "version: 17",
+      "showPageCorners: false"
+    ],
+    "forbidden_output_contracts": [
+      "new URLSearchParams(location.search).get(\"pdf\")",
+      "const pdfParameter =",
+      "pdfParameter || config.pdfFile",
+      "if (imageMode && !pdfParameter)"
+    ]
+  },
+  "approved_pdf": {
+    "url": "https://freight.cargo.site/t/original/i/P3028590574867085520722012452665/montran_sustainability-report_2025_v4-web.pdf",
+    "bytes": 13634937,
+    "sha256": "664dab49810d21acaa0ffbb7d6749268215c1b655ccec11f461d67c147f02629",
+    "content_type": "application/pdf",
+    "frozen_evidence": "docs/audits/2026-07-20T175853-0400-round-80/freight/asset-manifest.csv"
+  }
+}

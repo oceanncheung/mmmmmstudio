@@ -1480,3 +1480,34 @@ agent needs to continue this project without the prior chat history.
   all pages; deploy the complete parent and Home payload together; reload and
   verify; then record the new active hashes. Never switch only the parent or
   only one child, because Touchbaes mode/height/tweezer negotiation would fail.
+
+## Current handoff — Round 94 prepared Montran PDF allowlist (2026-07-22)
+- Round 94 is repository-only on `round-94/montran-pdf-allowlist`. It prepares
+  issue `MMS-AUD-036` without uploading to Freight, changing Cargo, publishing,
+  touching Figma, or modifying `gold-2026-07-21-responsive-70`.
+- The upload candidate lives in `work/montran-pdf-allowlist-v18-src/` and must
+  build to 1,938,550 bytes, SHA-256
+  `ca9ee9c69594af7c9e4a214f422413d00e43cbd5b493ec48f1f033295690e512`.
+  Do not edit or replace `work/montran-direct-pdf-v10-src/`; it remains the
+  recovered active v17 source and must continue reproducing 1,936,356 bytes,
+  SHA-256 `825cf2c3a1f130cb3445e62443985e845991204d19e0c2154cfd43a36126b49b`.
+- The only allowed PDF is the exact Freight report recorded by the frozen
+  Round 80 evidence at 13,634,937 bytes and SHA-256
+  `664dab49810d21acaa0ffbb7d6749268215c1b655ccec11f461d67c147f02629`.
+  Duplicate or unapproved query values reject before preload/network. All PDF
+  requests revalidate the exact URL, reject redirects, omit credentials and
+  referrers, and preserve the existing 256 KiB range plus full fallback flow.
+- Artifact version is 18; the unchanged Montran ready-message wire version is
+  still 17. Do not advance the wire version or parent bridge for this issue.
+- Mandatory checks are
+  `python3 audit/scripts/validate-montran-pdf-allowlist.py --self-test`,
+  `npm --prefix audit/harness run montran-pdf-allowlist-test`, active embed and
+  Montran interaction tests, and the complete `validate-phase2.sh` gate. All
+  pass, including 122/122 frozen hashes and both 240-state visual matrices. The
+  candidate validator must continue rejecting one-sided Home/manifest
+  activation while its contract says `prepared-not-active`.
+- A future promotion must upload v18 to a new immutable Freight URL, update the
+  canonical Home iframe and deployment manifest together, assemble/deploy the
+  complete payload, reload-verify Cargo, and only then record the new active
+  identity. Until that happens, the public/direct v17 viewer remains outside
+  this prepared allowlist fix.

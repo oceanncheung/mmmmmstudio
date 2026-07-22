@@ -4736,3 +4736,37 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   children, update both immutable iframe URLs plus `data-embed-protocol="1"`,
   deploy the complete parent bodycopy, reload-verify, then capture and promote
   the new active artifact identities. Do not deploy either side alone.
+
+## Round 94 (2026-07-22): Montran exact-PDF allowlist — TEST-ONLY / NOT DEPLOYED
+- Prepared a separate Montran v18 successor for `MMS-AUD-036`; the recovered
+  active v17 source, 1,936,356-byte artifact, Cargo iframe URL, deployment
+  manifest, and protected gold tree remain unchanged. No Cargo or Freight
+  upload, deployment, or publication occurred.
+- The candidate accepts either one decoded `pdf` parameter equal byte-for-byte
+  to the approved report URL or the same approved URL from its inlined config
+  when the parameter is absent. Empty, duplicate, aliased, non-HTTPS,
+  wrong-origin, wrong-path, query-bearing, fragment-bearing, encoded, or
+  confusable values fail before the preload surface and before network access.
+- Every approved PDF request is revalidated at the fetch boundary, uses CORS,
+  omits credentials and the referrer, rejects redirects, and checks the frozen
+  13,634,937-byte identity on HEAD/full responses and exposed range totals.
+  The evidence SHA-256 remains
+  `664dab49810d21acaa0ffbb7d6749268215c1b655ccec11f461d67c147f02629`.
+- The deterministic candidate builds to 1,938,550 bytes with SHA-256
+  `ca9ee9c69594af7c9e4a214f422413d00e43cbd5b493ec48f1f033295690e512`.
+  It keeps the parent-message wire version at 17 because the ready schema did
+  not change; artifact version and message version are intentionally separate.
+- The static gate proves tracked hash-locked inputs, exact frozen PDF evidence,
+  two identical isolated builds, the single native fetch boundary,
+  prepared-state Cargo guards, and 13 destructive failures. The actual-viewer
+  gate rejects 19 hostile forms with zero requests, renders pages 19–20 for
+  both approved entry paths, preserves 256 KiB ranges, and proves no Cookie or
+  Referer leaves the browser.
+- Existing active embed reproducibility, parent/child message, Montran turn,
+  same-root lifecycle, native-river, and protected layout checks remain clean.
+  The complete Phase 2 gate passes, including 122/122 frozen hashes and both
+  240-state protected visual matrices.
+  Activation is a later reviewed batch: upload the immutable v18 candidate,
+  atomically change the Montran iframe URL and manifest, reload-verify Cargo,
+  then promote the new active artifact identity. Do not overwrite v17 or the
+  frozen Round 80 evidence.
