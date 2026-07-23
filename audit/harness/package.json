@@ -16,6 +16,7 @@
     "media-owner-test": "node src/media-playback-owner-test.mjs",
     "montran-pdf-allowlist-test": "node src/montran-pdf-allowlist-test.mjs",
     "panel-scrubber-test": "node src/panel-scrubber-transition-test.mjs",
+    "primary-navigation-test": "node src/primary-navigation-landmark-test.mjs",
     "validate": "node src/cli.mjs --validate-config",
     "schema-test": "node src/schema-self-test.mjs",
     "self-test": "npm run schema-test && node src/self-test.mjs",

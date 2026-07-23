@@ -69,8 +69,16 @@ def main(argv: list[str] | None = None) -> int:
         source = read_page(output_directory, f"{page}.html")
         early = extract(source, r"(<script id=\"mms-early-viewport-init\">.*?</script>)", f"{page} early init")
         header = extract(source, r"(<header class=\"mms-mbar\">.*?</header>)", f"{page} mobile header")
-        desktop = extract(source, r"(<aside class=\"mms-rail\">.*?</aside>)", f"{page} desktop nav")
-        compact = extract(source, r"(<nav class=\"mms-mlinks\">.*?</nav>)", f"{page} compact nav")
+        desktop = extract(
+            source,
+            r"(<nav(?=[^>]*\bclass=\"[^\"]*\bmms-rail\b[^\"]*\")[^>]*>.*?</nav>)",
+            f"{page} desktop nav",
+        )
+        compact = extract(
+            source,
+            r"(<nav(?=[^>]*\bclass=\"[^\"]*\bmms-mlinks\b[^\"]*\")[^>]*>.*?</nav>)",
+            f"{page} compact nav",
+        )
         clock = extract(source, r"(<div class=\"mms-clock js-clock\" id=\"mms-clock\">.*?</div>)", f"{page} desktop clock")
         panel = extract(source, r"(<dialog aria-label=\"site controls\".*?</dialog>)", f"{page} panel")
         runtime = extract(source, r"<script>(/\* mm\.s control panel.*?)</script>", f"{page} runtime").strip()

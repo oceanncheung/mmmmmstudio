@@ -5041,3 +5041,33 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   lifecycle, privacy, and release-safety contracts. Nothing was deployed or
   published; future Cargo activation still requires the normal complete-save,
   reload-persistence, and public verification workflow.
+
+## Round 102 (2026-07-23): primary-navigation landmark — REPOSITORY RUNTIME / NOT DEPLOYED
+- Closed `MMS-AUD-023` at the repository boundary without changing CSS,
+  layout, media, native rivers, control-panel behavior, Figma, Freight, the
+  Cargo draft/public site, or `gold-2026-07-21-responsive-70`.
+- Replaced the shared expanded `aside.mms-rail` with
+  `nav.mms-rail[aria-label="Primary"]` and named the existing compact
+  `nav.mms-mlinks` identically. The class-based layout and runtime contracts
+  remain unchanged, so the desktop rail and compact navigation preserve their
+  exact measured geometry.
+- Extended deployment source purity for every route with exact expanded and
+  compact primary-navigation counts, zero invalid candidates, and zero legacy
+  complementary rails and zero complementary landmarks anywhere in saved
+  source, plus exactly two total navigation landmarks. Twenty new destructive
+  bodycopy fixtures reject a
+  restored aside, missing/wrong labels, a duplicate compact navigation, class
+  coalescing, explicit role overrides, complementary wrappers, and extra
+  generic navigation landmarks. They also reject accessible-name overrides,
+  popovers, hidden, inert, inline-hidden, or template ancestors, and any
+  unexpected direct parent. The deployment-negative total is now 73.
+- Added the dated root-cause evidence,
+  `audit/contracts/primary-navigation-landmark.json`, and the focused
+  `primary-navigation-test`. Home, Who, and Write pass at 390, 1023, 1024, and
+  1440 pixels with one visible and one accessibility-tree navigation named
+  Primary, zero complementary landmarks, correct link order/current page,
+  unchanged geometry, and zero targeted Axe violations.
+- Regenerated canonical bodycopies and mirrors and refreshed only the three
+  affected Round 99 privacy source identities. No storage, request, service,
+  link, or disclosure behavior changed. Focused and complete Phase 2
+  verification pass; nothing was deployed or published.

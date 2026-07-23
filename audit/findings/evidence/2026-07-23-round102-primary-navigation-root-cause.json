@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "issue": "MMS-AUD-023",
+  "captured_at_utc": "2026-07-23T04:08:29Z",
+  "mode": "read-only-root-cause-observation",
+  "repository": {
+    "branch": "round-102/primary-navigation-landmark",
+    "commit": "179e1bf1b971ef3d546ad87752cf89f0886703b9",
+    "working_tree_was_clean_before_evidence_write": false,
+    "note": "Round 102 implementation was already in progress. The observation did not change Cargo, Freight, Figma, a public deployment, or protected gold evidence."
+  },
+  "pre_implementation_source": {
+    "expanded": {
+      "element": "aside",
+      "class": "mms-rail",
+      "implicit_role": "complementary",
+      "accessible_name": "",
+      "link_count": 6
+    },
+    "compact": {
+      "element": "nav",
+      "class": "mms-mlinks",
+      "implicit_role": "navigation",
+      "accessible_name": "",
+      "link_count": 5
+    },
+    "routes": [
+      "home",
+      "who",
+      "write"
+    ],
+    "current_page_links_per_route": 2
+  },
+  "pre_implementation_browser_observation": {
+    "fixture_pages": [
+      "cargo/test.html",
+      "cargo/who-test.html",
+      "cargo/write-test.html"
+    ],
+    "viewports": [
+      {
+        "width": 390,
+        "height": 844,
+        "navigation_landmarks": 1,
+        "named_navigation_landmarks": 0,
+        "complementary_landmarks": 0,
+        "visible_variant": "compact"
+      },
+      {
+        "width": 1023,
+        "height": 900,
+        "navigation_landmarks": 1,
+        "named_navigation_landmarks": 0,
+        "complementary_landmarks": 0,
+        "visible_variant": "compact"
+      },
+      {
+        "width": 1024,
+        "height": 900,
+        "navigation_landmarks": 0,
+        "named_navigation_landmarks": 0,
+        "complementary_landmarks": 1,
+        "visible_variant": "expanded"
+      },
+      {
+        "width": 1440,
+        "height": 900,
+        "navigation_landmarks": 0,
+        "named_navigation_landmarks": 0,
+        "complementary_landmarks": 1,
+        "visible_variant": "expanded"
+      }
+    ],
+    "hidden_alternate_in_accessibility_tree": false
+  },
+  "root_cause": {
+    "classification": "incorrect landmark element and missing accessible names",
+    "conclusion": "The shared expanded primary link group used aside.mms-rail, so its visible desktop representation exposed a complementary landmark instead of navigation. The compact nav used the correct element but neither responsive variant had an accessible name."
+  },
+  "selected_implementation": {
+    "expanded": "<nav aria-label=\"Primary\" class=\"mms-rail\">",
+    "compact": "<nav aria-label=\"Primary\" class=\"mms-mlinks\">",
+    "rejected_alternatives": [
+      "aside role=navigation because the role is not allowed on aside",
+      "a nested nav inside aside because it preserves a redundant complementary landmark"
+    ],
+    "zero_visual_change_basis": "All style and runtime selectors are class-based. Replacing only the element and adding aria-label preserved computed display, position, padding, z-index, and bounding geometry in the observed matrix."
+  },
+  "protected_behavior": [
+    "No CSS, media, river, control-panel, WTW, Withered Green, embed, or route behavior changes.",
+    "No Cargo, Freight, Figma, deployment, publication, or protected-gold changes."
+  ],
+  "verification_requirements": {
+    "routes": [
+      "home",
+      "who",
+      "write"
+    ],
+    "widths": [
+      390,
+      1023,
+      1024,
+      1440
+    ],
+    "expected_visible_navigation_landmarks": 1,
+    "expected_accessible_name": "Primary",
+    "expected_complementary_rails": 0,
+    "expected_dom_candidates": 2,
+    "expanded_link_count": 6,
+    "compact_link_count": 5,
+    "expected_targeted_axe_violations": 0,
+    "negative_controls": [
+      "legacy expanded complementary rail",
+      "missing expanded primary label",
+      "wrong compact primary label",
+      "duplicate compact primary navigation",
+      "merged responsive navigation classes",
+      "expanded primary role override",
+      "primary navigation nested in aside",
+      "primary navigation nested in complementary role",
+      "primary navigation nested in generic nav",
+      "primary navigation nested in navigation role",
+      "extra sibling navigation",
+      "primary navigation aria-labelledby override",
+      "primary navigation popover suppression",
+      "primary navigation hidden ancestor",
+      "primary navigation aria-hidden ancestor",
+      "primary navigation inert ancestor",
+      "primary navigation display-none ancestor",
+      "primary navigation important display-none ancestor",
+      "primary navigation template ancestor",
+      "primary navigation unexpected direct parent",
+      "both responsive navigation variants forced visible"
+    ]
+  },
+  "limitations": [
+    "Repository Chromium does not certify a future Cargo serialization or assistive-technology session.",
+    "The hidden responsive variant remains in the DOM but is display:none and absent from the accessibility tree.",
+    "A later Cargo activation requires separate complete-save and reload-persistence verification."
+  ]
+}

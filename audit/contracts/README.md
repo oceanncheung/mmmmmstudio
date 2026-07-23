@@ -158,3 +158,24 @@ setter, or post-route-gate declaration.
 This is a visually neutral repository/runtime correction. Cargo and the
 public site remain unchanged until a separately authorized deployment is
 saved, reloaded, and verified.
+
+## Primary navigation landmark
+
+`primary-navigation-landmark.json` closes the repository runtime path for
+`MMS-AUD-023`. The compact and expanded shared link groups are both `nav`
+elements named `Primary`; responsive CSS keeps exactly one visible and one
+unignored accessibility-tree landmark at a time. The expanded rail retains
+its six links, including the MM.S wordmark, while compact retains its five
+links and the current-page link remains route-correct.
+
+`primary-navigation-landmark-test.mjs` covers Home, Who, and Write at 390,
+1023, 1024, and 1440 pixels. It pins the measured pre-change rail and compact
+navigation geometry, checks the accessibility tree and targeted Axe landmark
+rules, and proves seven browser negative controls. Deployment source-purity
+counters separately prove 20 destructive mutations, rejecting the former
+complementary rail, missing or incorrect labels, duplicate or extra landmarks,
+name/role overrides, suppressed ancestors, and structural drift before a Cargo
+save.
+
+This is a visual-neutral repository correction. No CSS, public site, Cargo
+draft, Freight asset, Figma source, or protected gold evidence changed.

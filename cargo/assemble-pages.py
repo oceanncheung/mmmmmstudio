@@ -37,8 +37,14 @@ def bootstrap_home_template() -> None:
     substitutions = [
         (r"\A<script id=\"mms-early-viewport-init\">.*?</script>\s*", "<!-- MMS_EARLY_INIT -->\n"),
         (r"<header class=\"mms-mbar\">.*?</header>", "<!-- MMS_MOBILE_HEADER -->"),
-        (r"<aside class=\"mms-rail\">.*?</aside>", "<!-- MMS_DESKTOP_NAV -->"),
-        (r"<nav class=\"mms-mlinks\">.*?</nav>", "<!-- MMS_COMPACT_NAV -->"),
+        (
+            r"<(?:aside|nav)(?=[^>]*\bclass=\"[^\"]*\bmms-rail\b[^\"]*\")[^>]*>.*?</(?:aside|nav)>",
+            "<!-- MMS_DESKTOP_NAV -->",
+        ),
+        (
+            r"<nav(?=[^>]*\bclass=\"[^\"]*\bmms-mlinks\b[^\"]*\")[^>]*>.*?</nav>",
+            "<!-- MMS_COMPACT_NAV -->",
+        ),
         (r"<dialog aria-label=\"site controls\".*?</dialog>", "<!-- MMS_PANEL -->"),
         (
             r"<script>/\* mm\.s control panel.*?</script>\s*\Z",

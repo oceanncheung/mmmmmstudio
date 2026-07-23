@@ -30,3 +30,11 @@ document-language contract. The early site head and shared body initializer
 set the English root language, standalone mirrors declare `lang="en"`, and the
 Write page retains its narrower `yue-Hant` passage override. This repository
 change has not been deployed or published to Cargo.
+
+Round 102 closes the repository side of `MMS-AUD-023` without changing visual
+geometry. Both responsive versions of the shared primary links are now named
+`Primary` navigation landmarks; the expanded rail no longer presents itself
+as complementary content. The deployment manifest, focused Chromium matrix,
+and Phase 2 gate reject missing names, legacy rail semantics, duplicate
+candidates, incorrect current-page state, and geometry drift. This repository
+change has not been deployed or published to Cargo.

@@ -51,6 +51,7 @@ echo "Phase 2 harness configuration: PASS"
 (cd "$ROOT/audit/harness" && npm run gold-parity-test)
 (cd "$ROOT/audit/harness" && npm run river-aria-test)
 (cd "$ROOT/audit/harness" && npm run document-language-test)
+(cd "$ROOT/audit/harness" && npm run primary-navigation-test)
 (cd "$ROOT/audit/harness" && npm run swatch-focus-test)
 (cd "$ROOT/audit/harness" && npm run touchbaes-readiness-test)
 (cd "$ROOT/audit/harness" && npm run interaction-test)
@@ -129,6 +130,28 @@ def restore_image_loading(match):
     return f'{tag[:-1]} loading="{value}">'
 
 
+def normalize_primary_navigation(source):
+    source, expanded = re.subn(
+        r'<aside class="mms-rail">(.*?)</aside>',
+        r'<nav aria-label="Primary" class="mms-rail">\1</nav>',
+        source,
+        count=1,
+        flags=re.DOTALL,
+    )
+    source, compact = re.subn(
+        r'<nav class="mms-mlinks">',
+        '<nav aria-label="Primary" class="mms-mlinks">',
+        source,
+        count=1,
+    )
+    if expanded != 1 or compact != 1:
+        raise SystemExit(
+            "could not normalize frozen primary navigation: "
+            f"expanded={expanded}, compact={compact}"
+        )
+    return source
+
+
 home = re.sub(r'<(?:video|iframe)\b[^>]*>', strip_runtime_media_state, home)
 home = re.sub(
     r'<[^>]+\bclass="[^"]*\bmms-river\b[^"]*"[^>]*>',
@@ -136,16 +159,23 @@ home = re.sub(
     home,
 )
 home = re.sub(r'<img\b[^>]*>', restore_image_loading, home)
+home = normalize_primary_navigation(home)
 with tempfile.NamedTemporaryFile("w", suffix=".html", encoding="utf-8") as handle:
     handle.write(home)
     handle.flush()
     subprocess.run([sys.executable, str(manifest_validator), "bodycopy", handle.name, "home"], check=True)
 
 for page in ("who", "write"):
-    subprocess.run(
-        [sys.executable, str(manifest_validator), "bodycopy", str(snapshot / f"{page}.bodycopy.html"), page],
-        check=True,
+    bodycopy = normalize_primary_navigation(
+        (snapshot / f"{page}.bodycopy.html").read_text(encoding="utf-8")
     )
+    with tempfile.NamedTemporaryFile("w", suffix=".html", encoding="utf-8") as handle:
+        handle.write(bodycopy)
+        handle.flush()
+        subprocess.run(
+            [sys.executable, str(manifest_validator), "bodycopy", handle.name, page],
+            check=True,
+        )
 
 # The immutable head capture also predates Round 101's visual-neutral document
 # language declaration. Add only the reviewed marker and pre-route-gate setter
@@ -284,6 +314,65 @@ def swap_eager_image_identity(source):
     return updated.replace('loading="__mms_swap__"', 'loading="lazy"', 1)
 
 
+def expanded_navigation_as_legacy_aside(source):
+    pattern = (
+        r'<nav aria-label="Primary" class="mms-rail">'
+        r'(.*?)</nav>'
+    )
+    updated, count = re.subn(
+        pattern,
+        r'<aside class="mms-rail">\1</aside>',
+        source,
+        count=1,
+        flags=re.DOTALL,
+    )
+    if count != 1:
+        raise SystemExit("could not build legacy expanded-navigation fixture")
+    return updated
+
+
+def duplicate_compact_primary_navigation(source):
+    match = re.search(
+        r'<nav aria-label="Primary" class="mms-mlinks">.*?</nav>',
+        source,
+        flags=re.DOTALL,
+    )
+    if match is None:
+        raise SystemExit("could not build duplicate compact-navigation fixture")
+    return source[:match.start()] + match.group(0) + "\n" + source[match.start():]
+
+
+def merge_primary_navigation_classes(source):
+    updated = source.replace(
+        '<nav aria-label="Primary" class="mms-rail">',
+        '<nav aria-label="Primary" class="mms-rail mms-mlinks">',
+        1,
+    )
+    updated, count = re.subn(
+        r'<nav aria-label="Primary" class="mms-mlinks">.*?</nav>',
+        "",
+        updated,
+        count=1,
+        flags=re.DOTALL,
+    )
+    if count != 1:
+        raise SystemExit("could not build merged navigation-class fixture")
+    return updated
+
+
+def wrap_expanded_primary_navigation(source, opening, closing):
+    updated, count = re.subn(
+        r'(<nav aria-label="Primary" class="mms-rail">.*?</nav>)',
+        opening + r'\1' + closing,
+        source,
+        count=1,
+        flags=re.DOTALL,
+    )
+    if count != 1:
+        raise SystemExit("could not build wrapped primary-navigation fixture")
+    return updated
+
+
 bodycopy_mutations = {
     "stale runtime": home.replace("responsive-70", "responsive-69"),
     "missing WTW frame": re.sub(
@@ -381,6 +470,95 @@ bodycopy_mutations = {
         '<div class="mms-river-scrubber"></div><figure class="mms-desc"',
         1,
     ),
+    "legacy expanded complementary rail": expanded_navigation_as_legacy_aside(home),
+    "missing expanded primary label": home.replace(
+        '<nav aria-label="Primary" class="mms-rail">',
+        '<nav class="mms-rail">',
+        1,
+    ),
+    "wrong compact primary label": home.replace(
+        '<nav aria-label="Primary" class="mms-mlinks">',
+        '<nav aria-label="Portfolio" class="mms-mlinks">',
+        1,
+    ),
+    "duplicate compact primary navigation": duplicate_compact_primary_navigation(home),
+    "merged responsive navigation classes": merge_primary_navigation_classes(home),
+    "expanded primary role override": home.replace(
+        '<nav aria-label="Primary" class="mms-rail">',
+        '<nav aria-label="Primary" class="mms-rail" role="complementary">',
+        1,
+    ),
+    "primary navigation nested in aside": wrap_expanded_primary_navigation(
+        home,
+        "<aside>",
+        "</aside>",
+    ),
+    "primary navigation nested in complementary role": wrap_expanded_primary_navigation(
+        home,
+        '<div role="complementary">',
+        "</div>",
+    ),
+    "primary navigation nested in generic nav": wrap_expanded_primary_navigation(
+        home,
+        '<nav aria-label="Extra">',
+        "</nav>",
+    ),
+    "primary navigation nested in navigation role": wrap_expanded_primary_navigation(
+        home,
+        '<div aria-label="Extra" role="navigation">',
+        "</div>",
+    ),
+    "extra sibling navigation": home.replace(
+        '<nav aria-label="Primary" class="mms-rail">',
+        '<nav aria-label="Extra"><a href="#extra">Extra</a></nav>\n'
+        '<nav aria-label="Primary" class="mms-rail">',
+        1,
+    ),
+    "primary navigation aria-labelledby override": home.replace(
+        '<nav aria-label="Primary" class="mms-rail">',
+        '<nav aria-label="Primary" aria-labelledby="portfolio-label" class="mms-rail">',
+        1,
+    ),
+    "primary navigation popover suppression": home.replace(
+        '<nav aria-label="Primary" class="mms-rail">',
+        '<nav aria-label="Primary" class="mms-rail" popover="manual">',
+        1,
+    ),
+    "primary navigation hidden ancestor": wrap_expanded_primary_navigation(
+        home,
+        "<div hidden>",
+        "</div>",
+    ),
+    "primary navigation aria-hidden ancestor": wrap_expanded_primary_navigation(
+        home,
+        '<div aria-hidden="true">',
+        "</div>",
+    ),
+    "primary navigation inert ancestor": wrap_expanded_primary_navigation(
+        home,
+        "<div inert>",
+        "</div>",
+    ),
+    "primary navigation display-none ancestor": wrap_expanded_primary_navigation(
+        home,
+        '<div style="display: none">',
+        "</div>",
+    ),
+    "primary navigation important display-none ancestor": wrap_expanded_primary_navigation(
+        home,
+        '<div style="display: none !important">',
+        "</div>",
+    ),
+    "primary navigation template ancestor": wrap_expanded_primary_navigation(
+        home,
+        "<template>",
+        "</template>",
+    ),
+    "primary navigation unexpected direct parent": wrap_expanded_primary_navigation(
+        home,
+        "<div>",
+        "</div>",
+    ),
     "legacy all-video playback owner": home + (
         '<script>/*mms-video-autoplay*/document.querySelectorAll("video.mms-video")'
         '.forEach(function(video){video.play()});</script>'
@@ -413,6 +591,26 @@ source_purity_labels = {
     "runtime iframe priority drift",
     "runtime video preload drift",
     "serialized river scrubber",
+    "legacy expanded complementary rail",
+    "missing expanded primary label",
+    "wrong compact primary label",
+    "duplicate compact primary navigation",
+    "merged responsive navigation classes",
+    "expanded primary role override",
+    "primary navigation nested in aside",
+    "primary navigation nested in complementary role",
+    "primary navigation nested in generic nav",
+    "primary navigation nested in navigation role",
+    "extra sibling navigation",
+    "primary navigation aria-labelledby override",
+    "primary navigation popover suppression",
+    "primary navigation hidden ancestor",
+    "primary navigation aria-hidden ancestor",
+    "primary navigation inert ancestor",
+    "primary navigation display-none ancestor",
+    "primary navigation important display-none ancestor",
+    "primary navigation template ancestor",
+    "primary navigation unexpected direct parent",
 }
 
 for label, payload in bodycopy_mutations.items():

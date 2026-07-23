@@ -38,15 +38,15 @@
     },
     {
       "path": "cargo/home.html",
-      "sha256": "cf73e9d14fbbed5f34476663b8b505c96cf9155a0ac0b25b5b69c061c41e1704"
+      "sha256": "0dbbfda0632078a42666ecd102855357a14adfc7c5920fb5af590bc980579ebb"
     },
     {
       "path": "cargo/who.html",
-      "sha256": "d94edb7c90b47135ea35b92924258a22fa3a4e841d14a2402754f8f40ca321b0"
+      "sha256": "3d7a89ebc8605be3bf9835315a616641fe913e1387360343f776c637be4a037e"
     },
     {
       "path": "cargo/write.html",
-      "sha256": "c16479bb9d11a60b2dd4fc119377b7d380a7e06fbb49decd8677225a96affddb"
+      "sha256": "0eae0479561e1131f8d911a51285960b1cf34c1ec3b9f06febedb6703703314e"
     },
     {
       "path": "cargo/tokens.css",
