@@ -2785,3 +2785,13 @@ current source of truth for the built site.
 - Treat Cargo as a partial review deployment and do not publish. Resume from
   Home raw-source verification, then deploy Who and Write with the normal
   UTF-8-safe save/reload checks.
+
+### Cargo draft review completed
+- Round 106 is fully installed in the Cargo draft: complete CSS, site head,
+  Home, Who, and Write.
+- Every persisted payload was extracted after reload and passed its
+  fail-closed validator. Compact/expanded probes preserved the approved
+  interface and zero page-level horizontal overflow, and the complete Phase 2
+  gate passed again.
+- This is a draft review state only. Do not publish without Ocean's explicit
+  authorization.

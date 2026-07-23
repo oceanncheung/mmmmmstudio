@@ -5245,3 +5245,26 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   publish this draft. Reopen the authenticated Cargo editor, re-verify Home's
   raw saved source, then deploy and reload-verify Who and Write before treating
   Round 106 as reviewable.
+
+### Round 106 Cargo review deployment — completed in draft, do not publish
+- The interrupted review was resumed after Dia was restarted. Cargo's raw
+  post-reload Home record was extracted from the authenticated editor and
+  passed the fail-closed Home bodycopy validator.
+- The persisted complete stylesheet is 87,325 characters and passed the
+  persisted-CSS validator with the Cargo head and all three managed font
+  regions preserved. The persisted 1,968-character site head also passed its
+  validator.
+- Who and Write were each installed from the complete generated bodycopy with
+  UTF-8-safe `innerHTML` plus a bubbling `InputEvent`, saved with Cmd+S,
+  reloaded, extracted from Cargo's raw page store, and independently passed
+  their page-specific bodycopy validators.
+- Compact and expanded review probes preserved the approved interface:
+  Home rendered in both Cargo preview modes with its native river cue and
+  expanded control panel; Who and Write both reported zero page-level
+  horizontal overflow. Write retained all four `uses="eye-roll"` hooks.
+- The complete Phase 2 gate passed again after the Cargo review, including all
+  480 protected gold states and interactions, native rivers, 12 expanded
+  scrubbers, EVIIVE final-pair geometry, WTW and Withered Green contracts,
+  Touchbaes iPad readiness and rig lifecycle, Montran rendering and turns,
+  reduced-motion behavior, runtime replacement, and zero overflow.
+- This is a reviewable Cargo draft only. Nothing was published.

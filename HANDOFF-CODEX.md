@@ -1882,3 +1882,15 @@ agent needs to continue this project without the prior chat history.
   reopening the authenticated Cargo editor, validate Home's raw saved record,
   then complete Who and Write one at a time with save, reload, raw-source
   validation, and compact/expanded probes.
+
+### Completed Cargo draft review
+- The Round 106 Cargo draft review is complete. Home's saved post-reload raw
+  record, the complete persisted CSS bundle, and the persisted site head all
+  passed their fail-closed validators.
+- Who and Write were installed with the required UTF-8-safe
+  `innerHTML` + `InputEvent` workflow, saved, reloaded, extracted from Cargo's
+  raw page store, and passed their page-specific validators.
+- Compact and expanded probes preserved the approved interface and zero
+  page-level overflow. Write retains four `uses="eye-roll"` hooks. The full
+  Phase 2 gate passed again after deployment.
+- Cargo is ready for Ocean's draft review. It has not been published.
