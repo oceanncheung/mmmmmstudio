@@ -1781,3 +1781,30 @@ agent needs to continue this project without the prior chat history.
   of this round. Before resuming the audit issue order, isolate and guard the
   separately reported Touchbaes live-tweezer lifecycle after Cargo root
   replacement.
+
+## Current handoff — Round 104 Touchbaes visible-tweezer lifecycle (2026-07-23)
+- Round 104 is test-only on
+  `round-104/touchbaes-visible-tweezer-contract`. It changes no product source,
+  generated payload, deployment manifest, Cargo/Freight/Figma/public state, or
+  protected gold.
+- Preserve
+  `audit/findings/evidence/2026-07-23-round104-touchbaes-visible-rig-root-cause.json`
+  and the visible-rig assertions inside the existing mandatory
+  `runtime-root-replacement-test.mjs`. The issue was an uncomposed test gap:
+  trusted initial rig rendering and root replacement passed separately, while
+  no gate required a current replacement generation to render the rig.
+- After both expanded full-root replacement and expanded same-root Touchbaes
+  river/frame replacement, an exact-origin legacy v10 current-frame `rest`
+  followed by `move` must expose exactly one current-root rig with three
+  trusted layers, approved sources, finite geometry, and current lifecycle-2
+  root/rig/frame/river ownership. A detached old-frame payload must not change
+  the accepted rig. Compact current-frame payloads must remain hidden.
+- Keep all pre-existing resource, teardown, panel, protected-layout,
+  zero-overflow, twelve-scrubber, native-river, and owner-version assertions.
+  Do not turn this test-only round into a new manifest, protocol, media,
+  coordinate, CSS, or visual-geometry change.
+- Focused and complete Phase 2 verification pass. The test is deterministic
+  Chromium parent-lifecycle evidence; physical Safari and live Freight timing
+  remain later promotion checks. The public site still uses lifecycle-1 until
+  the lifecycle-2 payload receives a separate authorized Cargo deployment and
+  reload verification.
