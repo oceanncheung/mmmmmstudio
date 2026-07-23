@@ -5071,3 +5071,41 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   affected Round 99 privacy source identities. No storage, request, service,
   link, or disclosure behavior changed. Focused and complete Phase 2
   verification pass; nothing was deployed or published.
+
+## Round 103 (2026-07-23): EVIIVE final-pair geometry contract — REPOSITORY ONLY / NOT DEPLOYED
+- Froze the unrelated `MMS-AUD-007` batch after Ocean reported that EVIIVE's
+  last two expanded river images no longer looked equal in height. Read-only
+  comparison proved that this was not introduced by the semantic audit
+  branches: the protected responsive-70 gold source itself contains
+  `558x372` for `eviive-05` and `670x377.593` for `eviive-06`.
+- The Figma-derived Round 13 execution record is the independent design
+  authority: the final pair is `558x372 / 670x372`. Round 18's retina source
+  swap copied the new image's 2800x1578 intrinsic ratio into the second frame,
+  which made it rise above the shared bottom edge. Gold parity then preserved
+  that latent defect because it had no separate EVIIVE pair contract.
+- Restored only `eviive-06` to the approved 670x372 frame and changed its fit
+  to `cover`. The source remains proportional; at the 1440px design ratio the
+  frame crops approximately 2.8px from the top and bottom, instead of exposing
+  a blank edge. Compact geometry, media profiles, river behavior, captions,
+  descriptions, CSS, and runtime are unchanged.
+- Added fail-closed deployment geometry for both final EVIIVE items, including
+  `data-fit`; two destructive deployment fixtures reject geometry or fit
+  drift. Added an additive post-baseline geometry supersession so protected
+  gold and frozen evidence stay byte-immutable while gold parity compares
+  against the documented intended geometry in memory.
+- The focused EVIIVE browser test first proves that protected gold reproduces
+  the defect, then pins equal top, height, and bottom within 0.25px at 1024,
+  1440, 1920, and 2940px, plus the exact frame and fit contracts and zero page
+  overflow. Focused asset, bodycopy, and both 240-state compact/expanded gold
+  matrices pass.
+- Round 99's privacy evidence refreshes only the canonical Home template and
+  generated bodycopy identities caused by this geometry line. Its storage,
+  request, service, destination, disclosure, and publication findings are
+  unchanged.
+- The complete Phase 2 gate passes: 122/122 frozen hashes, both 240-state
+  protected matrices, 75 rejected deployment mutations, native rivers,
+  WTW/Withered Green, Touchbaes/iPad, Montran, iframe capabilities, privacy,
+  source purity, and runtime root replacement all remain green.
+- No Cargo, Freight, Figma, draft, public deployment, or publication action
+  occurred. Touchbaes' separately reported visible-tweezer lifecycle is the
+  next isolated regression contract before the audit backlog resumes.
