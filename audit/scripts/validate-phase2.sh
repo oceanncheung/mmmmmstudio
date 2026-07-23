@@ -50,6 +50,7 @@ echo "Phase 2 harness configuration: PASS"
 (cd "$ROOT/audit/harness" && npm run media-owner-test)
 (cd "$ROOT/audit/harness" && npm run gold-parity-test)
 (cd "$ROOT/audit/harness" && npm run river-aria-test)
+(cd "$ROOT/audit/harness" && npm run document-language-test)
 (cd "$ROOT/audit/harness" && npm run swatch-focus-test)
 (cd "$ROOT/audit/harness" && npm run touchbaes-readiness-test)
 (cd "$ROOT/audit/harness" && npm run interaction-test)
@@ -145,7 +146,25 @@ for page in ("who", "write"):
         [sys.executable, str(manifest_validator), "bodycopy", str(snapshot / f"{page}.bodycopy.html"), page],
         check=True,
     )
-subprocess.run([sys.executable, str(manifest_validator), "head", str(snapshot / "site-head.html")], check=True)
+
+# The immutable head capture also predates Round 101's visual-neutral document
+# language declaration. Add only the reviewed marker and pre-route-gate setter
+# to a temporary in-memory fixture; never rewrite the frozen evidence.
+head = (snapshot / "site-head.html").read_text(encoding="utf-8")
+head = head.replace(
+    '<script data-mms-ios-edge-head="49">',
+    '<script data-mms-ios-edge-head="49" data-mms-document-language="en">',
+    1,
+)
+head = head.replace(
+    "(function () {\n",
+    "(function () {\n  document.documentElement.setAttribute('lang', 'en');\n\n",
+    1,
+)
+with tempfile.NamedTemporaryFile("w", suffix=".html", encoding="utf-8") as handle:
+    handle.write(head)
+    handle.flush()
+    subprocess.run([sys.executable, str(manifest_validator), "head", handle.name], check=True)
 print("Cargo-serialized deployment-manifest fixtures: PASS")
 PY
 python3 - "$ROOT" <<'PY'
@@ -415,20 +434,42 @@ for label, payload in bodycopy_mutations.items():
             f"source-purity fixture was rejected by an unrelated guard: {label}: {result.stderr}"
         )
 
-stale_head = head.replace('data-mms-ios-edge-head="49"', 'data-mms-ios-edge-head="48"')
-if stale_head == head:
-    raise SystemExit("negative fixture did not mutate the head marker")
-with tempfile.NamedTemporaryFile("w", suffix=".html", encoding="utf-8") as handle:
-    handle.write(stale_head)
-    handle.flush()
-    result = subprocess.run(
-        [str(validator), "head", handle.name],
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-if result.returncode == 0:
-    raise SystemExit("negative deployment fixture unexpectedly passed: stale head")
+language_assignment = "document.documentElement.setAttribute('lang', 'en');"
+late_language_head = head.replace(language_assignment + "\n\n", "", 1).replace(
+    "if (!isHomepage) return;",
+    "if (!isHomepage) return;\n  " + language_assignment,
+    1,
+)
+head_mutations = {
+    "stale edge head": head.replace(
+        'data-mms-ios-edge-head="49"', 'data-mms-ios-edge-head="48"', 1
+    ),
+    "missing language marker": head.replace(
+        ' data-mms-document-language="en"', "", 1
+    ),
+    "wrong language marker": head.replace(
+        'data-mms-document-language="en"', 'data-mms-document-language="fr"', 1
+    ),
+    "missing language assignment": head.replace(language_assignment, "", 1),
+    "duplicate language assignment": head.replace(
+        language_assignment, language_assignment + "\n  " + language_assignment, 1
+    ),
+    "language assignment after route gate": late_language_head,
+}
+for label, payload in head_mutations.items():
+    if payload == head:
+        raise SystemExit(f"negative fixture did not mutate the head: {label}")
+    with tempfile.NamedTemporaryFile("w", suffix=".html", encoding="utf-8") as handle:
+        handle.write(payload)
+        handle.flush()
+        result = subprocess.run(
+            [str(validator), "head", handle.name],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    if result.returncode == 0:
+        raise SystemExit(f"negative deployment fixture unexpectedly passed: {label}")
 
 manifest_validator = root / "cargo/validate-deployment-manifest.py"
 manifest = json.loads((root / "cargo/deployment-manifest.json").read_text(encoding="utf-8"))
@@ -439,13 +480,25 @@ manifest_mutations["missing source-purity contract"] = missing_purity
 old_schema = json.loads(json.dumps(manifest))
 old_schema["schema_version"] = 1
 manifest_mutations["stale manifest schema"] = old_schema
+invalid_language = json.loads(json.dumps(manifest))
+invalid_language["head"]["document_language"] = "english"
+manifest_mutations["invalid document language"] = invalid_language
 
 for label, payload in manifest_mutations.items():
     with tempfile.NamedTemporaryFile("w", suffix=".json", encoding="utf-8") as manifest_handle:
         json.dump(payload, manifest_handle)
         manifest_handle.flush()
-        result = subprocess.run(
-            [
+        if label == "invalid document language":
+            validation_args = [
+                sys.executable,
+                str(manifest_validator),
+                "head",
+                str(root / "cargo/site-head.html"),
+                "--manifest",
+                manifest_handle.name,
+            ]
+        else:
+            validation_args = [
                 sys.executable,
                 str(manifest_validator),
                 "bodycopy",
@@ -453,7 +506,9 @@ for label, payload in manifest_mutations.items():
                 "home",
                 "--manifest",
                 manifest_handle.name,
-            ],
+            ]
+        result = subprocess.run(
+            validation_args,
             capture_output=True,
             text=True,
             check=False,
@@ -463,7 +518,7 @@ for label, payload in manifest_mutations.items():
 
 print(
     "Deployment-manifest negative fixtures: PASS "
-    f"({len(bodycopy_mutations) + 1 + len(manifest_mutations)} rejected)"
+    f"({len(bodycopy_mutations) + len(head_mutations) + len(manifest_mutations)} rejected)"
 )
 PY
 "$ROOT/cargo/compose-css-bundle.sh" >/dev/null

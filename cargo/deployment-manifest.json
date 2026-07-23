@@ -4,7 +4,8 @@
   "approved_baseline": "gold-2026-07-21-responsive-70",
   "approval_note": "Ocean designated the latest verified responsive-70 site, including the post-Round-80 WTW square and Withered Green motion corrections, as the new gold baseline on 2026-07-21. Round 80 and Round 69 remain immutable historical references.",
   "head": {
-    "edge_marker": "49"
+    "edge_marker": "49",
+    "document_language": "en"
   },
   "pages": {
     "home": {

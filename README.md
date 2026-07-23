@@ -24,3 +24,9 @@ river count and rejects scrollbar role/value semantics on `.mms-river`
 independently of the existing hidden-river guard. The focused Chromium contract preserves the separate
 desktop scrubber semantics and native compact/expanded river behavior while
 retaining the frozen contaminated Cargo bodycopy as a negative control.
+
+Round 101 closes the repository side of `MMS-AUD-004` with a visually neutral
+document-language contract. The early site head and shared body initializer
+set the English root language, standalone mirrors declare `lang="en"`, and the
+Write page retains its narrower `yue-Hant` passage override. This repository
+change has not been deployed or published to Cargo.

@@ -492,6 +492,20 @@ def validate_head(source: str, manifest: dict) -> None:
     markers = re.findall(r'data-mms-ios-edge-head=["\']([^"\']+)["\']', source)
     require_equal("site head edge marker", markers, [str(expected)])
 
+    language = manifest.get("head", {}).get("document_language")
+    if not isinstance(language, str) or not re.fullmatch(r"[a-z]{2}(?:-[A-Z]{2})?", language):
+        raise ManifestError("deployment manifest must define a valid head.document_language")
+    language_markers = re.findall(
+        r'data-mms-document-language=["\']([^"\']+)["\']', source
+    )
+    require_equal("site head document-language marker", language_markers, [language])
+    assignment = f"document.documentElement.setAttribute('lang', '{language}');"
+    require_equal("site head document-language assignment count", source.count(assignment), 1)
+    assignment_offset = source.find(assignment)
+    route_gate_offset = source.find("var path = window.location.pathname")
+    if route_gate_offset < 0 or assignment_offset > route_gate_offset:
+        raise ManifestError("site head document-language assignment must precede the route gate")
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()

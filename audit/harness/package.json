@@ -6,6 +6,7 @@
   "description": "Read-only MM.S audit harness using frozen Round 80 evidence and the latest responsive-70 gold parity target",
   "scripts": {
     "audit": "node src/cli.mjs",
+    "document-language-test": "node src/document-language-test.mjs",
     "embed-message-protocol-test": "node src/embed-message-protocol-test.mjs",
     "embed-montran-test": "node src/embed-montran-interaction-test.mjs",
     "gold-parity-test": "node src/gold-parity-test.mjs",

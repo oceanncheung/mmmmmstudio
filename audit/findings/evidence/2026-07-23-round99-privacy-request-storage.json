@@ -6,7 +6,7 @@
   "canonical_source_identities": [
     {
       "path": "cargo/shared-early-init.html",
-      "sha256": "dbf6cb8d87f7ba7cbe1014520032bfcaab3943da73fd090ed2003e35bd1c9ecb"
+      "sha256": "18e4cf5c9ddd362d3e9f6e96696d7516373f07af0866ddd8761408b0c01c1197"
     },
     {
       "path": "cargo/panel.js",
@@ -34,19 +34,19 @@
     },
     {
       "path": "cargo/site-head.html",
-      "sha256": "d677c1a7e81a20482d1aa02959284f51775f0fe39411521ef91d9a972657fd56"
+      "sha256": "fdb1bc6a7d2b6ad36b054a36f2e42c6d2d15401f4c29e4121efeeb1d96ffd71d"
     },
     {
       "path": "cargo/home.html",
-      "sha256": "e8cb08d494803d08679e87d7ecb37cc315632737eda1f0fd0422aca707b0a0c2"
+      "sha256": "cf73e9d14fbbed5f34476663b8b505c96cf9155a0ac0b25b5b69c061c41e1704"
     },
     {
       "path": "cargo/who.html",
-      "sha256": "903c804e0e046c51b41e6f1955b27bd78f8b47791e0832d494bef9a8cc35c80f"
+      "sha256": "d94edb7c90b47135ea35b92924258a22fa3a4e841d14a2402754f8f40ca321b0"
     },
     {
       "path": "cargo/write.html",
-      "sha256": "65a9fb576c1673406a168962b52b96035405f9c26fb7405717b485fc797c9eae"
+      "sha256": "c16479bb9d11a60b2dd4fc119377b7d380a7e06fbb49decd8677225a96affddb"
     },
     {
       "path": "cargo/tokens.css",
