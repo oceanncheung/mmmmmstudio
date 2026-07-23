@@ -40,16 +40,16 @@ EXPECTED_RUNTIME_SOURCES = (
 )
 EXPECTED_SOURCE_HASHES = {
     "cargo/shared-early-init.html": "18e4cf5c9ddd362d3e9f6e96696d7516373f07af0866ddd8761408b0c01c1197",
-    "cargo/panel.js": "32f2aa7c49fd366fd421e94c4311f61c53747109ed472532c5e250cf2642a06d",
+    "cargo/panel.js": "9867819e907d6bdd10c66f00226ef5faacabc099025ef8c80f2b5c211148640e",
     "cargo/home.template.html": "2e85e9544204d58c8cbf318bc0f9ebba58756793efa4429e9250f3779bfa7654",
     "cargo/who.template.html": "1a1bfd4c646add7cce126adda8f3ac5588fa1902cb1aa1b0a8995329f3d2f9c6",
     "cargo/write.template.html": "348a820f9d24755cad7dbdfa4ab8c0016d585d60b745737b819df7c823a02608",
     "cargo/shared-nav-items.html": "0f5ab94a8b59380ded80de9931af08d9072396a24411038254d6f245ba453361",
     "cargo/home-extras.html": "0cb6c73ece86b3d27b7f8572174867a206c67d06701ad204d253cd1c7bd07992",
     "cargo/site-head.html": "fdb1bc6a7d2b6ad36b054a36f2e42c6d2d15401f4c29e4121efeeb1d96ffd71d",
-    "cargo/home.html": "99208c4007945edacae7673e21cd666510f5221d49bdcfd1329e8acf82551ec1",
-    "cargo/who.html": "6e84d1d6d7c9143630e2aac11b2e1c82e40c8bf97eea6aad95f4e5cbf83aaf14",
-    "cargo/write.html": "f0e9021b4ac09403ee20fab0a4db4a746fc6b6bc24a38b78841083f91b759580",
+    "cargo/home.html": "b932502fc7a443995e439c99c109391b6e461017b7009dff0f0d33679867e1e7",
+    "cargo/who.html": "8bfe47cf82232086a16a2f5c1208f49113e955fe8efd869b464e72370ac75055",
+    "cargo/write.html": "f184b36f4bea77a6d5043a688a040f934259bd0c00fa975b473972bf231a39b5",
     "cargo/tokens.css": "70178291f00dfeacaae9fc7c0fde2d7f444cb26456d969b7d2523d0274a71d98",
     "cargo/site.css": "ed02883f89e68c741b4057c06b9c0ee49b1b6eebee921578d7c4262641b087a7",
 }

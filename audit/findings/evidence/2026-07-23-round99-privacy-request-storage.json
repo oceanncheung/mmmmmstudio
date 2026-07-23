@@ -10,7 +10,7 @@
     },
     {
       "path": "cargo/panel.js",
-      "sha256": "32f2aa7c49fd366fd421e94c4311f61c53747109ed472532c5e250cf2642a06d"
+      "sha256": "9867819e907d6bdd10c66f00226ef5faacabc099025ef8c80f2b5c211148640e"
     },
     {
       "path": "cargo/home.template.html",
@@ -38,15 +38,15 @@
     },
     {
       "path": "cargo/home.html",
-      "sha256": "99208c4007945edacae7673e21cd666510f5221d49bdcfd1329e8acf82551ec1"
+      "sha256": "b932502fc7a443995e439c99c109391b6e461017b7009dff0f0d33679867e1e7"
     },
     {
       "path": "cargo/who.html",
-      "sha256": "6e84d1d6d7c9143630e2aac11b2e1c82e40c8bf97eea6aad95f4e5cbf83aaf14"
+      "sha256": "8bfe47cf82232086a16a2f5c1208f49113e955fe8efd869b464e72370ac75055"
     },
     {
       "path": "cargo/write.html",
-      "sha256": "f0e9021b4ac09403ee20fab0a4db4a746fc6b6bc24a38b78841083f91b759580"
+      "sha256": "f184b36f4bea77a6d5043a688a040f934259bd0c00fa975b473972bf231a39b5"
     },
     {
       "path": "cargo/tokens.css",

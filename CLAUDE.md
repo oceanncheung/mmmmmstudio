@@ -2795,3 +2795,21 @@ current source of truth for the built site.
   gate passed again.
 - This is a draft review state only. Do not publish without Ocean's explicit
   authorization.
+
+## Current state — Round 107 Cargo media hydration recovery
+- Preserve the protected media loader and its sole hydration correction:
+  `runtime.timeout(startDeferredMedia, 500)`. Cargo can finish replacing media
+  nodes after bodycopy execution; the bounded delay makes the one-time snapshot
+  own the visible nodes.
+- Never reintroduce the abandoned subtree observer, repeated scan, or whole-root
+  bootstrap. Cargo preview proved that those approaches could remove nearly all
+  river media.
+- Keep the focused deferred-media hydration test and existing root/media-owner
+  contracts. Normal Home inventory remains exactly 68 media owners, 27 videos,
+  three iframes, and twelve expanded scrubbers.
+- The exact Site HTML head plus complete Home, Who, and Write bodycopy are
+  installed and reload-verified in Cargo draft. The public site remains
+  unchanged; do not publish without Ocean's explicit authorization.
+- Focused hydration/ownership tests and the complete Phase 2 gate pass after
+  deployment. Treat the atomic Round 107 checkpoint as the only source for
+  later promotion.

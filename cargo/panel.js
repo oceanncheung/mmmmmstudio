@@ -1100,7 +1100,7 @@
       );
     });
   });
-  startDeferredMedia();
+  runtime.timeout(startDeferredMedia, 500);
   function pauseOwnedMotion() {
     currentMms.querySelectorAll('video[data-mms-loaded="1"]').forEach(function (video) {
       try { video.pause(); } catch (e) {}

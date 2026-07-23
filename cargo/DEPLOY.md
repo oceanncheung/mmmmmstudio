@@ -5268,3 +5268,33 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   Touchbaes iPad readiness and rig lifecycle, Montran rendering and turns,
   reduced-motion behavior, runtime replacement, and zero overflow.
 - This is a reviewable Cargo draft only. Nothing was published.
+
+## Round 107 (2026-07-23): Cargo media hydration recovery — DRAFT DEPLOYED / NOT PUBLISHED
+- Root cause: Cargo can replace or finish hydrating Home media nodes after the
+  inline runtime starts. The protected one-shot deferred-media loader could
+  snapshot the pre-hydration nodes, leaving the visible 27 videos, V7 cup, and
+  Touchbaes game without their real sources after an editor reload.
+- The final implementation preserves the existing loader and all protected
+  media ownership. Its only runtime change is to schedule
+  `startDeferredMedia` once after 500ms, allowing Cargo's node hydration to
+  settle before the snapshot. No subtree observer, full-root bootstrap,
+  repeated scan, new media owner, CSS, visual geometry, or interaction change
+  remains.
+- Added the focused `deferred-media-hydration-test`. It replaces the relevant
+  nodes before the delayed loader begins and proves that both critical media
+  and the vertically near Touchbaes project receive their sources.
+- The Cargo Site HTML was reset through CodeMirror to the exact 1,968-character
+  local `site-head.html` after an earlier textarea-based attempt had duplicated
+  it. Reload verification found one edge-head marker and exact local parity.
+- Home, Who, and Write were each installed from the complete regenerated
+  bodycopy with UTF-8-safe `innerHTML` plus a bubbling `InputEvent`, saved with
+  Cmd+S, and reloaded. The live Home draft contains one root, 68 media owners,
+  27 videos, three iframes, and twelve desktop scrubbers. EVIIVE 1 and 2, V7,
+  and Touchbaes all receive their expected live sources.
+- Page-specific bodycopy validators and the head validator pass. Focused
+  hydration, root ownership, media ownership, and compact/expanded gold-parity
+  checks pass. The complete Phase 2 gate passes, including the frozen
+  122-artifact baseline, 480 protected UI states, native rivers, WTW, Withered
+  Green, EVIIVE, Touchbaes, Montran, embed protocols, privacy, and zero
+  page-level overflow.
+- This is a Cargo draft recovery only. The public site was not published.

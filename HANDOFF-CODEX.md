@@ -1894,3 +1894,21 @@ agent needs to continue this project without the prior chat history.
   page-level overflow. Write retains four `uses="eye-roll"` hooks. The full
   Phase 2 gate passed again after deployment.
 - Cargo is ready for Ocean's draft review. It has not been published.
+
+## Current handoff — Round 107 Cargo media hydration recovery (2026-07-23)
+- Cargo Home media must initialize only after Cargo has finished its initial
+  bodycopy-node hydration. Preserve the single
+  `runtime.timeout(startDeferredMedia, 500)` call in `cargo/panel.js`.
+- Do not replace this with a subtree MutationObserver, repeated document scan,
+  or whole-root bootstrap. Those recovery experiments removed most rendered
+  river media in Cargo preview and were completely discarded.
+- Keep `deferred-media-hydration-test.mjs` and its npm entrypoint. The focused
+  test must prove critical videos/V7 and the vertically near Touchbaes iframe
+  recover after pre-loader node replacement.
+- The Cargo draft now has the complete regenerated Home, Who, and Write
+  bodycopy and the exact single-copy Site HTML head. Reload proof found Home:
+  one root, 68 media owners, 27 videos, three iframes, twelve scrubbers, and
+  live sources for EVIIVE 1/2, V7, and Touchbaes.
+- The complete Phase 2 gate passes after deployment. The public site was not
+  published. Preserve the resulting atomic repository checkpoint as the source
+  for any later Cargo review or publication decision.

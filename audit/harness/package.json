@@ -7,6 +7,7 @@
   "scripts": {
     "audit": "node src/cli.mjs",
     "document-language-test": "node src/document-language-test.mjs",
+    "deferred-hydration-test": "node src/deferred-media-hydration-test.mjs",
     "embed-message-protocol-test": "node src/embed-message-protocol-test.mjs",
     "embed-montran-test": "node src/embed-montran-interaction-test.mjs",
     "eviive-pair-test": "node src/eviive-final-pair-geometry-test.mjs",
