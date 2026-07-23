@@ -1605,3 +1605,40 @@ agent needs to continue this project without the prior chat history.
   protocol and Montran allowlist together with Cargo/manifest changes,
   reload-verify, and test desktop Chromium/Safari plus physical iPhone/iPad
   Safari. Until then all canonical iframe policy attributes must stay absent.
+
+## Current handoff — Round 98 public response-header policy (2026-07-22)
+- Round 98 is repository-only on
+  `round-98/public-security-header-contract`. It prepares `MMS-AUD-037`; it
+  does not configure or claim live headers, deploy Cargo, upload Freight,
+  change DNS/Figma, publish, or touch `gold-2026-07-21-responsive-70`.
+- Preserve `audit/contracts/public-response-header-policy.json`, the live
+  evidence at
+  `audit/findings/evidence/2026-07-23-round98-public-response-headers.json`,
+  and `audit/scripts/validate-public-response-header-policy.py`. The validator
+  is mandatory in `validate-phase2.sh` and currently passes 29 destructive
+  fixtures plus the complete Phase 2 suite.
+- The first-party Home/Who/Write documents and sampled Freight responses still
+  lack CSP, CSP Report-Only, Reporting-Endpoints, Referrer-Policy,
+  Permissions-Policy, nosniff, frame protection, and HSTS. HTTP redirects to
+  HTTPS, but redirect presence is not HSTS.
+- Cargo's official self-service documentation does not expose HTTP
+  response-header rules. Record this as `not-documented`; do not convert it to
+  `impossible` without an authoritative Cargo response. Saved Custom HTML is
+  emitted after the frozen document head and cannot be credited as a response
+  header. Never add policy `http-equiv` tags to `cargo/site-head.html` as a
+  substitute.
+- Keep activation `prepared-not-active`, `header_owner`,
+  `reporting_endpoint`, and exact CSP unset until external decisions are made.
+  The only allowed owner paths are support-confirmed Cargo configuration or a
+  separately approved first-party edge. A first-party edge cannot change
+  `freight.cargo.site` responses; Round 97 iframe containment remains the
+  prepared child boundary.
+- Promotion order is owner/rollback confirmation, privacy-reviewed report
+  sink, CSP Report-Only discovery, clean compact/expanded/browser/device and
+  Cargo editor/preview evidence, then exact enforcement. Frame ancestors and
+  X-Frame-Options must not be guessed before editor/preview framing is tested.
+  HSTS must use the documented canary ramp with no subdomains or preload before
+  a complete host/TLS audit.
+- No Cargo/Freight/DNS action is part of Round 98. Any activation is a separate
+  explicitly authorized architecture and deployment batch with fresh public
+  header evidence, rollback, and full protected-contract verification.

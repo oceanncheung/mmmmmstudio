@@ -55,3 +55,37 @@ prevents child bootstrap. The finite iframe `allow` list is not represented as
 a future-proof deny-all; browsers have no such iframe syntax. Exact proof-input
 digests and npm/Phase 2 wiring are guarded so a no-op proof cannot silently
 replace the reviewed test.
+
+## Public response-header policy
+
+`public-response-header-policy.json` records the response-layer remediation
+plan for `MMS-AUD-037`. It is deliberately `prepared-not-active`: Cargo's
+documented self-service surfaces cover CSS, bodycopy, Custom HTML, metadata,
+and DNS, but no documented HTTP response-header rule. That finding does not
+claim Cargo is incapable of support-assisted configuration. A separately
+approved first-party edge is the other candidate owner; it cannot rewrite
+responses from the independent `freight.cargo.site` origin.
+
+The contract forbids treating `<meta http-equiv>` as equivalent to response
+headers. CSP Report-Only, `frame-ancestors`, top-level Permissions Policy,
+MIME-sniffing protection, frame protection, and HSTS require response-layer
+delivery. It preserves frozen Round 80 evidence plus a 2026-07-23 live
+Home/Who/Write and Freight observation. The Freight record contains each
+actual normalized response-header map, status, content type, and byte range;
+the missing-policy result is derived from those maps rather than asserted.
+The contract leaves the header owner,
+reporting endpoint, exact CSP, and Cargo editor/preview framing decision
+unset. Those unknowns are promotion gates, not values to guess.
+
+`validate-public-response-header-policy.py` verifies both evidence sets,
+requires the exact runtime-origin discovery inventory, and keeps every Cargo
+HTML and deployment-manifest surface free of fake response-policy activation.
+The guard rejects literal or script-created policy meta tokens and meta
+referrer substitutes. It also rejects false platform claims, premature
+activation, route/Freight scope confusion, unsafe CSP widening, skipped
+report-only discovery, and premature long-lived HSTS. A future activation
+requires response-header ownership, a
+privacy-reviewed report sink, clean report-only evidence, complete compact and
+expanded interaction coverage, Cargo editor/preview compatibility, transport
+and host audits, rollback, reload persistence, and fresh public response
+proof. None of those external changes is authorized by this prepared record.

@@ -1,0 +1,312 @@
+{
+  "schema_version": 1,
+  "issue": "MMS-AUD-037",
+  "captured_at_utc": "2026-07-23T02:02:47Z",
+  "mode": "read-only-live-observation",
+  "request_contract": {
+    "documents": "HTTP/2 GET with a browser-like user agent",
+    "freight_embeds": "HTTP/2 GET with https://mmmmm.studio/ as Referer",
+    "freight_assets": "HTTP/2 GET with Range: bytes=0-0 and https://mmmmm.studio/ as Referer",
+    "http_redirect": "HTTP/1.1 GET without following the redirect",
+    "timeout_seconds": 20,
+    "response_body_saved": false
+  },
+  "required_policy_headers": [
+    "content-security-policy",
+    "content-security-policy-report-only",
+    "reporting-endpoints",
+    "referrer-policy",
+    "permissions-policy",
+    "x-content-type-options",
+    "x-frame-options",
+    "strict-transport-security"
+  ],
+  "first_party_documents": [
+    {
+      "url": "https://mmmmm.studio/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "content-length": "531428",
+        "x-cache-status": "C3-HIT",
+        "x-debug-host": "mmmmm.studio",
+        "server": "Cargo"
+      },
+      "missing_policy_headers": [
+        "content-security-policy",
+        "content-security-policy-report-only",
+        "reporting-endpoints",
+        "referrer-policy",
+        "permissions-policy",
+        "x-content-type-options",
+        "x-frame-options",
+        "strict-transport-security"
+      ]
+    },
+    {
+      "url": "https://mmmmm.studio/who",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "content-length": "558471",
+        "x-cache-status": "C3-HIT",
+        "x-debug-host": "mmmmm.studio",
+        "server": "Cargo"
+      },
+      "missing_policy_headers": [
+        "content-security-policy",
+        "content-security-policy-report-only",
+        "reporting-endpoints",
+        "referrer-policy",
+        "permissions-policy",
+        "x-content-type-options",
+        "x-frame-options",
+        "strict-transport-security"
+      ]
+    },
+    {
+      "url": "https://mmmmm.studio/write",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "content-length": "556531",
+        "x-cache-status": "C3-HIT",
+        "x-debug-host": "mmmmm.studio",
+        "server": "Cargo"
+      },
+      "missing_policy_headers": [
+        "content-security-policy",
+        "content-security-policy-report-only",
+        "reporting-endpoints",
+        "referrer-policy",
+        "permissions-policy",
+        "x-content-type-options",
+        "x-frame-options",
+        "strict-transport-security"
+      ]
+    }
+  ],
+  "http_redirect": {
+    "url": "http://mmmmm.studio/",
+    "status": 301,
+    "location": "https://mmmmm.studio/",
+    "server": "Cargo"
+  },
+  "freight_samples": [
+    {
+      "kind": "v7-embed",
+      "url": "https://freight.cargo.site/m/Z3031274916472238420423367767865/coffee-cup-bundle.html",
+      "status": 200,
+      "content_type": "text/html",
+      "observed_headers": {
+        "content-type": "text/html",
+        "date": "Sun, 12 Jul 2026 22:03:45 GMT",
+        "content-encoding": "gzip",
+        "etag": "W/\"6a540f40-be835\"",
+        "server": "nginx",
+        "last-modified": "Sun, 12 Jul 2026 22:03:44 GMT",
+        "cache-control": "max-age=31536000",
+        "access-control-expose-headers": "Access-Control-Allow-Origin",
+        "access-control-allow-origin": "*",
+        "vary": "Accept-Encoding",
+        "x-cache": "Hit from cloudfront",
+        "via": "1.1 71eaa9eb77c2eecb57c03cdcdad1cf76.cloudfront.net (CloudFront)",
+        "x-amz-cf-pop": "YTO50-P2",
+        "x-amz-cf-id": "Hab35z6r7LTS6urTSYp5rT8JFaacRbsrZrCrZz8Ff9M72P2-OA82FQ==",
+        "age": "878335"
+      },
+      "missing_policy_headers": [
+        "content-security-policy",
+        "content-security-policy-report-only",
+        "reporting-endpoints",
+        "referrer-policy",
+        "permissions-policy",
+        "x-content-type-options",
+        "x-frame-options",
+        "strict-transport-security"
+      ]
+    },
+    {
+      "kind": "touchbaes-embed",
+      "url": "https://freight.cargo.site/m/E3031754669080377521238157342521/touchbaes-sticker-game-v10.html",
+      "status": 200,
+      "content_type": "text/html",
+      "observed_headers": {
+        "content-type": "text/html",
+        "date": "Mon, 13 Jul 2026 05:22:43 GMT",
+        "content-encoding": "gzip",
+        "etag": "W/\"6a547623-bff4\"",
+        "server": "nginx",
+        "last-modified": "Mon, 13 Jul 2026 05:22:43 GMT",
+        "cache-control": "max-age=31536000",
+        "access-control-expose-headers": "Access-Control-Allow-Origin",
+        "access-control-allow-origin": "*",
+        "vary": "Accept-Encoding",
+        "x-cache": "Hit from cloudfront",
+        "via": "1.1 10f12ad63ad88e4e38e4e73deb3e9570.cloudfront.net (CloudFront)",
+        "x-amz-cf-pop": "YTO50-P2",
+        "x-amz-cf-id": "eirfcPPcYf4i32eGL8uZ_Df6SRpoPNOXj-zN2wnPk6Td0uh-Zn_VSA==",
+        "age": "851997"
+      },
+      "missing_policy_headers": [
+        "content-security-policy",
+        "content-security-policy-report-only",
+        "reporting-endpoints",
+        "referrer-policy",
+        "permissions-policy",
+        "x-content-type-options",
+        "x-frame-options",
+        "strict-transport-security"
+      ]
+    },
+    {
+      "kind": "montran-embed",
+      "url": "https://freight.cargo.site/m/U3034412351395654863674388559673/montran-booklet-direct-pdf-v17.html",
+      "status": 200,
+      "content_type": "text/html",
+      "observed_headers": {
+        "content-type": "text/html",
+        "date": "Tue, 14 Jul 2026 23:40:10 GMT",
+        "content-encoding": "gzip",
+        "etag": "W/\"6a56c8d9-1d8be4\"",
+        "server": "nginx",
+        "last-modified": "Tue, 14 Jul 2026 23:40:09 GMT",
+        "cache-control": "max-age=31536000",
+        "access-control-expose-headers": "Access-Control-Allow-Origin",
+        "access-control-allow-origin": "*",
+        "vary": "Accept-Encoding",
+        "x-cache": "Hit from cloudfront",
+        "via": "1.1 2ffb622580a0a24837f798fa62268b12.cloudfront.net (CloudFront)",
+        "x-amz-cf-pop": "YTO50-P2",
+        "x-amz-cf-id": "TUHMNsXt6JS3vZuQxV-hFJqMRB28nLtMKQIIvxC6l-ITnMTUuSawrA==",
+        "age": "699750"
+      },
+      "missing_policy_headers": [
+        "content-security-policy",
+        "content-security-policy-report-only",
+        "reporting-endpoints",
+        "referrer-policy",
+        "permissions-policy",
+        "x-content-type-options",
+        "x-frame-options",
+        "strict-transport-security"
+      ]
+    },
+    {
+      "kind": "montran-pdf",
+      "url": "https://freight.cargo.site/t/original/i/P3028590574867085520722012452665/montran_sustainability-report_2025_v4-web.pdf",
+      "status": 206,
+      "content_type": "application/pdf",
+      "content_range": "bytes 0-0/13634937",
+      "observed_headers": {
+        "content-type": "application/pdf",
+        "content-length": "1",
+        "date": "Sat, 11 Jul 2026 05:43:42 GMT",
+        "server": "nginx",
+        "last-modified": "Sat, 11 Jul 2026 05:43:42 GMT",
+        "cache-control": "max-age=31536000",
+        "etag": "\"6a51d80e-d00d79\"",
+        "access-control-expose-headers": "Access-Control-Allow-Origin",
+        "access-control-allow-origin": "*",
+        "x-cache": "Hit from cloudfront",
+        "via": "1.1 8e6145785e47042f882be946f6c05880.cloudfront.net (CloudFront)",
+        "x-amz-cf-pop": "YTO50-P2",
+        "x-amz-cf-id": "nEfZuPQAyLGqLKUcyx6Eo8vuSg0XzUADrFx2HWgQmMIjxdy6Ftu2Pg==",
+        "age": "1023538",
+        "content-range": "bytes 0-0/13634937"
+      },
+      "missing_policy_headers": [
+        "content-security-policy",
+        "content-security-policy-report-only",
+        "reporting-endpoints",
+        "referrer-policy",
+        "permissions-policy",
+        "x-content-type-options",
+        "x-frame-options",
+        "strict-transport-security"
+      ]
+    },
+    {
+      "kind": "v7-poster",
+      "url": "https://freight.cargo.site/t/original/i/F3031232775678612026122211735353/v7-cup-poster.png",
+      "status": 206,
+      "content_type": "image/png",
+      "content_range": "bytes 0-0/109092",
+      "observed_headers": {
+        "content-type": "image/png",
+        "content-length": "1",
+        "date": "Sun, 12 Jul 2026 21:55:30 GMT",
+        "accept-ranges": "none",
+        "server": "nginx",
+        "last-modified": "Sun, 12 Jul 2026 21:55:30 GMT",
+        "cache-control": "max-age=31536000",
+        "etag": "\"6a540d52-1aa24\"",
+        "access-control-expose-headers": "Access-Control-Allow-Origin",
+        "access-control-allow-origin": "*",
+        "x-cache": "Hit from cloudfront",
+        "via": "1.1 5a2f8eb373b5a17b769c0fee9b0725a6.cloudfront.net (CloudFront)",
+        "x-amz-cf-pop": "YTO50-P2",
+        "x-amz-cf-id": "s3wO2wl8qlBD0p_Rq3mQa2u0cB-T13XczL40eoAU7wOiHPHg4LUgeg==",
+        "age": "878830",
+        "content-range": "bytes 0-0/109092"
+      },
+      "missing_policy_headers": [
+        "content-security-policy",
+        "content-security-policy-report-only",
+        "reporting-endpoints",
+        "referrer-policy",
+        "permissions-policy",
+        "x-content-type-options",
+        "x-frame-options",
+        "strict-transport-security"
+      ]
+    },
+    {
+      "kind": "montran-video",
+      "url": "https://freight.cargo.site/t/original/i/C3026651793472485332597365847865/montran-icon-animation.mp4",
+      "status": 206,
+      "content_type": "video/mp4",
+      "content_range": "bytes 0-0/712303",
+      "observed_headers": {
+        "content-type": "video/mp4",
+        "content-length": "1",
+        "date": "Thu, 23 Jul 2026 01:40:06 GMT",
+        "access-control-allow-origin": "*",
+        "last-modified": "Thu, 23 Jul 2026 01:40:06 GMT",
+        "cache-control": "max-age=31536000, immutable",
+        "access-control-expose-headers": "access-control-allow-origin",
+        "x-cache": "Hit from cloudfront",
+        "via": "1.1 5fef2688877996791689cf17ab2832d0.cloudfront.net (CloudFront)",
+        "x-amz-cf-pop": "YTO50-P2",
+        "x-amz-cf-id": "f136mT-9LTBGTDTKeo90jcAiukno2gKqiZ89x2_Xl57obyvYLlcjNg==",
+        "age": "1354",
+        "content-range": "bytes 0-0/712303"
+      },
+      "missing_policy_headers": [
+        "content-security-policy",
+        "content-security-policy-report-only",
+        "reporting-endpoints",
+        "referrer-policy",
+        "permissions-policy",
+        "x-content-type-options",
+        "x-frame-options",
+        "strict-transport-security"
+      ]
+    }
+  ],
+  "dns_observation": {
+    "nameservers": [
+      "ns1.cargo.site",
+      "ns2.cargo.site"
+    ],
+    "ipv4": [
+      "3.215.100.79",
+      "3.234.189.133"
+    ]
+  },
+  "limitations": [
+    "This point-in-time observation does not prove that Cargo cannot add headers internally or through support.",
+    "Freight is a separate response owner; a first-party edge cannot rewrite freight.cargo.site responses.",
+    "No Cargo, Freight, DNS, repository payload, deployment, or publication state was changed."
+  ]
+}
