@@ -1,0 +1,195 @@
+{
+  "schema_version": 1,
+  "issue": "MMS-AUD-007",
+  "captured_at_utc": "2026-07-23T13:11:48Z",
+  "mode": "repository-implementation-verified",
+  "repository": {
+    "branch": "round-105/content-semantics-007",
+    "base_commit": "423c1c0",
+    "initial_manifest_guard_checkpoint": "e955dc4963b4690e45b690a36c01600c900c5dcc",
+    "working_tree_was_clean_before_evidence_write": false,
+    "note": "Round 105 implementation and focused coverage were already in progress in the shared working tree. No Cargo, Freight, Figma, deployment, publication, or protected-gold state changed."
+  },
+  "pre_implementation_source": {
+    "home": {
+      "images": 38,
+      "images_with_empty_alt": 35,
+      "images_with_nonempty_alt": 3,
+      "videos": 27,
+      "iframes": 3,
+      "figures": 12,
+      "named_figures": 0,
+      "explicit_accessibility_policy_owners": 0
+    },
+    "who": {
+      "videos": 2,
+      "explicit_accessibility_policy_owners": 0
+    },
+    "observed_failure": "Non-interactive media entered the accessibility tree with empty or loading-dependent browser fallback names, while all twelve existing project figures were unnamed."
+  },
+  "root_cause": {
+    "classification": "missing explicit content-semantics ownership",
+    "conclusion": "The source did not distinguish decorative portfolio media from interactive embeds and did not expose stable names for the existing project figure groups. Browser media loading state therefore affected the accessibility tree, and project groups had no stable accessible names."
+  },
+  "approved_content_decision": {
+    "non_interactive_media": "decorative because adjacent project or profile copy carries the meaning",
+    "home_decorative_media": {
+      "count": 65,
+      "images": 38,
+      "videos": 27
+    },
+    "who_decorative_videos": 2,
+    "interactive_iframes": [
+      {
+        "media_id": "v7-01",
+        "title": "V7 rotating coffee cup"
+      },
+      {
+        "media_id": "touchbaes-05",
+        "title": "touchbaes sticker game"
+      },
+      {
+        "media_id": "montran-01",
+        "title": "Montran sustainability report booklet"
+      }
+    ],
+    "named_project_figures": [
+      {
+        "band": "eviive",
+        "label": "EVIIVE"
+      },
+      {
+        "band": "v7",
+        "label": "V7 Labs"
+      },
+      {
+        "band": "touchbaes",
+        "label": "touchbaes"
+      },
+      {
+        "band": "mandy",
+        "label": "Mandy Ma & Co."
+      },
+      {
+        "band": "loop",
+        "label": "Loop Financial"
+      },
+      {
+        "band": "montran",
+        "label": "Montran"
+      },
+      {
+        "band": "anyday",
+        "label": "AnyDay Financial"
+      },
+      {
+        "band": "kelly",
+        "label": "Kelly’s Kelly"
+      },
+      {
+        "band": "curate",
+        "label": "Curate Health"
+      },
+      {
+        "band": "purelove",
+        "label": "PURE LOVE（純愛）"
+      },
+      {
+        "band": "deadgood",
+        "label": "Dead Good"
+      },
+      {
+        "band": "wtw",
+        "label": "WTW? (What’s the Word?)"
+      }
+    ],
+    "random_pics": "remains an unlabeled interlude rather than gaining project semantics",
+    "headings": "not introduced; heading hierarchy remains deferred to MMS-AUD-022"
+  },
+  "selected_implementation": {
+    "decorative_owner_contract": "data-a11y-policy=\"decorative\" plus aria-hidden=\"true\" on each non-interactive media owner",
+    "decorative_image_contract": "all decorative img alternatives are exact empty strings",
+    "interactive_embed_contract": "data-a11y-policy=\"interactive\" with the exact existing iframe title",
+    "project_group_contract": "the twelve existing mms-desc figures receive exact aria-label values without changing their elements or visible copy",
+    "generated_outputs": "canonical Home and Who bodycopies and standalone mirrors are regenerated from their templates"
+  },
+  "fail_closed_guards": {
+    "deployment_manifest": "cargo/deployment-manifest.json",
+    "validator": "cargo/validate-deployment-manifest.py",
+    "protected_inventory": [
+      "exact decorative media IDs and kind counts",
+      "exact interactive iframe IDs and titles",
+      "exact project figure order and labels",
+      "complete disjoint media ownership",
+      "zero Home headings under MMS-AUD-007",
+      "Random Pics remains a non-figure unlabeled interlude"
+    ],
+    "destructive_fixture_scope": [
+      "missing or changed decorative policy",
+      "missing aria-hidden",
+      "focusable or editable decorative owner",
+      "controlled decorative video",
+      "non-empty decorative image alternative",
+      "missing, changed, or hidden interactive iframe",
+      "missing or changed project figure label",
+      "Random Pics gains project semantics",
+      "Home gains heading semantics"
+    ]
+  },
+  "focused_browser_contract": {
+    "test": "audit/harness/src/portfolio-media-accessibility-test.mjs",
+    "viewports": [
+      {
+        "name": "compact",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "name": "expanded",
+        "width": 1440,
+        "height": 900
+      }
+    ],
+    "forced_media_failure": true,
+    "required_results": [
+      "zero decorative image or video accessibility roles",
+      "zero focusable decorative descendants",
+      "no Unable to play media fallback name",
+      "three exact interactive iframe names",
+      "twelve exact project figure names",
+      "no visual geometry, media-source, native-river, or runtime drift"
+    ],
+    "status": "PASS at compact 390x844 and expanded 1440x900, including forced media failures and negative semantic fixtures"
+  },
+  "full_phase2_verification": {
+    "command": "bash audit/scripts/validate-phase2.sh",
+    "status": "PASS",
+    "results": [
+      "122 of 122 frozen Phase 1 artifacts verified",
+      "471-asset inventory current",
+      "480 protected compact and expanded gold states plus screenshots and interactions passed",
+      "EVIIVE final-pair geometry passed at four expanded and five compact viewports",
+      "Touchbaes iPad readiness and visible-rig lifecycle passed",
+      "Montran approved-PDF range loading, rendering, and page turns passed",
+      "75 deployment-manifest destructive fixtures rejected",
+      "runtime root replacement passed with zero stale element listeners and zero page overflow"
+    ]
+  },
+  "audit_harness_stabilization": {
+    "scope": "audit-only; no Cargo, embed, media, runtime, layout, or visual source changed",
+    "touchbaes": "pointer input uses the sticker current main-frame bounding box after scroll and two animation frames",
+    "montran": "the fixture iframe is brought into view before the unchanged 30-second initial-raster assertion",
+    "iframe_capability_result": "PASS in six consecutive complete focused runs and in the complete Phase 2 gate",
+    "proof_input_sha256": "de39fbd7eaf9370c355be68b9493301ca445490d3e34e51a284f82f1becf0cde"
+  },
+  "protected_behavior": [
+    "No CSS, JavaScript, layout geometry, media URL or payload, media dimensions, media fit, native-river behavior, control-panel behavior, WTW geometry, Withered Green rotation, Touchbaes behavior, Montran behavior, or visible copy changed.",
+    "The protected gold directory and frozen Round 69/Round 80 evidence remain unchanged.",
+    "No Cargo, Freight, Figma, draft deployment, public deployment, or publication action occurred."
+  ],
+  "limitations": [
+    "This is repository source and deterministic Chromium coverage, not a physical screen-reader or physical Safari session.",
+    "Random Pics naming and the broader heading hierarchy remain intentionally outside this issue and must be resolved under MMS-AUD-022.",
+    "A future Cargo activation requires separate complete-save, reload-persistence, and public verification."
+  ]
+}

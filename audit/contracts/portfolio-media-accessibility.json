@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "issue_id": "MMS-AUD-007",
+  "status": "repository-browser-contract",
+  "decision": {
+    "non_interactive_media": "decorative",
+    "meaning_source": "adjacent project or profile copy",
+    "project_figures": "named groups without heading semantics",
+    "interactive_iframes": "retain exact stable titles",
+    "random_pics": "no project figure or heading label",
+    "heading_hierarchy_issue": "MMS-AUD-022"
+  },
+  "scope": {
+    "canonical_sources": {
+      "home": [
+        "cargo/home.template.html",
+        "cargo/home.html",
+        "cargo/test.html"
+      ],
+      "who": [
+        "cargo/who.template.html",
+        "cargo/who.html",
+        "cargo/who-test.html"
+      ]
+    },
+    "deployment_manifest": "cargo/deployment-manifest.json",
+    "home": {
+      "decorative_media_ids": [
+        "eviive-01",
+        "eviive-02",
+        "eviive-03",
+        "eviive-04",
+        "eviive-05",
+        "eviive-06",
+        "v7-02",
+        "v7-03",
+        "v7-04",
+        "v7-05",
+        "v7-06",
+        "touchbaes-01",
+        "touchbaes-02",
+        "touchbaes-03",
+        "touchbaes-04",
+        "touchbaes-06",
+        "touchbaes-07",
+        "mandy-01",
+        "mandy-02",
+        "mandy-03",
+        "mandy-04",
+        "mandy-05",
+        "mandy-06",
+        "mandy-07",
+        "loop-01",
+        "loop-02",
+        "loop-03",
+        "loop-04",
+        "loop-05",
+        "montran-02",
+        "montran-03",
+        "montran-04",
+        "montran-05",
+        "montran-06",
+        "anyday-01",
+        "anyday-02",
+        "anyday-03",
+        "anyday-04",
+        "anyday-05",
+        "kelly-01",
+        "kelly-02",
+        "kelly-03",
+        "kelly-04",
+        "curate-01",
+        "curate-02",
+        "curate-03",
+        "curate-04",
+        "randompics-01",
+        "purelove-01",
+        "purelove-02",
+        "purelove-03",
+        "purelove-04",
+        "purelove-05",
+        "deadgood-01",
+        "deadgood-02",
+        "deadgood-03",
+        "deadgood-04",
+        "deadgood-05",
+        "wtw-01",
+        "wtw-02",
+        "wtw-03",
+        "wtw-04",
+        "wtw-05",
+        "wtw-06",
+        "wtw-07"
+      ],
+      "interactive_iframes": [
+        {
+          "media_id": "v7-01",
+          "title": "V7 rotating coffee cup"
+        },
+        {
+          "media_id": "touchbaes-05",
+          "title": "touchbaes sticker game"
+        },
+        {
+          "media_id": "montran-01",
+          "title": "Montran sustainability report booklet"
+        }
+      ],
+      "project_figures": [
+        {
+          "band": "eviive",
+          "label": "EVIIVE"
+        },
+        {
+          "band": "v7",
+          "label": "V7 Labs"
+        },
+        {
+          "band": "touchbaes",
+          "label": "touchbaes"
+        },
+        {
+          "band": "mandy",
+          "label": "Mandy Ma & Co."
+        },
+        {
+          "band": "loop",
+          "label": "Loop Financial"
+        },
+        {
+          "band": "montran",
+          "label": "Montran"
+        },
+        {
+          "band": "anyday",
+          "label": "AnyDay Financial"
+        },
+        {
+          "band": "kelly",
+          "label": "Kelly’s Kelly"
+        },
+        {
+          "band": "curate",
+          "label": "Curate Health"
+        },
+        {
+          "band": "purelove",
+          "label": "PURE LOVE（純愛）"
+        },
+        {
+          "band": "deadgood",
+          "label": "Dead Good"
+        },
+        {
+          "band": "wtw",
+          "label": "WTW? (What’s the Word?)"
+        }
+      ],
+      "unlabelled_interlude_band": "randompics"
+    },
+    "who": {
+      "decorative_media_ids": [
+        "who-ocean",
+        "who-alvis"
+      ]
+    }
+  },
+  "saved_source_contract": {
+    "decorative_policy_attribute": "data-a11y-policy",
+    "decorative_policy_value": "decorative",
+    "decorative_hidden_attribute": "aria-hidden",
+    "decorative_hidden_value": "true",
+    "interactive_policy_attribute": "data-a11y-policy",
+    "interactive_policy_value": "interactive",
+    "home_decorative_media": 65,
+    "home_decorative_images": 38,
+    "home_decorative_videos": 27,
+    "who_decorative_videos": 2,
+    "interactive_iframes": 3,
+    "named_project_figures": 12,
+    "home_headings": 0
+  },
+  "browser_contract": {
+    "viewports": [
+      {
+        "name": "compact",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "name": "expanded",
+        "width": 1440,
+        "height": 900
+      }
+    ],
+    "forced_media_failure": true,
+    "expected_focusable_decorative_descendants": 0,
+    "forbidden_accessible_names": [
+      "Unable to play media."
+    ],
+    "expected_decorative_image_video_roles": 0,
+    "expected_interactive_iframe_names": 3,
+    "expected_project_figure_names": 12
+  },
+  "negative_controls": [
+    "missing decorative policy",
+    "missing aria-hidden",
+    "focusable decorative owner",
+    "editable decorative owner",
+    "controlled decorative video",
+    "non-empty decorative image alternative",
+    "missing or changed iframe title",
+    "hidden interactive iframe",
+    "missing or changed project figure label",
+    "Random Pics gains project semantics",
+    "Home gains heading semantics under MMS-AUD-007"
+  ],
+  "verification": {
+    "focused_script": "npm --prefix audit/harness run portfolio-media-accessibility-test",
+    "phase2_script": "audit/scripts/validate-phase2.sh",
+    "requires_zero_visual_change": true,
+    "requires_no_deployment_or_publication": true
+  }
+}

@@ -1808,3 +1808,41 @@ agent needs to continue this project without the prior chat history.
   remain later promotion checks. The public site still uses lifecycle-1 until
   the lifecycle-2 payload receives a separate authorized Cargo deployment and
   reload verification.
+
+## Current handoff — Round 105 portfolio content semantics (2026-07-23)
+- Round 105 implements the repository content decision for `MMS-AUD-007` on
+  `round-105/content-semantics-007`. It changes semantic attributes and
+  generated Home/Who mirrors only; it changes no CSS, runtime, visible copy,
+  layout or media geometry, media URL/payload, native river, Cargo/Freight/
+  Figma/public state, or protected gold. Nothing is deployed or published.
+- Preserve exact decorative ownership for 65 Home media owners and the two Who
+  profile-video owners:
+  `data-a11y-policy="decorative"` plus `aria-hidden="true"`. All 38 decorative
+  Home images keep exact `alt=""`. Their meaning remains in adjacent project
+  or profile copy; do not add loading-dependent or bulk-generated alternatives.
+- Preserve the three interactive Home iframe owners and their exact titles:
+  `V7 rotating coffee cup`, `touchbaes sticker game`, and
+  `Montran sustainability report booklet`. They must not become hidden or
+  decorative.
+- Preserve the ordered accessible names on the twelve existing project
+  figures: EVIIVE, V7 Labs, touchbaes, Mandy Ma & Co., Loop Financial,
+  Montran, AnyDay Financial, Kelly’s Kelly, Curate Health,
+  PURE LOVE（純愛）, Dead Good, and WTW? (What’s the Word?). Do not introduce
+  headings or a Random Pics project label in this round; those decisions remain
+  deferred to `MMS-AUD-022`.
+- Keep the deployment-manifest content-semantics inventory, all destructive
+  validator fixtures, `audit/contracts/portfolio-media-accessibility.json`,
+  the dated root-cause evidence, the focused npm entrypoint, and exactly one
+  Phase 2 invocation. The focused browser proof must continue covering compact
+  390x844 and expanded 1440x900 with forced media failure.
+- Focused and complete Phase 2 verification pass. The final full run preserves
+  the frozen 122-artifact baseline, 480 compact/expanded gold states and
+  interactions, native rivers, WTW, Withered Green, EVIIVE final-pair
+  geometry, Touchbaes readiness and visible-rig lifecycle, Montran range
+  rendering and turns, root replacement, and zero page overflow.
+- Preserve the audit-only iframe stabilization in
+  `iframe-capability-test.mjs`: Touchbaes input is measured in current
+  main-frame coordinates after settlement, and Montran is brought into view
+  before the unchanged 30-second initial-raster assertion. Its reviewed proof
+  hash is pinned in `iframe-capability-matrix.json`. No product/embed visual
+  source changed.
