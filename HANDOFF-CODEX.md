@@ -1696,3 +1696,32 @@ agent needs to continue this project without the prior chat history.
 - The focused contract and complete Phase 2 suite pass, including 122/122
   frozen hashes, both 240-state gold matrices, native-river interaction, all
   embed and lifecycle proofs, and 38 rejected deployment mutations.
+
+## Current handoff — Round 101 document-language contract (2026-07-22)
+- `MMS-AUD-004` is closed at the repository/runtime boundary on
+  `round-101/document-language-contract`. It is a visually neutral language
+  declaration only; no Cargo editor, Freight, Figma, public site, layout,
+  media, or interaction state was changed, and nothing was published.
+- Preserve exact root language `en`. `cargo/site-head.html` must set it before
+  the pathname gate and retain `data-mms-document-language="en"`.
+  `cargo/shared-early-init.html` must set it before
+  `window.__mmsEarlyPreviewStarted` returns, so duplicate Cargo execution and
+  body-only fallback remain safe.
+- Preserve literal `lang="en"` in all deterministic standalone wrappers and
+  exactly one `lang="yue-Hant"` override in the Write template, generated
+  bodycopy, and standalone mirror. Do not move document-language ownership to
+  `panel.js` or root-runtime teardown; the document element outlives the
+  replaceable `.mms` root.
+- Keep `audit/contracts/document-language.json`, the dated root-cause evidence,
+  the `document-language-test` npm entrypoint, and its single Phase 2
+  invocation. The proof covers Home/Who/Write at compact and expanded widths,
+  seven canonical/alias/trailing-slash head fixtures, body-only fallback,
+  rerun after the one-shot guard, and three root-language Axe rules.
+- Round 99 privacy source hashes were refreshed only because the shared
+  initializer, head, and generated bodycopies gained this semantic line. Its
+  storage, request, service, link, and disclosure contracts are unchanged.
+- Focused and full Phase 2 verification pass with protected visual matrices,
+  native rivers, WTW, Withered Green, embeds, and lifecycle behavior intact.
+  A later Cargo deployment remains separately authorized and must be saved,
+  reloaded, and verified before any public claim that the live routes expose
+  `lang="en"`.

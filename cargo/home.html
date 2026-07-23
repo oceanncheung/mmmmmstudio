@@ -1,5 +1,7 @@
 <script id="mms-early-viewport-init">
 (function () {
+  document.documentElement.setAttribute('lang', 'en');
+
   /* Cargo can execute the same bodycopy once during initial parsing and again
      during hydration. Only the first initializer owns this refresh sequence. */
   if (window.__mmsEarlyPreviewStarted) return;

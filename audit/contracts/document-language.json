@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "issue_id": "MMS-AUD-004",
+  "status": "repository-runtime-fallback-active",
+  "root_language": "en",
+  "scope": {
+    "pages": {
+      "home": "cargo/test.html",
+      "who": "cargo/who-test.html",
+      "write": "cargo/write-test.html"
+    },
+    "canonical_bodycopies": [
+      "cargo/home.html",
+      "cargo/who.html",
+      "cargo/write.html"
+    ],
+    "standalone_mirrors": [
+      "cargo/test.html",
+      "cargo/who-test.html",
+      "cargo/write-test.html"
+    ],
+    "head_fixture_routes": [
+      "/",
+      "/who",
+      "/write",
+      "/home",
+      "/information",
+      "/who/",
+      "/write/"
+    ],
+    "root_cause_evidence": "audit/findings/evidence/2026-07-23-round101-document-language-root-cause.json"
+  },
+  "implementation_contract": {
+    "site_settings_head": {
+      "path": "cargo/site-head.html",
+      "marker": "data-mms-document-language=\"en\"",
+      "setter": "document.documentElement.setAttribute('lang', 'en');",
+      "setter_precedes": "var path = window.location.pathname"
+    },
+    "shared_body_fallback": {
+      "path": "cargo/shared-early-init.html",
+      "setter": "document.documentElement.setAttribute('lang', 'en');",
+      "setter_precedes": "if (window.__mmsEarlyPreviewStarted) return;"
+    },
+    "standalone_root_attribute": "lang=\"en\"",
+    "write_descendant_override": {
+      "language": "yue-Hant",
+      "expected_count": 1,
+      "sources": [
+        "cargo/write.template.html",
+        "cargo/write.html",
+        "cargo/write-test.html"
+      ]
+    }
+  },
+  "browser_contract": {
+    "viewports": {
+      "compact": {
+        "width": 390,
+        "height": 844
+      },
+      "expanded": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    "axe_rules": [
+      "html-has-lang",
+      "html-lang-valid",
+      "html-xml-lang-mismatch"
+    ],
+    "expected_root_language": "en",
+    "expected_axe_violations": 0,
+    "body_only_fallback": {
+      "remove_standalone_root_attribute": true,
+      "rerun_shared_initializer_after_one_shot_guard": true,
+      "expected_root_language": "en"
+    }
+  },
+  "negative_controls": [
+    "external script source",
+    "inert script type",
+    "missing root language setter",
+    "comment-only root language marker",
+    "prefixed root language marker attribute",
+    "value-only root language marker",
+    "commented root language setter",
+    "string-literal root language setter",
+    "block-comment root language setter",
+    "template-literal root language setter",
+    "incorrect root language marker",
+    "head setter after route gate",
+    "body fallback after one-shot guard",
+    "missing Write yue-Hant override",
+    "duplicate Write yue-Hant override",
+    "incorrect Write descendant language"
+  ],
+  "verification": {
+    "focused_script": "npm --prefix audit/harness run document-language-test",
+    "phase2_script": "audit/scripts/validate-phase2.sh",
+    "requires_zero_visual_change": true,
+    "requires_no_deployment_or_publication": true
+  },
+  "limitations": [
+    "Repository Chromium proves deterministic local documents and initializer order; a later Cargo save and assistive-technology session remain separately reload-gated.",
+    "The public site remains unchanged until a separately authorized Cargo deployment and publication."
+  ]
+}

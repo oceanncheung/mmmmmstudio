@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 PAGES = {"home": "test.html", "who": "who-test.html", "write": "write-test.html"}
 PREFIX = (
-    b'<!doctype html><html data-theme="white" data-face="serif" data-scale="m" '
+    b'<!doctype html><html lang="en" data-theme="white" data-face="serif" data-scale="m" '
     b'data-shape="straight"><head><meta charset="utf-8"><meta name="viewport" '
     b'content="width=device-width, initial-scale=1, viewport-fit=cover"><title>mms test</title><style>\n'
 )

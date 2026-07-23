@@ -39,17 +39,17 @@ EXPECTED_RUNTIME_SOURCES = (
     "cargo/site.css",
 )
 EXPECTED_SOURCE_HASHES = {
-    "cargo/shared-early-init.html": "dbf6cb8d87f7ba7cbe1014520032bfcaab3943da73fd090ed2003e35bd1c9ecb",
+    "cargo/shared-early-init.html": "18e4cf5c9ddd362d3e9f6e96696d7516373f07af0866ddd8761408b0c01c1197",
     "cargo/panel.js": "66532ec0dde7d2b36ee4dba43f0a7cd0021f5155dfffdc44fc556a034db408f7",
     "cargo/home.template.html": "7d9446d75174c6096c268d3d46fb72d8972d50e75540e241c83a7f47bc88041e",
     "cargo/who.template.html": "1eb7e7aa4e3ae37ac2da9793f63e52b76e8d3bb92f60b0dd0b9b523a3f2c0e21",
     "cargo/write.template.html": "348a820f9d24755cad7dbdfa4ab8c0016d585d60b745737b819df7c823a02608",
     "cargo/shared-nav-items.html": "0f5ab94a8b59380ded80de9931af08d9072396a24411038254d6f245ba453361",
     "cargo/home-extras.html": "0cb6c73ece86b3d27b7f8572174867a206c67d06701ad204d253cd1c7bd07992",
-    "cargo/site-head.html": "d677c1a7e81a20482d1aa02959284f51775f0fe39411521ef91d9a972657fd56",
-    "cargo/home.html": "e8cb08d494803d08679e87d7ecb37cc315632737eda1f0fd0422aca707b0a0c2",
-    "cargo/who.html": "903c804e0e046c51b41e6f1955b27bd78f8b47791e0832d494bef9a8cc35c80f",
-    "cargo/write.html": "65a9fb576c1673406a168962b52b96035405f9c26fb7405717b485fc797c9eae",
+    "cargo/site-head.html": "fdb1bc6a7d2b6ad36b054a36f2e42c6d2d15401f4c29e4121efeeb1d96ffd71d",
+    "cargo/home.html": "cf73e9d14fbbed5f34476663b8b505c96cf9155a0ac0b25b5b69c061c41e1704",
+    "cargo/who.html": "d94edb7c90b47135ea35b92924258a22fa3a4e841d14a2402754f8f40ca321b0",
+    "cargo/write.html": "c16479bb9d11a60b2dd4fc119377b7d380a7e06fbb49decd8677225a96affddb",
     "cargo/tokens.css": "70178291f00dfeacaae9fc7c0fde2d7f444cb26456d969b7d2523d0274a71d98",
     "cargo/site.css": "aa61fcbf580714e09a0d855a208ce5c213d0ada29885fe5abbdf6c6d8dbe1875",
 }

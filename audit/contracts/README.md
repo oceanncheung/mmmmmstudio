@@ -136,3 +136,25 @@ Axe's `aria-allowed-attr` rule, preserves the separate scrollbar semantics,
 and exercises compact touch panning plus expanded native horizontal wheel
 scrolling. The contaminated fixture is expected to reproduce 12 Axe nodes; it
 is proof that the source gate is necessary, not a runtime self-healing path.
+
+## Document language
+
+`document-language.json` closes the repository runtime path for
+`MMS-AUD-004`. The MM.S root language is exact `en`: the site-settings head
+sets it before route gating, the shared body initializer reasserts it before
+its one-shot guard, and deterministic standalone mirrors declare it on their
+root element. The Write page keeps exactly one narrower `yue-Hant` paragraph
+override.
+
+`document-language-test.mjs` checks Home, Who, and Write at compact and
+expanded viewports with Axe's `html-has-lang`, `html-lang-valid`, and
+`html-xml-lang-mismatch` rules. It also exercises every canonical, alias, and
+trailing-slash head route plus a body-only Cargo fallback and a repeated
+initializer after the one-shot guard. Deployment-manifest negative fixtures
+reject an external/inert script, missing, duplicated, invalid or
+prefixed/value-only marker, line/block-commented setter, quoted/template
+setter, or post-route-gate declaration.
+
+This is a visually neutral repository/runtime correction. Cargo and the
+public site remain unchanged until a separately authorized deployment is
+saved, reloaded, and verified.

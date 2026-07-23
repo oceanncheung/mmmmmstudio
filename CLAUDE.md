@@ -2626,3 +2626,26 @@ current source of truth for the built site.
   state, or protected gold file. Nothing is deployed or published.
 - The focused river-ARIA contract and complete Phase 2 suite pass, including
   both 240-state gold matrices and all protected interaction/lifecycle gates.
+
+## Current state — Round 101 document language
+- The repository implementation for `MMS-AUD-004` declares exact root language
+  `en` without changing visual geometry. The site head owns the earliest
+  assignment before route gating; the shared body initializer reasserts it
+  before its duplicate-execution guard; standalone mirrors also carry literal
+  `lang="en"`.
+- Preserve exactly one narrower `lang="yue-Hant"` paragraph override in every
+  Write source. Never move document-language cleanup into the `.mms` runtime
+  teardown because the document root is outside that replaceable lifecycle.
+- Keep `audit/contracts/document-language.json`, its dated root-cause evidence,
+  the focused browser test, deployment-manifest language guard, and single
+  Phase 2 invocation. The browser proof must continue covering Home, Who, and
+  Write at 390x844 and 1440x900, all seven head route forms, body-only and
+  repeated initialization, and zero failures in the three root-language Axe
+  rules.
+- This round regenerated canonical bodycopies and mirrors and refreshed only
+  the affected Round 99 privacy source identities. It did not change privacy
+  behavior, CSS, panel logic, media, native rivers, WTW, Withered Green,
+  Freight, Figma, Cargo draft/public state, or protected gold evidence.
+- Nothing is deployed or published. Live Cargo/public language verification
+  remains a separate promotion gate after an explicitly authorized save and
+  reload.

@@ -22,7 +22,7 @@ build_page() {
 
   ./validate-cargo-payload.sh bodycopy "$body"
   {
-    echo '<!doctype html><html data-theme="white" data-face="serif" data-scale="m" data-shape="straight"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>mms test</title><style>'
+    echo '<!doctype html><html lang="en" data-theme="white" data-face="serif" data-scale="m" data-shape="straight"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>mms test</title><style>'
     cat tokens.css
     echo '</style><style>'
     cat site.css

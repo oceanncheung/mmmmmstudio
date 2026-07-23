@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "issue": "MMS-AUD-004",
+  "captured_at_utc": "2026-07-23T03:24:32.300Z",
+  "mode": "read-only-root-cause-observation",
+  "repository": {
+    "branch": "round-101/document-language-contract",
+    "commit": "a3239a9e916346e467867e0f9e7a6cf9fe1514ac",
+    "working_tree_was_clean_before_evidence_write": false,
+    "note": "Implementation work for Round 101 was already in progress in the shared working tree. This observation changed no production, Cargo, Figma, Freight, deployment, or publication state."
+  },
+  "current_public_routes": {
+    "http_source_observation": {
+      "request_method": "urllib GET with redirects and a browser user agent",
+      "response_bytes_read_limit": 300000,
+      "routes": [
+        {
+          "classification": "canonical-home",
+          "requested_url": "https://mmmmm.studio/",
+          "status": 200,
+          "final_url": "https://mmmmm.studio/",
+          "root_start_tag": "<html class=\"wf-initial-load\">"
+        },
+        {
+          "classification": "canonical-write",
+          "requested_url": "https://mmmmm.studio/write",
+          "status": 200,
+          "final_url": "https://mmmmm.studio/write",
+          "root_start_tag": "<html class=\"wf-initial-load\">"
+        },
+        {
+          "classification": "canonical-who",
+          "requested_url": "https://mmmmm.studio/who",
+          "status": 200,
+          "final_url": "https://mmmmm.studio/who",
+          "root_start_tag": "<html class=\"wf-initial-load\">"
+        },
+        {
+          "classification": "home-alias",
+          "requested_url": "https://mmmmm.studio/home",
+          "status": 200,
+          "final_url": "https://mmmmm.studio/home",
+          "root_start_tag": "<html class=\"wf-initial-load\">"
+        },
+        {
+          "classification": "home-alias",
+          "requested_url": "https://mmmmm.studio/information",
+          "status": 200,
+          "final_url": "https://mmmmm.studio/information",
+          "root_start_tag": "<html class=\"wf-initial-load\">"
+        },
+        {
+          "classification": "write-trailing-slash",
+          "requested_url": "https://mmmmm.studio/write/",
+          "status": 200,
+          "final_url": "https://mmmmm.studio/write/",
+          "root_start_tag": "<html class=\"wf-initial-load\">"
+        },
+        {
+          "classification": "who-trailing-slash",
+          "requested_url": "https://mmmmm.studio/who/",
+          "status": 200,
+          "final_url": "https://mmmmm.studio/who/",
+          "root_start_tag": "<html class=\"wf-initial-load\">"
+        }
+      ],
+      "interpretation": "Every observed HTTP document root omitted a lang attribute."
+    },
+    "settled_dom_observation": {
+      "browser": "Playwright Chromium using the installed Google Chrome executable",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "device_pixel_ratio": 1
+      },
+      "settle_delay_ms_after_domcontentloaded": 2500,
+      "routes": [
+        {
+          "url": "https://mmmmm.studio/",
+          "document_element_lang_attribute": null,
+          "mms_roots": 1,
+          "title": "MM.S"
+        },
+        {
+          "url": "https://mmmmm.studio/write",
+          "document_element_lang_attribute": null,
+          "mms_roots": 1,
+          "title": "write — MM.S"
+        },
+        {
+          "url": "https://mmmmm.studio/who",
+          "document_element_lang_attribute": null,
+          "mms_roots": 1,
+          "title": "who — MM.S"
+        },
+        {
+          "url": "https://mmmmm.studio/home",
+          "document_element_lang_attribute": null,
+          "mms_roots": 1,
+          "title": "MM.S"
+        },
+        {
+          "url": "https://mmmmm.studio/information",
+          "document_element_lang_attribute": null,
+          "mms_roots": 1,
+          "title": "MM.S"
+        },
+        {
+          "url": "https://mmmmm.studio/write/",
+          "document_element_lang_attribute": null,
+          "mms_roots": 1,
+          "title": "write — MM.S"
+        },
+        {
+          "url": "https://mmmmm.studio/who/",
+          "document_element_lang_attribute": null,
+          "mms_roots": 1,
+          "title": "who — MM.S"
+        }
+      ],
+      "interpretation": "Cargo did not add or repair a document language during hydration or after the MM.S runtime settled."
+    },
+    "navigation_observation": {
+      "path": "Home compact navigation to Write",
+      "main_frame_navigation_events_including_initial_navigation": 2,
+      "window_probe_survived": false,
+      "document_element_probe_survived": false,
+      "destination_navigation_type": "navigate",
+      "destination_lang": "",
+      "interpretation": "The observed route click created a new document rather than replacing only the MM.S root. The early head initializer therefore runs for each normal route navigation; MM.S root lifecycle teardown must not own the document language."
+    }
+  },
+  "current_local_sources_before_round101_implementation": {
+    "standalone_wrapper": {
+      "path": "cargo/assemble-test.sh",
+      "root_start_tag": "<html data-theme=\"white\" data-face=\"serif\" data-scale=\"m\" data-shape=\"straight\">",
+      "has_root_lang": false
+    },
+    "standalone_mirror_prefix": {
+      "path": "cargo/validate-test-mirrors.py",
+      "has_root_lang": false
+    },
+    "site_settings_head": {
+      "path": "cargo/site-head.html",
+      "has_document_language_setter": false,
+      "route_gate_exact_paths": [
+        "/",
+        "/write",
+        "/who"
+      ],
+      "gate_does_not_explicitly_match": [
+        "/home",
+        "/information",
+        "/write/",
+        "/who/"
+      ]
+    },
+    "shared_early_body_initializer": {
+      "path": "cargo/shared-early-init.html",
+      "has_document_language_setter": false,
+      "one_shot_guard_precedes_document_element_capture": true
+    },
+    "generated_bodycopies": {
+      "cargo/home.html": {
+        "has_document_language_setter": false,
+        "descendant_language_override_count": 0
+      },
+      "cargo/who.html": {
+        "has_document_language_setter": false,
+        "descendant_language_override_count": 0
+      },
+      "cargo/write.html": {
+        "has_document_language_setter": false,
+        "descendant_language_override_count": 1,
+        "preserved_override": "<p lang=\"yue-Hant\">"
+      }
+    }
+  },
+  "language_decision": {
+    "root_language": "en",
+    "reason": "Home, Who, and the surrounding Write interface and prose are English. The Cantonese passage on Write already supplies the narrower yue-Hant override and must retain it.",
+    "write_descendant_override": "yue-Hant",
+    "zero_visual_effect": true
+  },
+  "root_cause": {
+    "classification": "missing site-level semantic declaration",
+    "conclusion": "Neither Cargo's HTTP root, the shared Site Settings head initializer, the shared early body initializer, nor the deterministic standalone wrapper declared the MM.S document language. Cargo hydration did not infer one. The omission therefore reproduces in canonical, alias, and trailing-slash public routes as well as local deterministic fixtures."
+  },
+  "safest_visual_neutral_implementation": {
+    "recommendation": [
+      "Set document.documentElement.lang to exact en at the start of cargo/site-head.html, before its current pathname gate, so every MM.S canonical, alias, and trailing-slash document receives the language before body rendering.",
+      "Reassert exact en in cargo/shared-early-init.html before the one-shot preview guard, so duplicate Cargo bodycopy execution and body-only local contexts cannot retain an empty language.",
+      "Add lang=\"en\" to the deterministic standalone HTML wrapper and its exact mirror prefix.",
+      "Do not add document language ownership or teardown to cargo/panel.js; that runtime owns the replaceable .mms root, not the document element.",
+      "Preserve the existing Write paragraph lang=\"yue-Hant\" override."
+    ],
+    "protected_behavior": [
+      "No visual or layout change.",
+      "No native-river, WTW, Withered Green, panel, media, or route interaction change.",
+      "No Cargo, Freight, Figma, deployment, publication, or protected-gold change."
+    ]
+  },
+  "verification_requirements": {
+    "static": [
+      "The Site Settings head setter uses exact en and precedes its pathname gate.",
+      "The shared early-body fallback uses exact en and precedes the one-shot guard.",
+      "Each generated Home, Who, and Write bodycopy contains exactly one shared fallback.",
+      "All three standalone test roots contain exact lang=\"en\".",
+      "Write retains exactly one lang=\"yue-Hant\" descendant override.",
+      "Missing, empty, incorrect, post-gate, and removed-yue-Hant negative fixtures fail closed."
+    ],
+    "browser": [
+      "Home, Who, and Write at 390x844 and 1440x900 report document.documentElement.lang === \"en\".",
+      "Axe reports zero html-has-lang, html-lang-valid, and html-xml-lang-mismatch violations.",
+      "Canonical, alias, and trailing-slash public routes report exact en both at DOMContentLoaded and after the runtime settles.",
+      "The existing gold parity, root lifecycle, native-river, media, and interaction suites remain unchanged."
+    ]
+  },
+  "limitations": [
+    "The settled public observation used Chromium on macOS, not physical Safari, a screen reader, or another assistive-technology session.",
+    "The raw HTTP probe intentionally read only the first 300000 response bytes; the document root start tag was within that prefix.",
+    "The route-lifecycle observation directly exercised Home to Write only. The independent direct-load observations covered every listed canonical, alias, and trailing-slash route.",
+    "The live public results are point-in-time observations and can change after a later publication.",
+    "The implementation recommendation assumes the MM.S Cargo site is English at the root; any future non-English top-level route must declare its own correct language.",
+    "Implementation files were already changing concurrently in the shared working tree; this evidence records the read-only pre-implementation observations rather than claiming those in-progress files were unchanged."
+  ]
+}

@@ -5002,3 +5002,42 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   includes 122/122 frozen hashes, both 240-state gold matrices, native rivers,
   WTW and Withered Green, Touchbaes/iPad and Montran behavior, iframe proofs,
   root replacement, source purity, and all 38 deployment-negative fixtures.
+
+## Round 101 (2026-07-22): document-language contract — REPOSITORY RUNTIME / NOT DEPLOYED
+- Closed the repository implementation path for `MMS-AUD-004` without a CSS,
+  layout, media, interaction, Figma, Freight, Cargo draft, or public-site
+  change. The protected `gold-2026-07-21-responsive-70` baseline and frozen
+  Round 69/Round 80 evidence remain unchanged.
+- Fresh read-only evidence confirmed that the canonical Home, Who, and Write
+  routes, `/home` and `/information` aliases, and Who/Write trailing-slash
+  routes all omitted a root language in both raw public source and settled
+  Chromium DOM. Cargo hydration did not infer one.
+- `cargo/site-head.html` now sets exact `en` before its pathname gate and
+  exposes a matching `data-mms-document-language="en"` marker.
+  `cargo/shared-early-init.html` reasserts the same language before its
+  one-shot guard so a repeated Cargo body initialization or body-only context
+  cannot retain an empty root language. Standalone mirrors declare literal
+  `lang="en"`; the Write page retains exactly one `lang="yue-Hant"` passage.
+- Extended the deployment manifest and validator to pin the language marker
+  on the actual opening script tag, one executable setter line, and
+  pre-route-gate ordering. Fifteen head mutations, including external/inert
+  script, attribute-name, attribute-value, line/block comment, and
+  string/template-only bypass
+  attempts, and an
+  invalid manifest language join the existing fail-closed deployment
+  fixtures. Regenerated Home, Who, Write, and their standalone mirrors through
+  the canonical assembler.
+- Added `audit/contracts/document-language.json` and
+  `document-language-test.mjs`. The focused Chromium proof covers all three
+  routes at 390x844 and 1440x900, the three root-language Axe rules, seven
+  head-route fixtures, body-only initialization, repeated initialization after
+  the one-shot guard, and the preserved Cantonese descendant override.
+- Round 99's privacy evidence and validator received identity-only hash
+  refreshes for the five language-bearing runtime/bodycopy files; its storage,
+  service, and disclosure findings are unchanged.
+- Focused verification and the complete Phase 2 suite pass. The full gate
+  retains 122/122 frozen hashes, both 240-state protected visual matrices,
+  native rivers, WTW/Withered Green, Touchbaes/iPad, Montran, iframe,
+  lifecycle, privacy, and release-safety contracts. Nothing was deployed or
+  published; future Cargo activation still requires the normal complete-save,
+  reload-persistence, and public verification workflow.
