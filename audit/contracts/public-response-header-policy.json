@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "issue": "MMS-AUD-037",
+  "activation": "prepared-not-active",
+  "scope": {
+    "canonical_origin": "https://mmmmm.studio",
+    "document_routes": [
+      "/",
+      "/who",
+      "/write"
+    ],
+    "freight_origin": "https://freight.cargo.site",
+    "freight_covered_by_first_party_policy": false
+  },
+  "delivery": {
+    "required_mechanism": "http-response-headers",
+    "header_owner": null,
+    "candidate_owners": [
+      "Cargo support-confirmed response-header control",
+      "separately approved first-party edge"
+    ],
+    "cargo_self_service_capability": "not-documented",
+    "cargo_internal_capability": "unconfirmed",
+    "external_edge_requires_separate_approval": true,
+    "meta_substitution_permitted": false,
+    "forbidden_meta_substitutions": [
+      "content-security-policy",
+      "content-security-policy-report-only",
+      "permissions-policy",
+      "x-content-type-options",
+      "x-frame-options",
+      "strict-transport-security"
+    ]
+  },
+  "official_capability_evidence": [
+    {
+      "title": "Cargo CSS and HTML",
+      "url": "https://docs.cargo.site/css-and-html",
+      "finding": "documents CSS, custom HTML/scripts, and page code, not HTTP response-header rules"
+    },
+    {
+      "title": "Cargo DNS Editing",
+      "url": "https://docs.cargo.site/dns-editing",
+      "finding": "documents DNS records, not HTTP response-header rules"
+    },
+    {
+      "title": "Cargo Domains purchased elsewhere",
+      "url": "https://docs.cargo.site/domains-purchased-elsewhere",
+      "finding": "documents Cargo nameserver configuration for external domains"
+    },
+    {
+      "title": "W3C Content Security Policy Level 3",
+      "url": "https://www.w3.org/TR/CSP3/",
+      "finding": "report-only policy and frame-ancestors require response-header delivery"
+    },
+    {
+      "title": "W3C Permissions Policy",
+      "url": "https://www.w3.org/TR/permissions-policy-1/",
+      "finding": "top-level policy is delivered through the Permissions-Policy response header"
+    },
+    {
+      "title": "WHATWG Fetch nosniff",
+      "url": "https://fetch.spec.whatwg.org/#x-content-type-options-header",
+      "finding": "MIME sniffing protection is derived from the response header list"
+    },
+    {
+      "title": "RFC 6797 HTTP Strict Transport Security",
+      "url": "https://www.rfc-editor.org/rfc/rfc6797",
+      "finding": "HSTS is established by a secure HTTP response header"
+    }
+  ],
+  "evidence": {
+    "frozen_headers": [
+      {
+        "route": "/",
+        "path": "docs/audits/2026-07-20T175853-0400-round-80/public/home.headers",
+        "sha256": "513e96be59f92e1e1ee20255847d21010fb996f68ae327482a46c961bc08f27c"
+      },
+      {
+        "route": "/who",
+        "path": "docs/audits/2026-07-20T175853-0400-round-80/public/who.headers",
+        "sha256": "72c2d3b4d83dc32d6ebf4167e749f16b745d8387ac07f1e676b0c91a5220c011"
+      },
+      {
+        "route": "/write",
+        "path": "docs/audits/2026-07-20T175853-0400-round-80/public/write.headers",
+        "sha256": "df5bd17536124305e0fb0e1a902163551d04a0f8febc7e4e05af5b325688180e"
+      }
+    ],
+    "live_observation": "audit/findings/evidence/2026-07-23-round98-public-response-headers.json",
+    "required_absent_headers": [
+      "content-security-policy",
+      "content-security-policy-report-only",
+      "reporting-endpoints",
+      "referrer-policy",
+      "permissions-policy",
+      "x-content-type-options",
+      "x-frame-options",
+      "strict-transport-security"
+    ]
+  },
+  "runtime_origin_inventory": {
+    "source": "audit/inventory/system-inventory.md",
+    "first_party": [
+      "https://mmmmm.studio"
+    ],
+    "page_runtime": [
+      "https://build.cargo.site",
+      "https://freight.cargo.site",
+      "https://static.cargo.site",
+      "https://type.cargo.site"
+    ],
+    "operational_only": [
+      "https://api.cargo.site"
+    ]
+  },
+  "candidate_policy": {
+    "state": "discovery-not-final",
+    "reporting_endpoint": null,
+    "csp": {
+      "first_delivery": "content-security-policy-report-only",
+      "required_directives": [
+        "default-src",
+        "base-uri",
+        "object-src",
+        "form-action",
+        "script-src",
+        "style-src",
+        "img-src",
+        "media-src",
+        "font-src",
+        "connect-src",
+        "frame-src",
+        "worker-src",
+        "frame-ancestors"
+      ],
+      "known_required_origins": [
+        "https://mmmmm.studio",
+        "https://build.cargo.site",
+        "https://freight.cargo.site",
+        "https://static.cargo.site",
+        "https://type.cargo.site"
+      ],
+      "forbidden_sources": [
+        "*",
+        "http:",
+        "'unsafe-eval'"
+      ],
+      "frame_ancestors_decision": "pending-cargo-editor-and-preview-discovery",
+      "exact_value": null
+    },
+    "referrer_policy": "strict-origin",
+    "permissions_policy": {
+      "state": "candidate-after-capability-and-browser-proof",
+      "positive_candidates": [
+        "autoplay=(self)"
+      ],
+      "denied_feature_inventory": "audit/contracts/iframe-capability-matrix.json"
+    },
+    "x_content_type_options": "nosniff",
+    "frame_protection": {
+      "state": "pending-cargo-editor-and-preview-discovery",
+      "x_frame_options_candidate": "DENY"
+    },
+    "hsts": {
+      "state": "canary-after-owner-confirmation",
+      "max_age_ramp_seconds": [
+        300,
+        86400,
+        31536000
+      ],
+      "include_subdomains": false,
+      "preload": false
+    }
+  },
+  "stages": [
+    {
+      "id": "owner-confirmation",
+      "requirements": [
+        "obtain written Cargo capability confirmation or separately approve a first-party edge",
+        "name one response-header owner and a rollback owner",
+        "confirm that Freight remains a separate response boundary"
+      ]
+    },
+    {
+      "id": "report-only-discovery",
+      "requirements": [
+        "approve and operate a privacy-reviewed reporting endpoint",
+        "deliver CSP through Content-Security-Policy-Report-Only on every document route",
+        "inventory exact route-specific sources and Cargo editor or preview ancestors",
+        "collect a clean representative report window"
+      ]
+    },
+    {
+      "id": "compatibility-verification",
+      "requirements": [
+        "verify compact and expanded routes, themes, faces, scales, shapes, rivers, media, and controls",
+        "verify V7, Touchbaes, and Montran interactions",
+        "verify desktop Chromium and Safari plus physical iPhone and iPad Safari",
+        "verify Cargo editor and preview framing",
+        "audit HTTPS redirect, TLS, DNS, subdomains, and rollback before HSTS expansion"
+      ]
+    },
+    {
+      "id": "enforcement",
+      "requirements": [
+        "promote the clean exact CSP to Content-Security-Policy",
+        "activate reviewed referrer, permissions, MIME, frame, and HTTPS headers on all document routes",
+        "capture fresh public response evidence and rerun the complete interaction matrix"
+      ]
+    }
+  ],
+  "promotion_gates": [
+    "activation remains blocked while header_owner is null",
+    "activation remains blocked while reporting_endpoint is null",
+    "activation remains blocked while CSP exact_value is null",
+    "no meta tag may be credited as response-header enforcement",
+    "all three canonical document routes must change atomically",
+    "Freight response coverage must not be claimed by a first-party edge",
+    "Cargo editor and preview frame compatibility must be proven before frame enforcement",
+    "HSTS includeSubDomains and preload require a separate complete host audit and approval",
+    "Cargo reload and fresh public response verification are mandatory",
+    "protected visual and interaction contracts must remain unchanged"
+  ],
+  "prepared_state_guards": {
+    "cargo_html": [
+      "cargo/site-head.html",
+      "cargo/home.html",
+      "cargo/who.html",
+      "cargo/write.html"
+    ],
+    "deployment_manifest": "cargo/deployment-manifest.json",
+    "forbidden_manifest_keys": [
+      "content-security-policy",
+      "content-security-policy-report-only",
+      "reporting-endpoints",
+      "referrer-policy",
+      "permissions-policy",
+      "x-content-type-options",
+      "x-frame-options",
+      "strict-transport-security"
+    ]
+  }
+}

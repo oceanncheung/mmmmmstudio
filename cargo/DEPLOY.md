@@ -4889,3 +4889,51 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   explicit promotion gates. No policy is enforced until successor uploads,
   protocol attributes, iframe policies, manifest, and complete Cargo bodycopy
   can be promoted and reload-verified together.
+
+## Round 98 (2026-07-22): public response-header policy — TEST-ONLY / NOT DEPLOYED
+- Prepared the response-layer remediation contract for `MMS-AUD-037` without
+  changing Cargo HTML, CSS, bodycopy, the deployment manifest, Freight, Figma,
+  DNS, visual geometry, runtime behavior, or
+  `gold-2026-07-21-responsive-70`. Nothing was deployed or published.
+- A fresh read-only probe between 2026-07-23 01:44 and 02:02 UTC reconfirmed
+  that Home, Who, and Write return Cargo HTML over HTTPS but no CSP, CSP Report-Only,
+  Reporting-Endpoints, Referrer-Policy, Permissions-Policy,
+  X-Content-Type-Options, X-Frame-Options, or HSTS. The HTTP apex still returns
+  a 301 to HTTPS. Six canonical Freight samples, including all three executable
+  embeds, a PDF range, poster, and video, also lacked those policy families;
+  Freight remains a separate response boundary.
+- Cargo's documented self-service surfaces cover CSS, bodycopy, Custom HTML,
+  metadata, and DNS, but expose no documented response-header rule. The frozen
+  public capture also proves Cargo emits the saved Custom HTML after the
+  document head, so it is not a response-header owner. This is deliberately
+  recorded as `not-documented` and `unconfirmed`, not as a claim that Cargo
+  support cannot provide an internal capability.
+- Added `audit/contracts/public-response-header-policy.json` with activation
+  `prepared-not-active`. The required delivery is HTTP response headers through
+  either support-confirmed Cargo control or a separately approved first-party
+  edge. The owner, reporting endpoint, exact CSP, and Cargo editor/preview
+  ancestor decision remain null or pending. A first-party edge must never claim
+  it rewrites `freight.cargo.site` responses.
+- The staged order is fixed: confirm one header and rollback owner; approve a
+  privacy-reviewed report sink and run CSP Report-Only discovery; verify the
+  complete compact/expanded/device and Cargo editor/preview matrix; only then
+  enforce exact CSP and the reviewed referrer, permissions, MIME, frame, and
+  HTTPS policies. HSTS ramps from 300 to 86,400 to 31,536,000 seconds and keeps
+  `includeSubDomains` and preload disabled until a separate host/TLS audit.
+- Meta delivery cannot close this issue. The contract and validator explicitly
+  reject fake `http-equiv` substitutes, premature activation, false platform
+  capability, partial route coverage, Freight scope claims, unsafe CSP
+  widening, skipped report-only discovery, missing evidence, and premature
+  HSTS expansion.
+- `validate-public-response-header-policy.py --self-test` passes with 29
+  destructive fixtures and is mandatory in `validate-phase2.sh`. The complete
+  Phase 2 suite passes: 122/122 frozen hashes, both 240-state gold matrices,
+  native rivers, WTW and Withered Green contracts, Touchbaes/iPad and Montran
+  behavior, embed capability proofs, source purity, root replacement, and all
+  release-negative fixtures remain clean.
+- Activation is an external follow-up, not part of this round. It requires
+  written Cargo capability confirmation or separately approved edge/DNS work,
+  a reporting and privacy decision, clean report-only evidence, complete
+  device/browser verification, rollback, Cargo persistence where applicable,
+  and fresh public response capture. No publication is authorized by this
+  prepared record.

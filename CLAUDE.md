@@ -2543,3 +2543,36 @@ current source of truth for the built site.
 - Any real enforcement requires a separately reviewed atomic successor upload
   and Cargo promotion, reload verification, and desktop Safari plus physical
   iPhone/iPad Safari testing. Round 97 itself is not deployed or published.
+
+## Current state — Round 98 public response-header policy
+- `MMS-AUD-037` now has a repository-only, `prepared-not-active` response-layer
+  contract. It does not activate a public header or authorize Cargo, Freight,
+  DNS, edge, Figma, deployment, or publication changes. The protected gold
+  baseline remains `gold-2026-07-21-responsive-70` and is untouched.
+- Keep `audit/contracts/public-response-header-policy.json`,
+  `audit/findings/evidence/2026-07-23-round98-public-response-headers.json`,
+  and `audit/scripts/validate-public-response-header-policy.py` in the complete
+  Phase 2 gate. The validator rejects fake meta policies, false Cargo support
+  claims, premature activation, missing route/evidence coverage, Freight scope
+  confusion, unsafe CSP widening, skipped report-only discovery, and premature
+  HSTS expansion.
+- Cargo has no documented self-service response-header setting in the reviewed
+  official documentation. This is `not-documented`, not proof of platform
+  impossibility. Saved Custom HTML is body-level in the frozen output and must
+  never be treated as response-header delivery. CSP Report-Only,
+  frame-ancestors, top-level Permissions Policy, nosniff, frame protection,
+  and HSTS cannot be closed by adding `http-equiv` markup.
+- The header owner, privacy-reviewed reporting endpoint, exact CSP, and Cargo
+  editor/preview frame decision intentionally remain unset. Promotion requires
+  support-confirmed Cargo control or separately approved edge ownership,
+  report-only discovery, clean compact/expanded and physical-device evidence,
+  editor/preview compatibility, transport/host audit, rollback, persistence,
+  and fresh public response proof.
+- Freight is a separate response owner. Never claim a first-party edge changes
+  Freight headers. Keep Round 97's prepared iframe policy as the child
+  containment path, and do not deploy either prepared security round without
+  its separate atomic promotion evidence and explicit authorization.
+- Focused verification passes 29 destructive fixtures. The complete Phase 2
+  gate passes with 122/122 frozen hashes, both 240-state visual matrices,
+  native rivers, WTW, Withered Green, Touchbaes/iPad, Montran, embed-policy,
+  source-purity, lifecycle, and deployment-negative contracts unchanged.
