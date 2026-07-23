@@ -11,5 +11,9 @@ Source and release-control repository for the MM.S Cargo website.
 Start with [`VERSIONING.md`](VERSIONING.md), [`HANDOFF-CODEX.md`](HANDOFF-CODEX.md),
 and [`cargo/PLAYBOOK.md`](cargo/PLAYBOOK.md).
 
+The current audited browser-storage and service inventory is documented in
+[`docs/PRIVACY-DATA-INVENTORY.md`](docs/PRIVACY-DATA-INVENTORY.md). It is a
+technical repository record, not a published privacy policy or legal notice.
+
 GitHub records source and verified release history. It does not deploy or
 publish Cargo; Cargo draft and public state must still be verified separately.

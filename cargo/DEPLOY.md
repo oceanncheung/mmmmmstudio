@@ -4937,3 +4937,33 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   device/browser verification, rollback, Cargo persistence where applicable,
   and fresh public response capture. No publication is authorized by this
   prepared record.
+
+## Round 99 (2026-07-22): low-collection privacy inventory — DOCUMENTATION-ONLY / NOT DEPLOYED
+- Closed the repository documentation gap for `MMS-AUD-040` without changing
+  Cargo HTML, CSS, JavaScript, bodycopy, the deployment manifest, Freight,
+  Figma, visual geometry, runtime behavior, or
+  `gold-2026-07-21-responsive-70`. Nothing was deployed or published.
+- Added `docs/PRIVACY-DATA-INVENTORY.md`. It records exactly four first-party
+  `localStorage` appearance keys and one `sessionStorage` startup-signature
+  key. It also records that Touchbaes v10 removes its legacy Freight-origin key
+  and does not save placements.
+- Fresh isolated Chromium observations covered clean Home, Who, and Write
+  loads, a complete 9,611px Home traversal, and deliberate compact control
+  changes. The durable runtime-origin set is MM.S, Cargo build/static/type,
+  Freight, and Google Fonts stylesheet/binary delivery. No Cookie,
+  Authorization, Set-Cookie, write request, tracker-pattern request, form,
+  IndexedDB, Cache Storage, or service worker was observed.
+- This is qualified client evidence, not a claim that infrastructure providers
+  keep no logs. Cargo, Freight, and Google receive ordinary request metadata;
+  provider retention and downstream processing were not audited. External
+  project, LinkedIn, and email destinations are visitor-initiated navigation,
+  not background vendors.
+- Added `audit/contracts/low-collection-privacy.json`, dated evidence, and the
+  mandatory `validate-low-collection-privacy.py --self-test` Phase 2 gate. The
+  contract fails closed on storage/vendor/link drift, cookie/form/beacon or
+  tracker additions, preference transmission, generated-bodycopy resource or
+  CSS URL/import additions, absolute claims, missing source identity, or an
+  unauthorized Cargo disclosure.
+- A public notice remains a separate copy/legal/visual/deployment decision.
+  This round authorizes no Cargo, Freight, Figma, DNS, deployment, or
+  publication action.

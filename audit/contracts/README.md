@@ -89,3 +89,28 @@ privacy-reviewed report sink, clean report-only evidence, complete compact and
 expanded interaction coverage, Cargo editor/preview compatibility, transport
 and host audits, rollback, reload persistence, and fresh public response
 proof. None of those external changes is authorized by this prepared record.
+
+## Low-collection privacy inventory
+
+`low-collection-privacy.json` is the factual repository record for
+`MMS-AUD-040`. It inventories the four first-party appearance preferences, the
+one tab-session startup signature, the active Touchbaes embed's removal-only
+legacy key, the exact seven origins observed during fresh route loads and a
+complete Home traversal, and visitor-initiated links that are not background
+vendors.
+
+The linked `docs/PRIVACY-DATA-INVENTORY.md` is deliberately a technical
+inventory, not a public privacy policy or legal notice. Its negative findings
+are limited to the audited source and dated browser evidence. Cargo, Freight,
+and Google Fonts receive ordinary connection/request metadata; their
+provider-side logging, retention, reuse, legal basis, subprocessors, and
+deletion practices were not observable and are not claimed.
+
+`validate-low-collection-privacy.py` hash-locks the disclosure, evidence,
+canonical source inputs, and frozen Phase 3 evidence. It rejects unrecorded
+storage access, cookie/beacon/form/tracker paths, preference transmission,
+origin or outbound-link drift, deployable bodycopy resource additions, CSS
+`url()`/`@import` additions, invented provider claims, absolute privacy
+language, publication through Cargo, missing Git tracking, and missing or
+duplicated Phase 2 wiring. Any visitor-facing notice remains a separate copy,
+legal, visual, Cargo-draft, reload, and publication decision.

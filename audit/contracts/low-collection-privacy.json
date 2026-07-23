@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "issue": "MMS-AUD-040",
+  "status": "tracked-repository-record",
+  "publication": {
+    "public_notice": "not-published",
+    "legal_policy": false,
+    "cargo_change_authorized": false
+  },
+  "scope": {
+    "routes": [
+      "/",
+      "/who",
+      "/write"
+    ],
+    "runtime_sources": [
+      "cargo/shared-early-init.html",
+      "cargo/panel.js",
+      "cargo/home.template.html",
+      "cargo/who.template.html",
+      "cargo/write.template.html",
+      "cargo/shared-nav-items.html",
+      "cargo/home-extras.html",
+      "cargo/site-head.html",
+      "cargo/home.html",
+      "cargo/who.html",
+      "cargo/write.html",
+      "cargo/tokens.css",
+      "cargo/site.css"
+    ],
+    "disclosure_path": "docs/PRIVACY-DATA-INVENTORY.md",
+    "disclosure_sha256": "4d757a7defc3a802f7c53b809f1e8fecf11e685dfa3b240dc8f8581840fcfa7b",
+    "evidence_path": "audit/findings/evidence/2026-07-23-round99-privacy-request-storage.json",
+    "evidence_sha256": "67339d22eb55c6b4919a124dc73fb366fd93d5cb43f7480ac49759b721b0469b"
+  },
+  "browser_storage": [
+    {
+      "scope": "localStorage",
+      "key": "mms-theme",
+      "allowed_values": [
+        "white",
+        "girly",
+        "quirky",
+        "contrast",
+        "black"
+      ],
+      "purpose": "remember the visitor-selected color theme",
+      "write_condition": "deliberate control selection",
+      "retention": "until-overwritten-or-browser-cleared",
+      "transmitted_by_audited_runtime": false
+    },
+    {
+      "scope": "localStorage",
+      "key": "mms-face",
+      "allowed_values": [
+        "serif",
+        "sans",
+        "mono",
+        "gothic"
+      ],
+      "purpose": "remember the visitor-selected typeface",
+      "write_condition": "deliberate control selection",
+      "retention": "until-overwritten-or-browser-cleared",
+      "transmitted_by_audited_runtime": false
+    },
+    {
+      "scope": "localStorage",
+      "key": "mms-scale",
+      "allowed_values": [
+        "s",
+        "m",
+        "l",
+        "xl"
+      ],
+      "purpose": "remember the visitor-selected type scale",
+      "write_condition": "deliberate control selection",
+      "retention": "until-overwritten-or-browser-cleared",
+      "transmitted_by_audited_runtime": false
+    },
+    {
+      "scope": "localStorage",
+      "key": "mms-shape",
+      "allowed_values": [
+        "straight",
+        "rounded",
+        "oval"
+      ],
+      "purpose": "remember the visitor-selected media-frame shape",
+      "write_condition": "deliberate control selection",
+      "retention": "until-overwritten-or-browser-cleared",
+      "transmitted_by_audited_runtime": false
+    },
+    {
+      "scope": "sessionStorage",
+      "key": "mms-render-sequence",
+      "allowed_values": [
+        "four theme:face:scale:shape combinations joined by |"
+      ],
+      "purpose": "avoid immediately repeating the prior startup sequence",
+      "write_condition": "startup sequence generation when motion and data preferences permit",
+      "retention": "browser-tab-session",
+      "transmitted_by_audited_runtime": false
+    }
+  ],
+  "embedded_storage": [
+    {
+      "origin": "https://freight.cargo.site",
+      "embed": "touchbaes-sticker-game-v10",
+      "key": "touchbaes-sticker-room-raw-v44",
+      "operation": "remove-only",
+      "current_placement_persistence": false
+    }
+  ],
+  "network_services": [
+    {
+      "origin": "https://mmmmm.studio",
+      "classification": "first-party-document",
+      "role": "Home, Who, and Write documents"
+    },
+    {
+      "origin": "https://build.cargo.site",
+      "classification": "platform-runtime",
+      "role": "Cargo frontend styles, scripts, and icon assets"
+    },
+    {
+      "origin": "https://static.cargo.site",
+      "classification": "platform-static",
+      "role": "Cargo static assets and favicon"
+    },
+    {
+      "origin": "https://type.cargo.site",
+      "classification": "platform-font",
+      "role": "Cargo-hosted font files"
+    },
+    {
+      "origin": "https://freight.cargo.site",
+      "classification": "platform-media-and-embed",
+      "role": "portfolio media, executable embeds, and Montran PDF"
+    },
+    {
+      "origin": "https://fonts.googleapis.com",
+      "classification": "font-provider-stylesheet",
+      "role": "UnifrakturMaguntia stylesheet"
+    },
+    {
+      "origin": "https://fonts.gstatic.com",
+      "classification": "font-provider-binary",
+      "role": "UnifrakturMaguntia font binary"
+    }
+  ],
+  "qualified_negative_findings": [
+    "no analytics or advertising tracker was found in the audited client runtime or sampled requests",
+    "no site cookie API or Set-Cookie response was observed in the audited client runtime and sampled requests",
+    "no account, authentication flow, or Authorization request header was observed",
+    "no web form, submission request, or beacon was found in the audited routes and sampled requests",
+    "no audited code path transmits the five browser-storage values"
+  ],
+  "external_navigation": {
+    "classification": "link-destination-not-runtime-resource",
+    "internal_paths": [
+      "/",
+      "/who",
+      "/write"
+    ],
+    "https_destinations": [
+      "https://ellacportfolio.com",
+      "https://eviive.ch",
+      "https://www.linkedin.com/company/mmmmmstudio/",
+      "https://www.touchbaes.ca",
+      "https://www.travisleung.com"
+    ],
+    "mailto_destinations": [
+      "mailto:alvis@mmmmm.studio",
+      "mailto:ocean@mmmmm.studio",
+      "mailto:ocean@mmmmm.studio,alvis@mmmmm.studio"
+    ]
+  },
+  "limitations": [
+    "The evidence is a point-in-time audit of the reviewed client source and sampled published sessions.",
+    "Provider-side access logs, retention, reuse, legal basis, subprocessors, and deletion practices were not audited.",
+    "The live browser evidence used isolated Chromium rather than physical Safari.",
+    "Request counts vary with cache, viewport, lazy loading, and timing.",
+    "External destinations are outside the MM.S runtime after the visitor follows a link."
+  ],
+  "change_gates": [
+    "Any new analytics, form, authentication flow, cookie API, storage key, preference transmission, or runtime service must fail this contract until deliberately reviewed and documented.",
+    "A visitor-facing notice requires separately approved copy, legal review where appropriate, visual placement, Cargo draft deployment, reload verification, and explicit publication authorization.",
+    "This repository record does not authorize a Cargo, Freight, Figma, DNS, deployment, or publication change.",
+    "Protected visual, interaction, native-river, WTW, Withered Green, and gold-baseline contracts remain unchanged."
+  ]
+}

@@ -2576,3 +2576,25 @@ current source of truth for the built site.
   gate passes with 122/122 frozen hashes, both 240-state visual matrices,
   native rivers, WTW, Withered Green, Touchbaes/iPad, Montran, embed-policy,
   source-purity, lifecycle, and deployment-negative contracts unchanged.
+
+## Current state — Round 99 low-collection privacy inventory
+- The repository-only inventory for `MMS-AUD-040` is
+  `docs/PRIVACY-DATA-INVENTORY.md`, backed by
+  `audit/contracts/low-collection-privacy.json` and dated live/source evidence.
+  It is not a public policy, Cargo page, legal determination, or publication
+  authorization.
+- The exact first-party storage contract is four optional local appearance
+  keys (`mms-theme`, `mms-face`, `mms-scale`, `mms-shape`) and one tab-session
+  startup key (`mms-render-sequence`). Any new key, cookie, analytics/tracker,
+  beacon, form, authentication path, storage transmission, deployable bodycopy
+  resource, CSS URL/import, or runtime service must fail closed until the
+  inventory is deliberately updated.
+- The sampled runtime origins are MM.S, Cargo build/static/type, Freight, and
+  Google Fonts. Qualify all negative statements to the audited source and
+  dated evidence; provider access logs, retention, downstream processing, and
+  physical Safari were not audited.
+- Keep `validate-low-collection-privacy.py --self-test` mandatory in Phase 2.
+  A public disclosure requires separate approved copy, legal review where
+  appropriate, visual placement, Cargo draft deployment, reload verification,
+  and explicit publication authorization. Round 99 itself changes no Cargo,
+  Freight, Figma, deployment manifest, public state, or protected gold source.
