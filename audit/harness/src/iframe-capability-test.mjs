@@ -208,19 +208,17 @@ async function exerciseTouchbaes({ page, frame, locator, childOrigin }) {
 
   await frame.waitForFunction(() => Array.from(document.images).every((image) => image.complete));
   const sticker = frame.locator('.loose-sticker[data-sticker-id="sign"]');
-  const box = await sticker.evaluate((element) => {
-    const rect = element.getBoundingClientRect();
-    return { x: rect.x, y: rect.y, width: rect.width, height: rect.height };
-  });
-  await page.evaluate(({ frameId, innerY }) => {
-    const frameElement = document.getElementById(frameId);
-    window.scrollTo(0, Math.max(0, frameElement.offsetTop + innerY - window.innerHeight / 2));
-  }, { frameId: "touchbaes", innerY: box.y + box.height / 2 });
+  await sticker.scrollIntoViewIfNeeded();
+  await frame.evaluate(() => new Promise((resolve) => {
+    requestAnimationFrame(() => requestAnimationFrame(resolve));
+  }));
   const frameBox = await locator.boundingBox();
-  assert.ok(frameBox && box.width > 0 && box.height > 0, "Touchbaes drag sticker has no geometry");
+  const box = await sticker.boundingBox();
+  assert.ok(frameBox && box && box.width > 0 && box.height > 0,
+    "Touchbaes drag sticker has no geometry");
   const start = {
-    x: frameBox.x + box.x + box.width / 2,
-    y: frameBox.y + box.y + box.height / 2,
+    x: box.x + box.width / 2,
+    y: box.y + box.height / 2,
   };
   const topHit = await page.evaluate(({ x, y }) => {
     const hit = document.elementFromPoint(x, y);
@@ -299,6 +297,10 @@ async function waitForVisiblePagesToChange(frame, before) {
 }
 
 async function exerciseMontran({ page, frame, locator, childOrigin, pdfRequests }) {
+  await locator.scrollIntoViewIfNeeded();
+  await page.evaluate(() => new Promise((resolve) => {
+    requestAnimationFrame(() => requestAnimationFrame(resolve));
+  }));
   await waitForRecord(page, "montran", "__mmsBookletReady");
   const ready = await records(page, "montran", "__mmsBookletReady");
   assert.deepEqual(ready.at(-1).data, {

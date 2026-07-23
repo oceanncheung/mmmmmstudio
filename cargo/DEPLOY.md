@@ -5148,3 +5148,47 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   live Freight timing or physical Safari. The public site remains on
   lifecycle-1 until a separately authorized complete Cargo promotion restores
   the already prepared lifecycle-2 payload. Nothing was deployed or published.
+
+## Round 105 (2026-07-23): portfolio content semantics — REPOSITORY ONLY / NOT DEPLOYED
+- Implements the approved repository content decision for `MMS-AUD-007`
+  without changing CSS, JavaScript, visible copy, layout geometry, media URLs,
+  media dimensions or fit, native rivers, control-panel behavior, Freight,
+  Figma, Cargo draft/public state, or `gold-2026-07-21-responsive-70`.
+- Classifies all 65 non-interactive Home media owners and both Who profile
+  videos as decorative because the adjacent project or profile copy carries
+  their meaning. Decorative owners use exact
+  `data-a11y-policy="decorative"` plus `aria-hidden="true"`; all 38 decorative
+  Home images use exact empty alternatives so media loading failures cannot
+  supply unstable browser fallback names.
+- Keeps the three interactive Home embeds unhidden and pins their existing
+  stable titles: `V7 rotating coffee cup`, `touchbaes sticker game`, and
+  `Montran sustainability report booklet`.
+- Names the twelve existing project-description figures, in source order:
+  EVIIVE, V7 Labs, touchbaes, Mandy Ma & Co., Loop Financial, Montran, AnyDay
+  Financial, Kelly’s Kelly, Curate Health, PURE LOVE（純愛）, Dead Good, and
+  WTW? (What’s the Word?). No heading element or visible label is introduced.
+  Random Pics remains an unlabeled interlude; heading hierarchy remains
+  deferred to `MMS-AUD-022`.
+- Extends the fail-closed deployment manifest and validator with exact,
+  disjoint media ownership, image/video counts, iframe titles, and ordered
+  figure labels. Destructive fixtures reject policy, suppression, focusability,
+  image-alternative, iframe-title/visibility, figure-label/order, Random Pics,
+  and heading drift before Cargo.
+- Adds
+  `audit/contracts/portfolio-media-accessibility.json`,
+  `portfolio-media-accessibility-test.mjs`, and dated root-cause evidence.
+  The focused Chromium contract covers compact 390x844 and expanded 1440x900
+  with forced media failure, requiring zero decorative media roles, no generic
+  media-error names, three exact iframe names, and twelve exact figure names.
+- Focused verification passes at compact 390x844 and expanded 1440x900,
+  including forced media failures and negative semantic fixtures. The complete
+  Phase 2 gate also passes: the frozen 122-artifact baseline, 471-asset
+  inventory, 480 protected gold states and interactions, EVIIVE final-pair
+  geometry, native rivers, WTW and Withered Green contracts, Touchbaes iPad
+  readiness and visible-rig lifecycle, Montran range rendering and page turns,
+  75 deployment-manifest mutations, root replacement, and zero page overflow.
+- Two audit-only input races were corrected without changing product code:
+  Touchbaes pointer input now uses one current main-frame coordinate space,
+  and the Montran fixture is brought into view before its unchanged 30-second
+  raster assertion. Six consecutive complete iframe-capability runs pass.
+  Nothing was deployed or published.

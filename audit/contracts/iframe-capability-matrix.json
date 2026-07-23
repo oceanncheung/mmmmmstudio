@@ -100,7 +100,7 @@
   },
   "browser_test": "audit/harness/src/iframe-capability-test.mjs",
   "proof_inputs": {
-    "audit/harness/src/iframe-capability-test.mjs": "d7e2ca6e02eddab76308bc2f9610806100cf27bc9a4602a97317fd9e6de3043f",
+    "audit/harness/src/iframe-capability-test.mjs": "de39fbd7eaf9370c355be68b9493301ca445490d3e34e51a284f82f1becf0cde",
     "audit/harness/src/montran-pdf-allowlist-test.mjs": "4412d383c1349906326eba545e448e9b35f5e06e2b330199232ffcbc3d56dda9"
   },
   "entries": [

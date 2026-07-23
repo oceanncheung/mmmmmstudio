@@ -53,6 +53,7 @@ echo "Phase 2 harness configuration: PASS"
 (cd "$ROOT/audit/harness" && npm run river-aria-test)
 (cd "$ROOT/audit/harness" && npm run document-language-test)
 (cd "$ROOT/audit/harness" && npm run primary-navigation-test)
+(cd "$ROOT/audit/harness" && npm run portfolio-media-accessibility-test)
 (cd "$ROOT/audit/harness" && npm run swatch-focus-test)
 (cd "$ROOT/audit/harness" && npm run touchbaes-readiness-test)
 (cd "$ROOT/audit/harness" && npm run interaction-test)
@@ -68,6 +69,7 @@ python3 "$ROOT/audit/scripts/validate-root-runtime-owner.py" --self-test
 python3 "$ROOT/audit/scripts/validate-root-runtime-owner.py"
 FROZEN_CARGO="$ROOT/docs/audits/2026-07-20T175853-0400-round-80/cargo-draft"
 python3 - "$ROOT" "$FROZEN_CARGO" <<'PY'
+import json
 import re
 import subprocess
 import sys
@@ -77,6 +79,9 @@ from pathlib import Path
 root = Path(sys.argv[1])
 snapshot = Path(sys.argv[2])
 manifest_validator = root / "cargo/validate-deployment-manifest.py"
+deployment_manifest = json.loads(
+    (root / "cargo/deployment-manifest.json").read_text(encoding="utf-8")
+)
 
 # The immutable Phase 1 Cargo capture predates the approved 504x504 WTW
 # correction. Apply that documented post-Round-80 delta only to an in-memory
@@ -175,6 +180,106 @@ def normalize_primary_navigation(source):
     return source
 
 
+def set_owner_attributes(source, media_id, attributes):
+    pattern = re.compile(
+        rf'<[a-z][^>]*\bdata-media-id="{re.escape(media_id)}"[^>]*>',
+        flags=re.IGNORECASE,
+    )
+
+    def update(match):
+        tag = match.group(0)
+        for name, value in attributes.items():
+            tag = re.sub(
+                rf'\s+{re.escape(name)}'
+                rf'(?:\s*=\s*(?:"[^"]*"|\'[^\']*\'|[^\s>]+))?',
+                "",
+                tag,
+                flags=re.IGNORECASE,
+            )
+            tag = f'{tag[:-1]} {name}="{value}">'
+        return tag
+
+    updated, count = pattern.subn(update, source, count=1)
+    if count != 1:
+        raise SystemExit(
+            f"could not normalize frozen semantic owner {media_id}: found {count}"
+        )
+    return updated
+
+
+def normalize_content_semantics(source, page):
+    semantics = deployment_manifest["pages"][page]["content_semantics"]
+    decorative = semantics["decorative_native_media"]
+    for media_id in decorative["media_ids"]:
+        source = set_owner_attributes(
+            source,
+            media_id,
+            {
+                "aria-hidden": "true",
+                "data-a11y-policy": "decorative",
+            },
+        )
+    for item in semantics["interactive_embeds"]["items"]:
+        source = set_owner_attributes(
+            source,
+            item["media_id"],
+            {"data-a11y-policy": "interactive"},
+        )
+
+    image_count = 0
+
+    def normalize_image_alt(match):
+        nonlocal image_count
+        image_count += 1
+        tag = re.sub(
+            r'\s+alt(?:\s*=\s*(?:"[^"]*"|\'[^\']*\'|[^\s>]+))?',
+            "",
+            match.group(0),
+            flags=re.IGNORECASE,
+        )
+        return f'{tag[:-1]} alt="">'
+
+    source = re.sub(r"<img\b[^>]*>", normalize_image_alt, source)
+    expected_images = decorative["kind_counts"].get("img", 0)
+    if image_count != expected_images:
+        raise SystemExit(
+            f"could not normalize frozen {page} image semantics: "
+            f"expected {expected_images}, found {image_count}"
+        )
+
+    figure_labels = [
+        item["label"] for item in semantics["named_project_figures"]["items"]
+    ]
+    figure_index = 0
+
+    def normalize_figure_name(match):
+        nonlocal figure_index
+        if figure_index >= len(figure_labels):
+            raise SystemExit(f"unexpected extra frozen {page} project figure")
+        tag = re.sub(
+            r'\s+aria-label(?:\s*=\s*(?:"[^"]*"|\'[^\']*\'|[^\s>]+))?',
+            "",
+            match.group(0),
+            flags=re.IGNORECASE,
+        )
+        label = figure_labels[figure_index].replace("&", "&amp;").replace('"', "&quot;")
+        figure_index += 1
+        return f'{tag[:-1]} aria-label="{label}">'
+
+    source = re.sub(
+        r'<figure\b(?=[^>]*\bclass="[^"]*\bmms-desc\b[^"]*")[^>]*>',
+        normalize_figure_name,
+        source,
+        flags=re.IGNORECASE,
+    )
+    if figure_index != len(figure_labels):
+        raise SystemExit(
+            f"could not normalize frozen {page} figure semantics: "
+            f"expected {len(figure_labels)}, found {figure_index}"
+        )
+    return source
+
+
 home = re.sub(r'<(?:video|iframe)\b[^>]*>', strip_runtime_media_state, home)
 home = re.sub(
     r'<[^>]+\bclass="[^"]*\bmms-river\b[^"]*"[^>]*>',
@@ -183,6 +288,7 @@ home = re.sub(
 )
 home = re.sub(r'<img\b[^>]*>', restore_image_loading, home)
 home = normalize_primary_navigation(home)
+home = normalize_content_semantics(home, "home")
 with tempfile.NamedTemporaryFile("w", suffix=".html", encoding="utf-8") as handle:
     handle.write(home)
     handle.flush()
@@ -192,6 +298,7 @@ for page in ("who", "write"):
     bodycopy = normalize_primary_navigation(
         (snapshot / f"{page}.bodycopy.html").read_text(encoding="utf-8")
     )
+    bodycopy = normalize_content_semantics(bodycopy, page)
     with tempfile.NamedTemporaryFile("w", suffix=".html", encoding="utf-8") as handle:
         handle.write(bodycopy)
         handle.flush()
@@ -407,6 +514,19 @@ def merge_primary_navigation_classes(source):
     return updated
 
 
+def add_serialized_river_scrubber(source):
+    updated, count = re.subn(
+        r'(<figure\b(?=[^>]*\bclass="[^"]*\bmms-desc\b[^"]*")[^>]*>)',
+        r'<div class="mms-river-scrubber"></div>\1',
+        source,
+        count=1,
+        flags=re.IGNORECASE,
+    )
+    if count != 1:
+        raise SystemExit("could not build serialized river-scrubber fixture")
+    return updated
+
+
 def wrap_expanded_primary_navigation(source, opening, closing):
     updated, count = re.subn(
         r'(<nav aria-label="Primary" class="mms-rail">.*?</nav>)',
@@ -514,11 +634,7 @@ bodycopy_mutations = {
     "runtime video preload drift": home.replace(
         'preload="none"', 'preload="auto"', 1
     ),
-    "serialized river scrubber": home.replace(
-        '<figure class="mms-desc"',
-        '<div class="mms-river-scrubber"></div><figure class="mms-desc"',
-        1,
-    ),
+    "serialized river scrubber": add_serialized_river_scrubber(home),
     "legacy expanded complementary rail": expanded_navigation_as_legacy_aside(home),
     "missing expanded primary label": home.replace(
         '<nav aria-label="Primary" class="mms-rail">',

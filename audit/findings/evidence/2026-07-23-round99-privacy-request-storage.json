@@ -14,11 +14,11 @@
     },
     {
       "path": "cargo/home.template.html",
-      "sha256": "dffdda3c0554b518e0c22a795319dae5fa1195ba962dd7cda84cd5596c59d3de"
+      "sha256": "c95b498284834d45f5901a68cf680270ab04cf0490621f9752850108a334d950"
     },
     {
       "path": "cargo/who.template.html",
-      "sha256": "1eb7e7aa4e3ae37ac2da9793f63e52b76e8d3bb92f60b0dd0b9b523a3f2c0e21"
+      "sha256": "1a1bfd4c646add7cce126adda8f3ac5588fa1902cb1aa1b0a8995329f3d2f9c6"
     },
     {
       "path": "cargo/write.template.html",
@@ -38,11 +38,11 @@
     },
     {
       "path": "cargo/home.html",
-      "sha256": "9c33dfcee4c5b8781f1004afe7af9232d56774fcce3fff9b627d1551f89002bb"
+      "sha256": "134cca0883284c4130699ff863319a1f54f95c85f244a60b305ebd9848b7ab83"
     },
     {
       "path": "cargo/who.html",
-      "sha256": "3d7a89ebc8605be3bf9835315a616641fe913e1387360343f776c637be4a037e"
+      "sha256": "d4c3bf53745e6461116478e209c3ef19e3b1d1591c483b8547c9235dda243b42"
     },
     {
       "path": "cargo/write.html",

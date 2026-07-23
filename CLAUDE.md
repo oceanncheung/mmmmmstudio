@@ -2719,3 +2719,39 @@ current source of truth for the built site.
 - Focused and complete Phase 2 verification pass. The repository test covers
   deterministic Chromium parent lifecycle; live Freight timing and physical
   Safari remain promotion checks. No deployment or publication occurred.
+
+## Current state — Round 105 portfolio content semantics
+- The repository implementation for `MMS-AUD-007` explicitly classifies
+  non-interactive portfolio/profile media as decorative because adjacent copy
+  carries the meaning. Preserve exact decorative ownership on all 65 Home
+  native-media owners and both Who profile-video owners with
+  `data-a11y-policy="decorative"` and `aria-hidden="true"`; all 38 decorative
+  Home images retain exact empty alternatives.
+- Preserve the three interactive Home embeds with exact stable titles:
+  `V7 rotating coffee cup`, `touchbaes sticker game`, and
+  `Montran sustainability report booklet`. They must remain outside the
+  decorative inventory and visible to the accessibility tree.
+- Preserve the twelve existing project figure names and their source order:
+  EVIIVE, V7 Labs, touchbaes, Mandy Ma & Co., Loop Financial, Montran, AnyDay
+  Financial, Kelly’s Kelly, Curate Health, PURE LOVE（純愛）, Dead Good, and
+  WTW? (What’s the Word?). Random Pics remains an unlabeled interlude and no
+  Home heading is added; broader heading hierarchy stays with `MMS-AUD-022`.
+- Keep the exact fail-closed deployment-manifest inventory and destructive
+  fixtures, `audit/contracts/portfolio-media-accessibility.json`, the dated
+  root-cause evidence, the focused Chromium test, its npm entrypoint, and one
+  Phase 2 invocation. The browser contract covers 390x844 and 1440x900 with
+  forced media failure and rejects unstable fallback names.
+- This is a semantic-only repository round. Do not change CSS, runtime,
+  visible copy, layout/media geometry, media URLs, native rivers, panel
+  behavior, WTW, Withered Green, Touchbaes, Montran, protected gold, Cargo,
+  Freight, Figma, deployment, or publication as part of this contract.
+- Focused and complete Phase 2 verification pass. The complete gate preserves
+  the frozen 122-artifact baseline, 480 protected compact/expanded states and
+  interactions, native rivers, WTW, Withered Green, EVIIVE final-pair
+  geometry, Touchbaes readiness and visible-rig lifecycle, Montran range
+  rendering and page turns, root replacement, and zero page overflow.
+- The audit-only iframe proof now avoids two input-scheduling races without
+  changing any product source: Touchbaes uses a current main-frame sticker
+  box after layout settlement, and Montran is scrolled into view before its
+  unchanged 30-second raster assertion. Keep the corresponding proof-input
+  hash pinned in `iframe-capability-matrix.json`.
