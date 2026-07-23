@@ -114,3 +114,25 @@ origin or outbound-link drift, deployable bodycopy resource additions, CSS
 language, publication through Cargo, missing Git tracking, and missing or
 duplicated Phase 2 wiring. Any visitor-facing notice remains a separate copy,
 legal, visual, Cargo-draft, reload, and publication decision.
+
+## Native-river ARIA source purity
+
+`river-aria-source-purity.json` closes the repository recurrence path for
+`MMS-AUD-003`. Frozen Round 80 evidence contains 12 native project rivers
+serialized with both `hidden` and `aria-valuenow="0"`, but the same attributes
+were already present in the saved bodycopy and HTTP response before the
+current runtime executed. Fresh instrumentation found that the current runtime
+writes scrollbar state only to the 12 generated sibling scrubbers, not to the
+13 native rivers.
+
+The production runtime is therefore intentionally unchanged. The active
+deployment manifest pins the exact native-river inventory and requires zero
+scrollbar roles or value/orientation ARIA on exact `mms-river` class tokens,
+independently of its existing hidden-river check. Duplicate attributes are
+rejected before parsing can discard their first value.
+`river-aria-source-test.mjs` validates clean canonical sources, reconstructs
+the exact 12-river Cargo contamination as a browser negative control, runs
+Axe's `aria-allowed-attr` rule, preserves the separate scrollbar semantics,
+and exercises compact touch panning plus expanded native horizontal wheel
+scrolling. The contaminated fixture is expected to reproduce 12 Axe nodes; it
+is proof that the source gate is necessary, not a runtime self-healing path.

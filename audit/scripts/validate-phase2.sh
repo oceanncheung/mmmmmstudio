@@ -49,6 +49,7 @@ node "$ROOT/audit/harness/src/cli.mjs" --validate-config >/dev/null
 echo "Phase 2 harness configuration: PASS"
 (cd "$ROOT/audit/harness" && npm run media-owner-test)
 (cd "$ROOT/audit/harness" && npm run gold-parity-test)
+(cd "$ROOT/audit/harness" && npm run river-aria-test)
 (cd "$ROOT/audit/harness" && npm run swatch-focus-test)
 (cd "$ROOT/audit/harness" && npm run touchbaes-readiness-test)
 (cd "$ROOT/audit/harness" && npm run interaction-test)
@@ -80,6 +81,20 @@ manifest_validator = root / "cargo/validate-deployment-manifest.py"
 home = (snapshot / "home.bodycopy.html").read_text(encoding="utf-8")
 home = home.replace("--asset-w:765.2;--asset-h:765.2", "--asset-w:504;--asset-h:504", 1)
 
+# The frozen Cargo serializer also emitted three case-duplicate SVG viewBox
+# attributes. Current payload validation correctly rejects duplicate names
+# before dictionary conversion, so remove only those known duplicates in this
+# in-memory historical fixture. The frozen capture remains byte-identical.
+home, duplicate_viewboxes = re.subn(
+    r'(<svg\b[^>]*\sviewBox="[^"]*")\s+viewbox="[^"]*"',
+    r'\1',
+    home,
+)
+if duplicate_viewboxes != 3:
+    raise SystemExit(
+        f"expected three frozen duplicate SVG viewBox attributes, found {duplicate_viewboxes}"
+    )
+
 # The authenticated snapshot was captured after Cargo's runtime had activated
 # deferred media and changed loading state. Normalize only that runtime-owned
 # state in memory so this fixture exercises the saved bodycopy contract. The
@@ -95,8 +110,9 @@ def strip_runtime_media_state(match):
     )
 
 
-def strip_river_hidden(match):
-    return re.sub(r'\s+hidden(?:="[^"]*")?', "", match.group(0))
+def strip_river_runtime_state(match):
+    tag = re.sub(r'\s+hidden(?:="[^"]*")?', "", match.group(0))
+    return re.sub(r'\s+aria-valuenow="[^"]*"', "", tag)
 
 
 image_index = 0
@@ -115,7 +131,7 @@ def restore_image_loading(match):
 home = re.sub(r'<(?:video|iframe)\b[^>]*>', strip_runtime_media_state, home)
 home = re.sub(
     r'<[^>]+\bclass="[^"]*\bmms-river\b[^"]*"[^>]*>',
-    strip_river_hidden,
+    strip_river_runtime_state,
     home,
 )
 home = re.sub(r'<img\b[^>]*>', restore_image_loading, home)
@@ -306,6 +322,30 @@ bodycopy_mutations = {
     "persisted hidden river": home.replace(
         '<div class="mms-river"', '<div class="mms-river" hidden=""', 1
     ),
+    "persisted river aria-valuenow": home.replace(
+        '<div class="mms-river"', '<div class="mms-river" aria-valuenow="0"', 1
+    ),
+    "persisted river scrollbar role": home.replace(
+        '<div class="mms-river"', '<div class="mms-river" role="scrollbar"', 1
+    ),
+    "persisted river aria-orientation": home.replace(
+        '<div class="mms-river"', '<div class="mms-river" aria-orientation="horizontal"', 1
+    ),
+    "persisted river aria-valuemin": home.replace(
+        '<div class="mms-river"', '<div class="mms-river" aria-valuemin="0"', 1
+    ),
+    "persisted river aria-valuemax": home.replace(
+        '<div class="mms-river"', '<div class="mms-river" aria-valuemax="100"', 1
+    ),
+    "persisted river aria-valuetext": home.replace(
+        '<div class="mms-river"', '<div class="mms-river" aria-valuetext="0% through gallery"', 1
+    ),
+    "duplicate river class attribute": home.replace(
+        '<div class="mms-river"', '<div class="mms-river" class="not-river"', 1
+    ),
+    "missing native river class": home.replace(
+        '<div class="mms-river"', '<div class="not-river"', 1
+    ),
     "persisted display-none river": home.replace(
         '<div class="mms-river">', '<div class="mms-river" style="display: none">', 1
     ),
@@ -341,6 +381,13 @@ source_purity_labels = {
     "persisted iframe poster",
     "persisted child source",
     "persisted hidden river",
+    "persisted river aria-valuenow",
+    "persisted river scrollbar role",
+    "persisted river aria-orientation",
+    "persisted river aria-valuemin",
+    "persisted river aria-valuemax",
+    "persisted river aria-valuetext",
+    "missing native river class",
     "persisted display-none river",
     "runtime image priority drift",
     "runtime eager-image identity swap",

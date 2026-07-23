@@ -19,6 +19,7 @@
     "schema-test": "node src/schema-self-test.mjs",
     "self-test": "npm run schema-test && node src/self-test.mjs",
     "runtime-root-test": "node src/runtime-root-replacement-test.mjs",
+    "river-aria-test": "node src/river-aria-source-test.mjs",
     "startup-state-test": "node src/startup-state-interaction-test.mjs",
     "swatch-focus-test": "node src/swatch-focus-test.mjs",
     "touchbaes-readiness-test": "node src/touchbaes-readiness-test.mjs"

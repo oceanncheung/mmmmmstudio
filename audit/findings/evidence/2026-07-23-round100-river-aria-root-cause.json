@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "issue": "MMS-AUD-003",
+  "captured_at_utc": "2026-07-23T02:51:11.251Z",
+  "mode": "read-only-root-cause-observation",
+  "repository": {
+    "branch": "round-100/river-aria-contract",
+    "commit": "616be73f593bb621dcfffbb739945dee1ec6f65b",
+    "working_tree_was_clean_before_evidence_write": true
+  },
+  "historical_frozen_source": {
+    "saved_bodycopy": {
+      "path": "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+      "checksum_authority": "docs/audits/2026-07-20T175853-0400-round-80/SHA256SUMS",
+      "bytes": 130742,
+      "sha256": "03a7f20f1f5d7359d260c065ab239c8d6552f24e581118ccffeec934f9b96cd4",
+      "exact_mms_river_elements": 13,
+      "hidden_mms_river_elements": 12,
+      "mms_river_elements_with_aria_valuenow": 12,
+      "serialized_mms_river_scrubbers": 0
+    },
+    "published_response": {
+      "path": "docs/audits/2026-07-20T175853-0400-round-80/public/home.html",
+      "checksum_authority": "docs/audits/2026-07-20T175853-0400-round-80/SHA256SUMS",
+      "bytes": 512588,
+      "sha256": "b4f5385496b317e1a7617f19657558830456bbf2c179b4c1c23b5dc8bc04baef",
+      "exact_mms_river_elements": 13,
+      "hidden_mms_river_elements": 12,
+      "mms_river_elements_with_aria_valuenow": 12,
+      "serialized_mms_river_scrubbers": 0
+    },
+    "decisive_observation": "The same twelve hidden and aria-valuenow attributes are already present in the frozen saved bodycopy and in the frozen HTTP response. The historical accessibility failure therefore existed in serialized source before the current page runtime executed; it was not a current live Cargo setter adding those attributes to native rivers."
+  },
+  "current_source": {
+    "canonical_template": {
+      "path": "cargo/home.template.html",
+      "bytes": 52883,
+      "sha256": "7d9446d75174c6096c268d3d46fb72d8972d50e75540e241c83a7f47bc88041e",
+      "exact_mms_river_elements": 13,
+      "hidden_mms_river_elements": 0,
+      "mms_river_elements_with_aria_valuenow": 0,
+      "serialized_mms_river_scrubbers": 0
+    },
+    "generated_bodycopy": {
+      "path": "cargo/home.html",
+      "bytes": 145254,
+      "sha256": "e8cb08d494803d08679e87d7ecb37cc315632737eda1f0fd0422aca707b0a0c2",
+      "runtime_marker": "responsive-70",
+      "runtime_marker_occurrences": 2,
+      "exact_mms_river_elements": 13,
+      "hidden_mms_river_elements": 0,
+      "mms_river_elements_with_aria_valuenow": 0,
+      "serialized_mms_river_scrubbers": 0
+    },
+    "generated_bodycopy_validation": {
+      "command": "cargo/validate-cargo-payload.sh bodycopy cargo/home.html home",
+      "exit_code": 0,
+      "result": [
+        "OK: deployment manifest ocean / gold-2026-07-21-responsive-70 / home",
+        "Media playback ownership: PASS (observer is the sole Home video owner)",
+        "Root runtime ownership: PASS (home bodycopy)",
+        "OK: bodycopy payload is clean"
+      ]
+    }
+  },
+  "current_public_source": {
+    "url": "https://mmmmm.studio/",
+    "request": "curl -L --compressed",
+    "response_date": "Thu, 23 Jul 2026 02:45:45 GMT",
+    "status": 200,
+    "server": "Cargo",
+    "x_cache_status": "C3-HIT",
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 531428,
+    "sha256": "5f30fcd87e6a1041bd030b7a4d1d9c82fa5a8e3b4ec9e6607b2403886e0d5e7f",
+    "runtime_marker": "responsive-70",
+    "runtime_marker_occurrences": 4,
+    "exact_mms_river_elements": 13,
+    "hidden_mms_river_elements": 0,
+    "mms_river_elements_with_aria_valuenow": 0,
+    "serialized_mms_river_scrubbers": 0
+  },
+  "early_browser_instrumentation": {
+    "browser": "Playwright Chromium",
+    "method": [
+      "Opened about:blank in a fresh named browser session.",
+      "Installed a context.addInitScript hook before navigating to the public page.",
+      "Wrapped HTMLElement.prototype.hidden, Element.prototype.setAttribute, and Element.prototype.toggleAttribute.",
+      "Observed hidden and aria-valuenow mutations with a subtree MutationObserver.",
+      "Recorded performance.now timing, target class, target markup, and JavaScript Error stacks."
+    ],
+    "desktop_viewport": {
+      "width": 1280,
+      "height": 720,
+      "device_pixel_ratio": 1
+    },
+    "first_instrumented_write_ms_after_navigation_start": 345.6000000014901,
+    "recorded_events_including_mutation_observer_duplicates": 360,
+    "writes_targeting_an_exact_mms_river": 0,
+    "scrubber_hidden_setter_writes": 132,
+    "scrubber_aria_valuenow_setattribute_writes": 120,
+    "first_scrubber_hidden_stack": [
+      "HTMLDivElement.set [as hidden] (<anonymous>:15:212)",
+      "https://mmmmm.studio/:4637:22",
+      "Array.forEach (<anonymous>)",
+      "initRiverScrubbers (https://mmmmm.studio/:4627:18)",
+      "init (https://mmmmm.studio/:4840:3)",
+      "https://mmmmm.studio/:4963:3",
+      "https://mmmmm.studio/:4964:3"
+    ],
+    "first_scrubber_aria_value_stack": [
+      "Element.setAttribute (<anonymous>:11:60)",
+      "sync (https://mmmmm.studio/:4702:17)",
+      "https://mmmmm.studio/:3734:31"
+    ],
+    "interpretation": "The current runtime writes visibility and scrollbar value state only to the generated mms-river-scrubber controls. It performs no captured hidden or aria-valuenow write on an exact native mms-river element."
+  },
+  "current_public_dom": {
+    "expanded_1280x720": {
+      "exact_mms_river_elements": 13,
+      "hidden_mms_river_elements": 0,
+      "mms_river_elements_with_aria_valuenow": 0,
+      "runtime_assigned_river_ids": 12,
+      "generated_mms_river_scrubbers": 12,
+      "visible_scrubbers": 12,
+      "scrubbers_with_scrollbar_role": 12,
+      "scrubbers_with_valid_aria_controls_target": 12,
+      "scrubbers_with_aria_valuenow_in_zero_to_one_hundred_range": 12,
+      "rivers_with_overflow_x_auto": 13,
+      "horizontally_scrollable_rivers": 12,
+      "scrollable_rivers_that_moved_after_direct_scrollleft_change": 12
+    },
+    "compact_after_resize_390x844": {
+      "exact_mms_river_elements": 13,
+      "hidden_mms_river_elements": 0,
+      "mms_river_elements_with_aria_valuenow": 0,
+      "generated_mms_river_scrubbers": 12,
+      "hidden_scrubbers": 12,
+      "rivers_with_overflow_x_auto": 12,
+      "rivers_with_touch_action_pan_x_pan_y": 13,
+      "horizontally_scrollable_rivers": 12
+    }
+  },
+  "current_axe": {
+    "engine": "axe-core from audit/harness/node_modules",
+    "run_only_rule": "aria-allowed-attr",
+    "violations": 0,
+    "incomplete": 0
+  },
+  "root_cause": {
+    "classification": "serialized activated-preview contamination",
+    "conclusion": "MMS-AUD-003 described a real historical saved-source defect, but the finding's current-runtime attribution is stale. An activated Cargo preview DOM was serialized back into Home source, carrying runtime state onto native rivers. Round 84 restored the clean gold Home source, and Round 85 added a fail-closed saved-source purity gate. The current canonical source, generated bodycopy, public response, and live DOM are clean.",
+    "supporting_project_records": [
+      "cargo/DEPLOY.md Round 84 records restoration after Cargo persisted runtime-mutated media state, including hidden rivers.",
+      "cargo/DEPLOY.md Round 85 records the fail-closed saved-source purity contract.",
+      "HANDOFF-CODEX.md states that opening Cargo Code View reads an activated runtime DOM and is not valid saved-source purity evidence.",
+      "cargo/PLAYBOOK.md requires validating raw saved bodycopy rather than an activated preview DOM."
+    ]
+  },
+  "safest_visual_neutral_closure": {
+    "production_runtime_change_required": false,
+    "recommendation": [
+      "Do not add a live attribute-removal observer or alter native river behavior.",
+      "Close the issue as already remediated, with this evidence replacing the stale current-runtime attribution.",
+      "Retain the existing source-purity rejection for hidden rivers and generated scrubbers.",
+      "Add an independent saved-source regression that rejects aria-valuenow on an exact mms-river even when hidden is absent.",
+      "Retain a browser regression that proves twelve sibling scrubbers own role=scrollbar, aria-controls, and aria-valuenow while native rivers remain horizontally scrollable with compact pan-x pan-y."
+    ],
+    "protected_behavior": [
+      "No visual or layout change.",
+      "No Cargo, Freight, Figma, deployment, or publication change.",
+      "Native touch and trackpad rivers remain the scrolling owners.",
+      "The approved desktop scrubber remains the separate mouse and keyboard scrollbar."
+    ]
+  },
+  "limitations": [
+    "The current browser observation used Chromium, not a physical Safari or assistive-technology session.",
+    "The historical evidence proves that contamination was serialized, but this read-only run did not reproduce the editor action that originally saved an activated preview DOM.",
+    "The live public response and line-number stacks are point-in-time observations and can change after a later publication.",
+    "Cross-origin embed internals were outside this issue and were not inspected.",
+    "No repository file other than this evidence artifact and no external state was changed."
+  ]
+}

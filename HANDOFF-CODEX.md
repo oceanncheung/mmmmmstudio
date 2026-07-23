@@ -1664,3 +1664,35 @@ agent needs to continue this project without the prior chat history.
 - Round 99 changes repository documentation and tests only. No Cargo/Freight/
   Figma/deployment/public state or protected visual and interaction contract
   changes, and `gold-2026-07-21-responsive-70` remains immutable.
+
+## Current handoff — Round 100 native-river ARIA source purity (2026-07-22)
+- `MMS-AUD-003` was a real historical defect, but its current-runtime
+  attribution was stale. The frozen Round 80 saved Home bodycopy already
+  contains 12 native rivers with `hidden=""` and `aria-valuenow="0"`, and the
+  frozen HTTP response repeats them. Fresh early instrumentation recorded no
+  current-runtime write of either attribute to an exact `.mms-river`; the
+  runtime writes them only to generated `.mms-river-scrubber` controls.
+- Round 84 restored the clean gold Home source. Round 100 adds the missing
+  independent recurrence guard: active deployment-manifest source purity pins
+  the native-river count, rejects the complete reviewed scrollbar semantic set
+  on those rivers, and rejects duplicate attributes before dictionary parsing.
+  Preserve `audit/contracts/river-aria-source-purity.json`, the dated
+  root-cause evidence, and `river-aria-source-test.mjs`.
+- The focused browser proof loads clean compact and expanded fixtures, then
+  reconstructs the exact 12-river serialized Cargo contamination as a negative
+  control. Clean source has zero Axe `aria-allowed-attr` nodes; the negative
+  control must reproduce 12. The 12 separate desktop scrubbers retain
+  `role="scrollbar"`, their complete value ARIA, and valid `aria-controls`.
+  Native compact touch panning, expanded horizontal wheel scrolling, and zero
+  page overflow remain mandatory.
+- Do not add an attribute-removal observer or alter `panel.js`, site CSS,
+  templates, river roles/tab order, scrubber geometry, or interaction behavior
+  for this closure. The source validator, not a live mutation, owns the fix.
+  No Cargo/Freight/Figma/deployment/public change is part of Round 100, and
+  `gold-2026-07-21-responsive-70` remains untouched.
+- Phase 2 normalizes the frozen capture's known runtime residue and three
+  Cargo-serialized case-duplicate SVG `viewBox` attributes only in memory;
+  production validation continues to reject every duplicate attribute.
+- The focused contract and complete Phase 2 suite pass, including 122/122
+  frozen hashes, both 240-state gold matrices, native-river interaction, all
+  embed and lifecycle proofs, and 38 rejected deployment mutations.
