@@ -14,7 +14,7 @@
     },
     {
       "path": "cargo/home.template.html",
-      "sha256": "7d9446d75174c6096c268d3d46fb72d8972d50e75540e241c83a7f47bc88041e"
+      "sha256": "dffdda3c0554b518e0c22a795319dae5fa1195ba962dd7cda84cd5596c59d3de"
     },
     {
       "path": "cargo/who.template.html",
@@ -38,7 +38,7 @@
     },
     {
       "path": "cargo/home.html",
-      "sha256": "0dbbfda0632078a42666ecd102855357a14adfc7c5920fb5af590bc980579ebb"
+      "sha256": "9c33dfcee4c5b8781f1004afe7af9232d56774fcce3fff9b627d1551f89002bb"
     },
     {
       "path": "cargo/who.html",

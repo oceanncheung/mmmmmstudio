@@ -260,6 +260,18 @@
       ],
       "protected_geometry": [
         {
+          "media_id": "eviive-05",
+          "asset_w": 558,
+          "asset_h": 372,
+          "data_fit": "contain"
+        },
+        {
+          "media_id": "eviive-06",
+          "asset_w": 670,
+          "asset_h": 372,
+          "data_fit": "cover"
+        },
+        {
           "media_id": "wtw-02",
           "asset_w": 504,
           "asset_h": 504

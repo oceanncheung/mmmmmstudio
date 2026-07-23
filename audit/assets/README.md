@@ -61,7 +61,7 @@ CSV is the review/export format. JSON is the canonical machine-readable format a
 
 ## Additive post-baseline geometry
 
-The frozen `design_*_1440_css_px` fields remain historical Round 80 facts. Current geometry that supersedes a frozen value is stored separately in `audit/assets/post-baseline-geometry-supersessions.json` and embedded at the top level of the JSON manifest. There are **1** current supersessions; no frozen row is silently rewritten.
+The frozen `design_*_1440_css_px` fields remain historical Round 80 facts. Current geometry that supersedes a frozen value is stored separately in `audit/assets/post-baseline-geometry-supersessions.json` and embedded at the top level of the JSON manifest. There are **2** current supersessions; no frozen row is silently rewritten.
 
 ## Optional rendered-measurement artifact
 

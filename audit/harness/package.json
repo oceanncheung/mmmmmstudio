@@ -9,6 +9,7 @@
     "document-language-test": "node src/document-language-test.mjs",
     "embed-message-protocol-test": "node src/embed-message-protocol-test.mjs",
     "embed-montran-test": "node src/embed-montran-interaction-test.mjs",
+    "eviive-pair-test": "node src/eviive-final-pair-geometry-test.mjs",
     "gold-parity-test": "node src/gold-parity-test.mjs",
     "iframe-capability-test": "node src/iframe-capability-test.mjs",
     "interaction-test": "npm run panel-scrubber-test && npm run startup-state-test && npm run embed-montran-test && npm run embed-message-protocol-test",

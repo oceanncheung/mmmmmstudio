@@ -570,6 +570,12 @@ def validate_bodycopy(source: str, expected_page: str, manifest: dict) -> None:
         height = custom_property(style, "--asset-h")
         require_equal(f"{expected_page}: {media_id} --asset-w", width, float(geometry["asset_w"]))
         require_equal(f"{expected_page}: {media_id} --asset-h", height, float(geometry["asset_h"]))
+        if "data_fit" in geometry:
+            require_equal(
+                f"{expected_page}: {media_id} data-fit",
+                record["attrs"].get("data-fit"),
+                geometry["data_fit"],
+            )
 
 
 def validate_head(source: str, manifest: dict) -> None:

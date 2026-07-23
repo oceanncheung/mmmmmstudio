@@ -13,6 +13,10 @@ const GOLD_ROOT = process.env.MMS_GOLD_ROOT
   ? path.resolve(process.env.MMS_GOLD_ROOT)
   : path.join(CANDIDATE_ROOT, "gold/2026-07-21-responsive-70");
 const APPROVED_GOLD_ID = "gold-2026-07-21-responsive-70";
+const GEOMETRY_SUPERSESSIONS = JSON.parse(readFileSync(
+  path.join(REPO_ROOT, "audit/assets/post-baseline-geometry-supersessions.json"),
+  "utf8",
+)).supersessions;
 const VIEWPORTS = [
   { width: 390, height: 844, name: "compact" },
   { width: 1440, height: 900, name: "expanded" },
@@ -149,6 +153,21 @@ async function settleAssets(page) {
     ]);
   });
   await settle(page);
+}
+
+async function applyApprovedGeometrySupersessions(page) {
+  await page.evaluate((supersessions) => {
+    supersessions.forEach((item) => {
+      if (item.page !== "home" || item.status !== "current") return;
+      const element = document.querySelector(`[data-media-id="${CSS.escape(item.media_id)}"]`);
+      if (!element) throw new Error(`missing approved geometry supersession target: ${item.media_id}`);
+      element.style.setProperty("--asset-w", String(item.current_value.width_css_px));
+      element.style.setProperty("--asset-h", String(item.current_value.height_css_px));
+      Object.entries(item.current_attributes || {}).forEach(([name, value]) => {
+        element.setAttribute(name, String(value));
+      });
+    });
+  }, GEOMETRY_SUPERSESSIONS);
 }
 
 async function applyState(page, state) {
@@ -288,6 +307,7 @@ try {
       gold.goto(`${goldServer.origin}/test.html`, { waitUntil: "domcontentloaded" }),
       candidate.goto(`${candidateServer.origin}/test.html`, { waitUntil: "domcontentloaded" }),
     ]);
+    await applyApprovedGeometrySupersessions(gold);
     await Promise.all([gold.waitForTimeout(1800), candidate.waitForTimeout(1800)]);
     await Promise.all([settleAssets(gold), settleAssets(candidate)]);
     const neutralCss = `
