@@ -1642,3 +1642,25 @@ agent needs to continue this project without the prior chat history.
 - No Cargo/Freight/DNS action is part of Round 98. Any activation is a separate
   explicitly authorized architecture and deployment batch with fresh public
   header evidence, rollback, and full protected-contract verification.
+
+## Current handoff — Round 99 low-collection privacy inventory (2026-07-22)
+- `MMS-AUD-040` has a repository-only technical inventory at
+  `docs/PRIVACY-DATA-INVENTORY.md`. It is not a visitor-facing privacy policy,
+  legal notice, Cargo route, or publication authorization.
+- Preserve the exact first-party storage set: `mms-theme`, `mms-face`,
+  `mms-scale`, and `mms-shape` in local storage only after deliberate control
+  selection; `mms-render-sequence` in session storage for the current tab.
+  The active Touchbaes v10 child removes its legacy Freight-origin placement
+  key and does not save current placements.
+- Preserve `audit/contracts/low-collection-privacy.json`, the 2026-07-23 live
+  evidence, and `validate-low-collection-privacy.py` in the complete Phase 2
+  gate. It must reject unrecorded storage, cookie/form/beacon/tracker paths,
+  storage transmission, service/link drift, generated-bodycopy resources, CSS
+  URL/import additions, unsupported absolute claims, untracked inputs, and any
+  unapproved Cargo disclosure.
+- The observed service set is MM.S, Cargo build/static/type, Freight, and
+  Google Fonts. Provider-side logs and retention were not observable, so never
+  turn the record into a claim that the site or its providers collect nothing.
+- Round 99 changes repository documentation and tests only. No Cargo/Freight/
+  Figma/deployment/public state or protected visual and interaction contract
+  changes, and `gold-2026-07-21-responsive-70` remains immutable.

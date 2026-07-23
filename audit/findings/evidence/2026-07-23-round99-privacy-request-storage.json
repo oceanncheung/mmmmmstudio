@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "issue": "MMS-AUD-040",
+  "captured_at_utc": "2026-07-23T02:12:00Z",
+  "mode": "read-only-live-and-source-observation",
+  "canonical_source_identities": [
+    {
+      "path": "cargo/shared-early-init.html",
+      "sha256": "dbf6cb8d87f7ba7cbe1014520032bfcaab3943da73fd090ed2003e35bd1c9ecb"
+    },
+    {
+      "path": "cargo/panel.js",
+      "sha256": "66532ec0dde7d2b36ee4dba43f0a7cd0021f5155dfffdc44fc556a034db408f7"
+    },
+    {
+      "path": "cargo/home.template.html",
+      "sha256": "7d9446d75174c6096c268d3d46fb72d8972d50e75540e241c83a7f47bc88041e"
+    },
+    {
+      "path": "cargo/who.template.html",
+      "sha256": "1eb7e7aa4e3ae37ac2da9793f63e52b76e8d3bb92f60b0dd0b9b523a3f2c0e21"
+    },
+    {
+      "path": "cargo/write.template.html",
+      "sha256": "348a820f9d24755cad7dbdfa4ab8c0016d585d60b745737b819df7c823a02608"
+    },
+    {
+      "path": "cargo/shared-nav-items.html",
+      "sha256": "0f5ab94a8b59380ded80de9931af08d9072396a24411038254d6f245ba453361"
+    },
+    {
+      "path": "cargo/home-extras.html",
+      "sha256": "0cb6c73ece86b3d27b7f8572174867a206c67d06701ad204d253cd1c7bd07992"
+    },
+    {
+      "path": "cargo/site-head.html",
+      "sha256": "d677c1a7e81a20482d1aa02959284f51775f0fe39411521ef91d9a972657fd56"
+    },
+    {
+      "path": "cargo/home.html",
+      "sha256": "e8cb08d494803d08679e87d7ecb37cc315632737eda1f0fd0422aca707b0a0c2"
+    },
+    {
+      "path": "cargo/who.html",
+      "sha256": "903c804e0e046c51b41e6f1955b27bd78f8b47791e0832d494bef9a8cc35c80f"
+    },
+    {
+      "path": "cargo/write.html",
+      "sha256": "65a9fb576c1673406a168962b52b96035405f9c26fb7405717b485fc797c9eae"
+    },
+    {
+      "path": "cargo/tokens.css",
+      "sha256": "70178291f00dfeacaae9fc7c0fde2d7f444cb26456d969b7d2523d0274a71d98"
+    },
+    {
+      "path": "cargo/site.css",
+      "sha256": "aa61fcbf580714e09a0d855a208ce5c213d0ada29885fe5abbdf6c6d8dbe1875"
+    }
+  ],
+  "frozen_evidence": [
+    {
+      "path": "audit/findings/phase3-platform-security-findings.md",
+      "sha256": "0332c0faeae5a224247e35291f066742a9a46c70abdedc53cd8aead3e3ec68b4"
+    },
+    {
+      "path": "audit/findings/evidence/2026-07-21-phase3-platform-security-summary.json",
+      "sha256": "3c8a7d2a954e100fb982c7d13f705130c25726b1e637978c49f16533c2b1b4d4"
+    },
+    {
+      "path": "docs/audits/2026-07-20T175853-0400-round-80/public/home.headers",
+      "sha256": "513e96be59f92e1e1ee20255847d21010fb996f68ae327482a46c961bc08f27c"
+    },
+    {
+      "path": "docs/audits/2026-07-20T175853-0400-round-80/public/who.headers",
+      "sha256": "72c2d3b4d83dc32d6ebf4167e749f16b745d8387ac07f1e676b0c91a5220c011"
+    },
+    {
+      "path": "docs/audits/2026-07-20T175853-0400-round-80/public/write.headers",
+      "sha256": "df5bd17536124305e0fb0e1a902163551d04a0f8febc7e4e05af5b325688180e"
+    }
+  ],
+  "browser_storage": {
+    "clean_first_party": {
+      "local_storage": {},
+      "session_storage_keys": [
+        "mms-render-sequence"
+      ],
+      "cookies": [],
+      "indexed_db_databases": [],
+      "cache_storage_keys": [],
+      "service_worker_registrations": []
+    },
+    "after_control_selection": {
+      "selected": {
+        "theme": "girly",
+        "face": "sans",
+        "scale": "xl",
+        "shape": "oval"
+      },
+      "local_storage": {
+        "mms-face": "sans",
+        "mms-scale": "xl",
+        "mms-shape": "oval",
+        "mms-theme": "girly"
+      },
+      "session_storage_keys": [
+        "mms-render-sequence"
+      ],
+      "additional_network_requests": 0,
+      "cookies": []
+    },
+    "touchbaes_v10": {
+      "url": "https://freight.cargo.site/m/E3031754669080377521238157342521/touchbaes-sticker-game-v10.html",
+      "response_sha256": "2c4f2c12a8d049ab0805fb8f72f246a95e715154671d5fd8cc808407995afcb5",
+      "legacy_key": "touchbaes-sticker-room-raw-v44",
+      "operation": "remove-only",
+      "placement_persistence": false,
+      "frame_storage_after_load": {
+        "local_storage": {},
+        "session_storage": {}
+      }
+    }
+  },
+  "network_observations": [
+    {
+      "label": "home-clean-load",
+      "route": "/",
+      "request_count": 33,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "label": "who-clean-load",
+      "route": "/who",
+      "request_count": 15,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "label": "write-clean-load",
+      "route": "/write",
+      "request_count": 11,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "label": "home-full-traversal",
+      "route": "/",
+      "request_count": 112,
+      "methods": [
+        "GET",
+        "HEAD"
+      ],
+      "document_height_css_px": 9611,
+      "note": "One Montran PDF request was cancelled during range navigation; this is not a privacy finding."
+    }
+  ],
+  "observed_runtime_origins": [
+    "https://mmmmm.studio",
+    "https://build.cargo.site",
+    "https://static.cargo.site",
+    "https://type.cargo.site",
+    "https://freight.cargo.site",
+    "https://fonts.googleapis.com",
+    "https://fonts.gstatic.com"
+  ],
+  "origin_roles": {
+    "https://mmmmm.studio": "first-party documents",
+    "https://build.cargo.site": "Cargo styles, scripts, and icon assets",
+    "https://static.cargo.site": "Cargo static assets and favicon",
+    "https://type.cargo.site": "Cargo-hosted fonts",
+    "https://freight.cargo.site": "portfolio media, executable embeds, and Montran PDF",
+    "https://fonts.googleapis.com": "UnifrakturMaguntia stylesheet",
+    "https://fonts.gstatic.com": "UnifrakturMaguntia font binary"
+  },
+  "request_findings": {
+    "cookie_request_headers": 0,
+    "authorization_request_headers": 0,
+    "set_cookie_response_headers": 0,
+    "write_method_requests": 0,
+    "tracker_pattern_requests": 0,
+    "forms_on_routes": 0,
+    "resolved_google_font_binary_url_captured": false
+  },
+  "runtime_dependency_frames": {
+    "loaded": [
+      "v7-cup",
+      "touchbaes",
+      "montran-booklet"
+    ],
+    "local_storage_after_load": {},
+    "session_storage_after_load": {}
+  },
+  "methods": [
+    "curl --max-time 30 -L -sSI for Home, Who, and Write response headers",
+    "Playwright Core 1.61.1 with installed Chrome and isolated browser contexts",
+    "request and response capture during clean route loads and complete Home traversal",
+    "browser enumeration of cookies, localStorage, sessionStorage, IndexedDB, Cache Storage, and service workers",
+    "deliberate compact control-panel selection of one value on every appearance axis"
+  ],
+  "limitations": [
+    "The live observation covers the published site, not an unpublished Cargo draft.",
+    "The browser evidence is Chromium-based and does not certify physical Safari behavior.",
+    "Request counts can vary with cache, viewport, lazy loading, and timing.",
+    "Client inspection cannot observe provider-side access logs, retention, reuse, legal basis, subprocessors, or deletion practices.",
+    "No tracker means none was observed in the audited source and sampled sessions; it does not guarantee future delivery state."
+  ]
+}
