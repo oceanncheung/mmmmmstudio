@@ -47,9 +47,9 @@ EXPECTED_SOURCE_HASHES = {
     "cargo/shared-nav-items.html": "0f5ab94a8b59380ded80de9931af08d9072396a24411038254d6f245ba453361",
     "cargo/home-extras.html": "0cb6c73ece86b3d27b7f8572174867a206c67d06701ad204d253cd1c7bd07992",
     "cargo/site-head.html": "fdb1bc6a7d2b6ad36b054a36f2e42c6d2d15401f4c29e4121efeeb1d96ffd71d",
-    "cargo/home.html": "cf73e9d14fbbed5f34476663b8b505c96cf9155a0ac0b25b5b69c061c41e1704",
-    "cargo/who.html": "d94edb7c90b47135ea35b92924258a22fa3a4e841d14a2402754f8f40ca321b0",
-    "cargo/write.html": "c16479bb9d11a60b2dd4fc119377b7d380a7e06fbb49decd8677225a96affddb",
+    "cargo/home.html": "0dbbfda0632078a42666ecd102855357a14adfc7c5920fb5af590bc980579ebb",
+    "cargo/who.html": "3d7a89ebc8605be3bf9835315a616641fe913e1387360343f776c637be4a037e",
+    "cargo/write.html": "0eae0479561e1131f8d911a51285960b1cf34c1ec3b9f06febedb6703703314e",
     "cargo/tokens.css": "70178291f00dfeacaae9fc7c0fde2d7f444cb26456d969b7d2523d0274a71d98",
     "cargo/site.css": "aa61fcbf580714e09a0d855a208ce5c213d0ada29885fe5abbdf6c6d8dbe1875",
 }

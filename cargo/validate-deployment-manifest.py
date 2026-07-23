@@ -56,6 +56,13 @@ SOURCE_PURITY_KEYS = {
     "native_rivers",
     "invalid_river_scrollbar_semantics",
     "generated_scrubbers",
+    "primary_navigation_candidates",
+    "expanded_primary_navigations",
+    "compact_primary_navigations",
+    "invalid_primary_navigation_candidates",
+    "legacy_complementary_rails",
+    "complementary_landmarks",
+    "navigation_landmarks",
     "deferred_data_src",
     "eager_image_ids",
     "image_loading",
@@ -110,6 +117,13 @@ class BodycopyAudit(HTMLParser):
             "native_rivers": 0,
             "invalid_river_scrollbar_semantics": 0,
             "generated_scrubbers": 0,
+            "primary_navigation_candidates": 0,
+            "expanded_primary_navigations": 0,
+            "compact_primary_navigations": 0,
+            "invalid_primary_navigation_candidates": 0,
+            "legacy_complementary_rails": 0,
+            "complementary_landmarks": 0,
+            "navigation_landmarks": 0,
             "deferred_data_src": 0,
             "eager_image_ids": [],
             "image_loading": {"eager": 0, "lazy": 0, "other": 0},
@@ -140,6 +154,31 @@ class BodycopyAudit(HTMLParser):
             )
         attr_map = dict(attrs)
         classes = self._classes(attr_map)
+        role_tokens = set((attr_map.get("role") or "").lower().split())
+        normalized_style = re.sub(r"\s+", "", attr_map.get("style") or "").lower()
+        ancestor_suppresses_navigation = any(
+            bool(node.get("navigation_suppressed")) for node in self.stack
+        )
+        element_suppresses_navigation = (
+            tag in {"template", "noscript"}
+            or (tag == "dialog" and "open" not in attr_map)
+            or (tag == "details" and "open" not in attr_map)
+            or "hidden" in attr_map
+            or "inert" in attr_map
+            or "popover" in attr_map
+            or (attr_map.get("aria-hidden") or "").strip().lower() == "true"
+            or re.search(r"(?:^|;)display:none(?:!important)?(?:;|$)", normalized_style) is not None
+            or re.search(r"(?:^|;)visibility:(?:hidden|collapse)(?:!important)?(?:;|$)", normalized_style) is not None
+            or re.search(r"(?:^|;)content-visibility:hidden(?:!important)?(?:;|$)", normalized_style) is not None
+        )
+        navigation_suppressed = (
+            ancestor_suppresses_navigation or element_suppresses_navigation
+        )
+
+        if tag == "aside" or "complementary" in role_tokens:
+            self.source_purity["complementary_landmarks"] += 1
+        if tag == "nav" or "navigation" in role_tokens:
+            self.source_purity["navigation_landmarks"] += 1
 
         if tag == "video" and "src" in attr_map:
             self.source_purity["live_video_src"] += 1
@@ -174,13 +213,43 @@ class BodycopyAudit(HTMLParser):
             style = re.sub(r"\s+", "", attr_map.get("style") or "").lower()
             if "hidden" in attr_map or re.search(r"(?:^|;)display:none(?:;|$)", style):
                 self.source_purity["hidden_rivers"] += 1
-            role_tokens = set((attr_map.get("role") or "").lower().split())
             if "scrollbar" in role_tokens or any(
                 attribute in attr_map for attribute in RIVER_SCROLLBAR_ARIA
             ):
                 self.source_purity["invalid_river_scrollbar_semantics"] += 1
         if "mms-river-scrubber" in classes:
             self.source_purity["generated_scrubbers"] += 1
+
+        is_expanded_navigation = "mms-rail" in classes
+        is_compact_navigation = "mms-mlinks" in classes
+        if is_expanded_navigation or is_compact_navigation:
+            self.source_purity["primary_navigation_candidates"] += 1
+            parent = self.stack[-1] if self.stack else {}
+            parent_classes = parent.get("classes") or set()
+            parent_is_expected = (
+                parent.get("tag") == "div"
+                and (
+                    (is_expanded_navigation and "mms" in parent_classes)
+                    or (is_compact_navigation and "mms-intro-wrap" in parent_classes)
+                )
+            )
+            candidate_is_valid = (
+                tag == "nav"
+                and attr_map.get("aria-label") == "Primary"
+                and is_expanded_navigation != is_compact_navigation
+                and classes in ({"mms-rail"}, {"mms-mlinks"})
+                and set(attr_map) == {"aria-label", "class"}
+                and parent_is_expected
+                and not navigation_suppressed
+            )
+            if tag == "aside" and is_expanded_navigation:
+                self.source_purity["legacy_complementary_rails"] += 1
+            if candidate_is_valid and is_expanded_navigation:
+                self.source_purity["expanded_primary_navigations"] += 1
+            elif candidate_is_valid and is_compact_navigation:
+                self.source_purity["compact_primary_navigations"] += 1
+            else:
+                self.source_purity["invalid_primary_navigation_candidates"] += 1
 
         if "mms" in classes:
             self.roots.append(attr_map.get("data-page") or "home")
@@ -240,7 +309,13 @@ class BodycopyAudit(HTMLParser):
             media["sources"].append({"tag": tag, "attrs": source_attrs})
 
         if tag not in VOID_TAGS:
-            self.stack.append({"tag": tag, "band": band, "media": media})
+            self.stack.append({
+                "tag": tag,
+                "band": band,
+                "media": media,
+                "classes": classes,
+                "navigation_suppressed": navigation_suppressed,
+            })
 
     def handle_startendtag(self, tag: str, attrs) -> None:
         self.handle_starttag(tag, attrs)

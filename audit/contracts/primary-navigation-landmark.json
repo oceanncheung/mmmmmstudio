@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "issue_id": "MMS-AUD-023",
+  "status": "repository-browser-contract",
+  "accessible_name": "Primary",
+  "scope": {
+    "pages": {
+      "home": {
+        "path": "cargo/test.html",
+        "current_href": "/"
+      },
+      "who": {
+        "path": "cargo/who-test.html",
+        "current_href": "/who"
+      },
+      "write": {
+        "path": "cargo/write-test.html",
+        "current_href": "/write"
+      }
+    },
+    "navigation_candidates": {
+      "expanded": "nav.mms-rail[aria-label=\"Primary\"]",
+      "compact": "nav.mms-mlinks[aria-label=\"Primary\"]"
+    },
+    "root_cause_evidence": "audit/findings/evidence/2026-07-23-round102-primary-navigation-root-cause.json"
+  },
+  "saved_source_contract": {
+    "primary_navigation_candidates": 2,
+    "expanded_primary_navigations": 1,
+    "compact_primary_navigations": 1,
+    "invalid_primary_navigation_candidates": 0,
+    "legacy_complementary_rails": 0,
+    "complementary_landmarks": 0,
+    "navigation_landmarks": 2
+  },
+  "browser_contract": {
+    "viewports": {
+      "compact_390": {
+        "width": 390,
+        "height": 900,
+        "mode": "compact",
+        "visible_selector": "nav.mms-mlinks[aria-label=\"Primary\"]",
+        "hidden_selector": "nav.mms-rail[aria-label=\"Primary\"]",
+        "geometry": {
+          "rect": [0, 56, 390, 178],
+          "padding": [24, 19.9992, 16, 19.9992]
+        }
+      },
+      "compact_1023": {
+        "width": 1023,
+        "height": 900,
+        "mode": "compact",
+        "visible_selector": "nav.mms-mlinks[aria-label=\"Primary\"]",
+        "hidden_selector": "nav.mms-rail[aria-label=\"Primary\"]",
+        "geometry": {
+          "rect": [0, 56, 1023, 178],
+          "padding": [24, 40, 16, 40]
+        }
+      },
+      "expanded_1024": {
+        "width": 1024,
+        "height": 900,
+        "mode": "expanded",
+        "visible_selector": "nav.mms-rail[aria-label=\"Primary\"]",
+        "hidden_selector": "nav.mms-mlinks[aria-label=\"Primary\"]",
+        "geometry": {
+          "rail_rect": [0, 0, 193.421875],
+          "rail_padding": [28.4444, 22.7556, 28.4444, 28.4444],
+          "rail_top_rect": [28.4375, 28.4375, 142.234375, 184.125],
+          "rail_top_position": "sticky",
+          "rail_top_top": 28.4444,
+          "rail_top_z_index": "30"
+        }
+      },
+      "expanded_1440": {
+        "width": 1440,
+        "height": 900,
+        "mode": "expanded",
+        "visible_selector": "nav.mms-rail[aria-label=\"Primary\"]",
+        "hidden_selector": "nav.mms-mlinks[aria-label=\"Primary\"]",
+        "geometry": {
+          "rail_rect": [0, 0, 272],
+          "rail_padding": [40, 32, 40, 40],
+          "rail_top_rect": [40, 40, 200, 198],
+          "rail_top_position": "sticky",
+          "rail_top_top": 40,
+          "rail_top_z_index": "30"
+        }
+      }
+    },
+    "expected_dom_candidates": 2,
+    "expected_visible_navigation_landmarks": 1,
+    "expected_ax_navigation_landmarks": 1,
+    "expected_ax_complementary_landmarks": 0,
+    "compact_link_names": ["Work", "Write", "Who?", "Email", "Linkedin"],
+    "expanded_link_names": ["MM.S", "Work", "Write", "Who?", "Email", "Linkedin"],
+    "axe_rules": [
+      "aria-allowed-role",
+      "landmark-one-main",
+      "landmark-unique",
+      "region"
+    ],
+    "geometry_tolerance_px": 0.25
+  },
+  "negative_controls": [
+    "expanded navigation changed back to complementary aside",
+    "missing accessible name",
+    "incorrect accessible name",
+    "merged responsive navigation classes",
+    "explicit role override",
+    "navigation nested in an aside",
+    "navigation nested in an explicit complementary landmark",
+    "navigation nested in another nav landmark",
+    "navigation nested in an explicit navigation-role landmark",
+    "extra sibling navigation landmark",
+    "aria-labelledby accessible-name override",
+    "popover candidate suppression",
+    "hidden ancestor suppression",
+    "aria-hidden ancestor suppression",
+    "inert ancestor suppression",
+    "inline display-none ancestor suppression",
+    "important inline display-none ancestor suppression",
+    "template ancestor suppression",
+    "unexpected direct parent",
+    "both responsive navigation variants visible",
+    "incorrect current-page link"
+  ],
+  "verification": {
+    "focused_script": "npm --prefix audit/harness run primary-navigation-test",
+    "phase2_script": "audit/scripts/validate-phase2.sh",
+    "requires_zero_visual_change": true,
+    "requires_no_deployment_or_publication": true
+  }
+}
