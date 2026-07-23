@@ -5111,3 +5111,40 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
 - No Cargo, Freight, Figma, draft, public deployment, or publication action
   occurred. Touchbaes' separately reported visible-tweezer lifecycle is the
   next isolated regression contract before the audit backlog resumes.
+
+## Round 104 (2026-07-23): Touchbaes visible-tweezer lifecycle — TEST-ONLY / NOT DEPLOYED
+- Closed the composed regression gap behind the reported missing desktop
+  tweezer without changing Cargo HTML, CSS, JavaScript, bodycopy, generated
+  mirrors, media, embeds, the deployment manifest, Freight, Figma, public
+  state, or `gold-2026-07-21-responsive-70`.
+- Read-only diagnosis showed that the public lifecycle-1 owner can retain a
+  stale rig after Cargo replaces the root: the active v10 child still delivers
+  `rest` and `move`, but the current rig remains hidden. The repository's
+  existing lifecycle-2 implementation already owns the current root, rig,
+  Touchbaes frame, and river. The remaining defect was that the mandatory
+  harness had never combined replacement with a visible rig message.
+- Extended the existing mandatory `runtime-root-test`. After expanded
+  full-root replacement and after same-root Touchbaes river/frame replacement,
+  it now sends exact-origin legacy v10 `rest` and `move` envelopes from the
+  current frame and requires one connected current-root rig, `display:block`,
+  three trusted layers, approved assets, finite/repositioned geometry, and
+  exact lifecycle-2 ownership. A valid-looking message from each detached old
+  frame must leave the accepted rig unchanged. Compact mode must keep the
+  desktop rig hidden.
+- The original teardown, resource-count, panel, layout, zero-overflow, twelve
+  scrubber, native-river, and owner-version-upgrade assertions remain intact.
+  The focused command
+  `npm --prefix audit/harness run runtime-root-test` passes, and an independent
+  review found no stale-WindowProxy mistake, false-positive path, or material
+  resource/layout side effect.
+- The complete `bash audit/scripts/validate-phase2.sh` gate passes: 122/122
+  frozen hashes, both 240-state protected matrices, 75 rejected deployment
+  mutations, native rivers, WTW, Withered Green, EVIIVE, Touchbaes/iPad,
+  Montran, embed capability, media ownership, privacy, and root lifecycle all
+  remain green.
+- Evidence is recorded in
+  `audit/findings/evidence/2026-07-23-round104-touchbaes-visible-rig-root-cause.json`.
+  This is deterministic parent-lifecycle Chromium coverage, not a claim about
+  live Freight timing or physical Safari. The public site remains on
+  lifecycle-1 until a separately authorized complete Cargo promotion restores
+  the already prepared lifecycle-2 payload. Nothing was deployed or published.

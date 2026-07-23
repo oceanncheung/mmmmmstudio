@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "issue": "Touchbaes visible-tweezer lifecycle coverage gap",
+  "captured_at_utc": "2026-07-23T05:41:38Z",
+  "mode": "read-only-root-cause-observation-plus-test-only-regression",
+  "repository": {
+    "branch": "round-104/touchbaes-visible-tweezer-contract",
+    "base_commit": "7e8bb8654a4d0d78cfb98327eeb595ef180b2347",
+    "working_tree_was_clean_before_evidence_write": false,
+    "note": "The focused lifecycle test was already in progress. No Cargo, Freight, Figma, public deployment, publication, product runtime, visual source, or protected-gold file was changed."
+  },
+  "reported_symptom": {
+    "surface": "Touchbaes expanded desktop river",
+    "observation": "The escaped desktop tweezer disappeared even though the active child continued sending its legacy v10 rig messages."
+  },
+  "read_only_public_observation": {
+    "runtime": "responsive-70 with tweezer-v3/root-lifecycle-1",
+    "child": "active Freight Touchbaes v10",
+    "delivered_messages": [
+      "rest",
+      "move"
+    ],
+    "result": "The current #mms-tw-rig remained hidden because the deployed Home owner retained a stale rig identity after Cargo root replacement.",
+    "scope": "Point-in-time read-only Chromium diagnosis; the public site was not changed."
+  },
+  "current_repository_observation": {
+    "runtime": "responsive-70/root-lifecycle-2/embed-message-v1",
+    "home_owner": "tweezer-v3/root-lifecycle-2/embed-message-v1",
+    "result": "The current implementation already rebinds the Home owner to the live root, Touchbaes frame, river, and rig. Valid current-frame messages display the trusted three-layer rig.",
+    "implementation_sources": [
+      "cargo/panel.js",
+      "cargo/home-extras.html"
+    ]
+  },
+  "pre_contract_test_gap": {
+    "trusted_rig_test": "embed-montran-interaction-test.mjs proved that one valid trusted message could build a visible three-image rig on the initial root.",
+    "root_lifecycle_test": "runtime-root-replacement-test.mjs proved one current owner, root, frame, river, rig, and stable resources after full-root and same-root replacement.",
+    "missing_composition": "No mandatory test sent a valid Touchbaes rest or move message after replacement and then required the current rig to become visible.",
+    "consequence": "The two tests passed separately while the public stale-owner hidden-rig failure remained possible."
+  },
+  "root_cause": {
+    "classification": "uncomposed visible-state lifecycle coverage",
+    "conclusion": "The current lifecycle-2 implementation is the required correction. The remaining repository defect was a regression-test gap, not a reason to change product code or visual geometry again."
+  },
+  "selected_test_only_correction": {
+    "test": "audit/harness/src/runtime-root-replacement-test.mjs",
+    "expanded_full_root": [
+      "dispatch exact-origin legacy v10 rest and move payloads from the current Touchbaes frame window",
+      "require the lifecycle-2 owner to own the current root, rig, frame, and river",
+      "require exactly one connected rig inside the current root",
+      "require display block, three trusted layers, approved asset sources, correct hidden states, finite geometry, and repositioning",
+      "dispatch a valid-looking payload from the detached old frame window and require the accepted rig signature to remain unchanged"
+    ],
+    "expanded_same_root": [
+      "repeat the complete visible-rig and stale-frame proof after replacing only the Touchbaes river and iframe inside the retained root"
+    ],
+    "compact": [
+      "dispatch a valid current-frame move payload after same-root replacement and require the desktop rig to remain hidden"
+    ],
+    "unchanged_assertions": [
+      "runtime owner teardown",
+      "resource counts",
+      "protected layout geometry",
+      "zero page-level overflow",
+      "control-panel state",
+      "twelve desktop scrubbers",
+      "native horizontal river scrolling",
+      "same-root owner-version upgrade"
+    ]
+  },
+  "focused_verification": {
+    "command": "npm --prefix audit/harness run runtime-root-test",
+    "result": "PASS",
+    "compact_root_generations": 5,
+    "expanded_root_generations": 5,
+    "active_panel_owners": 1,
+    "active_home_owners": 1,
+    "connected_touchbaes_rigs": 1,
+    "expanded_scrubbers": 12,
+    "page_horizontal_overflow_css_px": 0,
+    "independent_review": "PASS: no false-positive path, stale WindowProxy error, resource side effect, or layout side effect found"
+  },
+  "full_phase2_verification": {
+    "command": "bash audit/scripts/validate-phase2.sh",
+    "result": "PASS",
+    "frozen_phase1_hashes": "122/122",
+    "protected_visual_states": 480,
+    "deployment_negative_fixtures_rejected": 75,
+    "preserved_contracts": [
+      "native rivers",
+      "WTW geometry",
+      "Withered Green rotation",
+      "EVIIVE final-pair expanded correction and compact no-drift",
+      "Touchbaes iPad readiness and trusted rig security",
+      "Montran range and turn behavior",
+      "iframe capabilities",
+      "media playback ownership",
+      "privacy and third-party inventory"
+    ]
+  },
+  "protected_behavior": [
+    "No product HTML, CSS, JavaScript, bodycopy, generated mirror, media, embed, deployment manifest, privacy identity, or Figma file changed.",
+    "The protected gold directory and frozen Round 69/Round 80 evidence remain unchanged.",
+    "No Cargo, Freight, Figma, draft, public deployment, or publication action occurred."
+  ],
+  "limitations": [
+    "The deterministic Chromium test uses exact source-window and origin MessageEvents; it proves parent lifecycle handling, not live Freight child network timing or physical Safari behavior.",
+    "The public responsive-70 site still carries lifecycle-1 until a separate authorized Cargo promotion restores the already prepared lifecycle-2 payload.",
+    "This round adds no coordinate authority beyond finite geometry and current ownership, so it cannot redesign or silently move the approved tweezer."
+  ]
+}

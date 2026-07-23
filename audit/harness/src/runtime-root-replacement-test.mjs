@@ -22,6 +22,27 @@ const OWNER_UPGRADE_VERSIONS = {
     current: "tweezer-v3/root-lifecycle-2/embed-message-v1",
   },
 };
+const FREIGHT_ORIGIN = "https://freight.cargo.site";
+const TWEEZER_OPEN_SRC =
+  `${FREIGHT_ORIGIN}/t/original/i/T3022869107490037873358127281977/tweezer-open.png`;
+const TWEEZER_CLOSED_SRC =
+  `${FREIGHT_ORIGIN}/t/original/i/N3022869107453144385210708178745/tweezer-close.png`;
+const TWEEZER_FRONT_SRC =
+  `${FREIGHT_ORIGIN}/t/original/i/V3022869107471591129284417730361/tweezer-front-arm.png`;
+const APPROVED_STICKER_SRC =
+  `${FREIGHT_ORIGIN}/t/original/i/F3022869107379357408915869972281/sticker-cat.png`;
+const TOUCHBAES_REST_HTML = [
+  `<img class="tweezer-back" src="${TWEEZER_OPEN_SRC}" alt="">`,
+  '<img class="drag-sticker" src="" alt="" hidden="">',
+  `<img class="tweezer-front" src="${TWEEZER_FRONT_SRC}" alt="" hidden="">`,
+].join("");
+const TOUCHBAES_MOVE_HTML = [
+  `<img class="tweezer-back" src="${TWEEZER_CLOSED_SRC}" alt="">`,
+  `<img class="drag-sticker" src="${APPROVED_STICKER_SRC}" alt="" ` +
+    'style="width: 96px; --drag-r: -8deg; --drag-offset-x: -72px; ' +
+    '--drag-offset-y: -64px; --drag-origin-x: 72px; --drag-origin-y: 64px;">',
+  `<img class="tweezer-front" src="${TWEEZER_FRONT_SRC}" alt="">`,
+].join("");
 
 function lifecycleProbeInit() {
   const native = {
@@ -326,6 +347,195 @@ function assertResourcesDoNotGrow(label, actual, expected) {
   assert.equal(actual.staleElementListeners, 0, `${label}: no stale root element listeners may survive`);
 }
 
+function touchbaesPayload(type) {
+  if (type === "rest") {
+    return {
+      __tw: 1,
+      t: "rest",
+      tx: 528.4553125,
+      ty: 352.2875,
+      w: 285,
+      html: TOUCHBAES_REST_HTML,
+    };
+  }
+  if (type === "move") {
+    return {
+      __tw: 1,
+      t: "move",
+      tx: 245.25,
+      ty: 180.5,
+      w: 285,
+      html: TOUCHBAES_MOVE_HTML,
+    };
+  }
+  throw new Error(`unsupported Touchbaes payload type: ${type}`);
+}
+
+async function touchbaesVisibleRigState(page) {
+  return page.evaluate(() => {
+    const root = document.querySelector(".mms");
+    const frame = root?.querySelector('iframe[data-embed-kind="touchbaes"]');
+    const river = frame?.closest(".mms-river");
+    const rig = document.getElementById("mms-tw-rig");
+    const owner = window.__mmsRuntimeLifecycle?.owners?.home;
+    const children = rig ? Array.from(rig.children) : [];
+    return {
+      ownerVersion: owner?.version || "",
+      ownerActive: owner?.active() === true,
+      ownerRootCurrent: owner?.root === root,
+      ownerRigCurrent: owner?.rig === rig,
+      ownerFrameCurrent: owner?.frame === frame,
+      ownerRiverCurrent: owner?.river === river,
+      rigParentCurrent: rig?.parentElement === root,
+      connectedRigs: Array.from(document.querySelectorAll("#mms-tw-rig"))
+        .filter((candidate) => candidate.isConnected).length,
+      display: rig ? getComputedStyle(rig).display : "",
+      childCount: children.length,
+      classes: children.map((child) => child.className),
+      hidden: children.map((child) => child.hidden),
+      sources: children.map((child) => child.src),
+      left: rig?.style.left || "",
+      top: rig?.style.top || "",
+      width: rig?.style.width || "",
+      finiteGeometry: Boolean(rig) &&
+        [rig.style.left, rig.style.top, rig.style.width].every((value) => (
+          Number.isFinite(Number.parseFloat(value))
+        )),
+      signature: rig ? [
+        getComputedStyle(rig).display,
+        rig.style.left,
+        rig.style.top,
+        rig.style.width,
+        rig.innerHTML,
+      ].join("\n") : "",
+    };
+  });
+}
+
+function assertCurrentTouchbaesOwner(state, label) {
+  assert.equal(
+    state.ownerVersion,
+    OWNER_UPGRADE_VERSIONS.home.current,
+    `${label}: current Home owner has the wrong version`,
+  );
+  assert.equal(state.ownerActive, true, `${label}: current Home owner is inactive`);
+  assert.equal(state.ownerRootCurrent, true, `${label}: Home owner has a stale root`);
+  assert.equal(state.ownerRigCurrent, true, `${label}: Home owner has a stale rig`);
+  assert.equal(state.ownerFrameCurrent, true, `${label}: Home owner has a stale frame`);
+  assert.equal(state.ownerRiverCurrent, true, `${label}: Home owner has a stale river`);
+  assert.equal(state.rigParentCurrent, true, `${label}: rig is outside the current root`);
+  assert.equal(state.connectedRigs, 1, `${label}: expected one connected current rig`);
+}
+
+async function exerciseExpandedTouchbaesVisibleRig(page, { label, staleWindowKey }) {
+  const payloads = {
+    rest: touchbaesPayload("rest"),
+    move: touchbaesPayload("move"),
+    stale: {
+      ...touchbaesPayload("move"),
+      tx: -311.75,
+      ty: -199.5,
+    },
+    origin: FREIGHT_ORIGIN,
+    staleWindowKey,
+  };
+
+  await page.evaluate(({ rest, origin }) => {
+    const frame = document.querySelector('iframe[data-embed-kind="touchbaes"]');
+    if (!frame?.contentWindow) throw new Error("current Touchbaes frame window is unavailable");
+    window.dispatchEvent(new MessageEvent("message", {
+      data: rest,
+      origin,
+      source: frame.contentWindow,
+    }));
+  }, payloads);
+  let state = await touchbaesVisibleRigState(page);
+  assertCurrentTouchbaesOwner(state, `${label} rest`);
+  assert.equal(state.display, "block", `${label}: valid rest payload left the rig hidden`);
+  assert.equal(state.childCount, 3, `${label}: rest rig must contain three trusted images`);
+  assert.deepEqual(
+    state.classes,
+    ["tweezer-back", "drag-sticker", "tweezer-front"],
+    `${label}: rest rig layer order changed`,
+  );
+  assert.deepEqual(state.hidden, [false, true, true], `${label}: rest visibility changed`);
+  assert.deepEqual(
+    state.sources,
+    [TWEEZER_OPEN_SRC, TWEEZER_OPEN_SRC, TWEEZER_FRONT_SRC],
+    `${label}: rest rig contains an unapproved image`,
+  );
+  assert.equal(state.finiteGeometry, true, `${label}: rest geometry is not finite`);
+  const restPosition = { left: state.left, top: state.top };
+
+  await page.evaluate(({ move, origin }) => {
+    const frame = document.querySelector('iframe[data-embed-kind="touchbaes"]');
+    window.dispatchEvent(new MessageEvent("message", {
+      data: move,
+      origin,
+      source: frame.contentWindow,
+    }));
+  }, payloads);
+  state = await touchbaesVisibleRigState(page);
+  assertCurrentTouchbaesOwner(state, `${label} move`);
+  assert.equal(state.display, "block", `${label}: valid move payload hid the rig`);
+  assert.equal(state.childCount, 3, `${label}: move rig must contain three trusted images`);
+  assert.deepEqual(
+    state.classes,
+    ["tweezer-back", "drag-sticker", "tweezer-front"],
+    `${label}: move rig layer order changed`,
+  );
+  assert.deepEqual(state.hidden, [false, false, false], `${label}: move rig is not fully visible`);
+  assert.deepEqual(
+    state.sources,
+    [TWEEZER_CLOSED_SRC, APPROVED_STICKER_SRC, TWEEZER_FRONT_SRC],
+    `${label}: move rig contains an unapproved image`,
+  );
+  assert.equal(state.finiteGeometry, true, `${label}: move geometry is not finite`);
+  assert.ok(
+    state.left !== restPosition.left || state.top !== restPosition.top,
+    `${label}: valid move payload did not reposition the rig`,
+  );
+
+  const acceptedSignature = state.signature;
+  await page.evaluate(({ stale, origin, staleWindowKey: key }) => {
+    const staleWindow = key.split(".").reduce((value, part) => value?.[part], window);
+    if (!staleWindow) throw new Error(`stale Touchbaes frame window is unavailable: ${key}`);
+    window.dispatchEvent(new MessageEvent("message", {
+      data: stale,
+      origin,
+      source: staleWindow,
+    }));
+  }, payloads);
+  state = await touchbaesVisibleRigState(page);
+  assertCurrentTouchbaesOwner(state, `${label} stale-frame rejection`);
+  assert.equal(
+    state.signature,
+    acceptedSignature,
+    `${label}: stale old-frame payload altered the current rig`,
+  );
+  // Leave the wider mandatory layout/resource checks in their original idle
+  // state after proving that the live rig can become visible.
+  await page.evaluate(() => {
+    const rig = document.getElementById("mms-tw-rig");
+    if (rig) rig.style.display = "none";
+  });
+}
+
+async function assertCompactTouchbaesRigHidden(page, label) {
+  await page.evaluate(({ payload, origin }) => {
+    const frame = document.querySelector('iframe[data-embed-kind="touchbaes"]');
+    if (!frame?.contentWindow) throw new Error("compact Touchbaes frame window is unavailable");
+    window.dispatchEvent(new MessageEvent("message", {
+      data: payload,
+      origin,
+      source: frame.contentWindow,
+    }));
+  }, { payload: touchbaesPayload("move"), origin: FREIGHT_ORIGIN });
+  const state = await touchbaesVisibleRigState(page);
+  assertCurrentTouchbaesOwner(state, label);
+  assert.equal(state.display, "none", `${label}: compact payload exposed the desktop rig`);
+}
+
 async function rehydrateSameRoot(page, { bodycopy, runtime, extras, expanded }) {
   const before = await page.evaluate(({ bodycopy: source, runtime: runtimeSource, extras: extrasSource }) => {
     const lifecycle = window.__mmsRuntimeLifecycle;
@@ -351,6 +561,7 @@ async function rehydrateSameRoot(page, { bodycopy, runtime, extras, expanded }) 
       panel: lifecycle.owners.panel,
       home: lifecycle.owners.home,
     };
+    const oldGameWindow = currentGame.contentWindow;
     const rootIdentity = currentRoot;
     currentDialog.remove();
     currentRoot.appendChild(freshDialog);
@@ -375,6 +586,7 @@ async function rehydrateSameRoot(page, { bodycopy, runtime, extras, expanded }) 
       oldDialog: currentDialog,
       oldRiver: currentRiver,
       oldGame: currentGame,
+      oldGameWindow,
       freshDialog,
       freshRiver,
       freshGame,
@@ -753,6 +965,7 @@ async function run() {
     assertResourceParity("compact same-root child rehydration", compactSameRoot.resources, compactBeforeSameRoot);
     await page.waitForTimeout(SETTLE_MS);
     await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    await assertCompactTouchbaesRigHidden(page, "compact same-root replacement");
 
     const ownership = await page.evaluate(() => {
       const generations = window.__mmsRootReplacementOwners || [];
@@ -963,6 +1176,11 @@ async function run() {
         const freshRoot = bodyTemplate.content.querySelector(".mms");
         const currentRoot = document.querySelector(".mms");
         if (!freshRoot || !currentRoot) throw new Error("expanded root replacement fixture is incomplete");
+        const currentGame = currentRoot.querySelector('iframe[data-embed-kind="touchbaes"]');
+        if (!currentGame?.contentWindow) {
+          throw new Error("expanded root replacement has no current Touchbaes frame window");
+        }
+        window.__mmsLastExpandedFullRootFrameWindow = currentGame.contentWindow;
         currentRoot.replaceWith(freshRoot);
 
         const execute = (source) => {
@@ -1006,6 +1224,10 @@ async function run() {
     await expandedPage.waitForTimeout(SETTLE_MS);
     const expandedBeforeSameRoot = await expandedPage.evaluate(() => window.__mmsLifecycleProbe.snapshot());
     assertResourcesDoNotGrow("expanded full-root replacements", expandedBeforeSameRoot, expandedInitial.resources);
+    await exerciseExpandedTouchbaesVisibleRig(expandedPage, {
+      label: "expanded full-root replacement",
+      staleWindowKey: "__mmsLastExpandedFullRootFrameWindow",
+    });
     const expandedSameRoot = await rehydrateSameRoot(expandedPage, {
       bodycopy: homeSource,
       runtime: panelSource,
@@ -1015,6 +1237,10 @@ async function run() {
     assertResourceParity("expanded same-root child rehydration", expandedSameRoot.resources, expandedBeforeSameRoot);
     await expandedPage.waitForTimeout(SETTLE_MS);
     await expandedPage.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    await exerciseExpandedTouchbaesVisibleRig(expandedPage, {
+      label: "expanded same-root replacement",
+      staleWindowKey: "__mmsSameRootRehydration.oldGameWindow",
+    });
 
     const expandedOwnership = await expandedPage.evaluate(() => {
       const generations = window.__mmsRootReplacementOwners || [];

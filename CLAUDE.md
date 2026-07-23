@@ -2696,3 +2696,26 @@ current source of truth for the built site.
 - Protected gold and frozen Round 69/Round 80 files remain immutable. The
   supersession is applied only in memory for parity. This repository-only
   round changes no Cargo, Freight, Figma, public site, or publication state.
+
+## Current state — Round 104 Touchbaes visible-tweezer lifecycle
+- The current repository lifecycle-2 Home owner is the approved implementation:
+  it owns the live `.mms` root, `#mms-tw-rig`, Touchbaes iframe, and Touchbaes
+  river after Cargo root replacement. Do not revert it to the protected
+  lifecycle-1 one-shot overlay.
+- The mandatory `runtime-root-test` now composes lifecycle replacement with
+  visible rig behavior. Exact-origin legacy v10 current-frame `rest` and
+  `move` messages must display one connected three-layer trusted rig after
+  expanded full-root replacement and expanded same-root river/frame
+  replacement. Detached old-frame messages must have no effect, and compact
+  current-frame messages must leave the desktop rig hidden.
+- Preserve the existing current-owner identity, teardown, resource, panel,
+  layout, zero-overflow, scrubber, native-river, and same-root version-upgrade
+  assertions around that new proof. The dated root-cause evidence is
+  `audit/findings/evidence/2026-07-23-round104-touchbaes-visible-rig-root-cause.json`.
+- This round changes no Cargo/runtime implementation, CSS, bodycopy, mirror,
+  manifest, protocol, media, Figma, Freight, public site, or protected gold.
+  Do not invent a new visual or coordinate correction unless a later isolated
+  failure independently proves one.
+- Focused and complete Phase 2 verification pass. The repository test covers
+  deterministic Chromium parent lifecycle; live Freight timing and physical
+  Safari remain promotion checks. No deployment or publication occurred.
