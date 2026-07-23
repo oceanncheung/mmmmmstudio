@@ -888,6 +888,14 @@ html[data-render-preview] .mms-frame { transition: none !important; }
       calc(var(--mobile-standard-h) / var(--asset-h))
     );
   }
+  /* Round 103 corrects only the expanded EVIIVE final-pair frame. Preserve
+     the established compact source-ratio geometry and contain fit exactly. */
+  .mms-river > [data-media-id="eviive-06"] {
+    --asset-h: 377.593 !important;
+  }
+  .mms-frame[data-media-id="eviive-06"] > .mms-img {
+    object-fit: contain;
+  }
   .mms-river .offset { display: none; }
   .mms-band[data-offset] { --offset: 0px; }
   .mms-desc {

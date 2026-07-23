@@ -2677,15 +2677,18 @@ current source of truth for the built site.
   specific frozen value as design authority.
 - The independent Figma-derived Round 13 contract is authoritative:
   `eviive-05` stays 558x372 with `contain`; `eviive-06` stays 670x372 with
-  `cover`. Compact geometry and native river behavior remain unchanged.
+  `cover` at 1024px and above. Below 1024px, preserve the compact CSS override
+  at 377.593 with `contain`; compact geometry and native river behavior remain
+  unchanged.
 - Preserve the deployment-manifest geometry and fit assertions, both negative
   fixtures, the additive post-baseline supersession, dated root-cause
   evidence, and `eviive-final-pair-geometry-test.mjs`. The focused browser
   matrix must keep equal top, height, and bottom within 0.25px at 1024, 1440,
-  1920, and 2940px.
+  1920, and 2940px and no drift from untouched gold at 320, 390, 430, 768,
+  and 1023px.
 - Round 99 privacy source identities for the canonical Home template and
-  generated bodycopy reflect this geometry-only change. Privacy behavior and
-  conclusions remain unchanged.
+  generated bodycopy plus site CSS reflect this geometry-only change. Privacy
+  behavior and conclusions remain unchanged.
 - The focused test and complete Phase 2 gate pass with 122/122 frozen hashes,
   all 480 protected visual states, 75 deployment-negative fixtures, and every
   native-river, WTW, Withered Green, embed, iPad, and lifecycle contract

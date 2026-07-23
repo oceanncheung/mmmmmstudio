@@ -31,7 +31,7 @@
     "disclosure_path": "docs/PRIVACY-DATA-INVENTORY.md",
     "disclosure_sha256": "4d757a7defc3a802f7c53b809f1e8fecf11e685dfa3b240dc8f8581840fcfa7b",
     "evidence_path": "audit/findings/evidence/2026-07-23-round99-privacy-request-storage.json",
-    "evidence_sha256": "da5931207dcb334fccc0ae09a91da0ba416a3d65f7ed7ae18716949d7bdba195"
+    "evidence_sha256": "78b3b76da71dba435f7c980ce768b4d2fa3ef890dc38cfb1de42d30e3c3e7fda"
   },
   "browser_storage": [
     {

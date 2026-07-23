@@ -55,7 +55,7 @@
       "data_fit": "cover"
     },
     "crop_effect": "At the 1440px design ratio, cover removes approximately 2.8px from the source at both the top and bottom, about 0.75 percent of source height, while preserving the approved 670x372 frame.",
-    "compact_scope": "No compact media profile or mobile river behavior changed."
+    "compact_scope": "A below-1024 CSS compatibility rule restores computed --asset-h to 377.593 and object-fit to contain, retaining the pre-existing compact geometry and native river behavior."
   },
   "new_recurrence_guards": {
     "focused_browser_test": "audit/harness/src/eviive-final-pair-geometry-test.mjs",
@@ -64,6 +64,13 @@
       1440,
       1920,
       2940
+    ],
+    "compact_no_drift_widths_css_px": [
+      320,
+      390,
+      430,
+      768,
+      1023
     ],
     "geometry_tolerance_css_px": 0.25,
     "deployment_manifest_fields": [
@@ -75,10 +82,10 @@
       "wrong EVIIVE final-pair geometry",
       "wrong EVIIVE final-pair fit"
     ],
-    "gold_parity_behavior": "Protected gold files remain immutable. The documented post-baseline supersession is applied only in memory before current-vs-gold visual parity."
+    "gold_parity_behavior": "Protected gold files remain immutable. The documented post-baseline supersession is applied only at 1024px and above in memory before current-vs-gold visual parity; compact gold remains untouched."
   },
   "focused_verification": {
-    "eviive_final_pair_geometry": "PASS: four expanded viewports and protected-gold negative control",
+    "eviive_final_pair_geometry": "PASS: four expanded corrections, five compact no-drift viewports, and protected-gold negative control",
     "gold_parity": "PASS: compact 240 states plus screenshots/interactions and expanded 240 states plus screenshots/interactions",
     "asset_manifest_records": 471,
     "page_horizontal_overflow_css_px": 0
@@ -100,7 +107,7 @@
     ]
   },
   "protected_behavior": [
-    "No site CSS, runtime, caption, description, navigation, control-panel, native-river, Touchbaes, WTW, Withered Green, Montran, or compact-media behavior changed.",
+    "The only site CSS addition is the compact EVIIVE no-drift override. No runtime, caption, description, navigation, control-panel, native-river, Touchbaes, WTW, Withered Green, Montran, or compact-media behavior changed.",
     "The protected gold directory and frozen Round 69/Round 80 evidence remain unchanged.",
     "No Cargo, Freight, Figma, draft, public deployment, or publication action occurred."
   ],

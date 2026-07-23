@@ -51,7 +51,7 @@ EXPECTED_SOURCE_HASHES = {
     "cargo/who.html": "3d7a89ebc8605be3bf9835315a616641fe913e1387360343f776c637be4a037e",
     "cargo/write.html": "0eae0479561e1131f8d911a51285960b1cf34c1ec3b9f06febedb6703703314e",
     "cargo/tokens.css": "70178291f00dfeacaae9fc7c0fde2d7f444cb26456d969b7d2523d0274a71d98",
-    "cargo/site.css": "aa61fcbf580714e09a0d855a208ce5c213d0ada29885fe5abbdf6c6d8dbe1875",
+    "cargo/site.css": "33bb5c6da4e15da715d66dfc1ada12b82ad32c97b9892e8278013fb99777c1af",
 }
 EXPECTED_FROZEN_HASHES = {
     "audit/findings/phase3-platform-security-findings.md": "0332c0faeae5a224247e35291f066742a9a46c70abdedc53cd8aead3e3ec68b4",

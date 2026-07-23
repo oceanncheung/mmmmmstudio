@@ -16,6 +16,13 @@ const VIEWPORTS = [
   { width: 1920, height: 1080 },
   { width: 2940, height: 1200 },
 ];
+const COMPACT_VIEWPORTS = [
+  { width: 320, height: 844 },
+  { width: 390, height: 844 },
+  { width: 430, height: 932 },
+  { width: 768, height: 1024 },
+  { width: 1023, height: 900 },
+];
 const TOLERANCE = 0.25;
 const watchdog = setTimeout(() => {
   process.stderr.write("EVIIVE final-pair geometry: FAIL (90s watchdog)\n");
@@ -45,6 +52,7 @@ async function pairGeometry(page) {
         height: rect.height,
         assetWidth: frame.style.getPropertyValue("--asset-w"),
         assetHeight: frame.style.getPropertyValue("--asset-h"),
+        computedAssetHeight: getComputedStyle(frame).getPropertyValue("--asset-h").trim(),
         dataFit: frame.getAttribute("data-fit"),
         objectFit: getComputedStyle(media).objectFit,
       };
@@ -117,8 +125,49 @@ try {
     await context.close();
   }
 
+  for (const viewport of COMPACT_VIEWPORTS) {
+    const candidateContext = await browser.newContext({ viewport, reducedMotion: "reduce" });
+    const goldContext = await browser.newContext({ viewport, reducedMotion: "reduce" });
+    for (const context of [candidateContext, goldContext]) {
+      await context.route("**/*", async (route) => {
+        const origin = new URL(route.request().url()).origin;
+        if (origin === candidateServer.origin || origin === goldServer.origin) {
+          await route.continue();
+        } else {
+          await route.abort("blockedbyclient");
+        }
+      });
+    }
+    const candidatePage = await candidateContext.newPage();
+    const goldPage = await goldContext.newPage();
+    await candidatePage.goto(`${candidateServer.origin}/test.html`, {
+      waitUntil: "domcontentloaded",
+      timeout: 15_000,
+    });
+    await goldPage.goto(`${goldServer.origin}/test.html`, {
+      waitUntil: "domcontentloaded",
+      timeout: 15_000,
+    });
+    await Promise.all([candidatePage, goldPage].map((page) => page.evaluate(() =>
+      new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))),
+    )));
+    const [candidate, compactGold] = await Promise.all([
+      pairGeometry(candidatePage),
+      pairGeometry(goldPage),
+    ]);
+    for (const key of ["top", "bottom", "width", "height"]) {
+      near(`${viewport.width}px compact ${key}`, candidate.second[key], compactGold.second[key]);
+    }
+    assert.equal(candidate.second.computedAssetHeight, "377.593");
+    assert.equal(candidate.second.objectFit, "contain");
+    assert.equal(candidate.overflowX, 0, `${viewport.width}px compact overflow must remain zero`);
+    await candidateContext.close();
+    await goldContext.close();
+  }
+
   process.stdout.write(
-    `EVIIVE final-pair geometry: PASS (${results.length} expanded viewports; gold defect reproduced)\n`,
+    `EVIIVE final-pair geometry: PASS (${results.length} expanded corrections; ` +
+      `${COMPACT_VIEWPORTS.length} compact no-drift viewports; gold defect reproduced)\n`,
   );
 } finally {
   await browser.close();

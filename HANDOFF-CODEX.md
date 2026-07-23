@@ -1758,7 +1758,8 @@ agent needs to continue this project without the prior chat history.
 - Preserve the independent Figma-derived contract recorded in Round 13:
   `eviive-05` is 558x372 with `contain`; `eviive-06` is 670x372 with `cover`.
   Do not derive layout frame height from the retina source's 2800x1578
-  intrinsic ratio. Do not change compact media geometry or river behavior.
+  intrinsic ratio. Below 1024px, keep the compact CSS override at 377.593 and
+  `contain`; it preserves the prior compact media geometry and river behavior.
 - Keep both EVIIVE entries in deployment-manifest `protected_geometry`,
   including `data_fit`, and retain both geometry/fit negative fixtures.
   Preserve the additive supersession in
@@ -1767,9 +1768,11 @@ agent needs to continue this project without the prior chat history.
 - Keep `eviive-final-pair-geometry-test.mjs`, its npm entrypoint, and one Phase
   2 invocation. It must reproduce the latent protected-gold mismatch and then
   pin equal top/height/bottom at 1024, 1440, 1920, and 2940px with zero page
-  overflow.
+  overflow. It must also prove no compact drift against untouched gold at 320,
+  390, 430, 768, and 1023px.
 - Round 99 privacy evidence changes only for the canonical Home template and
-  generated bodycopy identities. No privacy behavior or conclusion changes.
+  generated bodycopy identities plus the site CSS identity. No privacy
+  behavior or conclusion changes.
 - Focused verification and the complete Phase 2 gate pass, including 122/122
   frozen hashes, 480 protected states, 75 rejected deployment mutations,
   native rivers, WTW/Withered Green, Touchbaes/iPad, Montran, iframe

@@ -159,6 +159,7 @@ async function applyApprovedGeometrySupersessions(page) {
   await page.evaluate((supersessions) => {
     supersessions.forEach((item) => {
       if (item.page !== "home" || item.status !== "current") return;
+      if (window.innerWidth < (item.min_width_css_px || 0)) return;
       const element = document.querySelector(`[data-media-id="${CSS.escape(item.media_id)}"]`);
       if (!element) throw new Error(`missing approved geometry supersession target: ${item.media_id}`);
       element.style.setProperty("--asset-w", String(item.current_value.width_css_px));

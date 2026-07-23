@@ -193,9 +193,11 @@ control, then verifies equal top, height, and bottom for the corrected pair at
 1024, 1440, 1920, and 2940 pixels. The deployment manifest pins both items'
 geometry and fit, and its destructive fixtures reject either kind of drift.
 The additive entry in `post-baseline-geometry-supersessions.json` is applied
-only to the in-memory parity page; no protected-gold or frozen-evidence file is
-edited.
+only at 1024px and above on the in-memory parity page; no protected-gold or
+frozen-evidence file is edited.
 
 The correction is expanded-only: `eviive-05` remains `contain`, `eviive-06`
-uses `cover` inside its 670x372 frame, and compact media profiles and native
-river behavior remain unchanged.
+uses `cover` inside its 670x372 frame, and a compact CSS compatibility rule
+retains 377.593 with `contain` below 1024px. The focused test compares 320,
+390, 430, 768, and 1023px directly against untouched gold so compact media
+profiles and native river behavior cannot drift unnoticed.

@@ -358,6 +358,9 @@ def geometry_supersessions() -> dict[str, object]:
             raise RuntimeError(f"invalid current_attributes in geometry supersession: {identity}")
         if "data-fit" in attributes and attributes["data-fit"] not in {"contain", "cover", "none"}:
             raise RuntimeError(f"invalid data-fit supersession: {identity}")
+        min_width = item.get("min_width_css_px", 0)
+        if not isinstance(min_width, (int, float)) or min_width < 0:
+            raise RuntimeError(f"invalid min_width_css_px in geometry supersession: {identity}")
     return payload
 
 

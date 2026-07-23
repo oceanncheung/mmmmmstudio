@@ -5086,8 +5086,9 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
 - Restored only `eviive-06` to the approved 670x372 frame and changed its fit
   to `cover`. The source remains proportional; at the 1440px design ratio the
   frame crops approximately 2.8px from the top and bottom, instead of exposing
-  a blank edge. Compact geometry, media profiles, river behavior, captions,
-  descriptions, CSS, and runtime are unchanged.
+  a blank edge. A compact-only CSS compatibility rule retains the prior
+  377.593 ratio and `contain` fit below 1024px, so compact geometry, media
+  profiles, river behavior, captions, descriptions, and runtime are unchanged.
 - Added fail-closed deployment geometry for both final EVIIVE items, including
   `data-fit`; two destructive deployment fixtures reject geometry or fit
   drift. Added an additive post-baseline geometry supersession so protected
@@ -5096,12 +5097,13 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
 - The focused EVIIVE browser test first proves that protected gold reproduces
   the defect, then pins equal top, height, and bottom within 0.25px at 1024,
   1440, 1920, and 2940px, plus the exact frame and fit contracts and zero page
-  overflow. Focused asset, bodycopy, and both 240-state compact/expanded gold
-  matrices pass.
+  overflow. It separately proves compact no-drift against untouched gold at
+  320, 390, 430, 768, and 1023px. Focused asset, bodycopy, and both 240-state
+  compact/expanded gold matrices pass.
 - Round 99's privacy evidence refreshes only the canonical Home template and
-  generated bodycopy identities caused by this geometry line. Its storage,
-  request, service, destination, disclosure, and publication findings are
-  unchanged.
+  generated bodycopy identities caused by this geometry line plus the site CSS
+  identity caused by the compact no-drift rule. Its storage, request, service,
+  destination, disclosure, and publication findings are unchanged.
 - The complete Phase 2 gate passes: 122/122 frozen hashes, both 240-state
   protected matrices, 75 rejected deployment mutations, native rivers,
   WTW/Withered Green, Touchbaes/iPad, Montran, iframe capabilities, privacy,
