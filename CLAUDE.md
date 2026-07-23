@@ -2670,3 +2670,29 @@ current source of truth for the built site.
 - Round 102 is repository-only. It regenerated bodycopies and mirrors and
   refreshed only their Round 99 privacy identities; it did not deploy or
   publish Cargo or change Figma, Freight, public state, or gold evidence.
+
+## Current state — Round 103 EVIIVE final-pair geometry
+- Protected responsive-70 gold contains a latent EVIIVE final-pair mismatch:
+  `eviive-05` is 558x372 but `eviive-06` is 670x377.593. Do not treat that
+  specific frozen value as design authority.
+- The independent Figma-derived Round 13 contract is authoritative:
+  `eviive-05` stays 558x372 with `contain`; `eviive-06` stays 670x372 with
+  `cover` at 1024px and above. Below 1024px, preserve the compact CSS override
+  at 377.593 with `contain`; compact geometry and native river behavior remain
+  unchanged.
+- Preserve the deployment-manifest geometry and fit assertions, both negative
+  fixtures, the additive post-baseline supersession, dated root-cause
+  evidence, and `eviive-final-pair-geometry-test.mjs`. The focused browser
+  matrix must keep equal top, height, and bottom within 0.25px at 1024, 1440,
+  1920, and 2940px and no drift from untouched gold at 320, 390, 430, 768,
+  and 1023px.
+- Round 99 privacy source identities for the canonical Home template and
+  generated bodycopy plus site CSS reflect this geometry-only change. Privacy
+  behavior and conclusions remain unchanged.
+- The focused test and complete Phase 2 gate pass with 122/122 frozen hashes,
+  all 480 protected visual states, 75 deployment-negative fixtures, and every
+  native-river, WTW, Withered Green, embed, iPad, and lifecycle contract
+  intact.
+- Protected gold and frozen Round 69/Round 80 files remain immutable. The
+  supersession is applied only in memory for parity. This repository-only
+  round changes no Cargo, Freight, Figma, public site, or publication state.

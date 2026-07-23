@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "issue": "EVIIVE final-pair geometry regression",
+  "captured_at_utc": "2026-07-23T04:55:57Z",
+  "mode": "read-only-root-cause-observation-plus-repository-correction",
+  "repository": {
+    "branch": "round-103/eviive-final-pair-geometry",
+    "base_commit": "df37d57dc52c7e24cead4fb8fe1455c5ed4b4bc6",
+    "working_tree_was_clean_before_evidence_write": false,
+    "note": "The geometry correction and its focused guard were already in progress. No Cargo, Freight, Figma, public deployment, publication, or protected-gold file was changed."
+  },
+  "reported_symptom": {
+    "project": "EVIIVE",
+    "media": [
+      "eviive-05",
+      "eviive-06"
+    ],
+    "observation": "The final two expanded river images align at the bottom but render at visibly different heights."
+  },
+  "protected_gold_observation": {
+    "source": "cargo/gold/2026-07-21-responsive-70/test.html",
+    "eviive-05": {
+      "design_width_css_px": 558,
+      "design_height_css_px": 372,
+      "data_fit": "contain"
+    },
+    "eviive-06": {
+      "design_width_css_px": 670,
+      "design_height_css_px": 377.593,
+      "data_fit": "contain"
+    },
+    "conclusion": "The protected gold snapshot reproduces the mismatch, so unqualified gold parity preserved the defect instead of detecting it."
+  },
+  "design_authority": {
+    "source": "docs/plans/2026-07-10-cargo-round13.md",
+    "figma_measurements": {
+      "eviive-05": "558x372",
+      "eviive-06": "670x372"
+    },
+    "introduced_drift": "Round 18 replaced EVIIVE sequence 6 with a 2800x1578 retina source. Its intrinsic source ratio was copied into the frame as 670x377.593 even though the approved Figma frame remained 670x372."
+  },
+  "root_cause": {
+    "classification": "intrinsic-source ratio replaced intended frame geometry",
+    "conclusion": "The retina asset swap coupled the source aspect ratio to the layout frame. Existing parity tests treated protected gold as the full design authority and therefore lacked an independent EVIIVE pair contract."
+  },
+  "selected_correction": {
+    "eviive-05": {
+      "design_width_css_px": 558,
+      "design_height_css_px": 372,
+      "data_fit": "contain"
+    },
+    "eviive-06": {
+      "design_width_css_px": 670,
+      "design_height_css_px": 372,
+      "data_fit": "cover"
+    },
+    "crop_effect": "At the 1440px design ratio, cover removes approximately 2.8px from the source at both the top and bottom, about 0.75 percent of source height, while preserving the approved 670x372 frame.",
+    "compact_scope": "A below-1024 CSS compatibility rule restores computed --asset-h to 377.593 and object-fit to contain, retaining the pre-existing compact geometry and native river behavior."
+  },
+  "new_recurrence_guards": {
+    "focused_browser_test": "audit/harness/src/eviive-final-pair-geometry-test.mjs",
+    "expanded_widths_css_px": [
+      1024,
+      1440,
+      1920,
+      2940
+    ],
+    "compact_no_drift_widths_css_px": [
+      320,
+      390,
+      430,
+      768,
+      1023
+    ],
+    "geometry_tolerance_css_px": 0.25,
+    "deployment_manifest_fields": [
+      "asset_w",
+      "asset_h",
+      "data_fit"
+    ],
+    "deployment_negative_mutations": [
+      "wrong EVIIVE final-pair geometry",
+      "wrong EVIIVE final-pair fit"
+    ],
+    "gold_parity_behavior": "Protected gold files remain immutable. The documented post-baseline supersession is applied only at 1024px and above in memory before current-vs-gold visual parity; compact gold remains untouched."
+  },
+  "focused_verification": {
+    "eviive_final_pair_geometry": "PASS: four expanded corrections, five compact no-drift viewports, and protected-gold negative control",
+    "gold_parity": "PASS: compact 240 states plus screenshots/interactions and expanded 240 states plus screenshots/interactions",
+    "asset_manifest_records": 471,
+    "page_horizontal_overflow_css_px": 0
+  },
+  "full_phase2_verification": {
+    "result": "PASS",
+    "frozen_phase1_hashes": "122/122",
+    "protected_visual_states": 480,
+    "deployment_negative_fixtures_rejected": 75,
+    "preserved_contracts": [
+      "native rivers",
+      "WTW geometry",
+      "Withered Green rotation",
+      "Touchbaes iPad readiness",
+      "Montran range and turn behavior",
+      "iframe capabilities",
+      "runtime root replacement",
+      "privacy and third-party inventory"
+    ]
+  },
+  "protected_behavior": [
+    "The only site CSS addition is the compact EVIIVE no-drift override. No runtime, caption, description, navigation, control-panel, native-river, Touchbaes, WTW, Withered Green, Montran, or compact-media behavior changed.",
+    "The protected gold directory and frozen Round 69/Round 80 evidence remain unchanged.",
+    "No Cargo, Freight, Figma, draft, public deployment, or publication action occurred."
+  ],
+  "limitations": [
+    "The correction is repository-only until a separately authorized Cargo deployment is saved and reload-verified.",
+    "The focused Chromium matrix does not replace physical Safari or iPad verification during a later deployment gate.",
+    "This round addresses only the EVIIVE final pair. The separately reported Touchbaes visible-tweezer lifecycle contract is the next isolated round."
+  ]
+}

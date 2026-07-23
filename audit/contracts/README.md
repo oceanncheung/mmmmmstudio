@@ -179,3 +179,25 @@ save.
 
 This is a visual-neutral repository correction. No CSS, public site, Cargo
 draft, Freight asset, Figma source, or protected gold evidence changed.
+
+## EVIIVE final-pair geometry
+
+The protected responsive-70 snapshot carries a latent EVIIVE mismatch:
+`eviive-05` is 558x372 while `eviive-06` is 670x377.593. The independent
+Figma-derived Round 13 record instead defines the final pair as
+558x372 / 670x372. The retina source replacement changed the source ratio,
+not the approved layout frame.
+
+`eviive-final-pair-geometry-test.mjs` uses protected gold as a negative
+control, then verifies equal top, height, and bottom for the corrected pair at
+1024, 1440, 1920, and 2940 pixels. The deployment manifest pins both items'
+geometry and fit, and its destructive fixtures reject either kind of drift.
+The additive entry in `post-baseline-geometry-supersessions.json` is applied
+only at 1024px and above on the in-memory parity page; no protected-gold or
+frozen-evidence file is edited.
+
+The correction is expanded-only: `eviive-05` remains `contain`, `eviive-06`
+uses `cover` inside its 670x372 frame, and a compact CSS compatibility rule
+retains 377.593 with `contain` below 1024px. The focused test compares 320,
+390, 430, 768, and 1023px directly against untouched gold so compact media
+profiles and native river behavior cannot drift unnoticed.

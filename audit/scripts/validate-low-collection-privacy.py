@@ -41,17 +41,17 @@ EXPECTED_RUNTIME_SOURCES = (
 EXPECTED_SOURCE_HASHES = {
     "cargo/shared-early-init.html": "18e4cf5c9ddd362d3e9f6e96696d7516373f07af0866ddd8761408b0c01c1197",
     "cargo/panel.js": "66532ec0dde7d2b36ee4dba43f0a7cd0021f5155dfffdc44fc556a034db408f7",
-    "cargo/home.template.html": "7d9446d75174c6096c268d3d46fb72d8972d50e75540e241c83a7f47bc88041e",
+    "cargo/home.template.html": "dffdda3c0554b518e0c22a795319dae5fa1195ba962dd7cda84cd5596c59d3de",
     "cargo/who.template.html": "1eb7e7aa4e3ae37ac2da9793f63e52b76e8d3bb92f60b0dd0b9b523a3f2c0e21",
     "cargo/write.template.html": "348a820f9d24755cad7dbdfa4ab8c0016d585d60b745737b819df7c823a02608",
     "cargo/shared-nav-items.html": "0f5ab94a8b59380ded80de9931af08d9072396a24411038254d6f245ba453361",
     "cargo/home-extras.html": "0cb6c73ece86b3d27b7f8572174867a206c67d06701ad204d253cd1c7bd07992",
     "cargo/site-head.html": "fdb1bc6a7d2b6ad36b054a36f2e42c6d2d15401f4c29e4121efeeb1d96ffd71d",
-    "cargo/home.html": "0dbbfda0632078a42666ecd102855357a14adfc7c5920fb5af590bc980579ebb",
+    "cargo/home.html": "9c33dfcee4c5b8781f1004afe7af9232d56774fcce3fff9b627d1551f89002bb",
     "cargo/who.html": "3d7a89ebc8605be3bf9835315a616641fe913e1387360343f776c637be4a037e",
     "cargo/write.html": "0eae0479561e1131f8d911a51285960b1cf34c1ec3b9f06febedb6703703314e",
     "cargo/tokens.css": "70178291f00dfeacaae9fc7c0fde2d7f444cb26456d969b7d2523d0274a71d98",
-    "cargo/site.css": "aa61fcbf580714e09a0d855a208ce5c213d0ada29885fe5abbdf6c6d8dbe1875",
+    "cargo/site.css": "33bb5c6da4e15da715d66dfc1ada12b82ad32c97b9892e8278013fb99777c1af",
 }
 EXPECTED_FROZEN_HASHES = {
     "audit/findings/phase3-platform-security-findings.md": "0332c0faeae5a224247e35291f066742a9a46c70abdedc53cd8aead3e3ec68b4",

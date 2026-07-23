@@ -67,6 +67,30 @@
       "browser_evidence": "audit/findings/evidence/2026-07-21-phase2-browser-summary.json#runs.local_home_visual.wtw_02",
       "narrative_evidence": "docs/audits/2026-07-20-post-round-80-delta.md#wtw-second-media-geometry",
       "status": "current"
+    },
+    {
+      "page": "home",
+      "media_id": "eviive-06",
+      "field_scope": [
+        "design_height_1440_css_px",
+        "data_fit"
+      ],
+      "frozen_value": {
+        "width_css_px": 670,
+        "height_css_px": 377.593
+      },
+      "current_value": {
+        "width_css_px": 670,
+        "height_css_px": 372
+      },
+      "current_attributes": {
+        "data-fit": "cover"
+      },
+      "min_width_css_px": 1024,
+      "canonical_source_contract": "cargo/home.template.html: data-media-id=eviive-06; data-fit=cover; --asset-w:670; --asset-h:372",
+      "browser_evidence": "audit/harness/src/eviive-final-pair-geometry-test.mjs",
+      "narrative_evidence": "docs/plans/2026-07-10-cargo-round13.md#recon-so-far",
+      "status": "current"
     }
   ],
   "fields": [

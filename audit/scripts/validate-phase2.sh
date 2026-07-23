@@ -48,6 +48,7 @@ done
 node "$ROOT/audit/harness/src/cli.mjs" --validate-config >/dev/null
 echo "Phase 2 harness configuration: PASS"
 (cd "$ROOT/audit/harness" && npm run media-owner-test)
+(cd "$ROOT/audit/harness" && npm run eviive-pair-test)
 (cd "$ROOT/audit/harness" && npm run gold-parity-test)
 (cd "$ROOT/audit/harness" && npm run river-aria-test)
 (cd "$ROOT/audit/harness" && npm run document-language-test)
@@ -82,6 +83,28 @@ manifest_validator = root / "cargo/validate-deployment-manifest.py"
 # persistence fixture; never rewrite the frozen evidence.
 home = (snapshot / "home.bodycopy.html").read_text(encoding="utf-8")
 home = home.replace("--asset-w:765.2;--asset-h:765.2", "--asset-w:504;--asset-h:504", 1)
+
+
+def normalize_eviive_final_pair(match):
+    tag = match.group(0)
+    tag = tag.replace('data-fit="contain"', 'data-fit="cover"', 1)
+    return tag.replace(
+        "--asset-w:670;--asset-h:377.593",
+        "--asset-w:670;--asset-h:372",
+        1,
+    )
+
+
+home, eviive_normalized = re.subn(
+    r'<div\b(?=[^>]*\bdata-media-id="eviive-06")[^>]*>',
+    normalize_eviive_final_pair,
+    home,
+    count=1,
+)
+if eviive_normalized != 1:
+    raise SystemExit(
+        f"expected one frozen EVIIVE final-pair frame, found {eviive_normalized}"
+    )
 
 # The frozen Cargo serializer also emitted three case-duplicate SVG viewBox
 # attributes. Current payload validation correctly rejects duplicate names
@@ -276,6 +299,30 @@ def alter_wtw_geometry(source):
     return updated
 
 
+def alter_eviive_geometry(source):
+    updated = source.replace(
+        'data-media-id="eviive-06" data-shape-policy="crop" data-fit="cover" '
+        'data-mobile-profile="standard" style="--asset-w:670;--asset-h:372"',
+        'data-media-id="eviive-06" data-shape-policy="crop" data-fit="cover" '
+        'data-mobile-profile="standard" style="--asset-w:670;--asset-h:373"',
+        1,
+    )
+    if updated == source:
+        raise SystemExit("could not build negative EVIIVE geometry fixture")
+    return updated
+
+
+def alter_eviive_fit(source):
+    updated = source.replace(
+        'data-media-id="eviive-06" data-shape-policy="crop" data-fit="cover"',
+        'data-media-id="eviive-06" data-shape-policy="crop" data-fit="contain"',
+        1,
+    )
+    if updated == source:
+        raise SystemExit("could not build negative EVIIVE fit fixture")
+    return updated
+
+
 def add_live_video_src(source):
     match = re.search(r'<video\b[^>]*\bdata-src="([^"]+)"[^>]*>', source)
     if match is None:
@@ -385,6 +432,8 @@ bodycopy_mutations = {
     "missing V7 band": remove_band(home, "v7"),
     "missing Touchbaes band": remove_band(home, "touchbaes"),
     "wrong WTW geometry": alter_wtw_geometry(home),
+    "wrong EVIIVE final-pair geometry": alter_eviive_geometry(home),
+    "wrong EVIIVE final-pair fit": alter_eviive_fit(home),
     "stale V7 embed": home.replace(
         "Z3031274916472238420423367767865",
         "Z0000000000000000000000000000000",

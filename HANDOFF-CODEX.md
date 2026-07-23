@@ -1749,3 +1749,35 @@ agent needs to continue this project without the prior chat history.
 - Round 99 privacy hashes changed only for regenerated Home, Who, and Write
   bodycopies. Privacy behavior is unchanged. Future Cargo activation remains
   a separate complete-save, reload, and verification workflow.
+
+## Current handoff — Round 103 EVIIVE final-pair geometry (2026-07-23)
+- The unrelated `MMS-AUD-007` content batch is frozen. Round 103 responds only
+  to Ocean's report that EVIIVE's last two expanded river images were unequal
+  in height. This defect predates the semantic audit branches and is present
+  in protected responsive-70 gold.
+- Preserve the independent Figma-derived contract recorded in Round 13:
+  `eviive-05` is 558x372 with `contain`; `eviive-06` is 670x372 with `cover`.
+  Do not derive layout frame height from the retina source's 2800x1578
+  intrinsic ratio. Below 1024px, keep the compact CSS override at 377.593 and
+  `contain`; it preserves the prior compact media geometry and river behavior.
+- Keep both EVIIVE entries in deployment-manifest `protected_geometry`,
+  including `data_fit`, and retain both geometry/fit negative fixtures.
+  Preserve the additive supersession in
+  `audit/assets/post-baseline-geometry-supersessions.json`; it adjusts only
+  in-memory current-vs-gold comparison and never edits protected gold.
+- Keep `eviive-final-pair-geometry-test.mjs`, its npm entrypoint, and one Phase
+  2 invocation. It must reproduce the latent protected-gold mismatch and then
+  pin equal top/height/bottom at 1024, 1440, 1920, and 2940px with zero page
+  overflow. It must also prove no compact drift against untouched gold at 320,
+  390, 430, 768, and 1023px.
+- Round 99 privacy evidence changes only for the canonical Home template and
+  generated bodycopy identities plus the site CSS identity. No privacy
+  behavior or conclusion changes.
+- Focused verification and the complete Phase 2 gate pass, including 122/122
+  frozen hashes, 480 protected states, 75 rejected deployment mutations,
+  native rivers, WTW/Withered Green, Touchbaes/iPad, Montran, iframe
+  capabilities, and root replacement.
+- No Cargo, Freight, Figma, draft, public deployment, or publication is part
+  of this round. Before resuming the audit issue order, isolate and guard the
+  separately reported Touchbaes live-tweezer lifecycle after Cargo root
+  replacement.
