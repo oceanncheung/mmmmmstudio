@@ -32,3 +32,26 @@ vulnerable serializer versions, or an unreviewed remote mutation. The online
 or its lockfile changes. Every contract input must also be Git-tracked so an
 untracked dirty-worktree substitute cannot pass and disappear from a fresh
 clone. The public MM.S site does not ship these packages.
+
+## Executable iframe capability matrix
+
+`iframe-capability-matrix.json` records the tested minimum policy for the
+prepared V7, Touchbaes, and Montran successors. All three require scripts and
+their real Freight origin identity, retain only the parent origin through
+`strict-origin`, delegate no positive Permissions Policy feature, and deny the
+finite reviewed feature set listed in the contract. The Chromium proof fails
+if any browser-supported feature is either missing from that set or remains
+allowed. The policy is deliberately
+`prepared-not-active`: the canonical Cargo payload and deployment manifest must
+remain on the active iframe URLs without `sandbox`, `allow`, or
+`referrerpolicy` until a later atomic successor upload and Cargo promotion.
+
+The browser proof applies every attribute before navigation, runs the actual
+candidate builds, verifies real child origins and origin-only referrers, and
+exercises V7 WebGL/visibility, Touchbaes mode/size/pointer dragging, and Montran Blob
+worker/range rendering plus both turn paths. It also proves that removing
+`allow-same-origin` produces an opaque origin and that removing the referrer
+prevents child bootstrap. The finite iframe `allow` list is not represented as
+a future-proof deny-all; browsers have no such iframe syntax. Exact proof-input
+digests and npm/Phase 2 wiring are guarded so a no-op proof cannot silently
+replace the reviewed test.

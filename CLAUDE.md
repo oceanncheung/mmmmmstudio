@@ -2517,3 +2517,29 @@ current source of truth for the built site.
 - Round 96 is tooling-only and was not deployed or published. All protected
   visual/runtime contracts and `gold-2026-07-21-responsive-70` remain
   unchanged; the complete Phase 2 gate passes.
+
+## Current state — Round 97 iframe capability matrix
+- `MMS-AUD-035` now has a repository-only `prepared-not-active` capability
+  contract for V7, Touchbaes, and Montran. Canonical Cargo Home, the deployment
+  manifest, active Freight URLs, visual geometry, and protected gold remain
+  unchanged.
+- The tested common policy is exactly `allow-scripts allow-same-origin`,
+  `strict-origin`, no positive Permissions Policy delegation, and the finite
+  deny list in `audit/contracts/iframe-capability-matrix.json`. Do not treat an
+  empty `allow` attribute as deny-all; iframe syntax has no future-proof
+  deny-all directive.
+- Keep `validate-iframe-capability-matrix.py` and the browser
+  `iframe-capability-test` in the complete Phase 2 gate. The static guard must
+  continue rejecting extra powers, policy drift, candidate identity drift,
+  missing proof requirements, proof-input digest or gate-wiring drift,
+  untracked proof inputs, and partial Cargo/manifest activation. The browser
+  proof must continue exercising the exact candidate builds, require zero
+  allowed browser-supported Permissions Policy features, and retain the
+  negative opaque-origin/referrer controls.
+- Same-origin identity and an origin-only referrer are compatibility
+  requirements for the current exact-origin child bootstrap, not optional
+  permissions. They are safe as an isolation boundary only while the Cargo
+  parent and Freight child remain cross-origin.
+- Any real enforcement requires a separately reviewed atomic successor upload
+  and Cargo promotion, reload verification, and desktop Safari plus physical
+  iPhone/iPad Safari testing. Round 97 itself is not deployed or published.
