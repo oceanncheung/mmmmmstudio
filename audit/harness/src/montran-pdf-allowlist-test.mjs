@@ -5,6 +5,7 @@ import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
+import { pathToFileURL } from "node:url";
 
 import { launchAuditBrowser } from "./collector.mjs";
 import { PROJECT_ROOT } from "./config.mjs";
@@ -14,9 +15,9 @@ const CANDIDATE_ROOT = path.join(PROJECT_ROOT, "work/montran-pdf-allowlist-v18-s
 const CANDIDATE_BUILDER = path.join(CANDIDATE_ROOT, "build-bundle.py");
 const POLICY_PATH = path.join(CANDIDATE_ROOT, "approved-pdf.json");
 const REJECTION_MESSAGE = "This booklet can load only the approved Montran report.";
-const PAGE_COUNT = 24;
-const RANGE_CHUNK_SIZE = 262_144;
-const APPROVED_PDF_BYTES = 13_634_937;
+export const PAGE_COUNT = 24;
+export const RANGE_CHUNK_SIZE = 262_144;
+export const APPROVED_PDF_BYTES = 13_634_937;
 const CANDIDATE_URL = (
   "https://freight.cargo.site/m/mms-audit/montran-booklet-direct-pdf-v18.html"
 );
@@ -27,7 +28,7 @@ function appendAscii(chunks, state, value) {
   state.length += payload.length;
 }
 
-function deterministicPdf(targetLength, pageCount = PAGE_COUNT) {
+export function deterministicPdf(targetLength, pageCount = PAGE_COUNT) {
   const chunks = [];
   const state = { length: 0 };
   const offsets = [];
@@ -111,7 +112,7 @@ function parseRange(value, totalLength) {
   return { start, end: Math.min(requestedEnd, totalLength - 1) };
 }
 
-async function fulfillPdf(route, pdf) {
+export async function fulfillPdf(route, pdf) {
   const request = route.request();
   const commonHeaders = {
     "access-control-allow-origin": "*",
@@ -380,4 +381,6 @@ async function run() {
   }
 }
 
-await run();
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  await run();
+}

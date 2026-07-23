@@ -4851,3 +4851,41 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
 - This round is repository tooling only. It was not deployed or published,
   and `gold-2026-07-21-responsive-70`, Round 69, and Round 80 evidence remain
   unchanged.
+
+## Round 97 (2026-07-22): executable iframe capability matrix — TEST-ONLY / NOT DEPLOYED
+- Prepared the minimum per-embed policy for `MMS-AUD-035` without changing an
+  active Cargo iframe, Freight artifact, public page, Figma file, visual
+  geometry, or protected gold source. Canonical Home and the deployment
+  manifest deliberately remain on the active V7, Touchbaes v10, and Montran
+  v17 URLs with no policy attributes until a later atomic promotion.
+- Added `audit/contracts/iframe-capability-matrix.json`. The exact shared
+  candidate is `sandbox="allow-scripts allow-same-origin"`,
+  `referrerpolicy="strict-origin"`, no positive Permissions Policy delegation,
+  and the finite deny-only feature list serialized in the contract. Scripts
+  are required by all three applications; same-origin identity is required by
+  their exact-origin message contracts; strict-origin supplies only the parent
+  origin used for child bootstrap.
+- Added `validate-iframe-capability-matrix.py` with sixteen destructive
+  fixtures. It rejects missing or extra sandbox powers, a bootstrap-breaking
+  referrer policy, changed/invalid permission directives, missing embeds,
+  missing proof requirements, candidate identity or proof-input drift, broken
+  npm/Phase 2 wiring, untracked proof files, and any one-sided Home or
+  deployment-manifest activation.
+- Added an actual-browser proof using the exact prepared V7 message-v1,
+  Touchbaes v11, and Montran v18 builds. Under the candidate attributes V7
+  renders WebGL and pauses/resumes, Touchbaes negotiates mode/readiness/size and
+  completes a pointer drag, and Montran runs its Blob worker, renders pages
+  19–20 through range requests with no Cookie or Referer, and completes both
+  expanded and compact turns. Every browser-supported Permissions Policy
+  feature is explicitly reviewed and denied; the proof fails if any supported
+  feature remains allowed or appears without a contract entry.
+- Negative browser controls prove that removing `allow-same-origin` changes
+  child messages to origin `null`, while `no-referrer` removes the child
+  bootstrap and prevents readiness. The iframe referrer policy covers the
+  navigation and `document.referrer`; Montran v18's separate fetch policy is
+  what suppresses PDF credentials and referrers.
+- Repository Chromium evidence cannot certify Cargo serialization, live
+  Freight headers, desktop Safari, or physical iPhone/iPad Safari. Those remain
+  explicit promotion gates. No policy is enforced until successor uploads,
+  protocol attributes, iframe policies, manifest, and complete Cargo bodycopy
+  can be promoted and reload-verified together.

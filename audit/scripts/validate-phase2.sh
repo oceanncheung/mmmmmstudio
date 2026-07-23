@@ -10,6 +10,7 @@ python3 "$ROOT/audit/scripts/generate-asset-manifest.py" --check
 python3 "$ROOT/audit/scripts/validate-embed-reproducibility.py" --self-test
 python3 "$ROOT/audit/scripts/validate-embed-message-protocol.py" --self-test
 python3 "$ROOT/audit/scripts/validate-montran-pdf-allowlist.py" --self-test
+python3 "$ROOT/audit/scripts/validate-iframe-capability-matrix.py" --self-test
 python3 "$ROOT/audit/scripts/validate-third-party-runtime-notices.py" --self-test
 python3 "$ROOT/audit/scripts/validate-framer-helper-dependencies.py" --self-test --installed-smoke --online-audit
 
@@ -50,6 +51,7 @@ echo "Phase 2 harness configuration: PASS"
 (cd "$ROOT/audit/harness" && npm run touchbaes-readiness-test)
 (cd "$ROOT/audit/harness" && npm run interaction-test)
 (cd "$ROOT/audit/harness" && npm run montran-pdf-allowlist-test)
+(cd "$ROOT/audit/harness" && npm run iframe-capability-test)
 
 "$ROOT/cargo/validate-cargo-payload.sh" bodycopy "$ROOT/cargo/home.html"
 "$ROOT/cargo/validate-cargo-payload.sh" bodycopy "$ROOT/cargo/who.html"

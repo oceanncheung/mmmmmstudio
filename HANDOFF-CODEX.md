@@ -1575,3 +1575,33 @@ agent needs to continue this project without the prior chat history.
   hashes, both 240-state matrices, native rivers, WTW and Withered Green,
   Touchbaes/iPad and Montran behavior, source purity, runtime teardown, and
   deployment-negative fixtures. Nothing was deployed or published.
+
+## Current handoff — Round 97 iframe capability matrix (2026-07-22)
+- Round 97 is repository-only on `round-97/iframe-capability-matrix`. It
+  prepares `MMS-AUD-035`; it does not activate an iframe policy, upload a
+  successor, deploy Cargo, publish, change Figma, or touch
+  `gold-2026-07-21-responsive-70`.
+- Preserve `audit/contracts/iframe-capability-matrix.json` and
+  `audit/scripts/validate-iframe-capability-matrix.py`. The exact candidate is
+  scripts plus same-origin sandbox tokens, `strict-origin`, zero positive
+  delegated features, and the reviewed finite deny list. Do not add popup,
+  top-navigation, form, download, modal, fullscreen, pointer-lock, or storage
+  sandbox grants.
+- `allow-same-origin` is not optional while the children and parent enforce
+  exact origins. Without it the browser reports child origin `null`.
+  `strict-origin` is also not optional while prepared children derive their
+  parent target from `document.referrer`; `no-referrer` and `same-origin`
+  break cross-origin readiness. Keep parent and Freight origins distinct.
+- The browser proof must continue to build and exercise the exact prepared V7
+  message-v1, Touchbaes v11, and Montran v18 artifacts. It verifies origin-only
+  iframe navigation, real child origins, zero allowed browser-supported
+  Permissions Policy features, V7 rotation and visibility, Touchbaes
+  mode/size/pointer dragging, and Montran PDF range rendering plus
+  expanded/compact turns. Exact proof-input digests and npm/Phase 2 wiring are
+  fail-closed. The Montran PDF request itself stays protected
+  by v18's separate no-credential/no-referrer fetch boundary.
+- Activation is a later atomic external batch. Upload immutable successors,
+  set the policy before deferred `src` assignment, promote the prepared message
+  protocol and Montran allowlist together with Cargo/manifest changes,
+  reload-verify, and test desktop Chromium/Safari plus physical iPhone/iPad
+  Safari. Until then all canonical iframe policy attributes must stay absent.
