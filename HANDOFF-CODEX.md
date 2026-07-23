@@ -1846,3 +1846,26 @@ agent needs to continue this project without the prior chat history.
   before the unchanged 30-second initial-raster assertion. Its reviewed proof
   hash is pinned in `iframe-capability-matrix.json`. No product/embed visual
   source changed.
+
+## Current handoff — Round 106 operating-system reduced motion (2026-07-23)
+- Round 106 implements the nonvisual operating-system preference path for
+  `MMS-AUD-008`. It does not add a global pause control, so the audit issue
+  remains open and interaction-design-gated. Do not invent or add a visible
+  control without Ocean's explicit approval.
+- Preserve normal mode exactly: one Home smiley with `animate="4"`, four
+  Withered Green `uses="eye-roll"` paragraph hooks, 27 Home and two Who
+  looping videos, three native GIF presentations, V7 rotation, Touchbaes
+  breathing/tweezer interaction, Montran turns, and four 375ms startup cuts.
+- When `prefers-reduced-motion: reduce` matches, videos stay on approved
+  posters, V7 stays on or becomes static, and the three explicit
+  `data-motion-kind="gif-loop"` images freeze to in-frame canvas snapshots.
+  The smiley and Withered hooks are suppressed only in that media query.
+- Preserve the WeakMap ownership for active media and GIF source state. Do not
+  replace it with saved `data-mms-*` state that Cargo could serialize. Embed
+  readiness must receive the current validated visibility state; hidden
+  documents must pause loaded owned media.
+- Keep `audit/harness/src/reduced-motion-path-test.mjs`, its npm entrypoint,
+  and exactly one Phase 2 invocation. Focused, adjacent, compact/expanded gold,
+  and complete Phase 2 verification pass with no protected UI drift.
+- Cargo promotion is draft review only: complete CSS/bodycopy save, editor
+  reload, and persistence checks are required. Do not publish.

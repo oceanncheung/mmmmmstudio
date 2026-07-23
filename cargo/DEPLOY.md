@@ -5192,3 +5192,33 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   and the Montran fixture is brought into view before its unchanged 30-second
   raster assertion. Six consecutive complete iframe-capability runs pass.
   Nothing was deployed or published.
+
+## Round 106 (2026-07-23): operating-system reduced-motion path — REPOSITORY CHECKPOINT / CARGO REVIEW PENDING
+- Implements only the zero-visible-UI portion of `MMS-AUD-008`. The issue
+  remains open because a visitor-operated pause-motion control is still an
+  explicit interaction-design decision. No new button, label, panel row, or
+  normal-mode visual treatment was invented.
+- Under `prefers-reduced-motion: reduce`, all 27 Home videos and both Who
+  profile videos remain on their approved posters and make no play attempt.
+  The V7 cup remains on its approved poster before load; an already-loaded V7
+  receives a validated `visible:false` envelope. All three native GIF loops
+  (`deadgood-01`, `wtw-03`, and `wtw-06`) freeze to one in-place canvas
+  snapshot and release their animated source.
+- The existing Home smiley and the four Withered Green paragraph hooks are
+  stopped only inside the reduced-motion media query. Their normal contracts
+  remain exact: smiley `animate="4"`, four `uses="eye-roll"` spans, 29 looping
+  videos, three GIF presentations, V7 rotation, Touchbaes behavior, Montran
+  behavior, and the four 375ms startup cuts.
+- Loaded repository-owned videos and validated embeds now explicitly pause
+  when the document is hidden. A live preference change resumes only media
+  that the existing observer still owns as active. Active/frozen state is kept
+  in WeakMaps, not serialized runtime attributes.
+- Added `reduced-motion-path-test.mjs` and one mandatory Phase 2 invocation.
+  The focused browser contract proves zero reduced-mode play attempts across
+  all 29 videos, three frozen/restored GIFs, V7 live preference response, and
+  exact protected normal hooks. Adjacent media-owner, startup, embed-protocol,
+  root-replacement, and both 240-state gold-parity matrices pass.
+- The complete Phase 2 gate passes with protected gold and frozen Round
+  69/Round 80 evidence unchanged. This repository checkpoint authorizes only a
+  complete Cargo draft review deployment followed by reload verification.
+  Publication remains explicitly prohibited until Ocean approves it.

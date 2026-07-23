@@ -2755,3 +2755,22 @@ current source of truth for the built site.
   box after layout settlement, and Montran is scrolled into view before its
   unchanged 30-second raster assertion. Keep the corresponding proof-input
   hash pinned in `iframe-capability-matrix.json`.
+
+## Current state — Round 106 reduced-motion preference path
+- `MMS-AUD-008` is only partially implemented. The repository now honors the
+  operating-system Reduce Motion preference without changing the approved
+  normal UI; a visible visitor pause control remains design-gated.
+- Normal mode must retain one intro smiley at `animate="4"`, exactly four
+  Withered Green `eye-roll` hooks, 29 looping videos, three GIF loops, V7,
+  Touchbaes, Montran, and the four 375ms startup cuts.
+- Reduced mode keeps videos and V7 on approved static imagery, freezes the
+  three explicit GIF loops in their existing frames, suppresses only the
+  smiley/Withered continuous effects, and pauses loaded owned motion when the
+  document is hidden. Live preference changes restore only observer-active
+  media.
+- Preserve WeakMap runtime ownership; do not serialize active/frozen state
+  into Cargo bodycopy. Keep the mandatory `reduced-motion-test` and its single
+  Phase 2 invocation.
+- Focused and complete Phase 2 verification pass without changing protected
+  gold. Cargo may receive only a complete draft review deployment with reload
+  verification; publication remains prohibited.

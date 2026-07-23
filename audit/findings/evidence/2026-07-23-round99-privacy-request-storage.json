@@ -10,11 +10,11 @@
     },
     {
       "path": "cargo/panel.js",
-      "sha256": "66532ec0dde7d2b36ee4dba43f0a7cd0021f5155dfffdc44fc556a034db408f7"
+      "sha256": "32f2aa7c49fd366fd421e94c4311f61c53747109ed472532c5e250cf2642a06d"
     },
     {
       "path": "cargo/home.template.html",
-      "sha256": "c95b498284834d45f5901a68cf680270ab04cf0490621f9752850108a334d950"
+      "sha256": "2e85e9544204d58c8cbf318bc0f9ebba58756793efa4429e9250f3779bfa7654"
     },
     {
       "path": "cargo/who.template.html",
@@ -38,15 +38,15 @@
     },
     {
       "path": "cargo/home.html",
-      "sha256": "134cca0883284c4130699ff863319a1f54f95c85f244a60b305ebd9848b7ab83"
+      "sha256": "99208c4007945edacae7673e21cd666510f5221d49bdcfd1329e8acf82551ec1"
     },
     {
       "path": "cargo/who.html",
-      "sha256": "d4c3bf53745e6461116478e209c3ef19e3b1d1591c483b8547c9235dda243b42"
+      "sha256": "6e84d1d6d7c9143630e2aac11b2e1c82e40c8bf97eea6aad95f4e5cbf83aaf14"
     },
     {
       "path": "cargo/write.html",
-      "sha256": "0eae0479561e1131f8d911a51285960b1cf34c1ec3b9f06febedb6703703314e"
+      "sha256": "f0e9021b4ac09403ee20fab0a4db4a746fc6b6bc24a38b78841083f91b759580"
     },
     {
       "path": "cargo/tokens.css",
@@ -54,7 +54,7 @@
     },
     {
       "path": "cargo/site.css",
-      "sha256": "33bb5c6da4e15da715d66dfc1ada12b82ad32c97b9892e8278013fb99777c1af"
+      "sha256": "ed02883f89e68c741b4057c06b9c0ee49b1b6eebee921578d7c4262641b087a7"
     }
   ],
   "frozen_evidence": [

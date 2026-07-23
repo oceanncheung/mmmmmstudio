@@ -48,6 +48,7 @@ done
 node "$ROOT/audit/harness/src/cli.mjs" --validate-config >/dev/null
 echo "Phase 2 harness configuration: PASS"
 (cd "$ROOT/audit/harness" && npm run media-owner-test)
+(cd "$ROOT/audit/harness" && npm run reduced-motion-test)
 (cd "$ROOT/audit/harness" && npm run eviive-pair-test)
 (cd "$ROOT/audit/harness" && npm run gold-parity-test)
 (cd "$ROOT/audit/harness" && npm run river-aria-test)

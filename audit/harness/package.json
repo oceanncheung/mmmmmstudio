@@ -19,6 +19,7 @@
     "panel-scrubber-test": "node src/panel-scrubber-transition-test.mjs",
     "portfolio-media-accessibility-test": "node src/portfolio-media-accessibility-test.mjs",
     "primary-navigation-test": "node src/primary-navigation-landmark-test.mjs",
+    "reduced-motion-test": "node src/reduced-motion-path-test.mjs",
     "validate": "node src/cli.mjs --validate-config",
     "schema-test": "node src/schema-self-test.mjs",
     "self-test": "npm run schema-test && node src/self-test.mjs",
