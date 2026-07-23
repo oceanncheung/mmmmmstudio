@@ -2598,3 +2598,31 @@ current source of truth for the built site.
   appropriate, visual placement, Cargo draft deployment, reload verification,
   and explicit publication authorization. Round 99 itself changes no Cargo,
   Freight, Figma, deployment manifest, public state, or protected gold source.
+
+## Current state — Round 100 native-river ARIA source purity
+- `MMS-AUD-003` is closed at the repository boundary without a production
+  runtime or visual change. Frozen Round 80 saved source and its HTTP response
+  both contain 12 native rivers with `hidden` and `aria-valuenow`; fresh
+  instrumented public Chromium recorded no current runtime write to an exact
+  `.mms-river`. The generated sibling scrubbers remain the only owners of
+  scrollbar state.
+- Keep `native_rivers` and `invalid_river_scrollbar_semantics` in every active
+  deployment-manifest page source-purity object and keep the exact-class-token
+  parser plus duplicate-attribute rejection in
+  `validate-deployment-manifest.py`. These checks are independent of
+  `hidden_rivers`, so class loss, parser ambiguity, or any reviewed scrollbar
+  semantic on a native river cannot pass.
+- Preserve `audit/contracts/river-aria-source-purity.json`, the dated
+  root-cause evidence, the `river-aria-test` npm entrypoint, and its one Phase
+  2 invocation. The browser negative control must retain all 12 frozen
+  contaminants and reproduce 12 Axe `aria-allowed-attr` nodes; clean compact
+  and expanded source must retain zero.
+- Native rivers remain unmodified scrolling elements. The 12 sibling desktop
+  scrubbers keep their scrollbar role/value semantics, compact rivers keep
+  real `pan-x pan-y`, expanded horizontal wheel input keeps moving the river,
+  and page overflow stays zero. Do not replace this source guard with a live
+  cleanup observer.
+- Round 100 changes no Cargo HTML/CSS/runtime/bodycopy, Freight, Figma, public
+  state, or protected gold file. Nothing is deployed or published.
+- The focused river-ARIA contract and complete Phase 2 suite pass, including
+  both 240-state gold matrices and all protected interaction/lifecycle gates.

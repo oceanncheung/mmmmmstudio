@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "issue_id": "MMS-AUD-003",
+  "status": "repository-guard-active",
+  "scope": {
+    "page": "home",
+    "native_river_selector": ".mms-river",
+    "separate_scrubber_selector": ".mms-river-scrubber",
+    "canonical_sources": [
+      "cargo/home.template.html",
+      "cargo/home.html",
+      "cargo/test.html"
+    ],
+    "runtime_sources_must_remain_unchanged": [
+      "cargo/panel.js",
+      "cargo/home-extras.html",
+      "cargo/site.css",
+      "cargo/site-head.html"
+    ]
+  },
+  "saved_source_contract": {
+    "total_native_rivers": 13,
+    "scrubber_eligible_rivers": 12,
+    "scrubber_eligible_bands": [
+      "eviive",
+      "v7",
+      "touchbaes",
+      "mandy",
+      "loop",
+      "montran",
+      "anyday",
+      "kelly",
+      "curate",
+      "purelove",
+      "deadgood",
+      "wtw"
+    ],
+    "non_scrubber_band": "randompics",
+    "forbidden_native_river_scrollbar_semantics": [
+      "role=scrollbar",
+      "aria-orientation",
+      "aria-valuemin",
+      "aria-valuemax",
+      "aria-valuenow",
+      "aria-valuetext"
+    ],
+    "manifest_counters": {
+      "native_rivers": 13,
+      "invalid_river_scrollbar_semantics": 0
+    },
+    "hidden_rivers_expected": 0,
+    "generated_scrubbers_expected": 0
+  },
+  "frozen_cargo_evidence": {
+    "path": "docs/audits/2026-07-20T175853-0400-round-80/cargo-draft/home.bodycopy.html",
+    "affected_rivers": 12,
+    "unexpected_attributes": [
+      "hidden",
+      "aria-valuenow"
+    ],
+    "aria_valuenow_value": "0",
+    "local_fixture_reproduced": false
+  },
+  "root_cause_evidence": "audit/findings/evidence/2026-07-23-round100-river-aria-root-cause.json",
+  "browser_contract": {
+    "fixture": "cargo/test.html",
+    "viewports": {
+      "compact": {
+        "width": 390,
+        "height": 844,
+        "touch_action": "pan-x pan-y"
+      },
+      "expanded": {
+        "width": 1440,
+        "height": 900,
+        "touch_action": "auto"
+      }
+    },
+    "clean_source": {
+      "native_river_residue": 0,
+      "aria_allowed_attr_nodes": 0,
+      "generated_scrubbers": 12,
+      "page_horizontal_overflow": 0
+    },
+    "serialized_contamination_control": {
+      "inject_into_scrubber_eligible_rivers": [
+        "hidden",
+        "aria-valuenow"
+      ],
+      "expected_affected_rivers": 12,
+      "expected_aria_allowed_attr_nodes": 12,
+      "runtime_self_heal_expected": false
+    },
+    "semantic_ownership_negative_control": {
+      "inject_one_per_river": [
+        "role=scrollbar",
+        "aria-orientation",
+        "aria-valuemin",
+        "aria-valuemax",
+        "aria-valuenow",
+        "aria-valuetext"
+      ],
+      "expected_affected_rivers": 6,
+      "expected_aria_allowed_attr_nodes": 5
+    },
+    "separate_scrubber_semantics": {
+      "role": "scrollbar",
+      "orientation": "horizontal",
+      "value_min": "0",
+      "value_max": "100",
+      "controls_native_river": true
+    }
+  },
+  "verification": {
+    "focused_script": "npm --prefix audit/harness run river-aria-test",
+    "phase2_script": "audit/scripts/validate-phase2.sh",
+    "axe_rule": "aria-allowed-attr",
+    "requires_native_compact_touch_pan": true,
+    "requires_native_expanded_horizontal_scroll": true,
+    "requires_zero_visual_or_runtime_source_change": true
+  },
+  "limitations": [
+    "The contaminated browser case is a negative control reconstructed from frozen Cargo evidence; it is expected to remain invalid because this round changes validation, not runtime behavior.",
+    "Repository Chromium cannot certify a future Cargo save or physical Safari; Cargo deployment remains separately reload-gated."
+  ]
+}

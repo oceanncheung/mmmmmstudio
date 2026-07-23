@@ -4967,3 +4967,38 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
 - A public notice remains a separate copy/legal/visual/deployment decision.
   This round authorizes no Cargo, Freight, Figma, DNS, deployment, or
   publication action.
+
+## Round 100 (2026-07-22): native-river ARIA source purity — TEST-ONLY / NOT DEPLOYED
+- Closed the repository recurrence path for `MMS-AUD-003` without changing
+  Cargo HTML, CSS, JavaScript, bodycopy, Freight, Figma, visual geometry,
+  native scrolling, the public site, or
+  `gold-2026-07-21-responsive-70`. Nothing was deployed or published.
+- Fresh read-only root-cause evidence corrected the stale attribution. The 12
+  invalid `hidden` and `aria-valuenow="0"` pairs already exist in both the
+  frozen Round 80 saved bodycopy and frozen response. Early public Chromium
+  instrumentation recorded zero writes to an exact native `.mms-river`; the
+  current runtime writes those states only to its generated scrubber siblings.
+  Current canonical source and the point-in-time public source are clean.
+- Extended schema-2 saved-source purity with exact `native_rivers` counts and
+  zero `invalid_river_scrollbar_semantics` on Home, Who, and Write. The HTML
+  parser counts only the exact `mms-river` class token, rejects duplicate
+  attributes before dictionary conversion, and prevents
+  `.mms-river-scrubber` false matches. The existing hidden-river and
+  generated-scrubber checks remain unchanged.
+- Added `river-aria-source-purity.json` and
+  `river-aria-source-test.mjs`. The focused test validates clean source,
+  rejects an `aria-valuenow`-only bodycopy before Cargo, verifies zero clean
+  Axe `aria-allowed-attr` nodes, preserves all separate scrubber ARIA, and
+  exercises native compact touch and expanded horizontal wheel scrolling.
+  Its reconstructed frozen negative control retains exactly 12 contaminated
+  rivers and must reproduce exactly 12 Axe nodes.
+- The frozen Cargo fixture's known activated-runtime residue and three
+  case-duplicate SVG `viewBox` attributes are normalized only in memory for
+  the existing deployment-manifest persistence proof; immutable evidence is
+  not edited.
+  No runtime cleanup observer was added because source validation is the
+  verified owner of this correction.
+- The focused source/browser contract and complete Phase 2 suite pass. This
+  includes 122/122 frozen hashes, both 240-state gold matrices, native rivers,
+  WTW and Withered Green, Touchbaes/iPad and Montran behavior, iframe proofs,
+  root replacement, source purity, and all 38 deployment-negative fixtures.

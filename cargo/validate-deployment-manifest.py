@@ -53,12 +53,21 @@ SOURCE_PURITY_KEYS = {
     "data_motion_ready",
     "data_mms_source",
     "hidden_rivers",
+    "native_rivers",
+    "invalid_river_scrollbar_semantics",
     "generated_scrubbers",
     "deferred_data_src",
     "eager_image_ids",
     "image_loading",
     "iframe_loading",
     "video_preload",
+}
+RIVER_SCROLLBAR_ARIA = {
+    "aria-orientation",
+    "aria-valuemin",
+    "aria-valuemax",
+    "aria-valuenow",
+    "aria-valuetext",
 }
 IMAGE_LOADING_KEYS = {"eager", "lazy", "other"}
 IFRAME_LOADING_KEYS = {"eager", "lazy", "other"}
@@ -86,6 +95,8 @@ class BodycopyAudit(HTMLParser):
             "data_motion_ready": 0,
             "data_mms_source": 0,
             "hidden_rivers": 0,
+            "native_rivers": 0,
+            "invalid_river_scrollbar_semantics": 0,
             "generated_scrubbers": 0,
             "deferred_data_src": 0,
             "eager_image_ids": [],
@@ -107,6 +118,14 @@ class BodycopyAudit(HTMLParser):
 
     def handle_starttag(self, tag: str, attrs) -> None:
         tag = tag.lower()
+        attribute_names = [name for name, _ in attrs]
+        duplicate_attributes = sorted(
+            name for name, count in Counter(attribute_names).items() if count > 1
+        )
+        if duplicate_attributes:
+            self.errors.append(
+                f"{tag} has duplicate attributes: {duplicate_attributes}"
+            )
         attr_map = dict(attrs)
         classes = self._classes(attr_map)
 
@@ -139,9 +158,15 @@ class BodycopyAudit(HTMLParser):
             preload_key = preload if preload in {"none", "auto", "metadata"} else "other"
             self.source_purity["video_preload"][preload_key] += 1
         if "mms-river" in classes:
+            self.source_purity["native_rivers"] += 1
             style = re.sub(r"\s+", "", attr_map.get("style") or "").lower()
             if "hidden" in attr_map or re.search(r"(?:^|;)display:none(?:;|$)", style):
                 self.source_purity["hidden_rivers"] += 1
+            role_tokens = set((attr_map.get("role") or "").lower().split())
+            if "scrollbar" in role_tokens or any(
+                attribute in attr_map for attribute in RIVER_SCROLLBAR_ARIA
+            ):
+                self.source_purity["invalid_river_scrollbar_semantics"] += 1
         if "mms-river-scrubber" in classes:
             self.source_purity["generated_scrubbers"] += 1
 
