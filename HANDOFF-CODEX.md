@@ -1909,6 +1909,10 @@ agent needs to continue this project without the prior chat history.
   bodycopy and the exact single-copy Site HTML head. Reload proof found Home:
   one root, 68 media owners, 27 videos, three iframes, twelve scrubbers, and
   live sources for EVIIVE 1/2, V7, and Touchbaes.
-- The complete Phase 2 gate passes after deployment. The public site was not
-  published. Preserve the resulting atomic repository checkpoint as the source
-  for any later Cargo review or publication decision.
+- The complete Phase 2 gate passes after deployment. Ocean authorized
+  publication on 2026-07-23, and Cargo published the verified draft at
+  approximately 3:59pm EDT. Independent public checks found the complete Home
+  inventory and live EVIIVE/V7/Touchbaes sources, valid `/who` and `/write`
+  routes, and zero page-level overflow on all three pages.
+- Preserve repository checkpoint `87c6ffb` as the exact promoted
+  implementation source.

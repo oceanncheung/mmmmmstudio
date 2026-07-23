@@ -2808,8 +2808,10 @@ current source of truth for the built site.
   contracts. Normal Home inventory remains exactly 68 media owners, 27 videos,
   three iframes, and twelve expanded scrubbers.
 - The exact Site HTML head plus complete Home, Who, and Write bodycopy are
-  installed and reload-verified in Cargo draft. The public site remains
-  unchanged; do not publish without Ocean's explicit authorization.
+  installed and reload-verified in Cargo. Ocean explicitly authorized and
+  completed publication on 2026-07-23 at approximately 3:59pm EDT.
 - Focused hydration/ownership tests and the complete Phase 2 gate pass after
-  deployment. Treat the atomic Round 107 checkpoint as the only source for
-  later promotion.
+  deployment. Public verification found one Home root, all 68 media owners,
+  27 videos, three iframes, twelve expanded scrubbers, live EVIIVE/V7/
+  Touchbaes sources, valid Who/Write routes, and zero page-level overflow.
+- Treat atomic implementation checkpoint `87c6ffb` as the published source.

@@ -5297,4 +5297,12 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   122-artifact baseline, 480 protected UI states, native rivers, WTW, Withered
   Green, EVIIVE, Touchbaes, Montran, embed protocols, privacy, and zero
   page-level overflow.
-- This is a Cargo draft recovery only. The public site was not published.
+- Ocean explicitly authorized publication on 2026-07-23. Cargo reported
+  “Site is up to date” with a fresh 3:59pm EDT publication timestamp.
+  Independent public verification at `https://mmmmm.studio/` found one root,
+  68 media owners, 27 videos, three iframes, twelve expanded scrubbers, and
+  live EVIIVE 1/2, V7, and Touchbaes sources. Home, Who, and Write each have
+  zero page-level horizontal overflow; `/who` retains two profile videos and
+  `/write` retains all four Withered Green rotation hooks.
+- Round 107 is published. Repository checkpoint `87c6ffb` is the exact
+  implementation checkpoint that was promoted.
