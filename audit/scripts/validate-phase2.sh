@@ -441,6 +441,12 @@ late_language_head = head.replace(language_assignment + "\n\n", "", 1).replace(
     1,
 )
 head_mutations = {
+    "external script source": head.replace(
+        "<script ", '<script src="https://example.invalid/inert.js" ', 1
+    ),
+    "inert script type": head.replace(
+        "<script ", '<script type="application/json" ', 1
+    ),
     "stale edge head": head.replace(
         'data-mms-ios-edge-head="49"', 'data-mms-ios-edge-head="48"', 1
     ),
@@ -450,7 +456,42 @@ head_mutations = {
     "wrong language marker": head.replace(
         'data-mms-document-language="en"', 'data-mms-document-language="fr"', 1
     ),
+    "comment-only language marker": head.replace(
+        ' data-mms-document-language="en"', "", 1
+    ).replace(
+        "(function () {",
+        '/* data-mms-document-language="en" */\n(function () {',
+        1,
+    ),
+    "prefixed language marker attribute": head.replace(
+        'data-mms-document-language="en"',
+        'data-decoy-data-mms-document-language="en"',
+        1,
+    ),
+    "value-only language marker": head.replace(
+        'data-mms-document-language="en"',
+        'data-decoy=\'data-mms-document-language="en"\'',
+        1,
+    ),
     "missing language assignment": head.replace(language_assignment, "", 1),
+    "commented language assignment": head.replace(
+        language_assignment, "// " + language_assignment, 1
+    ),
+    "string-literal language assignment": head.replace(
+        language_assignment,
+        'var inertLanguageSetter = "' + language_assignment + '";',
+        1,
+    ),
+    "block-comment language assignment": head.replace(
+        language_assignment,
+        "/*\n  " + language_assignment + "\n  */",
+        1,
+    ),
+    "template-literal language assignment": head.replace(
+        language_assignment,
+        "`\n  " + language_assignment + "\n  `;",
+        1,
+    ),
     "duplicate language assignment": head.replace(
         language_assignment, language_assignment + "\n  " + language_assignment, 1
     ),

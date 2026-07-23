@@ -5018,8 +5018,12 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   one-shot guard so a repeated Cargo body initialization or body-only context
   cannot retain an empty root language. Standalone mirrors declare literal
   `lang="en"`; the Write page retains exactly one `lang="yue-Hant"` passage.
-- Extended the deployment manifest and validator to pin the language marker,
-  exact setter count, and pre-route-gate ordering. Six head mutations and an
+- Extended the deployment manifest and validator to pin the language marker
+  on the actual opening script tag, one executable setter line, and
+  pre-route-gate ordering. Fifteen head mutations, including external/inert
+  script, attribute-name, attribute-value, line/block comment, and
+  string/template-only bypass
+  attempts, and an
   invalid manifest language join the existing fail-closed deployment
   fixtures. Regenerated Home, Who, Write, and their standalone mirrors through
   the canonical assembler.

@@ -78,7 +78,16 @@
     }
   },
   "negative_controls": [
+    "external script source",
+    "inert script type",
     "missing root language setter",
+    "comment-only root language marker",
+    "prefixed root language marker attribute",
+    "value-only root language marker",
+    "commented root language setter",
+    "string-literal root language setter",
+    "block-comment root language setter",
+    "template-literal root language setter",
     "incorrect root language marker",
     "head setter after route gate",
     "body fallback after one-shot guard",

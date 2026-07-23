@@ -151,7 +151,9 @@ expanded viewports with Axe's `html-has-lang`, `html-lang-valid`, and
 `html-xml-lang-mismatch` rules. It also exercises every canonical, alias, and
 trailing-slash head route plus a body-only Cargo fallback and a repeated
 initializer after the one-shot guard. Deployment-manifest negative fixtures
-reject a missing, duplicated, invalid, or post-route-gate declaration.
+reject an external/inert script, missing, duplicated, invalid or
+prefixed/value-only marker, line/block-commented setter, quoted/template
+setter, or post-route-gate declaration.
 
 This is a visually neutral repository/runtime correction. Cargo and the
 public site remain unchanged until a separately authorized deployment is

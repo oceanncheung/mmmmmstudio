@@ -78,6 +78,18 @@ class ManifestError(RuntimeError):
     pass
 
 
+class HeadStartTagAudit(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.first_tag: str | None = None
+        self.first_attributes: list[tuple[str, str | None]] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if self.first_tag is None:
+            self.first_tag = tag.lower()
+            self.first_attributes = [(name.lower(), value) for name, value in attrs]
+
+
 class BodycopyAudit(HTMLParser):
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
@@ -489,21 +501,58 @@ def validate_head(source: str, manifest: dict) -> None:
     expected = manifest.get("head", {}).get("edge_marker")
     if expected is None:
         raise ManifestError("deployment manifest must define head.edge_marker")
-    markers = re.findall(r'data-mms-ios-edge-head=["\']([^"\']+)["\']', source)
-    require_equal("site head edge marker", markers, [str(expected)])
-
     language = manifest.get("head", {}).get("document_language")
     if not isinstance(language, str) or not re.fullmatch(r"[a-z]{2}(?:-[A-Z]{2})?", language):
         raise ManifestError("deployment manifest must define a valid head.document_language")
-    language_markers = re.findall(
-        r'data-mms-document-language=["\']([^"\']+)["\']', source
+    if re.match(r"\s*<script\b", source, flags=re.IGNORECASE) is None:
+        raise ManifestError("site head must begin with its inline script")
+    head_start = HeadStartTagAudit()
+    head_start.feed(source)
+    if head_start.first_tag != "script":
+        raise ManifestError("site head first element must be its inline script")
+    attribute_names = [name for name, _ in head_start.first_attributes]
+    require_equal(
+        "site head inline script attribute names",
+        sorted(attribute_names),
+        sorted(["data-mms-ios-edge-head", "data-mms-document-language"]),
     )
+    markers = [
+        value
+        for name, value in head_start.first_attributes
+        if name == "data-mms-ios-edge-head"
+    ]
+    require_equal("site head edge marker", markers, [str(expected)])
+    language_markers = [
+        value
+        for name, value in head_start.first_attributes
+        if name == "data-mms-document-language"
+    ]
     require_equal("site head document-language marker", language_markers, [language])
     assignment = f"document.documentElement.setAttribute('lang', '{language}');"
-    require_equal("site head document-language assignment count", source.count(assignment), 1)
-    assignment_offset = source.find(assignment)
-    route_gate_offset = source.find("var path = window.location.pathname")
-    if route_gate_offset < 0 or assignment_offset > route_gate_offset:
+    assignment_matches = list(re.finditer(
+        rf"(?m)^[ \t]*{re.escape(assignment)}[ \t]*$", source
+    ))
+    require_equal(
+        "site head executable document-language assignment count",
+        len(assignment_matches),
+        1,
+    )
+    bootstrap_match = re.match(
+        rf"\s*<script\b[^>]*>\s*\(function \(\) \{{\r?\n"
+        rf"[ \t]*{re.escape(assignment)}[ \t]*\r?\n",
+        source,
+        flags=re.IGNORECASE,
+    )
+    if bootstrap_match is None:
+        raise ManifestError(
+            "site head document-language assignment must be the first executable IIFE statement"
+        )
+    route_gate_matches = list(re.finditer(
+        r"(?m)^[ \t]*var path = window\.location\.pathname \|\| '/';[ \t]*$",
+        source,
+    ))
+    require_equal("site head executable route-gate declaration count", len(route_gate_matches), 1)
+    if assignment_matches[0].start() > route_gate_matches[0].start():
         raise ManifestError("site head document-language assignment must precede the route gate")
 
 
