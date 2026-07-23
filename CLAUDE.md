@@ -2649,3 +2649,24 @@ current source of truth for the built site.
 - Nothing is deployed or published. Live Cargo/public language verification
   remains a separate promotion gate after an explicitly authorized save and
   reload.
+
+## Current state — Round 102 primary navigation
+- The shared compact and expanded primary link groups are exact `nav`
+  landmarks named `Primary`. The expanded `.mms-rail` must never return to an
+  aside/complementary landmark, and both responsive candidates must retain
+  their names even though CSS exposes only one at a time.
+- Preserve the class-based geometry and interaction implementation. This is a
+  semantic-only fix: do not change rail padding, sticky placement, navigation
+  link order, native rivers, media, WTW, Withered Green, panel behavior, or
+  protected gold as part of this contract.
+- Keep the seven primary-navigation source-purity counters in every deployment
+  manifest page and retain all twenty destructive deployment fixtures. Missing
+  or incorrect labels, a legacy aside, class transfer, or duplicate candidate
+  must fail closed before Cargo.
+- Keep `audit/contracts/primary-navigation-landmark.json`, the dated evidence,
+  `primary-navigation-landmark-test.mjs`, its npm script, and exactly one Phase
+  2 invocation. The focused matrix spans Home/Who/Write at 390, 1023, 1024,
+  and 1440 pixels and pins both accessibility and geometry.
+- Round 102 is repository-only. It regenerated bodycopies and mirrors and
+  refreshed only their Round 99 privacy identities; it did not deploy or
+  publish Cargo or change Figma, Freight, public state, or gold evidence.

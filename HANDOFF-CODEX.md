@@ -1725,3 +1725,27 @@ agent needs to continue this project without the prior chat history.
   A later Cargo deployment remains separately authorized and must be saved,
   reloaded, and verified before any public claim that the live routes expose
   `lang="en"`.
+
+## Current handoff — Round 102 primary-navigation landmark (2026-07-23)
+- `MMS-AUD-023` is closed at the repository/runtime boundary on
+  `round-102/primary-navigation-landmark`. Nothing was deployed or published;
+  Cargo, Freight, Figma, the public site, and protected gold remain unchanged.
+- Preserve `nav.mms-rail[aria-label="Primary"]` and
+  `nav.mms-mlinks[aria-label="Primary"]`. Exactly one variant is visible and
+  present in the accessibility tree on either side of 1024 pixels. Do not
+  restore `aside.mms-rail`, use `aside role="navigation"`, or nest the nav in
+  an aside.
+- Preserve the deployment-manifest counters for one expanded and one compact
+  primary navigation, zero invalid candidates, and zero legacy complementary
+  rails or complementary landmarks, and exactly two navigation landmarks must
+  remain in saved source. The twenty Round 102 source-purity
+  negative fixtures must continue to
+  fail through the deployment guard.
+- Keep `audit/contracts/primary-navigation-landmark.json`, its dated
+  root-cause evidence, the `primary-navigation-test` npm entrypoint, and its
+  single Phase 2 invocation. The test covers Home/Who/Write at 390, 1023,
+  1024, and 1440 pixels; it pins link/current-page semantics, accessibility
+  landmarks, Axe results, and pre-change geometry.
+- Round 99 privacy hashes changed only for regenerated Home, Who, and Write
+  bodycopies. Privacy behavior is unchanged. Future Cargo activation remains
+  a separate complete-save, reload, and verification workflow.
