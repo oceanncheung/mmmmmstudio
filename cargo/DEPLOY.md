@@ -5222,3 +5222,26 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   69/Round 80 evidence unchanged. This repository checkpoint authorizes only a
   complete Cargo draft review deployment followed by reload verification.
   Publication remains explicitly prohibited until Ocean approves it.
+
+### Round 106 Cargo review deployment — interrupted, do not publish
+- The repository checkpoint is commit `aa1a8dbf5ae864b4fe1a30e90a031e3a14e652fd`
+  with GitHub draft PR 25. The complete Phase 2 gate passed immediately before
+  the Cargo review deployment began.
+- The complete tokens.css + site.css bundle was installed through Cargo's
+  four-region CSS editor with the Cargo head and all three managed font blocks
+  preserved. The complete persisted document passed the residue validator
+  before the editor was closed.
+- The complete `site-head.html` was installed and matched the local source
+  exactly before the editor was closed.
+- Home was replaced through UTF-8-safe `bodycopy.innerHTML` plus a bubbling
+  `InputEvent`, saved with Cmd+S, and the editor was reloaded. Before reload,
+  Cargo's raw page record contained 68 unique media IDs, three explicit GIF
+  motion owners, 68 accessibility policies, two responsive-70 markers, and
+  lifecycle-2 ownership.
+- After reload, the authenticated browser connection became unavailable while
+  resolving the known V7 document response. The required raw saved-source
+  extraction after reload could not be completed, and Who and Write were not
+  touched. The Cargo review deployment is therefore incomplete. Do not
+  publish this draft. Reopen the authenticated Cargo editor, re-verify Home's
+  raw saved source, then deploy and reload-verify Who and Write before treating
+  Round 106 as reviewable.

@@ -2774,3 +2774,14 @@ current source of truth for the built site.
 - Focused and complete Phase 2 verification pass without changing protected
   gold. Cargo may receive only a complete draft review deployment with reload
   verification; publication remains prohibited.
+
+### Cargo review interruption
+- Commit `aa1a8dbf5ae864b4fe1a30e90a031e3a14e652fd` and draft PR 25 are the
+  atomic repository checkpoint. Full Phase 2 passes.
+- The Cargo draft currently has the complete CSS bundle, site head, and saved
+  Home bodycopy. Home was reloaded, but the browser connection failed before
+  its mandatory post-reload raw-source extraction. Who and Write have not been
+  promoted.
+- Treat Cargo as a partial review deployment and do not publish. Resume from
+  Home raw-source verification, then deploy Who and Write with the normal
+  UTF-8-safe save/reload checks.

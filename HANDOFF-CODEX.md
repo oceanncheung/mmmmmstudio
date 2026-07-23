@@ -1869,3 +1869,16 @@ agent needs to continue this project without the prior chat history.
   and complete Phase 2 verification pass with no protected UI drift.
 - Cargo promotion is draft review only: complete CSS/bodycopy save, editor
   reload, and persistence checks are required. Do not publish.
+
+### Interrupted Cargo review state
+- Repository commit `aa1a8dbf5ae864b4fe1a30e90a031e3a14e652fd`
+  and draft PR 25 are complete, and the full Phase 2 gate passes.
+- Cargo CSS and site head were installed from the complete verified sources.
+  Home was installed with the required innerHTML + InputEvent workflow, saved,
+  and reloaded. Its raw record was correct before reload.
+- The browser connection failed on the known V7 document-response pause before
+  the mandatory post-reload raw-source extraction. Who and Write remain
+  untouched. The draft is partial and must not be published. Resume by
+  reopening the authenticated Cargo editor, validate Home's raw saved record,
+  then complete Who and Write one at a time with save, reload, raw-source
+  validation, and compact/expanded probes.
