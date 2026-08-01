@@ -740,6 +740,9 @@
   var THEMES = ['white', 'girly', 'quirky', 'contrast', 'black'];
   var FACES = ['serif', 'sans', 'mono', 'gothic'];
   var SHAPES = ['straight', 'rounded', 'oval'];
+  var reducedMotionQuery = window.matchMedia
+    ? window.matchMedia('(prefers-reduced-motion: reduce)')
+    : null;
   var userAgent = navigator.userAgent || '';
   var isIOS = /iP(ad|hone|od)/.test(userAgent) ||
     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -1324,8 +1327,35 @@
        a redundant original-size transfer beside the 2 MB HEVC-alpha video. */
     return poster.replace('/t/original/i/', '/w/720/q/85/i/');
   }
+  function motionIsReduced() {
+    return Boolean(reducedMotionQuery && reducedMotionQuery.matches);
+  }
+  function applyDeferredPoster(element) {
+    var poster = deferredPoster(element);
+    if (!poster) return;
+    if (element.tagName === 'VIDEO') {
+      if (!element.getAttribute('poster')) element.setAttribute('poster', poster);
+      return;
+    }
+    if (element.tagName === 'IFRAME') {
+      element.style.backgroundImage = 'url("' + poster.replace(/"/g, '%22') + '")';
+      element.style.backgroundPosition = 'center';
+      element.style.backgroundRepeat = 'no-repeat';
+      element.style.backgroundSize = 'contain';
+    }
+  }
+  function isContinuousEmbed(element) {
+    return Boolean(element && element.tagName === 'IFRAME' &&
+      element.getAttribute('data-embed-kind') === 'v7-cup');
+  }
+  var mediaActiveState = new WeakMap();
   function activateDeferred(element) {
     if (!element || element.dataset.mmsLoaded === '1') return;
+    if (motionIsReduced() &&
+        (element.tagName === 'VIDEO' || isContinuousEmbed(element))) {
+      applyDeferredPoster(element);
+      return;
+    }
     var source = deferredSource(element);
     if (!source) return;
     element.removeAttribute('src');
@@ -1366,7 +1396,8 @@
     }
   }
   function requestVideoPlay(video) {
-    if (!video || video.dataset.mmsLoaded !== '1') return;
+    if (!video || video.dataset.mmsLoaded !== '1' ||
+        motionIsReduced() || document.hidden) return;
     video.muted = true;
     video.defaultMuted = true;
     video.playsInline = true;
@@ -1376,6 +1407,17 @@
     } catch (e) {}
   }
   function setMediaActive(element, active) {
+    mediaActiveState.set(element, Boolean(active));
+    if (motionIsReduced() &&
+        (element.tagName === 'VIDEO' || isContinuousEmbed(element))) {
+      applyDeferredPoster(element);
+      if (element.tagName === 'VIDEO') {
+        try { element.pause(); } catch (e) {}
+      } else if (element.dataset.mmsLoaded === '1') {
+        postEmbedVisibility(element, false);
+      }
+      return;
+    }
     if (active) activateDeferred(element);
     if (element.tagName === 'VIDEO') {
       if (!active) { try { element.pause(); } catch (e) {} return; }
@@ -1384,6 +1426,78 @@
       postEmbedVisibility(element, active);
     }
   }
+
+  /* Native GIFs have no playback API. Under Reduce Motion, take one
+     same-size canvas snapshot in place, then release the animated source.
+     Normal mode never creates or displays the snapshot and keeps the exact
+     approved GIF presentation. */
+  var motionGifState = new WeakMap();
+  function freezeMotionGif(image) {
+    if (!image || !motionIsReduced() || motionGifState.has(image)) return;
+    if (!image.complete || !image.naturalWidth || !image.naturalHeight) return;
+    var frame = image.closest('.mms-frame');
+    if (!frame || !frame.clientWidth || !frame.clientHeight) return;
+    var canvas = frame.querySelector('canvas.mms-reduced-motion-still');
+    if (!canvas) {
+      canvas = document.createElement('canvas');
+      canvas.className = 'mms-reduced-motion-still';
+      canvas.setAttribute('aria-hidden', 'true');
+      frame.appendChild(canvas);
+    }
+    var cssWidth = frame.clientWidth;
+    var cssHeight = frame.clientHeight;
+    var pixelRatio = Math.min(3, Math.max(1, window.devicePixelRatio || 1));
+    canvas.width = Math.max(1, Math.round(cssWidth * pixelRatio));
+    canvas.height = Math.max(1, Math.round(cssHeight * pixelRatio));
+    var context = canvas.getContext('2d');
+    if (!context) return;
+    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    context.clearRect(0, 0, cssWidth, cssHeight);
+    var fit = frame.getAttribute('data-fit') === 'cover' ? 'cover' : 'contain';
+    var scale = fit === 'cover'
+      ? Math.max(cssWidth / image.naturalWidth, cssHeight / image.naturalHeight)
+      : Math.min(cssWidth / image.naturalWidth, cssHeight / image.naturalHeight);
+    var drawWidth = image.naturalWidth * scale;
+    var drawHeight = image.naturalHeight * scale;
+    context.drawImage(
+      image,
+      (cssWidth - drawWidth) / 2,
+      (cssHeight - drawHeight) / 2,
+      drawWidth,
+      drawHeight
+    );
+    motionGifState.set(image, { source: image.getAttribute('src') || '' });
+    image.classList.add('is-motion-frozen');
+    image.style.visibility = 'hidden';
+    canvas.hidden = false;
+    image.removeAttribute('src');
+  }
+  function restoreMotionGif(image) {
+    if (!image) return;
+    var state = motionGifState.get(image);
+    if (!state) return;
+    var frame = image.closest('.mms-frame');
+    var canvas = frame && frame.querySelector('canvas.mms-reduced-motion-still');
+    if (canvas) canvas.hidden = true;
+    image.style.removeProperty('visibility');
+    image.classList.remove('is-motion-frozen');
+    motionGifState.delete(image);
+    if (state.source) image.setAttribute('src', state.source);
+  }
+  function syncMotionGifs() {
+    currentMms.querySelectorAll('img[data-motion-kind="gif-loop"]').forEach(function (image) {
+      if (!motionIsReduced()) {
+        restoreMotionGif(image);
+        return;
+      }
+      if (image.complete && image.naturalWidth) freezeMotionGif(image);
+    });
+  }
+  currentMms.querySelectorAll('img[data-motion-kind="gif-loop"]').forEach(function (image) {
+    runtime.on(image, 'load', function () {
+      if (motionIsReduced()) runtime.raf(function () { freezeMotionGif(image); });
+    });
+  });
 
   /* A scrubber can move farther than native lazy loading anticipates in one
      pointer frame. Prepare the complete nearby river before it becomes
@@ -1484,10 +1598,49 @@
       if (requiredProtocol && event.data.protocolVersion !== requiredProtocol) return;
       frame.dataset.motionReady = '1';
       frame.style.backgroundImage = 'none';
+      postEmbedVisibility(
+        frame,
+        mediaActiveState.get(frame) === true && !motionIsReduced() && !document.hidden
+      );
     });
   });
-  startDeferredMedia();
+  runtime.timeout(startDeferredMedia, 500);
+  function pauseOwnedMotion() {
+    currentMms.querySelectorAll('video[data-mms-loaded="1"]').forEach(function (video) {
+      try { video.pause(); } catch (e) {}
+    });
+    currentMms.querySelectorAll('iframe[data-embed-kind][data-mms-loaded="1"]').forEach(function (frame) {
+      postEmbedVisibility(frame, false);
+    });
+  }
+  function resumeActiveMotion() {
+    if (document.hidden || motionIsReduced()) return;
+    currentMms.querySelectorAll('video[data-src], iframe[data-src]').forEach(function (element) {
+      if (mediaActiveState.get(element) === true) setMediaActive(element, true);
+    });
+  }
+  function syncReducedMotion(changeEvent) {
+    syncMotionGifs();
+    if (motionIsReduced()) {
+      pauseOwnedMotion();
+      currentMms.querySelectorAll('video[data-poster], iframe[data-embed-kind="v7-cup"]')
+        .forEach(applyDeferredPoster);
+      return;
+    }
+    if (changeEvent) resumeActiveMotion();
+  }
+  runtime.onMql(reducedMotionQuery, syncReducedMotion);
+  syncReducedMotion();
+  runtime.cleanup(function () {
+    currentMms.querySelectorAll('img[data-motion-kind="gif-loop"]').forEach(function (image) {
+      restoreMotionGif(image);
+    });
+    currentMms.querySelectorAll('canvas.mms-reduced-motion-still').forEach(function (canvas) {
+      canvas.remove();
+    });
+  });
   function resumeVisibleVideos() {
+    if (motionIsReduced() || document.hidden) return;
     document.querySelectorAll('.mms video[data-mms-loaded="1"]').forEach(function (video) {
       var rect = video.getBoundingClientRect();
       if (rect.bottom >= -window.innerHeight && rect.top <= window.innerHeight * 2) requestVideoPlay(video);
@@ -1495,7 +1648,12 @@
   }
   runtime.on(window, 'pageshow', resumeVisibleVideos);
   runtime.on(document, 'visibilitychange', function () {
-    if (!document.hidden) resumeVisibleVideos();
+    if (document.hidden) {
+      pauseOwnedMotion();
+      return;
+    }
+    resumeActiveMotion();
+    resumeVisibleVideos();
   });
   ['touchstart', 'pointerdown'].forEach(function (type) {
     runtime.on(document, type, resumeVisibleVideos, { passive: true, once: true });

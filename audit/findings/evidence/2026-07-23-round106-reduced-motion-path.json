@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "issue": "MMS-AUD-008",
+  "captured_at_utc": "2026-07-23T15:45:00Z",
+  "mode": "repository-reduced-motion-path-verified",
+  "scope": {
+    "implemented": "The operating-system prefers-reduced-motion path stops repository-owned continuous motion without adding or changing visible controls.",
+    "not_implemented": "A visitor-operated global pause control remains interaction-design-gated and MMS-AUD-008 therefore remains open.",
+    "normal_ui": "No normal-mode layout, styling, content, media geometry, interaction, or control-panel composition changes."
+  },
+  "continuous_motion_inventory": {
+    "home_videos": 27,
+    "who_videos": 2,
+    "native_gif_loops": [
+      "deadgood-01",
+      "wtw-03",
+      "wtw-06"
+    ],
+    "continuous_embed": "v7-01",
+    "existing_css_reduced_motion": [
+      "Home introduction smiley",
+      "Touchbaes sticker breathing"
+    ],
+    "protected_normal_hooks": {
+      "intro_rotation": {
+        "count": 1,
+        "animate": "4"
+      },
+      "withered_green_eye_roll": 4,
+      "startup_cuts": 4,
+      "startup_hold_ms": 375,
+      "startup_total_ms": 1500
+    }
+  },
+  "implementation": {
+    "videos": "Deferred videos remain on their approved posters and make no play attempt while reduction is active. A live preference change restores only observer-active videos.",
+    "gif_loops": "Each identified GIF takes one same-frame canvas snapshot inside its existing frame, then releases the animated source. Normal preference restores the original source.",
+    "v7": "The V7 iframe remains on its approved poster when reduction is active before load. If already loaded, the validated visibility protocol sends false. Readiness now receives the current parent-owned visibility state.",
+    "visibility": "Repository-owned loaded videos and validated embeds pause when the document becomes hidden and resume only when active, visible, and motion is allowed.",
+    "css_hooks": "The smiley and exactly four Withered Green eye-roll hooks are suppressed only inside prefers-reduced-motion: reduce.",
+    "saved_source_safety": "Active media state and GIF source state are held in WeakMaps rather than new serialized runtime data attributes."
+  },
+  "focused_verification": {
+    "command": "npm --prefix audit/harness run reduced-motion-test",
+    "status": "PASS",
+    "results": [
+      "zero play attempts across all 29 videos under Reduce Motion",
+      "all three GIF sources freeze in place and restore under normal preference",
+      "V7 stays on its poster initially and follows validated live preference visibility",
+      "normal mode retains all 27 Home videos, both Who videos, three GIFs, smiley animate=4, and four Withered Green hooks"
+    ]
+  },
+  "adjacent_verification": {
+    "status": "PASS",
+    "results": [
+      "media playback owner",
+      "startup state and exact 4 x 375ms sequence",
+      "embed message protocol",
+      "compact and expanded 240-state gold parity matrices",
+      "runtime root replacement"
+    ]
+  },
+  "full_phase2_verification": {
+    "command": "bash audit/scripts/validate-phase2.sh",
+    "status": "PASS",
+    "required_preservation": [
+      "122 frozen Phase 1 artifacts",
+      "480 protected compact and expanded gold states, screenshots, and interactions",
+      "native rivers and zero page overflow",
+      "EVIIVE final-pair geometry",
+      "Touchbaes iPad readiness and visible-rig lifecycle",
+      "Montran range rendering and page turns",
+      "deployment manifest fail-closed behavior"
+    ]
+  },
+  "deployment": {
+    "repository_checkpoint": "required before Cargo promotion",
+    "cargo_draft": "separate complete-save and reload-persistence verification required",
+    "publication": "not authorized"
+  },
+  "remaining_limitation": "The audit issue cannot be fully closed until Ocean approves the design and placement of a visitor-operated pause-motion control. This round intentionally does not invent one."
+}

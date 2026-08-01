@@ -5192,3 +5192,117 @@ Plan: docs/plans/2026-07-10-cargo-round15.md (all phases executed).
   and the Montran fixture is brought into view before its unchanged 30-second
   raster assertion. Six consecutive complete iframe-capability runs pass.
   Nothing was deployed or published.
+
+## Round 106 (2026-07-23): operating-system reduced-motion path — REPOSITORY CHECKPOINT / CARGO REVIEW PENDING
+- Implements only the zero-visible-UI portion of `MMS-AUD-008`. The issue
+  remains open because a visitor-operated pause-motion control is still an
+  explicit interaction-design decision. No new button, label, panel row, or
+  normal-mode visual treatment was invented.
+- Under `prefers-reduced-motion: reduce`, all 27 Home videos and both Who
+  profile videos remain on their approved posters and make no play attempt.
+  The V7 cup remains on its approved poster before load; an already-loaded V7
+  receives a validated `visible:false` envelope. All three native GIF loops
+  (`deadgood-01`, `wtw-03`, and `wtw-06`) freeze to one in-place canvas
+  snapshot and release their animated source.
+- The existing Home smiley and the four Withered Green paragraph hooks are
+  stopped only inside the reduced-motion media query. Their normal contracts
+  remain exact: smiley `animate="4"`, four `uses="eye-roll"` spans, 29 looping
+  videos, three GIF presentations, V7 rotation, Touchbaes behavior, Montran
+  behavior, and the four 375ms startup cuts.
+- Loaded repository-owned videos and validated embeds now explicitly pause
+  when the document is hidden. A live preference change resumes only media
+  that the existing observer still owns as active. Active/frozen state is kept
+  in WeakMaps, not serialized runtime attributes.
+- Added `reduced-motion-path-test.mjs` and one mandatory Phase 2 invocation.
+  The focused browser contract proves zero reduced-mode play attempts across
+  all 29 videos, three frozen/restored GIFs, V7 live preference response, and
+  exact protected normal hooks. Adjacent media-owner, startup, embed-protocol,
+  root-replacement, and both 240-state gold-parity matrices pass.
+- The complete Phase 2 gate passes with protected gold and frozen Round
+  69/Round 80 evidence unchanged. This repository checkpoint authorizes only a
+  complete Cargo draft review deployment followed by reload verification.
+  Publication remains explicitly prohibited until Ocean approves it.
+
+### Round 106 Cargo review deployment — interrupted, do not publish
+- The repository checkpoint is commit `aa1a8dbf5ae864b4fe1a30e90a031e3a14e652fd`
+  with GitHub draft PR 25. The complete Phase 2 gate passed immediately before
+  the Cargo review deployment began.
+- The complete tokens.css + site.css bundle was installed through Cargo's
+  four-region CSS editor with the Cargo head and all three managed font blocks
+  preserved. The complete persisted document passed the residue validator
+  before the editor was closed.
+- The complete `site-head.html` was installed and matched the local source
+  exactly before the editor was closed.
+- Home was replaced through UTF-8-safe `bodycopy.innerHTML` plus a bubbling
+  `InputEvent`, saved with Cmd+S, and the editor was reloaded. Before reload,
+  Cargo's raw page record contained 68 unique media IDs, three explicit GIF
+  motion owners, 68 accessibility policies, two responsive-70 markers, and
+  lifecycle-2 ownership.
+- After reload, the authenticated browser connection became unavailable while
+  resolving the known V7 document response. The required raw saved-source
+  extraction after reload could not be completed, and Who and Write were not
+  touched. The Cargo review deployment is therefore incomplete. Do not
+  publish this draft. Reopen the authenticated Cargo editor, re-verify Home's
+  raw saved source, then deploy and reload-verify Who and Write before treating
+  Round 106 as reviewable.
+
+### Round 106 Cargo review deployment — completed in draft, do not publish
+- The interrupted review was resumed after Dia was restarted. Cargo's raw
+  post-reload Home record was extracted from the authenticated editor and
+  passed the fail-closed Home bodycopy validator.
+- The persisted complete stylesheet is 87,325 characters and passed the
+  persisted-CSS validator with the Cargo head and all three managed font
+  regions preserved. The persisted 1,968-character site head also passed its
+  validator.
+- Who and Write were each installed from the complete generated bodycopy with
+  UTF-8-safe `innerHTML` plus a bubbling `InputEvent`, saved with Cmd+S,
+  reloaded, extracted from Cargo's raw page store, and independently passed
+  their page-specific bodycopy validators.
+- Compact and expanded review probes preserved the approved interface:
+  Home rendered in both Cargo preview modes with its native river cue and
+  expanded control panel; Who and Write both reported zero page-level
+  horizontal overflow. Write retained all four `uses="eye-roll"` hooks.
+- The complete Phase 2 gate passed again after the Cargo review, including all
+  480 protected gold states and interactions, native rivers, 12 expanded
+  scrubbers, EVIIVE final-pair geometry, WTW and Withered Green contracts,
+  Touchbaes iPad readiness and rig lifecycle, Montran rendering and turns,
+  reduced-motion behavior, runtime replacement, and zero overflow.
+- This is a reviewable Cargo draft only. Nothing was published.
+
+## Round 107 (2026-07-23): Cargo media hydration recovery — DRAFT DEPLOYED / NOT PUBLISHED
+- Root cause: Cargo can replace or finish hydrating Home media nodes after the
+  inline runtime starts. The protected one-shot deferred-media loader could
+  snapshot the pre-hydration nodes, leaving the visible 27 videos, V7 cup, and
+  Touchbaes game without their real sources after an editor reload.
+- The final implementation preserves the existing loader and all protected
+  media ownership. Its only runtime change is to schedule
+  `startDeferredMedia` once after 500ms, allowing Cargo's node hydration to
+  settle before the snapshot. No subtree observer, full-root bootstrap,
+  repeated scan, new media owner, CSS, visual geometry, or interaction change
+  remains.
+- Added the focused `deferred-media-hydration-test`. It replaces the relevant
+  nodes before the delayed loader begins and proves that both critical media
+  and the vertically near Touchbaes project receive their sources.
+- The Cargo Site HTML was reset through CodeMirror to the exact 1,968-character
+  local `site-head.html` after an earlier textarea-based attempt had duplicated
+  it. Reload verification found one edge-head marker and exact local parity.
+- Home, Who, and Write were each installed from the complete regenerated
+  bodycopy with UTF-8-safe `innerHTML` plus a bubbling `InputEvent`, saved with
+  Cmd+S, and reloaded. The live Home draft contains one root, 68 media owners,
+  27 videos, three iframes, and twelve desktop scrubbers. EVIIVE 1 and 2, V7,
+  and Touchbaes all receive their expected live sources.
+- Page-specific bodycopy validators and the head validator pass. Focused
+  hydration, root ownership, media ownership, and compact/expanded gold-parity
+  checks pass. The complete Phase 2 gate passes, including the frozen
+  122-artifact baseline, 480 protected UI states, native rivers, WTW, Withered
+  Green, EVIIVE, Touchbaes, Montran, embed protocols, privacy, and zero
+  page-level overflow.
+- Ocean explicitly authorized publication on 2026-07-23. Cargo reported
+  “Site is up to date” with a fresh 3:59pm EDT publication timestamp.
+  Independent public verification at `https://mmmmm.studio/` found one root,
+  68 media owners, 27 videos, three iframes, twelve expanded scrubbers, and
+  live EVIIVE 1/2, V7, and Touchbaes sources. Home, Who, and Write each have
+  zero page-level horizontal overflow; `/who` retains two profile videos and
+  `/write` retains all four Withered Green rotation hooks.
+- Round 107 is published. Repository checkpoint `87c6ffb` is the exact
+  implementation checkpoint that was promoted.

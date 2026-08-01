@@ -336,6 +336,15 @@ dialog.mms-panel:not([open]) { display: none; }
   border-radius: 0;
   clip-path: none;
 }
+.mms-reduced-motion-still {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
 .mms-frame[data-shape-policy="artwork"] {
   background: var(--color-bg-page);
 }
@@ -1343,6 +1352,10 @@ html[data-render-preview] .mms-frame { transition: none !important; }
 
 @media (prefers-reduced-motion: reduce) {
   .mms-intro [uses="rotation"] { animation: none !important; }
+  .mms-writing-withered .mms-writing-plate > p > [uses="eye-roll"] {
+    animation: none !important;
+    transition: none !important;
+  }
   html[data-render-preview] body,
   html[data-render-preview] .mms,
   html[data-render-preview] .mms-img,

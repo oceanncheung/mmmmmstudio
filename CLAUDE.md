@@ -2755,3 +2755,63 @@ current source of truth for the built site.
   box after layout settlement, and Montran is scrolled into view before its
   unchanged 30-second raster assertion. Keep the corresponding proof-input
   hash pinned in `iframe-capability-matrix.json`.
+
+## Current state — Round 106 reduced-motion preference path
+- `MMS-AUD-008` is only partially implemented. The repository now honors the
+  operating-system Reduce Motion preference without changing the approved
+  normal UI; a visible visitor pause control remains design-gated.
+- Normal mode must retain one intro smiley at `animate="4"`, exactly four
+  Withered Green `eye-roll` hooks, 29 looping videos, three GIF loops, V7,
+  Touchbaes, Montran, and the four 375ms startup cuts.
+- Reduced mode keeps videos and V7 on approved static imagery, freezes the
+  three explicit GIF loops in their existing frames, suppresses only the
+  smiley/Withered continuous effects, and pauses loaded owned motion when the
+  document is hidden. Live preference changes restore only observer-active
+  media.
+- Preserve WeakMap runtime ownership; do not serialize active/frozen state
+  into Cargo bodycopy. Keep the mandatory `reduced-motion-test` and its single
+  Phase 2 invocation.
+- Focused and complete Phase 2 verification pass without changing protected
+  gold. Cargo may receive only a complete draft review deployment with reload
+  verification; publication remains prohibited.
+
+### Cargo review interruption
+- Commit `aa1a8dbf5ae864b4fe1a30e90a031e3a14e652fd` and draft PR 25 are the
+  atomic repository checkpoint. Full Phase 2 passes.
+- The Cargo draft currently has the complete CSS bundle, site head, and saved
+  Home bodycopy. Home was reloaded, but the browser connection failed before
+  its mandatory post-reload raw-source extraction. Who and Write have not been
+  promoted.
+- Treat Cargo as a partial review deployment and do not publish. Resume from
+  Home raw-source verification, then deploy Who and Write with the normal
+  UTF-8-safe save/reload checks.
+
+### Cargo draft review completed
+- Round 106 is fully installed in the Cargo draft: complete CSS, site head,
+  Home, Who, and Write.
+- Every persisted payload was extracted after reload and passed its
+  fail-closed validator. Compact/expanded probes preserved the approved
+  interface and zero page-level horizontal overflow, and the complete Phase 2
+  gate passed again.
+- This is a draft review state only. Do not publish without Ocean's explicit
+  authorization.
+
+## Current state — Round 107 Cargo media hydration recovery
+- Preserve the protected media loader and its sole hydration correction:
+  `runtime.timeout(startDeferredMedia, 500)`. Cargo can finish replacing media
+  nodes after bodycopy execution; the bounded delay makes the one-time snapshot
+  own the visible nodes.
+- Never reintroduce the abandoned subtree observer, repeated scan, or whole-root
+  bootstrap. Cargo preview proved that those approaches could remove nearly all
+  river media.
+- Keep the focused deferred-media hydration test and existing root/media-owner
+  contracts. Normal Home inventory remains exactly 68 media owners, 27 videos,
+  three iframes, and twelve expanded scrubbers.
+- The exact Site HTML head plus complete Home, Who, and Write bodycopy are
+  installed and reload-verified in Cargo. Ocean explicitly authorized and
+  completed publication on 2026-07-23 at approximately 3:59pm EDT.
+- Focused hydration/ownership tests and the complete Phase 2 gate pass after
+  deployment. Public verification found one Home root, all 68 media owners,
+  27 videos, three iframes, twelve expanded scrubbers, live EVIIVE/V7/
+  Touchbaes sources, valid Who/Write routes, and zero page-level overflow.
+- Treat atomic implementation checkpoint `87c6ffb` as the published source.
